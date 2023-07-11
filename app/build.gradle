@@ -1,34 +1,82 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
+    // Hilt [1]
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
-    namespace 'com.example.finalattestationreddit'
+    namespace 'com.example.unsplashattestationproject'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.finalattestationreddit"
-        minSdk 24
+        applicationId "com.example.unsplashattestationproject"
+        minSdk 21
+
         targetSdk 33
+
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+//        buildConfigField("String", "AUTH_URL", "\"https://unsplash.com\"")
+//        buildConfigField("String", "API_URL", "\"https://api.unsplash.com\"")
+//        buildConfigField("String", "SECRET_KEY", "\"AFwuN29bB1UCqN6ytkJypsQISrlkW09aq0a836npNwY\"")
+//        buildConfigField("String", "ACCESS_KEY", "\"BINjDYDnV0jN_lQrfFMDGFQg4uDn4khAxxnjaymI3e4\"")
+//        buildConfigField("String", "DATABASE_NAME", "\"photo_database\"")
+//        buildConfigField("Boolean", "HTTP_LOGGING_ENABLED", "false")
+//
+//        def addConstant = {constantName, constantValue ->
+//            manifestPlaceholders += [(constantName) : constantValue]
+//            buildConfigField "String", "${constantName}", "\"${constantValue}\""
+//        }
+//
+//        addConstant("DOWNLOADED_FILE_PROVIDER_AUTHORITY", "${applicationId}.fileprovider")
+
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+    splits {
+
+        // Configures multiple APKs based on screen density.
+        density {
+            // Enables density-based APK splitting.
+            enable true
+
+            // Specifies a list of screen densities to generate APKs for.
+            include "ldpi", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
+        }
+
+        // Configures multiple APKs based on ABI.
+        abi {
+            // Enables ABI-based APK splitting.
+            enable true
+
+            // Specifies a list of ABIs to generate APKs for.
+            include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+
+            // Specifies that all ABIs should be included in the universal APK.
+            universalApk true
+        }
     }
 }
 
@@ -38,7 +86,53 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+
+    // Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
+
+    // Test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Activity, Fragment KTX
+    implementation 'androidx.activity:activity-ktx:1.7.2'
+
+    // View Pager 2
+    implementation 'androidx.viewpager2:viewpager2:1.1.0-beta02'
+
+    // OkHttp Logging Interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+
+    // Retrofit & Moshi
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'com.squareup.moshi:moshi-kotlin:1.14.0'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.14.0'
+
+    // Hilt [2]
+    implementation "com.google.dagger:hilt-android:2.45"
+    kapt "com.google.dagger:hilt-compiler:2.45"
+
+    // Paging Library
+    implementation 'androidx.paging:paging-common-ktx:3.1.1'
+    implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    kapt  'com.github.bumptech.glide:compiler:4.14.2'
+
+    // Room
+    def room_version = "2.5.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-paging:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 }
