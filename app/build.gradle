@@ -22,20 +22,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//        buildConfigField("String", "AUTH_URL", "\"https://unsplash.com\"")
-//        buildConfigField("String", "API_URL", "\"https://api.unsplash.com\"")
-//        buildConfigField("String", "SECRET_KEY", "\"AFwuN29bB1UCqN6ytkJypsQISrlkW09aq0a836npNwY\"")
-//        buildConfigField("String", "ACCESS_KEY", "\"BINjDYDnV0jN_lQrfFMDGFQg4uDn4khAxxnjaymI3e4\"")
-//        buildConfigField("String", "DATABASE_NAME", "\"photo_database\"")
-//        buildConfigField("Boolean", "HTTP_LOGGING_ENABLED", "false")
-//
-//        def addConstant = {constantName, constantValue ->
-//            manifestPlaceholders += [(constantName) : constantValue]
-//            buildConfigField "String", "${constantName}", "\"${constantValue}\""
-//        }
-//
-//        addConstant("DOWNLOADED_FILE_PROVIDER_AUTHORITY", "${applicationId}.fileprovider")
-
+        buildConfigField "String", "REDDIT_CLIENT_ID", "\"${getRedditClientId()}\""
     }
 
     buildTypes {
@@ -138,4 +125,10 @@ dependencies {
 
     // Chrome Custom Tabs
     implementation 'androidx.browser:browser:1.5.0'
+}
+
+def getRedditClientId() {
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+    return localProperties.getProperty('REDDIT_CLIENT_ID')
 }

@@ -12,19 +12,19 @@ import com.example.finalattestationreddit.AuthQuery.Companion.PARAM_RESPONSE_TYP
 import com.example.finalattestationreddit.AuthQuery.Companion.PARAM_SCOPE
 import com.example.finalattestationreddit.AuthQuery.Companion.PARAM_STATE
 import com.example.finalattestationreddit.AuthQuery.Companion.URI_FRAGMENT_PART_ACCESS_TOKEN
-import com.example.finalattestationreddit.AuthQuery.Companion.VAL_CLIENT_ID
 import com.example.finalattestationreddit.AuthQuery.Companion.VAL_REDIRECT_URI
 import com.example.finalattestationreddit.AuthQuery.Companion.VAL_RESPONSE_TYPE
 import com.example.finalattestationreddit.AuthQuery.Companion.VAL_SCOPE
 import com.example.finalattestationreddit.AuthQuery.Companion.generateAuthRequestState
 import com.example.finalattestationreddit.log.TAG
+import com.example.unsplashattestationproject.BuildConfig
 import com.example.unsplashattestationproject.databinding.ActivityMainBinding
 import java.util.UUID
 
 
 class MainActivity : AppCompatActivity() {
 
-    private val binding : ActivityMainBinding by lazy {
+    private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
             // Authorization (Implicit grant flow) (only for "installed apps")
             // https://github.com/reddit-archive/reddit/wiki/OAuth2#authorization-implicit-grant-flow
-            .appendQueryParameter(PARAM_CLIENT_ID, VAL_CLIENT_ID)
+            .appendQueryParameter(PARAM_CLIENT_ID, BuildConfig.REDDIT_CLIENT_ID)
             .appendQueryParameter(PARAM_RESPONSE_TYPE, VAL_RESPONSE_TYPE)
             .appendQueryParameter(PARAM_STATE, requestState)
             .appendQueryParameter(PARAM_REDIRECT_URI, VAL_REDIRECT_URI)
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         if (uri != null && uri.toString().startsWith(VAL_REDIRECT_URI)) {
             val token = uri.getQueryParameter("access_token")
 
-        // Use the token for further API calls
+            // Use the token for further API calls
         }
 
         intent?.let {
@@ -85,7 +85,6 @@ class MainActivity : AppCompatActivity() {
 
         deepLinkData.host?.let { host ->
             if (host == INTENT_FILTER_DATA_HOST_AUTH) {
-                Log.e(TAG, "handleIntent: URI: $deepLinkData")
                 extractParamsFromAuthRequest(deepLinkData)
             }
         }
@@ -129,11 +128,10 @@ class AuthQuery {
         const val AUTH_URL = "https://www.reddit.com/api/v1/authorize"
 
         const val PARAM_CLIENT_ID: String = "client_id"
-        const val VAL_CLIENT_ID : String = "d2ugrqu4TYyQw-L0Ese2vg" // todo: move to local.properties
 
         const val PARAM_RESPONSE_TYPE: String = "response_type"
-        const val VAL_RESPONSE_TYPE: String = "token"                 // todo: this should not be code, use another flow
-
+        const val VAL_RESPONSE_TYPE: String =
+            "token"                 // todo: this should not be code, use another flow
 
         const val PARAM_REDIRECT_URI: String = "redirect_uri"
         const val VAL_REDIRECT_URI: String = "com.example.finalattestationreddit://auth"
@@ -143,7 +141,7 @@ class AuthQuery {
         const val PARAM_SCOPE: String = "scope"
         const val VAL_SCOPE: String =         // todo: request only the scopes you need
             "identity edit flair history modconfig modflair modlog modposts modwiki mysubreddits " +
-            "privatemessages read report save submit subscribe vote wikiedit wikiread"
+                    "privatemessages read report save submit subscribe vote wikiedit wikiread"
 
 
         const val URI_FRAGMENT_PART_ACCESS_TOKEN = "access_token"
