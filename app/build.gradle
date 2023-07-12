@@ -135,4 +135,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+
+    // Chrome Custom Tabs
+    implementation 'androidx.browser:browser:1.5.0'
 }
