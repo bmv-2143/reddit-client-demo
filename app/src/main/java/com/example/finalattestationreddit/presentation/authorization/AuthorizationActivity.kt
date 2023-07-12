@@ -11,7 +11,7 @@ import com.example.finalattestationreddit.log.TAG
 import com.example.unsplashattestationproject.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity() {
+class AuthorizationActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openChromeTabForAuthentication() {
         val intent = CustomTabsIntent.Builder().build()
-        intent.launchUrl(this@MainActivity, viewModel.getAuthorizationRequestUri())
+        intent.launchUrl(this@AuthorizationActivity, viewModel.getAuthorizationRequestUri())
     }
 
 
