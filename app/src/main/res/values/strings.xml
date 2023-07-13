@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">FinalAttestationReddit</string>
+    <string name="app_name">Humblr</string>
+    <string name="activity_auth_subtitle">Find Like-minded People with Humblr</string>
+    <string name="activity_auth_btn_login">Login</string>
 </resources>

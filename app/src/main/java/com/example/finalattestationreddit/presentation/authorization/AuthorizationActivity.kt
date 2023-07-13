@@ -8,15 +8,15 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import com.example.finalattestationreddit.log.TAG
-import com.example.unsplashattestationproject.databinding.ActivityMainBinding
+import com.example.unsplashattestationproject.databinding.ActivityAuthorizationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class AuthorizationActivity : AppCompatActivity() {
 
-    private val binding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
+    private val binding: ActivityAuthorizationBinding by lazy {
+        ActivityAuthorizationBinding.inflate(layoutInflater)
     }
 
     private val viewModel: AuthorizationViewModel by viewModels()
@@ -61,6 +61,10 @@ class AuthorizationActivity : AppCompatActivity() {
 
     private fun handleAuthResponseUri(authResponse: Uri) =
         if (viewModel.hasValidResponseState(authResponse)) {
+
+
+            // todo : access_token == null => user pressed decline an login screen
+
             Log.e(
                 TAG,
                 "${::handleIntent}: access_token: ${viewModel.getAccessToken(authResponse)}"
