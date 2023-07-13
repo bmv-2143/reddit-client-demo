@@ -9,7 +9,6 @@ class App : Application() {
 
     companion object {
         const val SHARED_PREFERENCES = "sharedPreferences"
-
     }
 
 }

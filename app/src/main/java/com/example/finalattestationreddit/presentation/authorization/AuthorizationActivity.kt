@@ -36,7 +36,10 @@ class AuthorizationActivity : AppCompatActivity() {
 
     private fun openChromeTabForAuthentication() {
         val intent = CustomTabsIntent.Builder().build()
-        intent.launchUrl(this@AuthorizationActivity, viewModel.makeAuthorizationRequestUri())
+        intent.launchUrl(
+            this@AuthorizationActivity,
+            viewModel.getCachingAuthorizationRequestUri()
+        )
     }
 
     override fun onNewIntent(intent: Intent) {
