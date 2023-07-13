@@ -6,9 +6,7 @@ import com.example.finalattestationreddit.data.network.AuthQuery
 import com.example.finalattestationreddit.log.TAG
 import com.example.unsplashattestationproject.BuildConfig
 
-class AuthorizationRequest {
-
-    private val requestState: String = AuthQuery.generateAuthRequestState()
+class AuthorizationRequest(val requestState: String = AuthQuery.generateAuthRequestState()) {
 
     internal val browserAuthUri : Uri =
         Uri.parse(AuthQuery.AUTH_URL)
@@ -44,13 +42,14 @@ class AuthorizationRequest {
         }
     }
 
-    private fun extractUriFragmentParams(fragment: String): Map<String, String> {
-        val params = fragment.split("&")
+    private fun extractUriFragmentParams(uriFragment: String): Map<String, String> {
+        val params = uriFragment.split("&")
         return params.map { it.split("=") }.associate { it[0] to it[1] }
     }
 
     internal fun doesResponseStateMatchRequestState(authResponse: Uri) : Boolean {
         val responseState = extractResponseState(authResponse)
+        Log.e(TAG, "$responseState ::: $requestState")
         return responseState == requestState
     }
 
