@@ -2,4 +2,5 @@
     <string name="app_name">Humblr</string>
     <string name="activity_auth_subtitle">Find Like-minded People with Humblr</string>
     <string name="activity_auth_btn_login">Login</string>
+    <string name="activity_onboarding_button_skip">Skip</string>
 </resources>

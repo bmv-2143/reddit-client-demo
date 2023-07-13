@@ -20,7 +20,7 @@
         android:id="@+id/activity_auth_background_gradient"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/gradient_top_down"
+        android:background="@drawable/authorization_gradient_top_down"
         app:layout_constraintBottom_toBottomOf="@+id/activity_authorization_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2"
-        app:srcCompat="@drawable/frog_face" />
+        app:srcCompat="@drawable/authorization_frog_face" />
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.7"
-        app:srcCompat="@drawable/logo_text_app_name_humblr" />
+        app:srcCompat="@drawable/authorization_logo_text_app_name_humblr" />
 
     <TextView
         android:id="@+id/activity_authorization_subtitle"
