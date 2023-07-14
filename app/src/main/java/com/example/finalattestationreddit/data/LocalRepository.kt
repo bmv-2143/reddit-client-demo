@@ -3,7 +3,9 @@ package com.example.finalattestationreddit.data
 import android.content.SharedPreferences
 import com.example.finalattestationreddit.data.PrefsKeys.Companion.IS_ONBOARDING_SHOWED
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class LocalRepository  @Inject constructor(
     private val sharedPreferences: SharedPreferences
 )  {
