@@ -9,9 +9,7 @@ import com.example.finalattestationreddit.data.RedditRepository
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +24,6 @@ class AuthorizationViewModel @Inject constructor(
 
     internal fun getCachingAuthorizationRequestUri(): Uri = authRequest.browserAuthUri
 
-
     private fun makeAuthRequest(): AuthorizationRequest {
         val requestState = localRepository.getAuthRequestState()
         return if (requestState != null) {
@@ -38,16 +35,13 @@ class AuthorizationViewModel @Inject constructor(
         }
     }
 
-//    internal fun getAccessToken(uri: Uri): String? =
-//        authRequest.extractAccessToken(uri)
-
     internal fun isOnboardingShowed(): Boolean = localRepository.isOnboardingShowed()
 
     fun saveOnboardingShowedStatus() {
         localRepository.saveOnboardingShowedStatus()
     }
 
-    private var _authorizationState = MutableStateFlow<AuthorizationState>(NotStarted)
+    private var _authorizationState = MutableStateFlow<AuthorizationState>(Idle)
     val authorizationState = _authorizationState.asStateFlow()
 
     fun isUserAuthorized(): Boolean = redditRepository.hasAccessToken()
@@ -55,8 +49,8 @@ class AuthorizationViewModel @Inject constructor(
 
     internal fun handleAuthResponseUri(authResponse: Uri) {
         viewModelScope.launch {
-
             if (!hasValidResponseState(authResponse)) {
+                redditRepository.removeAccessToken()
                 _authorizationState.emit(SecurityErrorResponseStateMismatch)
                 return@launch
             }
@@ -67,6 +61,7 @@ class AuthorizationViewModel @Inject constructor(
                 _authorizationState.emit(Success)
             } else {
                 Log.e(TAG, "handleAuthResponseUri: access token is null or empty")
+                redditRepository.removeAccessToken()
                 _authorizationState.emit(Failed)
             }
         }

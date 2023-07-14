@@ -11,4 +11,6 @@
     <string name="onboarding_fragment_subhumblr_title">SubHumblr</string>
     <string name="onboarding_fragment_share_and_save_subtitle">The favorites tab stores bookmarks with comments and subs. In the profile you will find information about yourself</string>
     <string name="onboarding_fragment_share_and_save_title">Share and Save</string>
+    <string name="activity_authorization_result_msg_failed">Authorization failed. Try again later</string>
+    <string name="activity_authorization_result_security_error">Authorization security error</string>
 </resources>

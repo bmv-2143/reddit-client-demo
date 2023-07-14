@@ -1,9 +1,9 @@
 package com.example.finalattestationreddit.presentation.authorization
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
@@ -11,9 +11,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.finalattestationreddit.log.TAG
-import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.*
+import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Failed
+import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Idle
+import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.SecurityErrorResponseStateMismatch
+import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Success
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationActivity
 import com.example.finalattestationreddit.presentation.onboarding.OnboardingActivity
 import com.example.finalattestationreddit.presentation.utils.SnackbarFactory
+import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.ActivityAuthorizationBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -31,6 +36,7 @@ class AuthorizationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         observeAuthorizationState()
         openNextScreenIfRequired()
         setButtonListener()
@@ -40,15 +46,8 @@ class AuthorizationActivity : AppCompatActivity() {
     private fun openNextScreenIfRequired() {
         if (!viewModel.isOnboardingShowed()) {
             openOnboardingActivity()
-        }
-
-        else if (viewModel.isUserAuthorized()) {
-//            startActivity(Intent(this, BottomNavigationActivity::class.java))
-//            finish()
-
-            SnackbarFactory(applicationContext).showSnackbar(
-                binding.root, "User was authorized previously", "button")
-
+        } else if (viewModel.isUserAuthorized()) {
+            proceedToBottomNavActivity()
         }
     }
 
@@ -58,7 +57,7 @@ class AuthorizationActivity : AppCompatActivity() {
     }
 
     private fun setButtonListener() {
-        binding.button.setOnClickListener {
+        binding.activityAuthorizationBtnLogin.setOnClickListener {
             openChromeTabForAuthentication()
         }
     }
@@ -101,46 +100,37 @@ class AuthorizationActivity : AppCompatActivity() {
     }
 
     private fun handleAuthorizationState(isAuthorizationSuccess: AuthorizationState) {
-//        logAndNotifyUser(isAuthorizationSuccess)
-
         when (isAuthorizationSuccess) {
-            is Success -> {
-//                //            startActivity(
-////                BottomNavigationActivity
-////                    .createIntent(this@AuthorizationActivity)
-////            )
-////            finish()
+            is Idle -> return
 
+            is Success -> proceedToBottomNavActivity()
 
-                SnackbarFactory(applicationContext).showWarningSnackbar(
-                    binding.root,
-                    "Authorization success.")
-
-                Log.e(TAG, "Authorization success.")
-
-            }
             is Failed -> {
-                SnackbarFactory(applicationContext).showWarningSnackbar(
-                    binding.root,
-                    "Authorization failed. Try again later.")
-
-                Log.e(TAG, "Authorization failed. Try again later.")
-
+                Log.e(TAG, "Authorization failed: user declined")
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.activity_authorization_result_msg_failed), Toast.LENGTH_SHORT
+                ).show()
             }
+
             is SecurityErrorResponseStateMismatch -> {
+                Log.e(
+                    TAG,
+                    "Authorization failed: security error: request-response state mismatch"
+                )
                 SnackbarFactory(applicationContext).showErrorSnackbar(
                     binding.root,
-                    "Authorization security error.")
-
-                Log.e(TAG, "Authorization security error.")
+                    getString(R.string.activity_authorization_result_security_error)
+                )
             }
-
-            is NotStarted -> {
-
-
-                Log.e(TAG, "Not Started.")}
         }
     }
+
+    private fun proceedToBottomNavActivity() {
+        startActivity(BottomNavigationActivity.createIntent(this@AuthorizationActivity))
+        finish()
+    }
+
 
     companion object {
         const val INTENT_FILTER_DATA_HOST_AUTH = "auth"

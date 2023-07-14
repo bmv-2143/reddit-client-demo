@@ -25,6 +25,12 @@ class RedditRepository @Inject constructor(private val sharedPreferences: Shared
         unsplashAccessToken = accessToken
     }
 
+    internal fun removeAccessToken() {
+        val editor = sharedPreferences.edit()
+        editor.remove(PREFS_KEY_ACCESS_TOKEN)
+        editor.apply()
+    }
+
 
     companion object {
 

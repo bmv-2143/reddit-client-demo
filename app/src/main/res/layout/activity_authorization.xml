@@ -63,7 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/activity_authorization_title" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/activity_authorization_btn_login"
         android:layout_width="250dp"
         android:layout_height="57dp"
         android:text="@string/activity_auth_btn_login"
