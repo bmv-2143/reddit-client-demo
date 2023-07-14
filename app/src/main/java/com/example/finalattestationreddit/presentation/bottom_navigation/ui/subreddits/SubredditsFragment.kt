@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.unsplashattestationproject.databinding.FragmentSubredditsBinding
 
 class SubredditsFragment : Fragment() {
@@ -15,22 +15,20 @@ class SubredditsFragment : Fragment() {
     private var _binding: FragmentSubredditsBinding? = null
     private val binding get() = _binding!!
 
+    private val subredditsViewModel: SubredditsViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val subredditsViewModel =
-            ViewModelProvider(this)[SubredditsViewModel::class.java]
-
         _binding = FragmentSubredditsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
         val textView: TextView = binding.textHome
         subredditsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        return root
+        return binding.root
     }
 
     override fun onResume() {
