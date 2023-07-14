@@ -11,15 +11,15 @@ class OnboardingAdapter(fragmentActivity: FragmentActivity) :
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            CREATE_FRAGMENT_POSITION -> OnboardingWelcomeFragment.newInstance()
-            SHARE_FRAGMENT_POSITION -> OnboardingShareAndSaveFragment.newInstance()
-            else -> OnboardingSubhumblrFragment.newInstance()
+            FRAGMENT_POSITION_WELCOME -> OnboardingWelcomeFragment.newInstance()
+            FRAGMENT_POSITION_SUBHUMBLR -> OnboardingSubhumblrFragment.newInstance()
+            else -> OnboardingShareAndSaveFragment.newInstance()
         }
     }
 
     companion object {
         const val NUMBER_OF_FRAGMENTS = 3
-        const val CREATE_FRAGMENT_POSITION = 0
-        const val SHARE_FRAGMENT_POSITION = 1
+        const val FRAGMENT_POSITION_WELCOME = 0
+        const val FRAGMENT_POSITION_SUBHUMBLR = 1
     }
 }
