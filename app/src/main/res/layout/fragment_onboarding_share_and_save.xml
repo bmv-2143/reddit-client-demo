@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/onboarding_fragment_share_and_save_image" />
+        app:srcCompat="@drawable/onboarding_share_and_save" />
 
     <TextView
         android:layout_width="wrap_content"
