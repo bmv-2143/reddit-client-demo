@@ -32,4 +32,11 @@ class AuthorizationViewModel @Inject constructor(
     internal fun getAccessToken(uri: Uri): String? =
         authRequest.extractAccessToken(uri)
 
+    internal fun isOnboardingShowed(): Boolean = localRepository.isOnboardingShowed()
+
+    fun saveOnboardingShowedStatus() {
+        localRepository.saveOnboardingShowedStatus()
+    }
+
+
 }

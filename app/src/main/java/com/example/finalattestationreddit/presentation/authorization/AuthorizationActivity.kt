@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import com.example.finalattestationreddit.log.TAG
+import com.example.finalattestationreddit.presentation.onboarding.OnboardingActivity
 import com.example.unsplashattestationproject.databinding.ActivityAuthorizationBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,9 +25,29 @@ class AuthorizationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        openNextScreenIfRequired()
         setButtonListener()
         handleIntent(intent)
     }
+
+    private fun openNextScreenIfRequired() {
+        if (!viewModel.isOnboardingShowed()) {
+            openOnboardingActivity()
+        }
+
+//        else if (viewModel.isUserAuthorized()) {
+//            startActivity(Intent(this, BottomNavigationActivity::class.java))
+//            finish()
+//        }
+    }
+
+    private fun openOnboardingActivity() {
+        startActivity(OnboardingActivity.createIntent(this))
+        viewModel.saveOnboardingShowedStatus()
+    }
+
+
+
 
     private fun setButtonListener() {
         binding.button.setOnClickListener {
