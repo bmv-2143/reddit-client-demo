@@ -3,6 +3,8 @@
     <color name="purple_figma_primary">#5222D0</color>
     <color name="purple_figma_secondary">#825222D0</color>
 
+    <color name="purple_figma_bottom_nav_buttons_unselected">#9372EE</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple_200">#FFBB86FC</color>

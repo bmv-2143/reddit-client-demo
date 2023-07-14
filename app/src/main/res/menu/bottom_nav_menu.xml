@@ -4,7 +4,8 @@
     <item
         android:id="@+id/navigation_subreddits"
         android:icon="@drawable/ic_bottom_nav_fragment_subreddits"
-        android:title="@string/fragment_title_subreddits" />
+        android:title="@string/fragment_title_subreddits"
+        />
 
     <item
         android:id="@+id/navigation_favorites"
