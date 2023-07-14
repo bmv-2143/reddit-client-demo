@@ -13,4 +13,8 @@
     <string name="onboarding_fragment_share_and_save_title">Share and Save</string>
     <string name="activity_authorization_result_msg_failed">Authorization failed. Try again later</string>
     <string name="activity_authorization_result_security_error">Authorization security error</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="fragment_title_subreddits">Subreddits</string>
+    <string name="fragment_title_favorites">Favorites</string>
+    <string name="fragment_title_user_profile">User Profile</string>
 </resources>

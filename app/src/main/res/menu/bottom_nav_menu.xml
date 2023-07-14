@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_subreddits"
+        android:icon="@drawable/ic_bottom_nav_fragment_subreddits"
+        android:title="@string/fragment_title_subreddits" />
+
+    <item
+        android:id="@+id/navigation_favorites"
+        android:icon="@drawable/ic_bottom_nav_fragment_favorites"
+        android:title="@string/fragment_title_favorites" />
+
+    <item
+        android:id="@+id/navigation_user_profile"
+        android:icon="@drawable/ic_bottom_nav_fragment_user_profile"
+        android:title="@string/fragment_title_user_profile" />
+
+</menu>
