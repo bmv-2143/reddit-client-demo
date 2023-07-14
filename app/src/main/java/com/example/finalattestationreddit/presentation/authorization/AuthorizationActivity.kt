@@ -46,9 +46,6 @@ class AuthorizationActivity : AppCompatActivity() {
         viewModel.saveOnboardingShowedStatus()
     }
 
-
-
-
     private fun setButtonListener() {
         binding.button.setOnClickListener {
             openChromeTabForAuthentication()

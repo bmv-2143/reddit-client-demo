@@ -4,4 +4,10 @@
     <string name="activity_auth_btn_login">Login</string>
     <string name="activity_onboarding_button_skip">Skip</string>
     <string name="activity_bottom_navigation_snackbar_view_close">Close</string>
+    <string name="onboarding_fragment_welcome_title">Welcome to Humblr</string>
+    <string name="onboarding_fragment_welcome_subtitle">Communities of all kinds of interests are gathered here</string>
+    <string name="onboarding_fragment_subhumblr_subtitle">You can find new subs by interests and see the subs you are subscribed to</string>
+    <string name="onboarding_fragment_subhumblr_title">SubHumblr</string>
+    <string name="onboarding_fragment_share_and_save_subtitle">The favorites tab stores bookmarks with comments and subs. In the profile you will find information about yourself</string>
+    <string name="onboarding_fragment_share_and_save_title">Share and Save</string>
 </resources>
