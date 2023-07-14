@@ -3,6 +3,7 @@
     <string name="activity_auth_subtitle">Find Like-minded People with Humblr</string>
     <string name="activity_auth_btn_login">Login</string>
     <string name="activity_onboarding_button_skip">Skip</string>
+    <string name="activity_onboarding_button_done">Done</string>
     <string name="activity_bottom_navigation_snackbar_view_close">Close</string>
     <string name="onboarding_fragment_welcome_title">Welcome to Humblr</string>
     <string name="onboarding_fragment_welcome_subtitle">Communities of all kinds of interests are gathered here</string>

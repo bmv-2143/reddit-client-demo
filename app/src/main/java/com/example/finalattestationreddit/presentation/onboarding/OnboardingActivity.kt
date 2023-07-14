@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.viewpager2.widget.ViewPager2
+import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.ActivityOnboardingBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -21,17 +21,8 @@ class OnboardingActivity : AppCompatActivity() {
 
         setupViewPagerAndAdapter()
         linkTabLayoutWithViewPager2()
-        setLeftArrowButtonListener()
-        setRightArrowButtonListener()
-        registerFragmentSwitchButtonsVisibilityUpdates()
-    }
-
-    private fun registerFragmentSwitchButtonsVisibilityUpdates() {
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                binding.leftArrow.isVisible = position != 0
-            }
-        })
+        setSkipButtonListener()
+        updateSkipButtonTextDependingOnFragment()
     }
 
     private fun setupViewPagerAndAdapter() {
@@ -44,24 +35,23 @@ class OnboardingActivity : AppCompatActivity() {
             .attach()
     }
 
-    private fun setLeftArrowButtonListener() {
-        binding.leftArrow.setOnClickListener {
-            val currentItem = binding.viewPager.currentItem
-            if (currentItem > 0) {
-                binding.viewPager.currentItem = currentItem - 1
-            }
+    private fun setSkipButtonListener() {
+        binding.activityOnboardingButtonSkip.setOnClickListener {
+            finish()
         }
     }
 
-    private fun setRightArrowButtonListener() {
-        binding.rightArrow.setOnClickListener {
-            val currentItem = binding.viewPager.currentItem
-            if (currentItem < onboardingAdapter.itemCount - 1) {
-                binding.viewPager.currentItem = currentItem + 1
-            } else {
-                finish()
+    private fun updateSkipButtonTextDependingOnFragment() {
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                if (position == OnboardingAdapter.NUMBER_OF_FRAGMENTS - 1)
+                    binding.activityOnboardingButtonSkip.text =
+                        getString(R.string.activity_onboarding_button_done)
+                else
+                    binding.activityOnboardingButtonSkip.text =
+                        getString(R.string.activity_onboarding_button_skip)
             }
-        }
+        })
     }
 
     companion object {
