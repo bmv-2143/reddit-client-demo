@@ -3,6 +3,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -25,7 +26,7 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         initNavController()
         setupBottomNavView()
-//        setupActionBarWithNavController()
+        setupActionBarWithNavController()
     }
 
     private fun initNavController() {
@@ -48,7 +49,15 @@ class BottomNavigationActivity : AppCompatActivity() {
                 R.id.navigation_user_profile
             )
         )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressedDispatcher.onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

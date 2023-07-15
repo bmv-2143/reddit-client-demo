@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.HiddenActionBarFragment
 import com.example.unsplashattestationproject.databinding.FragmentFavoritesBinding
 
-class FavoritesFragment : Fragment() {
+class FavoritesFragment : HiddenActionBarFragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!

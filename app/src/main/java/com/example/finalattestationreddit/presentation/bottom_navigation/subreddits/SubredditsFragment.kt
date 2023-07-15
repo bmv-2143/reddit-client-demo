@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.unsplashattestationproject.databinding.FragmentSubredditsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class SubredditsFragment : Fragment() {
+class SubredditsFragment : HiddenActionBarFragment() {
 
     private var _binding: FragmentSubredditsBinding? = null
     private val binding get() = _binding!!

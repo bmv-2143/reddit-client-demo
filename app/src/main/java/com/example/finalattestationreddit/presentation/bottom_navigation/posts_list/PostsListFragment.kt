@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.VisibleActionBarFragment
 import com.example.unsplashattestationproject.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [PostsListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PostsListFragment : Fragment() {
+class PostsListFragment : VisibleActionBarFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,6 +39,11 @@ class PostsListFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_posts_list, container, false)
     }
+
+    private fun hideActionbar() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+    }
+
 
     companion object {
         /**
