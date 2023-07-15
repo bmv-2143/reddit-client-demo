@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits
+package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits
 
 import android.os.Bundle
 import android.view.LayoutInflater

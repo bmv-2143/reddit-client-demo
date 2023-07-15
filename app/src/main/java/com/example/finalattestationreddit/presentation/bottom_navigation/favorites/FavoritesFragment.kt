@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.presentation.bottom_navigation.ui.favorites
+package com.example.finalattestationreddit.presentation.bottom_navigation.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater

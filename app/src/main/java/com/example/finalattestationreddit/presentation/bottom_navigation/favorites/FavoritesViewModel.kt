@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.presentation.bottom_navigation.ui.favorites
+package com.example.finalattestationreddit.presentation.bottom_navigation.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

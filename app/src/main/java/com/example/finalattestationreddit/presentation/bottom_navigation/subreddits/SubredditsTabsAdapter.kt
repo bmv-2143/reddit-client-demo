@@ -1,10 +1,10 @@
-package com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits
+package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.tabs.SubredditListFragment
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditListFragment
 
 class SubredditsTabsAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
 FragmentStateAdapter(fragmentManager, lifecycle) {

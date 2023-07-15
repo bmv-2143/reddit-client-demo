@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_subreddits"
-        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.SubredditsFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragment"
         android:label="@string/fragment_title_subreddits"
         tools:layout="@layout/fragment_subreddits" />
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.ui.favorites.FavoritesFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragment"
         android:label="@string/fragment_title_favorites"
         tools:layout="@layout/fragment_favorites" />
 
     <fragment
         android:id="@+id/navigation_user_profile"
-        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.ui.user_profile.UserProfileFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.user_profile.UserProfileFragment"
         android:label="@string/fragment_title_user_profile"
         tools:layout="@layout/fragment_user_profile" />
 </navigation>

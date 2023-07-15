@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.tabs
+package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.unsplashattestationproject.R
-import com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.tabs.placeholder.PlaceholderContent
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.placeholder.PlaceholderContent
 import com.example.unsplashattestationproject.databinding.FragmentSubredditListBinding
 import com.example.unsplashattestationproject.databinding.FragmentSubredditsBinding
 

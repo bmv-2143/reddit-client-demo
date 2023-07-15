@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.SubredditsFragment">
+    tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/fragment_subreddits_search_view"

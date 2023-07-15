@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.presentation.bottom_navigation.ui.user_profile
+package com.example.finalattestationreddit.presentation.bottom_navigation.user_profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
