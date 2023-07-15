@@ -61,7 +61,9 @@ class SubredditListFragment : Fragment() {
     }
 
     private fun onItemClick(item : String) {
-        findNavController().navigate(R.id.action_navigation_subreddits_to_postsListFragment)
+        if (findNavController().currentDestination?.id == R.id.navigation_subreddits) {
+            findNavController().navigate(R.id.action_navigation_subreddits_to_postsListFragment)
+        }
     }
 
     override fun onDestroyView() {

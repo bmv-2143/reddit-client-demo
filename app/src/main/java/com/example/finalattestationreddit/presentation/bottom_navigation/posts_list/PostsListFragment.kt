@@ -3,11 +3,15 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.posts_
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.VisibleActionBarFragment
 import com.example.unsplashattestationproject.R
+import com.example.unsplashattestationproject.databinding.FragmentPostsListBinding
+import com.example.unsplashattestationproject.databinding.FragmentUserProfileBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,10 +23,14 @@ private const val ARG_PARAM2 = "param2"
  * Use the [PostsListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PostsListFragment : VisibleActionBarFragment() {
+class PostsListFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private var _binding: FragmentPostsListBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +45,37 @@ class PostsListFragment : VisibleActionBarFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_posts_list, container, false)
+
+        _binding = FragmentPostsListBinding.inflate(inflater, container, false)
+
+        initToolbar()
+
+        return binding.root
+    }
+
+    private fun initToolbar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentPostsListToolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setHasOptionsMenu(true)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.fragment_posts_lists_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                requireActivity().onBackPressed()
+                true
+            }
+            R.id.action_fragment_item -> {
+                // Handle menu item click here
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun hideActionbar() {

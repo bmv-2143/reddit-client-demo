@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import com.example.unsplashattestationproject.databinding.FragmentSubredditsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class SubredditsFragment : HiddenActionBarFragment() {
+class SubredditsFragment : Fragment() {
 
     private var _binding: FragmentSubredditsBinding? = null
     private val binding get() = _binding!!

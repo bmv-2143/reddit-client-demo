@@ -18,6 +18,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
+        <!-- Action Bar colors -->
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
+
     </style>
 
     <style name="Theme.FinalAttestationRedditDarkActionBar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -36,6 +39,10 @@
 
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Action Bar colors -->
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
+
     </style>
 
 </resources>

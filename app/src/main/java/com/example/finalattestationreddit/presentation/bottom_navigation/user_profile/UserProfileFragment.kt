@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.HiddenActionBarFragment
 import com.example.unsplashattestationproject.databinding.FragmentUserProfileBinding
 
-class UserProfileFragment : HiddenActionBarFragment() {
+class UserProfileFragment : Fragment() {
 
     private var _binding: FragmentUserProfileBinding? = null
     private val binding get() = _binding!!
