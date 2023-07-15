@@ -6,6 +6,7 @@
     tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.SubredditsFragment">
 
     <androidx.appcompat.widget.SearchView
+        android:id="@+id/fragment_subreddits_search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/search_view_outlined_background"
@@ -29,4 +30,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/fragment_subreddits_tab_tab_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_subreddits_search_view"
+        app:tabBackground="@color/white"
+        app:tabGravity="center"
+        android:background="#FFA726"
+        app:tabIndicatorColor="@color/light_blue_600"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="?android:textColorPrimary"
+        app:tabTextColor="#ADADAD" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_subreddits_tab_view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#7E57C2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_subreddits_tab_tab_layout" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fragment_subreddit_list_button_open_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open item"
+        />
+
+    <TextView
+        android:id="@+id/message"
+        android:text="------ message will be here--------"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.tabs.SubredditListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/darker_gray"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.tabs.SubredditListFragment"
+        tools:listitem="@layout/list_item_subreddit" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
