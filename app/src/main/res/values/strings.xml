@@ -17,4 +17,6 @@
     <string name="fragment_title_subreddits">Subreddits</string>
     <string name="fragment_title_favorites">Favorites</string>
     <string name="fragment_title_user_profile">User Profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
