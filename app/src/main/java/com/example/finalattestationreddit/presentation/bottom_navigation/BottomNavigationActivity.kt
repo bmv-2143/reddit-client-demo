@@ -25,7 +25,7 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         initNavController()
         setupBottomNavView()
-        setupActionBarWithNavController()
+//        setupActionBarWithNavController()
     }
 
     private fun initNavController() {
@@ -48,7 +48,7 @@ class BottomNavigationActivity : AppCompatActivity() {
                 R.id.navigation_user_profile
             )
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     companion object {
