@@ -7,16 +7,25 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditListFragment
 
 class SubredditsTabsAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
-FragmentStateAdapter(fragmentManager, lifecycle) {
+    FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount(): Int {
-        return 2
+        return NUMBER_OF_FRAGMENTS
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> SubredditListFragment.newInstance(1, "AAA")
-            else -> SubredditListFragment.newInstance(2, "BBB")
+            FRAGMENT_POSITION_NEW_SUBREDDITS -> SubredditListFragment.newInstance(
+                1,
+                "New Subreddits"
+            )
+
+            else -> SubredditListFragment.newInstance(1, "Popular Subreddits")
         }
+    }
+
+    companion object {
+        const val NUMBER_OF_FRAGMENTS = 2
+        const val FRAGMENT_POSITION_NEW_SUBREDDITS = 0
     }
 }
