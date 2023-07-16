@@ -11,13 +11,28 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:titleTextColor="?attr/colorOnPrimary"
-        app:title="Fragment with Action Bar" />
+        app:title="Posts List" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fragment_posts_list_button_open_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="Open post"
+        />
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="POSTS LIST" />
+        android:text="POSTS LIST\n
+        Post 1\n
+        post 2\n
+        post 3\n
+        post 4
+
+" />
 
 </FrameLayout>

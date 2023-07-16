@@ -1,7 +1,6 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.posts_list
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -9,9 +8,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.FragmentPostsListBinding
-import com.example.unsplashattestationproject.databinding.FragmentUserProfileBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,7 +49,7 @@ class PostsListFragment : Fragment() {
         _binding = FragmentPostsListBinding.inflate(inflater, container, false)
 
         initToolbar()
-
+        setButtonClickListener()
         return binding.root
     }
 
@@ -57,6 +57,12 @@ class PostsListFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentPostsListToolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
+    }
+
+    private fun setButtonClickListener() {
+        binding.fragmentPostsListButtonOpenPost.setOnClickListener {
+            findNavController().navigate(R.id.action_postsListFragment_to_postFragment)
+        }
     }
 
 

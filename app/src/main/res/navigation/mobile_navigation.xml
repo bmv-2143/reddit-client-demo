@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_subreddits" >
         <action
             android:id="@+id/action_navigation_subreddits_to_postsListFragment"
-            app:destination="@id/postsListFragment" />
+            app:destination="@id/posts_list_fragment" />
     </fragment>
 
     <fragment
@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_favorites" >
         <action
             android:id="@+id/action_navigation_favorites_to_postsListFragment"
-            app:destination="@id/postsListFragment" />
+            app:destination="@id/posts_list_fragment" />
     </fragment>
 
     <fragment
@@ -30,9 +30,22 @@
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.user_profile.UserProfileFragment"
         android:label="@string/fragment_title_user_profile"
         tools:layout="@layout/fragment_user_profile" />
+
     <fragment
-        android:id="@+id/postsListFragment"
+        android:id="@+id/posts_list_fragment"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment"
         android:label="fragment_posts_list"
-        tools:layout="@layout/fragment_posts_list" />
+        tools:layout="@layout/fragment_posts_list">
+
+        <action
+            android:id="@+id/action_postsListFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.post.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" />
+
 </navigation>
