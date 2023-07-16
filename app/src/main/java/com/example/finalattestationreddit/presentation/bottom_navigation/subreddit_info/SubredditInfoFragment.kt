@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.example.unsplashattestationproject.R
+import com.example.unsplashattestationproject.databinding.FragmentSubredditInfoBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,6 +20,11 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class SubredditInfoFragment : Fragment() {
+
+
+    private var _binding: FragmentSubredditInfoBinding? = null
+    private val binding get() = _binding!!
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,7 +42,22 @@ class SubredditInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subreddit_info, container, false)
+
+        _binding = FragmentSubredditInfoBinding.inflate(inflater, container, false)
+        initToolbar()
+        return binding.root
+    }
+
+    private fun initToolbar() {
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentSubredditInfoToolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setHasOptionsMenu(true)
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
