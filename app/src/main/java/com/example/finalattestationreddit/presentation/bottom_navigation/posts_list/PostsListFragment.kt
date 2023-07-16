@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.FragmentPostsListBinding
 
@@ -23,14 +24,17 @@ private const val ARG_PARAM2 = "param2"
  * Use the [PostsListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PostsListFragment : Fragment() {
+class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    private var _binding: FragmentPostsListBinding? = null
-    private val binding get() = _binding!!
-
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentPostsListBinding =
+        FragmentPostsListBinding.inflate(inflater, container, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,17 +44,10 @@ class PostsListFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
-        _binding = FragmentPostsListBinding.inflate(inflater, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initToolbar()
         setButtonClickListener()
-        return binding.root
     }
 
     private fun initToolbar() {
