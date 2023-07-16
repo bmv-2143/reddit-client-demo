@@ -1,11 +1,15 @@
 package com.example.finalattestationreddit.data
 
 import android.content.SharedPreferences
+import com.example.finalattestationreddit.data.dto.SubredditData
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RedditRepository @Inject constructor(private val sharedPreferences: SharedPreferences) {
+class RedditRepository @Inject constructor(
+    private val sharedPreferences: SharedPreferences,
+    private val redditNetworkDataSource: RedditNetworkDataSource
+) {
 
     init {
         redditAccessToken = sharedPreferences.getString(PREFS_KEY_ACCESS_TOKEN, "") ?: ""
@@ -29,6 +33,14 @@ class RedditRepository @Inject constructor(private val sharedPreferences: Shared
         val editor = sharedPreferences.edit()
         editor.remove(PREFS_KEY_ACCESS_TOKEN)
         editor.apply()
+    }
+
+    suspend fun getNewSubreddits(): List<SubredditData> {
+        return redditNetworkDataSource.getNewSubreddits()
+    }
+
+    suspend fun getPopularSubreddits(): List<SubredditData> {
+        return redditNetworkDataSource.getPopularSubreddits()
     }
 
 
