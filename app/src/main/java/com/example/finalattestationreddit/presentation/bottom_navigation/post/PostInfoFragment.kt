@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
+import com.example.unsplashattestationproject.databinding.FragmentFavoritesBinding
 import com.example.unsplashattestationproject.databinding.FragmentPostInfoBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -18,12 +20,13 @@ private const val ARG_PARAM2 = "param2"
  * Use the [PostInfoFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PostInfoFragment : Fragment() {
+class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
-    private var _binding: FragmentPostInfoBinding? = null
-
-    private val binding get() = _binding!!
-
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentPostInfoBinding =
+        FragmentPostInfoBinding.inflate(inflater, container, false)
 
 
     // TODO: Rename and change types of parameters
@@ -38,26 +41,15 @@ class PostInfoFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentPostInfoBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initToolbar()
-        // Inflate the layout for this fragment
-        return binding.root
     }
 
     private fun initToolbar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentPostsListToolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {
