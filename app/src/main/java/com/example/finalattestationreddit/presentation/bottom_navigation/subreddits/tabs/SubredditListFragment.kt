@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.FragmentSubredditListBinding
 import com.example.unsplashattestationproject.databinding.FragmentSubredditsBinding
@@ -16,10 +17,13 @@ import com.example.unsplashattestationproject.databinding.FragmentSubredditsBind
 /**
  * A fragment representing a list of Items.
  */
-class SubredditListFragment : Fragment() {
+class SubredditListFragment : ViewBindingFragment<FragmentSubredditListBinding>() {
 
-    private var _binding: FragmentSubredditListBinding? = null
-    private val binding get() = _binding!!
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSubredditListBinding =
+        FragmentSubredditListBinding.inflate(inflater, container, false)
 
     private var columnCount = 1
     private var message: String? = null
@@ -33,13 +37,8 @@ class SubredditListFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSubredditListBinding.inflate(inflater, container, false)
-
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.message.text = message
         // Set the adapter
 //        if (view is RecyclerView) {
@@ -55,19 +54,12 @@ class SubredditListFragment : Fragment() {
         binding.fragmentSubredditListButtonOpenItem.setOnClickListener {
             onItemClick("item")
         }
-
-        return binding.root
     }
 
     private fun onItemClick(item : String) {
         if (findNavController().currentDestination?.id == R.id.navigation_subreddits) {
             findNavController().navigate(R.id.action_navigation_subreddits_to_postsListFragment)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {
