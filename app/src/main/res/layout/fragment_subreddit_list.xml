@@ -12,7 +12,7 @@
         android:id="@+id/fragment_subreddit_list_button_open_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open item"
+        android:text="Open Subreddit"
         />
 
     <TextView
