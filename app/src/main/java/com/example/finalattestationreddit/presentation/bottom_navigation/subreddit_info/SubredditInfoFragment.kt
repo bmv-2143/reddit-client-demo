@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.unsplashattestationproject.R
+import com.example.unsplashattestationproject.databinding.FragmentPostsListBinding
 import com.example.unsplashattestationproject.databinding.FragmentSubredditInfoBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,15 +21,17 @@ private const val ARG_PARAM2 = "param2"
  * Use the [SubredditInfoFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SubredditInfoFragment : Fragment() {
-
-
-    private var _binding: FragmentSubredditInfoBinding? = null
-    private val binding get() = _binding!!
+class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>() {
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSubredditInfoBinding =
+        FragmentSubredditInfoBinding.inflate(inflater, container, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,27 +41,15 @@ class SubredditInfoFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
-        _binding = FragmentSubredditInfoBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initToolbar()
-        return binding.root
     }
 
     private fun initToolbar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentSubredditInfoToolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setHasOptionsMenu(true)
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {
