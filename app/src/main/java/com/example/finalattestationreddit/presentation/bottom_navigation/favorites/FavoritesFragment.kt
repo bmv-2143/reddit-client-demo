@@ -37,7 +37,11 @@ class FavoritesFragment : Fragment() {
 
     private fun setItemClickListeners() {
         binding.fragmentFavoritesButtonOpenSubreddit.setOnClickListener {
-            onSubredditItemClick("Subreddit")
+            onSubredditItemClick("Subreddit -> PostsList")
+        }
+
+        binding.fragmentFavoritesButtonOpenPost.setOnClickListener {
+            onPostItemClick("Post -> Post Info")
         }
     }
 
@@ -45,6 +49,13 @@ class FavoritesFragment : Fragment() {
         // todo: do I need this check?
         if (findNavController().currentDestination?.id == R.id.navigation_favorites) {
             findNavController().navigate(R.id.action_navigation_favorites_to_postsListFragment)
+        }
+    }
+
+    private fun onPostItemClick(subreddit: String) {
+        // todo: do I need this check?
+        if (findNavController().currentDestination?.id == R.id.navigation_favorites) {
+            findNavController().navigate(R.id.action_navigation_favorites_to_postInfoFragment)
         }
     }
 

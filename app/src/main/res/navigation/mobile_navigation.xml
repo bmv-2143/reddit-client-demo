@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_navigation_favorites_to_postsListFragment"
             app:destination="@id/posts_list_fragment" />
+        <action
+            android:id="@+id/action_navigation_favorites_to_postInfoFragment"
+            app:destination="@id/postInfoFragment" />
     </fragment>
 
     <fragment
@@ -39,13 +42,19 @@
 
         <action
             android:id="@+id/action_postsListFragment_to_postFragment"
-            app:destination="@id/postFragment" />
+            app:destination="@id/postInfoFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/postFragment"
-        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.post.PostFragment"
+        android:id="@+id/postInfoFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.post.PostInfoFragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_post" />
+        tools:layout="@layout/fragment_post_info" />
+
+    <fragment
+        android:id="@+id/subredditInfoFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info.SubredditInfoFragment"
+        android:label="fragment_subreddit"
+        tools:layout="@layout/fragment_subreddit_info" />
 
 </navigation>

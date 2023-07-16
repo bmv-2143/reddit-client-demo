@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.unsplashattestationproject.R
-import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.placeholder.PlaceholderContent
 import com.example.unsplashattestationproject.databinding.FragmentSubredditListBinding
 import com.example.unsplashattestationproject.databinding.FragmentSubredditsBinding
 
