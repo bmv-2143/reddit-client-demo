@@ -8,10 +8,10 @@ import javax.inject.Singleton
 class RedditRepository @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
     init {
-        unsplashAccessToken = sharedPreferences.getString(PREFS_KEY_ACCESS_TOKEN, "") ?: ""
+        redditAccessToken = sharedPreferences.getString(PREFS_KEY_ACCESS_TOKEN, "") ?: ""
     }
 
-    fun hasAccessToken(): Boolean = unsplashAccessToken.isNotEmpty()
+    fun hasAccessToken(): Boolean = redditAccessToken.isNotEmpty()
 
     internal fun saveAccessToken(accessToken: String) {
         cacheToken(accessToken)
@@ -22,7 +22,7 @@ class RedditRepository @Inject constructor(private val sharedPreferences: Shared
     }
 
     private fun cacheToken(accessToken: String) {
-        unsplashAccessToken = accessToken
+        redditAccessToken = accessToken
     }
 
     internal fun removeAccessToken() {
@@ -36,7 +36,7 @@ class RedditRepository @Inject constructor(private val sharedPreferences: Shared
 
         const val PREFS_KEY_ACCESS_TOKEN = "access_token"
 
-        var unsplashAccessToken: String = ""
+        var redditAccessToken: String = ""
             private set
     }
 

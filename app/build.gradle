@@ -23,6 +23,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "REDDIT_CLIENT_ID", "\"${getRedditClientId()}\""
+        buildConfigField("String", "API_URL", "\"https://oauth.reddit.com/api/v1\"")
+        buildConfigField("Boolean", "HTTP_LOGGING_ENABLED", "true")
     }
 
     buildTypes {
