@@ -1,10 +1,7 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +9,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.FragmentSubredditListBinding
-import com.example.unsplashattestationproject.databinding.FragmentSubredditsBinding
 
 /**
  * A fragment representing a list of Items.
  */
 class SubredditListFragment : ViewBindingFragment<FragmentSubredditListBinding>() {
+
+
+    private val subredditsAdapter = SubredditListItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -40,20 +39,29 @@ class SubredditListFragment : ViewBindingFragment<FragmentSubredditListBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.message.text = message
-        // Set the adapter
-//        if (view is RecyclerView) {
-//            with(view) {
-//                layoutManager = when {
-//                    columnCount <= 1 -> LinearLayoutManager(context)
-//                    else -> GridLayoutManager(context, columnCount)
-//                }
-//                adapter = SubredditListItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
-//            }
-//        }
+
+        setupRecyclerView()
 
         binding.fragmentSubredditListButtonOpenItem.setOnClickListener {
             onItemClick("item")
         }
+    }
+
+    private fun setupRecyclerView() {
+        // Set the adapter
+        //        if (view is RecyclerView) {
+        //            with(view) {
+        //                layoutManager = when {
+        //                    columnCount <= 1 -> LinearLayoutManager(context)
+        //                    else -> GridLayoutManager(context, columnCount)
+        //                }
+        //                adapter = SubredditListItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
+        //            }
+        //        }
+
+        binding.fragmentSubredditsListRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
+        binding.fragmentSubredditsListRecyclerView.adapter = subredditsAdapter
     }
 
     private fun onItemClick(item : String) {
