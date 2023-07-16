@@ -19,7 +19,11 @@
         android:id="@+id/navigation_favorites"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragment"
         android:label="@string/fragment_title_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_navigation_favorites_to_postsListFragment"
+            app:destination="@id/postsListFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_user_profile"

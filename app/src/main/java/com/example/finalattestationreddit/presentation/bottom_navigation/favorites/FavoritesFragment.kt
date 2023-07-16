@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : Fragment() {
@@ -27,7 +29,23 @@ class FavoritesFragment : Fragment() {
         favoritesViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        setItemClickListeners() // todo: should be updated
+
         return binding.root
+    }
+
+    private fun setItemClickListeners() {
+        binding.fragmentFavoritesButtonOpenSubreddit.setOnClickListener {
+            onSubredditItemClick("Subreddit")
+        }
+    }
+
+    private fun onSubredditItemClick(subreddit: String) {
+        // todo: do I need this check?
+        if (findNavController().currentDestination?.id == R.id.navigation_favorites) {
+            findNavController().navigate(R.id.action_navigation_favorites_to_postsListFragment)
+        }
     }
 
     override fun onDestroyView() {
