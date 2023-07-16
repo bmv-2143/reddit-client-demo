@@ -5,37 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.unsplashattestationproject.databinding.FragmentSubredditsBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
-class SubredditsFragment : Fragment() {
-
-    private var _binding: FragmentSubredditsBinding? = null
-    private val binding get() = _binding!!
+class SubredditsFragment : ViewBindingFragment<FragmentSubredditsBinding>() {
 
     private val subredditsViewModel: SubredditsViewModel by viewModels()
 
     private lateinit var tabLayoutMediator: TabLayoutMediator
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSubredditsBinding.inflate(inflater, container, false)
+        container: ViewGroup?
+    ): FragmentSubredditsBinding =
+        FragmentSubredditsBinding.inflate(inflater, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val textView: TextView = binding.textHome
         subredditsViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         initTabs()
     }
 
@@ -56,15 +48,11 @@ class SubredditsFragment : Fragment() {
         tabLayoutMediator.attach()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        cleanUp()
-        _binding = null
-    }
 
-    private fun cleanUp() {
+
+    override fun cleanUp() {
         tabLayoutMediator.detach()
-        _binding?.fragmentSubredditsTabTabLayout?.removeAllTabs()
-        _binding?.fragmentSubredditsTabViewPager?.adapter = null // fix memory leak
+        binding.fragmentSubredditsTabTabLayout.removeAllTabs()
+        binding.fragmentSubredditsTabViewPager.adapter = null // fix memory leak
     }
 }
