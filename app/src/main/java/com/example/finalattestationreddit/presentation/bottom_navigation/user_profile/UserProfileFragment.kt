@@ -5,33 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.unsplashattestationproject.databinding.FragmentUserProfileBinding
 
-class UserProfileFragment : Fragment() {
+class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
 
-    private var _binding: FragmentUserProfileBinding? = null
-    private val binding get() = _binding!!
+    private val userProfileViewModel: UserProfileViewModel by viewModels()
 
-    private val userProfileViewModel : UserProfileViewModel by viewModels()
-
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+        container: ViewGroup?
+    ): FragmentUserProfileBinding =
+        FragmentUserProfileBinding.inflate(inflater, container, false)
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val textView: TextView = binding.textNotifications
         userProfileViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        return binding.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
