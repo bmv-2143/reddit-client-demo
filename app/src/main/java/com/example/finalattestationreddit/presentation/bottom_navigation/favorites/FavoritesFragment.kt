@@ -5,25 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.FragmentFavoritesBinding
 
-class FavoritesFragment : Fragment() {
-
-    private var _binding: FragmentFavoritesBinding? = null
-    private val binding get() = _binding!!
+class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
 
     private val favoritesViewModel: FavoritesViewModel by viewModels()
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        container: ViewGroup?
+    ): FragmentFavoritesBinding = FragmentFavoritesBinding.inflate(inflater, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val textView: TextView = binding.textDashboard
         favoritesViewModel.text.observe(viewLifecycleOwner) {
@@ -31,9 +29,8 @@ class FavoritesFragment : Fragment() {
         }
 
         setItemClickListeners() // todo: should be updated
-
-        return binding.root
     }
+
 
     private fun setItemClickListeners() {
         binding.fragmentFavoritesButtonOpenSubreddit.setOnClickListener {
@@ -59,8 +56,4 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
