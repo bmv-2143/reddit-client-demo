@@ -30,7 +30,7 @@
         android:layout_marginHorizontal="16dp"
         android:background="#FF0000"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditListFragment"
+        tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditsListFragment"
         tools:listitem="@layout/list_item_subreddit" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

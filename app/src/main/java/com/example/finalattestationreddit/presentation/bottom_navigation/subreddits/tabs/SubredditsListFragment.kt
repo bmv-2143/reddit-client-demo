@@ -1,28 +1,35 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.unsplashattestationproject.R
-import com.example.unsplashattestationproject.databinding.FragmentSubredditListBinding
+import com.example.unsplashattestationproject.databinding.FragmentSubredditsListBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-/**
- * A fragment representing a list of Items.
- */
-class SubredditListFragment : ViewBindingFragment<FragmentSubredditListBinding>() {
 
+@AndroidEntryPoint
+class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding>() {
+
+    private val viewModel: SubredditsListViewModel by viewModels()
 
     private val subredditsAdapter = SubredditListItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
 
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentSubredditListBinding =
-        FragmentSubredditListBinding.inflate(inflater, container, false)
+    ): FragmentSubredditsListBinding =
+        FragmentSubredditsListBinding.inflate(inflater, container, false)
 
     private var columnCount = 1
     private var message: String? = null
@@ -45,6 +52,28 @@ class SubredditListFragment : ViewBindingFragment<FragmentSubredditListBinding>(
         binding.fragmentSubredditListButtonOpenItem.setOnClickListener {
             onItemClick("item")
         }
+
+        viewModel.getNewSubreddits()
+        observerSubredditsFlow()
+    }
+
+    private fun observerSubredditsFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+
+                viewModel.subredditsFlow.collectLatest { pagingData ->
+                    subredditsAdapter.setData(pagingData.map { subredditData ->
+                        PlaceholderContent.PlaceholderItem(
+                            "id",
+                            subredditData.title,
+                            subredditData.subscribers.toString()
+                        )
+                    })
+
+
+                }
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -64,7 +93,7 @@ class SubredditListFragment : ViewBindingFragment<FragmentSubredditListBinding>(
         binding.fragmentSubredditsListRecyclerView.adapter = subredditsAdapter
     }
 
-    private fun onItemClick(item : String) {
+    private fun onItemClick(item: String) {
         if (findNavController().currentDestination?.id == R.id.navigation_subreddits) {
             findNavController().navigate(R.id.action_navigation_subreddits_to_postsListFragment)
         }
@@ -79,7 +108,7 @@ class SubredditListFragment : ViewBindingFragment<FragmentSubredditListBinding>(
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int, message: String) =
-            SubredditListFragment().apply {
+            SubredditsListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                     putString(ARG_MESSAGE, message)
