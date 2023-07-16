@@ -76,8 +76,8 @@ class PostsListFragment : Fragment() {
                 requireActivity().onBackPressed()
                 true
             }
-            R.id.action_fragment_item -> {
-                // Handle menu item click here
+            R.id.action_fragment_menu_subreddit_info -> {
+                findNavController().navigate(R.id.action_posts_list_fragment_to_subredditInfoFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_postsListFragment_to_postFragment"
             app:destination="@id/postInfoFragment" />
+        <action
+            android:id="@+id/action_posts_list_fragment_to_subredditInfoFragment"
+            app:destination="@id/subredditInfoFragment" />
     </fragment>
 
     <fragment
