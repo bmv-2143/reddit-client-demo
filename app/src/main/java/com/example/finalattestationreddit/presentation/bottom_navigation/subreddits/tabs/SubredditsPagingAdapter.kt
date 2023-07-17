@@ -7,7 +7,7 @@ import com.example.finalattestationreddit.data.dto.SubredditData
 import com.example.unsplashattestationproject.databinding.ListItemSubredditBinding
 
 class SubredditsPagingAdapter(
-    private val onItemClicked: (SubredditData) -> Unit
+    private val onItemClicked: (String) -> Unit
 ) : PagingDataAdapter<SubredditData, SubredditsAdapterViewHolder>(SubredditsDiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubredditsAdapterViewHolder {

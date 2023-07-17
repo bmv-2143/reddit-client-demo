@@ -11,6 +11,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragmentDirections
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.FragmentSubredditsListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,8 +23,7 @@ import kotlinx.coroutines.launch
 class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding>() {
 
     private val viewModel: SubredditsListViewModel by viewModels()
-
-    private val subredditsAdapter = SubredditListItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
+    private val subredditsPagingAdapter = SubredditsPagingAdapter(::onItemClick)
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -50,52 +50,38 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         setupRecyclerView()
 
         binding.fragmentSubredditListButtonOpenItem.setOnClickListener {
-            onItemClick("item")
+            onItemClick("Pass a display name here")
         }
 
-        viewModel.getNewSubreddits()
         observerSubredditsFlow()
     }
 
     private fun observerSubredditsFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-
-                viewModel.subredditsFlow.collectLatest { pagingData ->
-                    subredditsAdapter.setData(pagingData.map { subredditData ->
-                        PlaceholderContent.PlaceholderItem(
-                            "id",
-                            subredditData.title,
-                            subredditData.subscribers.toString()
-                        )
-                    })
-
-
+                viewModel.subredditsPagedFlow.collectLatest { pagingData ->
+                    subredditsPagingAdapter.submitData(pagingData)
                 }
             }
         }
     }
 
-    private fun setupRecyclerView() {
-        // Set the adapter
-        //        if (view is RecyclerView) {
-        //            with(view) {
-        //                layoutManager = when {
-        //                    columnCount <= 1 -> LinearLayoutManager(context)
-        //                    else -> GridLayoutManager(context, columnCount)
-        //                }
-        //                adapter = SubredditListItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
-        //            }
-        //        }
 
+    private fun setupRecyclerView() {
         binding.fragmentSubredditsListRecyclerView.layoutManager =
             LinearLayoutManager(requireContext())
-        binding.fragmentSubredditsListRecyclerView.adapter = subredditsAdapter
+        binding.fragmentSubredditsListRecyclerView.adapter = subredditsPagingAdapter
     }
 
-    private fun onItemClick(item: String) {
+    private fun onItemClick(subredditDisplayName: String) {
         if (findNavController().currentDestination?.id == R.id.navigation_subreddits) {
-            findNavController().navigate(R.id.action_navigation_subreddits_to_postsListFragment)
+//            val bundle = bundleOf("subredditDisplayName" to subredditDisplayName)
+//            findNavController().navigate(R.id.action_navigation_subreddits_to_postsListFragment, bundle)
+
+            val action = SubredditsFragmentDirections
+                .actionNavigationSubredditsToPostsListFragment(subredditDisplayName)
+            findNavController().navigate(action)
+
         }
     }
 

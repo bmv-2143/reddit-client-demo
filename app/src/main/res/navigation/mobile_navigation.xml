@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_posts_list_fragment_to_subredditInfoFragment"
             app:destination="@id/subredditInfoFragment" />
+        <argument
+            android:name="subredditDisplayName"
+            app:argType="string" />
     </fragment>
 
     <fragment
