@@ -1,23 +1,40 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
+import com.example.finalattestationreddit.data.NetworkError
+import com.example.finalattestationreddit.data.NetworkError.ForbiddenApiRateExceeded
+import com.example.finalattestationreddit.data.NetworkError.Unauthorized
+import com.example.finalattestationreddit.presentation.utils.SnackbarFactory
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.ActivityBottomNavigationBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class BottomNavigationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBottomNavigationBinding
     private lateinit var navController: NavController
+
+    private val viewModel by viewModels<BottomNavigationActivityViewModel>()
+
+    @Inject
+    lateinit var snackbarFactory: SnackbarFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +43,7 @@ class BottomNavigationActivity : AppCompatActivity() {
 
         initNavController()
         setupBottomNavView()
+        observerNetworkErrors()
 //        setupActionBarWithNavController()
     }
 
@@ -62,6 +80,37 @@ class BottomNavigationActivity : AppCompatActivity() {
                 }
 
                 else -> false
+            }
+        }
+    }
+
+    private fun observerNetworkErrors() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.networkErrorsFlow.collect { error ->
+                    Log.e(ContentValues.TAG, "observerNetworkErrors: $error")
+                    handleNetworkError(error)
+                }
+            }
+        }
+    }
+
+    private fun handleNetworkError(error: NetworkError) {
+        when (error) {
+            is ForbiddenApiRateExceeded -> {
+                snackbarFactory.showWarningSnackbar(
+                    binding.root, "API rate limit exceeded!"
+                )
+            }
+
+            is Unauthorized -> {
+                snackbarFactory.showErrorSnackbar(
+                    binding.root, "Unauthorized!"
+                )
+            }
+
+            else -> {
+                snackbarFactory.showErrorSnackbar(binding.root, error.message)
             }
         }
     }

@@ -1,8 +1,10 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs
 
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.ListItemSubredditBinding
 
 class SubredditsAdapterViewHolder(
@@ -25,21 +27,40 @@ class SubredditsAdapterViewHolder(
         loadTexts(subredditItem)
 //        loadAvatar(subredditItem)
 //        loadPhoto(subredditItem.coverPhoto?.urls?.regular ?: "")
+
+        updateSubscriptionStatusImage(subredditItem)
+    }
+
+    private fun updateSubscriptionStatusImage(subredditItem: SubredditData) {
+        binding.listItemSubredditButtonUserSubscribed.setImageDrawable(
+            if (subredditItem.userIsSubscriber) {
+                AppCompatResources.getDrawable(
+                    binding.root.context,
+                    R.drawable.ic_list_item_subreddit_user_subscribed
+                )
+            } else {
+                AppCompatResources.getDrawable(
+                    binding.root.context,
+                    R.drawable.ic_list_item_subreddit_user_not_subscribed
+                )
+            }
+        )
     }
 
     private fun loadTexts(subredditItem: SubredditData) {
 
 //        binding..text = subredditItem.id
-        binding.listItermSubredditDisplayName.text = subredditItem.displayNamePrefixed // TODO: fix me
+        binding.listItemSubredditDisplayName.text =
+            subredditItem.displayNamePrefixed // TODO: fix me
 
         if (subredditItem.publicDescription.isEmpty()) {
-            binding.listItermSubredditDescription.visibility = View.GONE
+            binding.listItemSubredditDescription.visibility = View.GONE
         } else {
-            binding.listItermSubredditDescription.visibility = View.VISIBLE
-            binding.listItermSubredditDescription.text = subredditItem.publicDescription
+            binding.listItemSubredditDescription.visibility = View.VISIBLE
+            binding.listItemSubredditDescription.text = subredditItem.publicDescription
         }
 
-        binding.listItermSubredditDescription.text = subredditItem.publicDescription
+        binding.listItemSubredditDescription.text = subredditItem.publicDescription
 
 //        binding.collectionListItemNumberOfPhotos.text =
 //            binding.root.context.getString(

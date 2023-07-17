@@ -23,6 +23,8 @@ class RedditRepository @Inject constructor(
         redditAccessToken = sharedPreferences.getString(PREFS_KEY_ACCESS_TOKEN, "") ?: ""
     }
 
+    val networkErrorsFlow = redditNetworkDataSource.networkErrorsFlow
+
     fun hasAccessToken(): Boolean = redditAccessToken.isNotEmpty()
 
     internal fun saveAccessToken(accessToken: String) {
