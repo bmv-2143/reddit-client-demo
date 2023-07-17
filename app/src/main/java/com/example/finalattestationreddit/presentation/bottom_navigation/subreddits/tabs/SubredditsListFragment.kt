@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
@@ -37,6 +38,7 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
 
         setupRecyclerView()
         observerSubredditsFlow()
+        observeLoadState()
     }
 
     private fun observerSubredditsFlow() {
@@ -58,13 +60,20 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
 
     private fun onItemClick(subredditDisplayName: String) {
         if (findNavController().currentDestination?.id == R.id.navigation_subreddits) {
-//            val bundle = bundleOf("subredditDisplayName" to subredditDisplayName)
-//            findNavController().navigate(R.id.action_navigation_subreddits_to_postsListFragment, bundle)
-
             val action = SubredditsFragmentDirections
                 .actionNavigationSubredditsToPostsListFragment(subredditDisplayName)
             findNavController().navigate(action)
 
+        }
+    }
+
+    private fun observeLoadState() {
+        subredditsPagingAdapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading) {
+                binding.fragmentSubredditsListProgressBar.visibility = View.VISIBLE
+            } else {
+                binding.fragmentSubredditsListProgressBar.visibility = View.GONE
+            }
         }
     }
 
