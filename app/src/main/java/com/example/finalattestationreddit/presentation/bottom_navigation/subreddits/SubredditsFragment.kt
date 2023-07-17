@@ -40,7 +40,7 @@ class SubredditsFragment : ViewBindingFragment<FragmentSubredditsBinding>() {
 
         tabLayoutMediator = TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "New"
+                0 -> "New" // TODO: hardcoded
                 1 -> "Popular"
                 else -> null
             }
