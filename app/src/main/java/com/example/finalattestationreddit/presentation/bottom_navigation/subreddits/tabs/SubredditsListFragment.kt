@@ -31,28 +31,10 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
     ): FragmentSubredditsListBinding =
         FragmentSubredditsListBinding.inflate(inflater, container, false)
 
-    private var columnCount = 1
-    private var message: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-            message = it.getString(ARG_MESSAGE)
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.message.text = message
 
         setupRecyclerView()
-
-        binding.fragmentSubredditListButtonOpenItem.setOnClickListener {
-            onItemClick("Pass a display name here")
-        }
-
         observerSubredditsFlow()
     }
 
@@ -89,7 +71,6 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
 
         // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
-        const val ARG_MESSAGE = "message"
 
         // TODO: Customize parameter initialization
         @JvmStatic
@@ -97,7 +78,6 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
             SubredditsListFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
-                    putString(ARG_MESSAGE, message)
                 }
             }
     }
