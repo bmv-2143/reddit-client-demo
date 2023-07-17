@@ -9,12 +9,26 @@ import com.example.unsplashattestationproject.databinding.ListItemSubredditBindi
 
 class SubredditsAdapterViewHolder(
     private val binding: ListItemSubredditBinding,
-    val onClick: (String) -> Unit
+    private val onClick: (String) -> Unit,
+    private val onItemSubscribeButtonClick: (SubredditData) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private var currentItem: SubredditData? = null
 
     init {
+        setSubredditListItemClickListener()
+        setSubredditSubscribeButtonClickListener()
+    }
+
+    private fun setSubredditSubscribeButtonClickListener() {
+        binding.listItemSubredditButtonUserSubscribed.setOnClickListener {
+            currentItem?.let {
+                onItemSubscribeButtonClick(it)
+            }
+        }
+    }
+
+    private fun setSubredditListItemClickListener() {
         binding.root.setOnClickListener {
             currentItem?.let {
                 onClick(it.displayName)

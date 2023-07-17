@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalattestationreddit.data.dto.SubredditData
 import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragmentDirections
@@ -25,7 +27,9 @@ import kotlinx.coroutines.launch
 class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding>() {
 
     private val viewModel: SubredditsListViewModel by viewModels()
-    private val subredditsPagingAdapter = SubredditsPagingAdapter(::onItemClick)
+    private val subredditsPagingAdapter = SubredditsPagingAdapter(
+        ::onSubredditItemClick, ::onSubredditSubscribeButtonClick
+    )
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -58,13 +62,21 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         binding.fragmentSubredditsListRecyclerView.adapter = subredditsPagingAdapter
     }
 
-    private fun onItemClick(subredditDisplayName: String) {
+    private fun onSubredditItemClick(subredditDisplayName: String) {
         if (findNavController().currentDestination?.id == R.id.navigation_subreddits) {
             val action = SubredditsFragmentDirections
                 .actionNavigationSubredditsToPostsListFragment(subredditDisplayName)
             findNavController().navigate(action)
 
         }
+    }
+
+    private fun onSubredditSubscribeButtonClick(subreddit: SubredditData) {
+        Toast.makeText(
+            requireContext(),
+            "Subreddit ${subreddit.displayName} subscribed",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun observeLoadStateAndUpdateProgressBar() {
