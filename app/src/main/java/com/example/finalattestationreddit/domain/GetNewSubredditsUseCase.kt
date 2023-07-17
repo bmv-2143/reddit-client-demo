@@ -6,7 +6,7 @@ import com.example.finalattestationreddit.data.dto.SubredditData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetSubredditsUseCase @Inject constructor(
+class GetNewSubredditsUseCase @Inject constructor(
     private val redditRepository: RedditRepository,
 ) {
 

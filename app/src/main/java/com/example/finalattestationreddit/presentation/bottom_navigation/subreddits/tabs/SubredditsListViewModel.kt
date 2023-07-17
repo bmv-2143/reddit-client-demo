@@ -5,17 +5,17 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.finalattestationreddit.data.dto.SubredditData
-import com.example.finalattestationreddit.domain.GetSubredditsUseCase
+import com.example.finalattestationreddit.domain.GetNewSubredditsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class SubredditsListViewModel @Inject constructor(
-    getSubredditsUseCase: GetSubredditsUseCase
+    getNewSubredditsUseCase: GetNewSubredditsUseCase
 ) : ViewModel() {
 
     val subredditsPagedFlow: Flow<PagingData<SubredditData>> =
-        getSubredditsUseCase().cachedIn(viewModelScope)
+        getNewSubredditsUseCase().cachedIn(viewModelScope)
 
 }
