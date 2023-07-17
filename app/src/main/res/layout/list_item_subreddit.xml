@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="4dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginVertical="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -18,32 +17,25 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-<!--            <androidx.appcompat.widget.AppCompatImageView-->
-<!--                android:layout_width="72dp"-->
-<!--                android:layout_height="72dp"-->
-<!--                app:srcCompat="@drawable/ic_menu_info_24"-->
-<!--                app:tint="?attr/colorPrimary" />-->
-
             <TextView
                 android:id="@+id/list_iterm_subreddit_display_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/text_margin"
                 android:layout_weight="1"
-                tools:text="r/someSubreddit"
-                android:textAppearance="?attr/textAppearanceListItem" />
+                android:textAppearance="?attr/textAppearanceListItem"
+                tools:text="r/someSubreddit" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/list_iterm_subreddit_subscribe"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:layout_marginVertical="8dp"
                 android:layout_marginEnd="16dp"
-
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?attr/selectableItemBackgroundBorderless"
-
+                android:padding="8dp"
                 app:srcCompat="@drawable/ic_list_item_subreddit_subscribe"
                 app:tint="?attr/colorPrimary" />
 
@@ -53,13 +45,13 @@
             android:id="@+id/list_iterm_subreddit_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#828282"
             android:layout_margin="@dimen/text_margin"
-            tools:text="Subreddit Description Subreddit Description Subreddit Description ..."
             android:textAppearance="?attr/textAppearanceListItem"
+            android:textColor="#828282"
             android:textStyle="italic"
-            tools:visibility="visible"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:text="Subreddit Description Subreddit Description Subreddit Description ..."
+            tools:visibility="visible" />
 
     </LinearLayout>
 
