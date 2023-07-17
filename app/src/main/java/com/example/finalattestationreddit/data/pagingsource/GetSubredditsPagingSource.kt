@@ -6,6 +6,7 @@ import com.example.finalattestationreddit.data.dto.ListingData
 import com.example.finalattestationreddit.data.dto.SubredditData
 
 class GetSubredditsPagingSource(
+    private val subredditsListType: String,
     private val redditNetworkDataSource: RedditNetworkDataSource
 ) : BasePagingSource<SubredditData>() {
 
@@ -14,7 +15,8 @@ class GetSubredditsPagingSource(
 
         val after = params.key ?: "" // todo: ???? add constant
 
-        val responseData: ListingData = redditNetworkDataSource.getNewSubreddits(after, PAGE_SIZE)
+        val responseData: ListingData =
+            redditNetworkDataSource.getSubreddits(subredditsListType, after, PAGE_SIZE)
 
         val beforeAfterMap = mapOf(
             CURSOR_BEFORE to responseData.before,

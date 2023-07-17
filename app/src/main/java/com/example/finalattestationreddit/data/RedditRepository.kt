@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 const val PAGE_SIZE = 30
-const val PREFETCH_DISTANCE =  PAGE_SIZE / 3
+const val PREFETCH_DISTANCE = PAGE_SIZE / 3
 
 @Singleton
 class RedditRepository @Inject constructor(
@@ -43,25 +43,41 @@ class RedditRepository @Inject constructor(
         editor.apply()
     }
 
-    internal fun getNewSubreddits(): Flow<PagingData<SubredditData>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                initialLoadSize = PAGE_SIZE
-            ),
-            pagingSourceFactory = { GetSubredditsPagingSource(redditNetworkDataSource) }
-        ).flow
-    }
+//    internal fun getNewSubreddits(): Flow<PagingData<SubredditData>> {
+//        return Pager(
+//            config = PagingConfig(
+//                pageSize = PAGE_SIZE,
+//                prefetchDistance = PREFETCH_DISTANCE,
+//                initialLoadSize = PAGE_SIZE
+//            ),
+//            pagingSourceFactory = { GetSubredditsPagingSource(redditNetworkDataSource) }
+//        ).flow
+//    }
+//
+//    internal fun getPopularSubreddits(): Flow<PagingData<SubredditData>> {
+//        return Pager(
+//            config = PagingConfig(
+//                pageSize = PAGE_SIZE,
+//                prefetchDistance = PREFETCH_DISTANCE,
+//                initialLoadSize = PAGE_SIZE
+//            ),
+//            pagingSourceFactory = { GetSubredditsPagingSource(redditNetworkDataSource) }
+//        ).flow
+//    }
 
-    internal fun getPopularSubreddits(): Flow<PagingData<SubredditData>> {
+    internal fun getSubreddits(subredditsListType: String): Flow<PagingData<SubredditData>> {
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 prefetchDistance = PREFETCH_DISTANCE,
                 initialLoadSize = PAGE_SIZE
             ),
-            pagingSourceFactory = { GetSubredditsPagingSource(redditNetworkDataSource) }
+            pagingSourceFactory = {
+                GetSubredditsPagingSource(
+                    subredditsListType,
+                    redditNetworkDataSource
+                )
+            }
         ).flow
     }
 

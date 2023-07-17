@@ -6,11 +6,11 @@ import com.example.finalattestationreddit.data.dto.SubredditData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetPopularSubredditsUseCase @Inject constructor(
+class GetSubredditsUseCase @Inject constructor(
     private val redditRepository: RedditRepository,
 ) {
 
-    operator fun invoke(): Flow<PagingData<SubredditData>> =
-        redditRepository.getPopularSubreddits()
+    operator fun invoke(subredditsListType : String): Flow<PagingData<SubredditData>> =
+        redditRepository.getSubreddits(subredditsListType)
 
 }

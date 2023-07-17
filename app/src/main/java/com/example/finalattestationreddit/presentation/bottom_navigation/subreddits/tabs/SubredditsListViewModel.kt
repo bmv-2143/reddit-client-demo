@@ -1,21 +1,35 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs
 
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.finalattestationreddit.data.dto.SubredditData
-import com.example.finalattestationreddit.domain.GetNewSubredditsUseCase
+import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
+import com.example.finalattestationreddit.domain.GetSubredditsUseCase
+import com.example.finalattestationreddit.log.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class SubredditsListViewModel @Inject constructor(
-    getNewSubredditsUseCase: GetNewSubredditsUseCase
+    private val getSubredditsUseCase: GetSubredditsUseCase,
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    val subredditsPagedFlow: Flow<PagingData<SubredditData>> =
-        getNewSubredditsUseCase().cachedIn(viewModelScope)
+    internal val subredditsPagedFlow: Flow<PagingData<SubredditData>>?
+        get() {
+            val subredditsListType : String? =
+                savedStateHandle[ARG_SUBREDDITS_LIST_TYPE]
 
+            return if (subredditsListType != null) {
+                getSubredditsUseCase(subredditsListType).cachedIn(viewModelScope)
+            } else {
+                Log.e(TAG, "subredditsListType is null")
+                null
+            }
+        }
 }

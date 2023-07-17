@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_subreddits_to_postsListFragment"
             app:destination="@id/posts_list_fragment" />
+        <argument
+            android:name="subredditsListType"
+            app:argType="string" />
     </fragment>
 
     <fragment

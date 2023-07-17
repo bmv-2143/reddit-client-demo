@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragmentDirections
 import com.example.unsplashattestationproject.R
@@ -41,7 +42,7 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
     private fun observerSubredditsFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.subredditsPagedFlow.collectLatest { pagingData ->
+                viewModel.subredditsPagedFlow?.collectLatest { pagingData ->
                     subredditsPagingAdapter.submitData(pagingData)
                 }
             }
@@ -69,15 +70,11 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
 
     companion object {
 
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
         @JvmStatic
-        fun newInstance(columnCount: Int, message: String) =
+        fun newInstance(subredditsListType: String) =
             SubredditsListFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
+                    putString(ARG_SUBREDDITS_LIST_TYPE, subredditsListType)
                 }
             }
     }
