@@ -1,9 +1,17 @@
 package com.example.finalattestationreddit.data
 
 import android.content.SharedPreferences
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
+
+const val PAGE_SIZE = 30
+const val PREFETCH_DISTANCE =  PAGE_SIZE / 3
 
 @Singleton
 class RedditRepository @Inject constructor(
@@ -35,8 +43,15 @@ class RedditRepository @Inject constructor(
         editor.apply()
     }
 
-    suspend fun getNewSubreddits(): List<SubredditData> {
-        return redditNetworkDataSource.getNewSubreddits()
+    internal fun getNewSubreddits(): Flow<PagingData<SubredditData>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE,
+                initialLoadSize = PAGE_SIZE
+            ),
+            pagingSourceFactory = { GetSubredditsPagingSource(redditNetworkDataSource) }
+        ).flow
     }
 
     suspend fun getPopularSubreddits(): List<SubredditData> {
