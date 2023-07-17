@@ -1,5 +1,6 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalattestationreddit.data.dto.SubredditData
 import com.example.unsplashattestationproject.databinding.ListItemSubredditBinding
@@ -28,8 +29,16 @@ class SubredditsAdapterViewHolder(
 
     private fun loadTexts(subredditItem: SubredditData) {
 
-        binding.listItemSubredditItemNumber.text = subredditItem.id
-        binding.listItermSubredditTitle.text = subredditItem.displayName // TODO: fix me
+//        binding..text = subredditItem.id
+        binding.listItermSubredditDisplayName.text = subredditItem.displayNamePrefixed // TODO: fix me
+
+        if (subredditItem.publicDescription.isEmpty()) {
+            binding.listItermSubredditDescription.visibility = View.GONE
+        } else {
+            binding.listItermSubredditDescription.visibility = View.VISIBLE
+            binding.listItermSubredditDescription.text = subredditItem.publicDescription
+        }
+
         binding.listItermSubredditDescription.text = subredditItem.publicDescription
 
 //        binding.collectionListItemNumberOfPhotos.text =
