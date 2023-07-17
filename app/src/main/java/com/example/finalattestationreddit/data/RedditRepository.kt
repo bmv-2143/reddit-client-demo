@@ -54,8 +54,15 @@ class RedditRepository @Inject constructor(
         ).flow
     }
 
-    suspend fun getPopularSubreddits(): List<SubredditData> {
-        return redditNetworkDataSource.getPopularSubreddits()
+    internal fun getPopularSubreddits(): Flow<PagingData<SubredditData>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE,
+                initialLoadSize = PAGE_SIZE
+            ),
+            pagingSourceFactory = { GetSubredditsPagingSource(redditNetworkDataSource) }
+        ).flow
     }
 
 
