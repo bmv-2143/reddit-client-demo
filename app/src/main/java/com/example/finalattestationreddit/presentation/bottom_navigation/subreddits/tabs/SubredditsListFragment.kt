@@ -38,7 +38,7 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
 
         setupRecyclerView()
         observerSubredditsFlow()
-        observeLoadState()
+        observeLoadStateAndUpdateProgressBar()
     }
 
     private fun observerSubredditsFlow() {
@@ -67,9 +67,9 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         }
     }
 
-    private fun observeLoadState() {
+    private fun observeLoadStateAndUpdateProgressBar() {
         subredditsPagingAdapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading) {
+            if (loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading) {
                 binding.fragmentSubredditsListProgressBar.visibility = View.VISIBLE
             } else {
                 binding.fragmentSubredditsListProgressBar.visibility = View.GONE
