@@ -2,6 +2,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.subred
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import com.example.finalattestationreddit.data.dto.SubredditData
 import com.example.unsplashattestationproject.databinding.ListItemSubredditBinding
@@ -19,5 +20,15 @@ class SubredditsPagingAdapter(
 
     override fun onBindViewHolder(holder: SubredditsAdapterViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
+    }
+
+    suspend fun updateItem(subredditData: SubredditData) {
+        val currentList = snapshot().items.toMutableList()
+        val index = currentList.indexOfFirst { it.id == subredditData.id }
+        if (index != -1) {
+            currentList[index] = subredditData
+            submitData(PagingData.from(currentList))
+            notifyItemChanged(index)
+        }
     }
 }

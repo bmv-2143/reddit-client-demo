@@ -63,25 +63,11 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.subscriptionUpdatesFlow.collectLatest { subredditData ->
-
-                    Log.e(TAG, "FRAGMENT: ${subredditData.displayName}, " +
-                            "new status: ${subredditData.userIsSubscriber}")
-
-                    val currentList = subredditsPagingAdapter.snapshot().items.toMutableList()
-                    val index = currentList.indexOfFirst { it.id == subredditData.id }
-                    if (index != -1) {
-                        currentList[index] = subredditData
-                        subredditsPagingAdapter.submitData(PagingData.from(currentList))
-
-                        Log.e(TAG, "FRAGMENT: update submitted")
-                        subredditsPagingAdapter.notifyItemChanged(index)
-
-                    }
+                    subredditsPagingAdapter.updateItem(subredditData)
                 }
             }
         }
     }
-
 
     private fun setupRecyclerView() {
         binding.fragmentSubredditsListRecyclerView.layoutManager =
