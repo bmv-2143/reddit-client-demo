@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
@@ -37,5 +38,10 @@ abstract class ViewBindingFragment<T : ViewBinding> : Fragment() {
      */
     protected open fun cleanUp() {
         // clean up views and resources in subclasses
+    }
+
+    // todo: incorrect not all ViewBindingFragment have toolbar, should create ViewBinding toolbar fragment
+    protected fun setActionbarTitle(title : String) {
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = title
     }
 }

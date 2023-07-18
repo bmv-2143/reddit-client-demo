@@ -4,7 +4,9 @@ import android.content.SharedPreferences
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
+import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -87,6 +89,23 @@ class RedditRepository @Inject constructor(
         val updateSuccess = redditNetworkDataSource.updateSubscription(subredditName, action)
         return SubscriptionUpdateResult(subredditName, updateSuccess)
     }
+
+    internal fun getPosts(subredditDisplayName: String): Flow<PagingData<PostData>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE,
+                initialLoadSize = PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                GetSubredditPostsPagingSource(
+                    subredditDisplayName,
+                    redditNetworkDataSource
+                )
+            }
+        ).flow
+    }
+
 
     companion object {
 

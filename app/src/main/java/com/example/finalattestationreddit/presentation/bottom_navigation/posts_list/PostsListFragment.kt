@@ -6,13 +6,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.FragmentPostsListBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
+
+    private val viewModel: PostsListViewModel by viewModels()
+
+    private val postsPagingAdapter = PostsPagingAdapter(
+        ::onPostItemClick,
+        {
+            // todo: implement or delete
+        }
+    )
+
+    private fun onPostItemClick(post: Post) {
+        findNavController().navigate(R.id.action_postsListFragment_to_postFragment)
+    }
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -23,10 +46,13 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
-        setButtonClickListener()
+        setupRecyclerView()
 
+        // todo: its better pass it to a view model? or use state handle from the view model?
         val args = PostsListFragmentArgs.fromBundle(requireArguments())
         setActionbarTitle(args.subredditData.displayNamePrefixed)
+        observerPostsFlow(args.subredditData.displayName)
+        observeLoadStateAndUpdateProgressBar()
     }
 
     private fun initToolbar() {
@@ -56,16 +82,29 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         findNavController().navigate(R.id.action_posts_list_fragment_to_subredditInfoFragment)
     }
 
-
-    private fun setButtonClickListener() {
-//        binding.fragmentPostsListButtonOpenPost.setOnClickListener {
-//            findNavController().navigate(R.id.action_postsListFragment_to_postFragment)
-//        }
+    private fun setupRecyclerView() {
+        binding.fragmentPostsListRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
+        binding.fragmentPostsListRecyclerView.adapter = postsPagingAdapter
     }
 
-    private fun hideActionbar() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+    private fun observerPostsFlow(subredditDisplayName : String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getPostsFlow(subredditDisplayName).collectLatest { pagingData ->
+                    postsPagingAdapter.submitData(pagingData)
+                }
+            }
+        }
     }
 
+    private fun observeLoadStateAndUpdateProgressBar() {
+        postsPagingAdapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading) {
+                binding.fragmentPostsListProgressBar.visibility = View.VISIBLE
+            } else {
+                binding.fragmentPostsListProgressBar.visibility = View.GONE
+            }
+        }
+    }
 }
-

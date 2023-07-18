@@ -1,5 +1,6 @@
 package com.example.finalattestationreddit.data.network
 
+import com.example.finalattestationreddit.data.dto.post.PostListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -39,6 +40,6 @@ interface RedditApi {
         @Path("subreddit") subreddit: String,
         @Query("after") after: String,
         @Query("limit") perPage: Int
-    ): SubredditListingResponse
+    ): PostListingResponse
 
 }

@@ -1,6 +1,7 @@
 package com.example.finalattestationreddit.data
 
 import android.util.Log
+import com.example.finalattestationreddit.data.dto.post.PostListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.mappers.toSubredditDataList
@@ -26,13 +27,13 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             redditService.redditApi.getSubreddits(subredditsListType, after, perPage).data
         } catch (e: UnknownHostException) {
             handleUnknownHostError(e)
-            emptyListingData()
+            emptySubredditListingData()
         } catch (e: HttpException) {
             handleHttpException(e)
-            emptyListingData()
+            emptySubredditListingData()
         } catch (e: Exception) {
             logError(::getSubreddits.name, e)
-            emptyListingData()
+            emptySubredditListingData()
         }
     }
 
@@ -60,9 +61,10 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         Log.e(TAG, "$methodName error: ${e.message}")
     }
 
-    private fun emptyListingData(): SubredditListingData = SubredditListingData(emptyList(), null, null)
+    private fun emptySubredditListingData(): SubredditListingData =
+        SubredditListingData(emptyList(), null, null)
 
-    suspend fun updateSubscription(subredditName: String, action: String) : Boolean {
+    suspend fun updateSubscription(subredditName: String, action: String): Boolean {
         return try {
             redditService.redditApi.updateSubscription(subredditName, action)
             true
@@ -97,21 +99,24 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         subredditDisplayName: String,
         after: String,
         perPage: Int
-    ): SubredditListingData {
+    ): PostListingData {
 
         return try {
             redditService.redditApi.getSubredditPosts(subredditDisplayName, after, perPage).data
         } catch (e: UnknownHostException) {
             handleUnknownHostError(e)
-            emptyListingData()
+            emptyPostListingData()
         } catch (e: HttpException) {
             handleHttpException(e)
-            emptyListingData()
+            emptyPostListingData()
         } catch (e: Exception) {
             logError(::getSubreddits.name, e)
-            emptyListingData()
+            emptyPostListingData()
         }
     }
+
+    private fun emptyPostListingData(): PostListingData =
+        PostListingData(emptyList(), null, null)
 
 }
 
