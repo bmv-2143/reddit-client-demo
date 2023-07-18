@@ -72,10 +72,10 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         binding.fragmentSubredditsListRecyclerView.adapter = subredditsPagingAdapter
     }
 
-    private fun onSubredditItemClick(subredditDisplayName: String) {
+    private fun onSubredditItemClick(subredditData: SubredditData) {
         if (findNavController().currentDestination?.id == R.id.navigation_subreddits) {
             val action = SubredditsFragmentDirections
-                .actionNavigationSubredditsToPostsListFragment(subredditDisplayName)
+                .actionNavigationSubredditsToPostsListFragment(subredditData)
             findNavController().navigate(action)
 
         }

@@ -9,7 +9,7 @@ import com.example.unsplashattestationproject.databinding.ListItemSubredditBindi
 
 class SubredditsAdapterViewHolder(
     private val binding: ListItemSubredditBinding,
-    private val onClick: (String) -> Unit,
+    private val onClick: (SubredditData) -> Unit,
     private val onItemSubscribeButtonClick: (SubredditData) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -31,7 +31,7 @@ class SubredditsAdapterViewHolder(
     private fun setSubredditListItemClickListener() {
         binding.root.setOnClickListener {
             currentItem?.let {
-                onClick(it.displayName)
+                onClick(it)
             }
         }
     }

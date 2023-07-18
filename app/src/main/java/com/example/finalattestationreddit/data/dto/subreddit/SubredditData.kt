@@ -1,9 +1,12 @@
 package com.example.finalattestationreddit.data.dto.subreddit
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
+@Parcelize
 data class SubredditData(
 
     @Json(name="id") val id: String,
@@ -14,4 +17,4 @@ data class SubredditData(
     @Json(name="user_is_subscriber") val userIsSubscriber: Boolean,
     @Json(name="public_description") val publicDescription: String
 
-)
+) : Parcelable

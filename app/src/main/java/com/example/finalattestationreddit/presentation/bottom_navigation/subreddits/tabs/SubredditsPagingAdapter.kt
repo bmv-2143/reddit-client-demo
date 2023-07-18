@@ -8,7 +8,7 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.unsplashattestationproject.databinding.ListItemSubredditBinding
 
 class SubredditsPagingAdapter(
-    private val onItemClicked: (String) -> Unit,
+    private val onItemClicked: (SubredditData) -> Unit,
     private val onItemSubscribeButtonClick: (SubredditData) -> Unit
 ) : PagingDataAdapter<SubredditData, SubredditsAdapterViewHolder>(SubredditsDiffUtilCallback()) {
 

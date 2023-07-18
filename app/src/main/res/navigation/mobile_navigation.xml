@@ -50,8 +50,8 @@
             android:id="@+id/action_posts_list_fragment_to_subredditInfoFragment"
             app:destination="@id/subredditInfoFragment" />
         <argument
-            android:name="subredditDisplayName"
-            app:argType="string" />
+            android:name="subredditData"
+            app:argType="com.example.finalattestationreddit.data.dto.subreddit.SubredditData" />
     </fragment>
 
     <fragment

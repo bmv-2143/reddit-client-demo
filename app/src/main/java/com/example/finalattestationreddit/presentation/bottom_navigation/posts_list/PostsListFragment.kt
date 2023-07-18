@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.lifecycle.Lifecycle
@@ -27,7 +26,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         setButtonClickListener()
 
         val args = PostsListFragmentArgs.fromBundle(requireArguments())
-        setActionbarTitle(args.subredditDisplayName)
+        setActionbarTitle(args.subredditData.displayNamePrefixed)
     }
 
     private fun initToolbar() {
