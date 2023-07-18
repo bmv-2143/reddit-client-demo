@@ -83,6 +83,10 @@ class RedditRepository @Inject constructor(
         ).flow
     }
 
+    internal suspend fun updateSubscription(subredditName: String, action: String): SubscriptionUpdateResult {
+        val updateSuccess = redditNetworkDataSource.updateSubscription(subredditName, action)
+        return SubscriptionUpdateResult(subredditName, updateSuccess)
+    }
 
     companion object {
 

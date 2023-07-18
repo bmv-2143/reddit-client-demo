@@ -2,6 +2,8 @@ package com.example.finalattestationreddit.data
 
 import android.util.Log
 import com.example.finalattestationreddit.data.dto.ListingData
+import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -59,5 +61,37 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     }
 
     private fun emptyListingData(): ListingData = ListingData(emptyList(), null, null)
+
+    suspend fun updateSubscription(subredditName: String, action: String) : Boolean {
+        return try {
+            redditService.redditApi.updateSubscription(subredditName, action)
+            true
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            false
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            false
+        } catch (e: Exception) {
+            logError(::getSubreddits.name, e)
+            false
+        }
+    }
+
+    suspend fun getSubscribedSubreddits(): List<SubredditData> {
+        return try {
+            redditService.redditApi.getSubscribedSubreddits().toSubredditDataList()
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptyList()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptyList()
+        } catch (e: Exception) {
+            logError(::getSubreddits.name, e)
+            emptyList()
+        }
+    }
+
 }
 

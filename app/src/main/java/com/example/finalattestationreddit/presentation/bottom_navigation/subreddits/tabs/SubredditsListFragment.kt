@@ -1,6 +1,7 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.data.dto.SubredditData
 import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
+import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragmentDirections
 import com.example.unsplashattestationproject.R
@@ -43,6 +46,7 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         setupRecyclerView()
         observerSubredditsFlow()
         observeLoadStateAndUpdateProgressBar()
+        observerSubscriptionUpdatesFlow()
     }
 
     private fun observerSubredditsFlow() {
@@ -50,6 +54,29 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.subredditsPagedFlow?.collectLatest { pagingData ->
                     subredditsPagingAdapter.submitData(pagingData)
+                }
+            }
+        }
+    }
+
+    private fun observerSubscriptionUpdatesFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.subscriptionUpdatesFlow.collectLatest { subredditData ->
+
+                    Log.e(TAG, "FRAGMENT: ${subredditData.displayName}, " +
+                            "new status: ${subredditData.userIsSubscriber}")
+
+                    val currentList = subredditsPagingAdapter.snapshot().items.toMutableList()
+                    val index = currentList.indexOfFirst { it.id == subredditData.id }
+                    if (index != -1) {
+                        currentList[index] = subredditData
+                        subredditsPagingAdapter.submitData(PagingData.from(currentList))
+
+                        Log.e(TAG, "FRAGMENT: update submitted")
+                        subredditsPagingAdapter.notifyItemChanged(index)
+
+                    }
                 }
             }
         }
@@ -77,6 +104,8 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
             "Subreddit ${subreddit.displayName} subscribed",
             Toast.LENGTH_SHORT
         ).show()
+
+        viewModel.switchSubscription(subreddit)
     }
 
     private fun observeLoadStateAndUpdateProgressBar() {

@@ -4,6 +4,7 @@ import com.example.finalattestationreddit.data.PAGE_SIZE
 import com.example.finalattestationreddit.data.RedditNetworkDataSource
 import com.example.finalattestationreddit.data.dto.ListingData
 import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 
 class GetSubredditsPagingSource(
     private val subredditsListType: String,
@@ -27,7 +28,3 @@ class GetSubredditsPagingSource(
     }
 
 }
-
-// todo: should be in dto?
-fun ListingData.toSubredditDataList(): List<SubredditData> =
-    this.children.map { it.data }
