@@ -1,8 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -10,29 +11,41 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:titleTextColor="?attr/colorOnPrimary"
-        app:title="Posts List" />
+        app:title="Posts List"
+        app:titleTextColor="?attr/colorOnPrimary" />
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/fragment_posts_list_button_open_post"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="Open post"
-        />
+    <!--    <androidx.appcompat.widget.AppCompatButton-->
+    <!--        android:id="@+id/fragment_posts_list_button_open_post"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center_vertical"-->
+    <!--        android:text="Open post"-->
+    <!--        android:visibility="invisible"-->
+    <!--        />-->
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="POSTS LIST\n
-        Post 1\n
-        post 2\n
-        post 3\n
-        post 4
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:text="POSTS LIST\n-->
+    <!--        Post 1\n-->
+    <!--        post 2\n-->
+    <!--        post 3\n-->
+    <!--        post 4-->
 
-" />
+    <!--" />-->
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_subreddits_list_recycler_view"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.tabs.SubredditListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="8dp"
+        android:background="#FFA726"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditsListFragment"
+        tools:listitem="@layout/list_item_post" />
+
+</LinearLayout>
