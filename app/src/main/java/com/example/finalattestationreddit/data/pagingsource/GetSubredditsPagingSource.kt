@@ -2,8 +2,8 @@ package com.example.finalattestationreddit.data.pagingsource
 
 import com.example.finalattestationreddit.data.PAGE_SIZE
 import com.example.finalattestationreddit.data.RedditNetworkDataSource
-import com.example.finalattestationreddit.data.dto.ListingData
-import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.finalattestationreddit.data.dto.subreddit.ListingData
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 
 class GetSubredditsPagingSource(

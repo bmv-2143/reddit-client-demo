@@ -1,8 +1,8 @@
 package com.example.finalattestationreddit.data
 
 import android.util.Log
-import com.example.finalattestationreddit.data.dto.ListingData
-import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.finalattestationreddit.data.dto.subreddit.ListingData
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -90,6 +90,26 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         } catch (e: Exception) {
             logError(::getSubreddits.name, e)
             emptyList()
+        }
+    }
+
+    suspend fun getSubredditPosts(
+        subredditDisplayName: String,
+        after: String,
+        perPage: Int
+    ): ListingData {
+
+        return try {
+            redditService.redditApi.getSubredditPosts(subredditDisplayName, after, perPage).data
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptyListingData()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptyListingData()
+        } catch (e: Exception) {
+            logError(::getSubreddits.name, e)
+            emptyListingData()
         }
     }
 

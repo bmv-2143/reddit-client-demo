@@ -1,8 +1,8 @@
 package com.example.finalattestationreddit.data.mappers
 
-import com.example.finalattestationreddit.data.dto.ListingData
-import com.example.finalattestationreddit.data.dto.ListingResponse
-import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.finalattestationreddit.data.dto.subreddit.ListingData
+import com.example.finalattestationreddit.data.dto.subreddit.ListingResponse
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 
 
 fun ListingResponse.toSubredditDataList() : List<SubredditData> =

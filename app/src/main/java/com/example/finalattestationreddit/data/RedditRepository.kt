@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

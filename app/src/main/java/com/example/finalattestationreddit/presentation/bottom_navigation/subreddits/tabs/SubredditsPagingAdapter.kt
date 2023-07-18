@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
-import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.unsplashattestationproject.databinding.ListItemSubredditBinding
 
 class SubredditsPagingAdapter(

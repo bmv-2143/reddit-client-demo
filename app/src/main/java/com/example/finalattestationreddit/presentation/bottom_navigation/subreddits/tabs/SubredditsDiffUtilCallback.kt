@@ -1,7 +1,7 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.finalattestationreddit.data.dto.SubredditData
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 
 class SubredditsDiffUtilCallback : DiffUtil.ItemCallback<SubredditData>() {
 
