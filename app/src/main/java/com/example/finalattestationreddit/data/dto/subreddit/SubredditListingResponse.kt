@@ -4,10 +4,10 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class ListingResponse(
+data class SubredditListingResponse(
 
     @Json(name="kind") val kind: String,
-    @Json(name="data") val data: ListingData
+    @Json(name="data") val data: SubredditListingData
 
 )
 

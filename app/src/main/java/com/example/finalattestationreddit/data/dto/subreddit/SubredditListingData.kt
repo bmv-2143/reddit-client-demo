@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class ListingData(
+data class SubredditListingData(
 
     @Json(name="children") val children: List<SubredditResponse>,
     @Json(name="before") val before: String?,

@@ -1,7 +1,7 @@
 package com.example.finalattestationreddit.data
 
 import android.util.Log
-import com.example.finalattestationreddit.data.dto.subreddit.ListingData
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 import com.example.finalattestationreddit.log.TAG
@@ -20,7 +20,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         subredditsListType: String,
         after: String,
         perPage: Int
-    ): ListingData {
+    ): SubredditListingData {
 
         return try {
             redditService.redditApi.getSubreddits(subredditsListType, after, perPage).data
@@ -60,7 +60,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         Log.e(TAG, "$methodName error: ${e.message}")
     }
 
-    private fun emptyListingData(): ListingData = ListingData(emptyList(), null, null)
+    private fun emptyListingData(): SubredditListingData = SubredditListingData(emptyList(), null, null)
 
     suspend fun updateSubscription(subredditName: String, action: String) : Boolean {
         return try {
@@ -97,7 +97,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         subredditDisplayName: String,
         after: String,
         perPage: Int
-    ): ListingData {
+    ): SubredditListingData {
 
         return try {
             redditService.redditApi.getSubredditPosts(subredditDisplayName, after, perPage).data

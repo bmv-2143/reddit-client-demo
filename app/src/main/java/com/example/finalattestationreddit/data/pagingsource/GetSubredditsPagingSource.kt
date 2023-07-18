@@ -2,7 +2,7 @@ package com.example.finalattestationreddit.data.pagingsource
 
 import com.example.finalattestationreddit.data.PAGE_SIZE
 import com.example.finalattestationreddit.data.RedditNetworkDataSource
-import com.example.finalattestationreddit.data.dto.subreddit.ListingData
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 
@@ -16,7 +16,7 @@ class GetSubredditsPagingSource(
 
         val after = params.key ?: "" // todo: ???? add constant
 
-        val responseData: ListingData =
+        val responseData: SubredditListingData =
             redditNetworkDataSource.getSubreddits(subredditsListType, after, PAGE_SIZE)
 
         val beforeAfterMap = mapOf(
