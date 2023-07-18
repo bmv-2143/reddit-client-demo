@@ -9,7 +9,7 @@ class PostsDiffUtilCallback : DiffUtil.ItemCallback<Post>() {
         oldItem: Post,
         newItem: Post
     ): Boolean {
-        return oldItem.url == newItem.url // todo: check if it's correct, its better to compar by id
+        return oldItem.name == newItem.name
     }
 
     override fun areContentsTheSame(

@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Post(
+    @Json(name = "name") val name: String,
     @Json(name = "title") val title: String,
     @Json(name = "author") val author: String,
     @Json(name = "created_utc") val createdUtc: Long,
