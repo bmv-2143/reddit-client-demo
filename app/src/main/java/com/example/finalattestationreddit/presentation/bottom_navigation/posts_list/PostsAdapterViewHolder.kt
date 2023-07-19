@@ -111,8 +111,18 @@ class PostsAdapterViewHolder(
         binding.listItemPostDisplayName.text =
             postItem.title // TODO: fix me
 
-        binding.listItemPostDescription.text =
-            postItem.selftext
+        loadPostBodyTextOrHide(postItem)
+    }
+
+    private fun loadPostBodyTextOrHide(postItem : Post) {
+
+        if (postItem.selftext.trim().isEmpty()) {
+            binding.listItemPostDescription.visibility = View.GONE
+        } else {
+            binding.listItemPostDescription.visibility = View.VISIBLE
+            binding.listItemPostDescription.text =
+                postItem.selftext.trim()
+        }
     }
 
     private fun shouldHidePostContent(postItem: Post) : Boolean =

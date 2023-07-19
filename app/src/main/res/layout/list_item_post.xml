@@ -24,43 +24,128 @@
             android:textAppearance="?attr/textAppearanceListItem"
             tools:text="Post Display Name / Title" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/list_item_post_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/text_margin"
-
             android:layout_marginBottom="16dp"
-            android:background="@android:color/darker_gray"
-            android:gravity="top"
-            android:orientation="horizontal">
+            android:background="#FFCA28">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/list_item_post_image"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:background="@color/light_blue_600"
                 android:minWidth="100dp"
                 android:minHeight="100dp"
+
+                app:layout_constraintWidth_default="wrap"
+
+                android:scaleType="centerCrop"
+
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/list_item_post_description"
+
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/list_item_post_image_placeholder_24" />
 
             <TextView
                 android:id="@+id/list_item_post_description"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="0.9"
-                android:ellipsize="end"
+                app:layout_constraintWidth_default="wrap"
+
+                android:layout_marginStart="8dp"
+
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintHorizontal_bias="0"
+
+                app:layout_constraintStart_toEndOf="@id/list_item_post_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                app:layout_goneMarginStart="0dp"
+                app:layout_goneMarginEnd="0dp"
+                app:layout_goneMarginTop="0dp"
+                app:layout_goneMarginBottom="0dp"
+
                 android:maxLines="3"
-                android:text="Description Description Description "
+                android:ellipsize="end"
+                tools:text="Post Description"
+                 />
 
-                android:textAppearance="?attr/textAppearanceListItem"
-                android:textColor="#828282"
-                android:textStyle="italic" />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </com.google.android.material.card.MaterialCardView>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_marginVertical="4dp">-->
+
+<!--    <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#FF7043"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/list_item_post_display_name"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="@dimen/text_margin"-->
+<!--            android:layout_marginTop="@dimen/text_margin"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:ellipsize="end"-->
+<!--            android:maxLines="2"-->
+<!--            android:textAppearance="?attr/textAppearanceListItem"-->
+<!--            tools:text="Post Display Name / Title" />-->
+
+<!--        <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--            android:id="@+id/list_item_post_content"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="@dimen/text_margin"-->
+
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:background="@android:color/darker_gray"-->
+<!--            android:gravity="top"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <androidx.appcompat.widget.AppCompatImageView-->
+<!--                android:id="@+id/list_item_post_image"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="0.2"-->
+<!--                android:background="@color/light_blue_600"-->
+<!--                android:minWidth="100dp"-->
+<!--                android:minHeight="100dp"-->
+<!--                app:srcCompat="@drawable/list_item_post_image_placeholder_24" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/list_item_post_description"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_weight="0.9"-->
+<!--                android:ellipsize="end"-->
+<!--                android:maxLines="3"-->
+<!--                android:text="Description Description Description "-->
+
+<!--                android:textAppearance="?attr/textAppearanceListItem"-->
+<!--                android:textColor="#828282"-->
+<!--                android:textStyle="italic" />-->
+
+<!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+<!--    </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+<!--</com.google.android.material.card.MaterialCardView>-->
