@@ -14,5 +14,5 @@ data class Post(
     @Json(name = "thumbnail") val thumbnail: String,
     @Json(name = "url") val url: String,
     @Json(name = "preview") val preview: PostPreview?,
-//    @Json(name = "selfText") val selfText: String,
+    @Json(name = "selftext") val selftext: String,
 )

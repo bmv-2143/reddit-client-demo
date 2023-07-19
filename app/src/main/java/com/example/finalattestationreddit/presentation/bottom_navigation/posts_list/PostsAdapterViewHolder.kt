@@ -3,6 +3,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.posts_
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -36,15 +37,30 @@ class PostsAdapterViewHolder(
 
     fun bind(postItem: Post) {
         currentItem = postItem
+
+        if (shouldHidePostContent(postItem)) {
+            binding.listItemPostContent.visibility = View.GONE
+        } else {
+            binding.listItemPostContent.visibility = View.VISIBLE
+        }
+
         loadTexts(postItem)
 
-        extractBaseImageUrl(postItem)?.let {
-            Log.e(TAG, "GLIDE_IMAGE_URL: $it")
-            loadPostImage(it)
+        loadImageOrHide(postItem)
+    }
+
+    private fun loadImageOrHide(postItem: Post) {
+        val imageUrl = extractBaseImageUrl(postItem)
+        Log.e(TAG, "GLIDE_IMAGE_URL: $imageUrl")
+
+        if (imageUrl == null) {
+            binding.listItemPostImage.visibility = View.GONE
+        } else {
+            loadPostImage(imageUrl)
         }
     }
 
-    private fun extractBaseImageUrl(post: Post) : String? {
+    private fun extractBaseImageUrl(post: Post): String? {
         Log.e(TAG, "GLIDE_IMAGE_URL: images ${post.preview?.images}")
         val url = post.preview?.images?.firstOrNull()?.source?.url
 
@@ -95,7 +111,10 @@ class PostsAdapterViewHolder(
         binding.listItemPostDisplayName.text =
             postItem.title // TODO: fix me
 
-//        binding.listItemPostDescription.text =
-//            postItem.selfText
+        binding.listItemPostDescription.text =
+            postItem.selftext
     }
+
+    private fun shouldHidePostContent(postItem: Post) : Boolean =
+        postItem.selftext.trim().isEmpty() && extractBaseImageUrl(postItem) == null
 }

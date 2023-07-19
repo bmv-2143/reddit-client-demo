@@ -4,121 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="4dp"
-    app:contentPaddingBottom="16dp">
+    android:layout_marginVertical="4dp">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_dark"
+        android:background="#FF7043"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/list_item_post_display_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginHorizontal="@dimen/text_margin"
+            android:layout_marginTop="@dimen/text_margin"
+            android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:textAppearance="?attr/textAppearanceListItem"
             tools:text="Post Display Name / Title" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/list_item_post_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/text_margin"
+
+            android:layout_marginBottom="16dp"
             android:background="@android:color/darker_gray"
             android:gravity="top"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/list_item_post_image"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="36dp"
-                android:padding="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:background="@color/light_blue_600"
+                android:minWidth="100dp"
+                android:minHeight="100dp"
                 app:srcCompat="@drawable/list_item_post_image_placeholder_24" />
 
             <TextView
                 android:id="@+id/list_item_post_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="0.9"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="Description Description Description "
+
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="#828282"
-                android:textStyle="italic"
-                android:layout_marginVertical="8dp"
-                android:text="Description Description Description "/>
+                android:textStyle="italic" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </com.google.android.material.card.MaterialCardView>
-
-
-    <!--<?xml version="1.0" encoding="utf-8"?>-->
-    <!--<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--    xmlns:tools="http://schemas.android.com/tools"-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="wrap_content"-->
-    <!--    android:layout_marginVertical="4dp">-->
-
-    <!--    <LinearLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical">-->
-
-    <!--        <androidx.appcompat.widget.LinearLayoutCompat-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent"-->
-    <!--            android:gravity="center_vertical"-->
-    <!--            android:orientation="horizontal">-->
-
-
-    <!--            <androidx.appcompat.widget.AppCompatImageView-->
-    <!--                android:id="@+id/list_item_post_image"-->
-    <!--                android:layout_width="64dp"-->
-    <!--                android:layout_height="64dp"-->
-    <!--                android:layout_marginVertical="8dp"-->
-    <!--                android:layout_marginHorizontal="16dp"-->
-
-    <!--                android:padding="8dp"-->
-    <!--                app:srcCompat="@drawable/list_item_post_image_placeholder_24"-->
-
-    <!--                />-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/list_item_post_display_name"-->
-    <!--                android:layout_width="0dp"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_margin="@dimen/text_margin"-->
-    <!--                android:layout_weight="1"-->
-    <!--                android:textAppearance="?attr/textAppearanceListItem"-->
-    <!--                tools:text="Post Display Name / Title" />-->
-
-
-    <!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/list_item_post_description"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginHorizontal="@dimen/text_margin"-->
-    <!--            android:layout_marginBottom="@dimen/text_margin"-->
-    <!--            android:textAppearance="?attr/textAppearanceListItem"-->
-    <!--            android:textColor="#828282"-->
-    <!--            android:textStyle="italic"-->
-    <!--            android:visibility="gone"-->
-    <!--            tools:text="Post description ..."-->
-    <!--            tools:visibility="visible" />-->
-
-    <!--    </LinearLayout>-->
-
-    <!--</com.google.android.material.card.MaterialCardView>-->
-
-
-    <!--            android:clickable="true"-->
-    <!--            android:focusable="true"-->
-    <!--            android:foreground="?attr/selectableItemBackgroundBorderless"-->
