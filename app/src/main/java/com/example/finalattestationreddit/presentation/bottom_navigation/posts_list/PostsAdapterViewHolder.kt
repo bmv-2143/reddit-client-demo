@@ -37,16 +37,17 @@ class PostsAdapterViewHolder(
 
     fun bind(postItem: Post) {
         currentItem = postItem
+        hidePostContentIfRequired(postItem)
+        loadTexts(postItem)
+        loadImageOrHide(postItem)
+    }
 
+    private fun hidePostContentIfRequired(postItem: Post) {
         if (shouldHidePostContent(postItem)) {
             binding.listItemPostContent.visibility = View.GONE
         } else {
             binding.listItemPostContent.visibility = View.VISIBLE
         }
-
-        loadTexts(postItem)
-
-        loadImageOrHide(postItem)
     }
 
     private fun loadImageOrHide(postItem: Post) {
@@ -54,10 +55,10 @@ class PostsAdapterViewHolder(
         Log.e(TAG, "GLIDE_IMAGE_URL: $imageUrl")
 
         if (imageUrl == null) {
-//            binding.listItemPostImage.visibility = View.GONE
-            binding.listItemPostTextBodyGuideline.setGuidelinePercent(0f)
+            binding.listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
         } else {
-            binding.listItemPostTextBodyGuideline.setGuidelinePercent(0.3f)
+            binding.listItemPostTextBodyGuideline.setGuidelinePercent(
+                IMAGE_AND_TEXT_GUIDELINE_PERCENT)
             loadPostImage(imageUrl)
         }
     }
@@ -84,7 +85,6 @@ class PostsAdapterViewHolder(
     }
 
     private fun loadPostImage(imageUrl: String) {
-
         Glide.with(binding.root.context)
             .load(imageUrl)
             .placeholder(R.drawable.list_item_post_image_placeholder_24)
@@ -115,25 +115,28 @@ class PostsAdapterViewHolder(
     }
 
     private fun loadTexts(postItem: Post) {
-        binding.listItemPostDisplayName.text =
-            postItem.title // TODO: fix me
-
+        binding.listItemPostDisplayName.text = postItem.title
         loadPostBodyTextOrHide(postItem)
     }
 
     private fun loadPostBodyTextOrHide(postItem : Post) {
-
-        if (postItem.selftext.trim().isEmpty()) {
-//            binding.listItemPostDescription.visibility = View.GONE
+        val postContent = postItem.selftext.trim()
+        if (postContent.isEmpty()) {
             binding.listItemTextVisibilityControlGroup.visibility = View.GONE
         } else {
             binding.listItemTextVisibilityControlGroup.visibility = View.VISIBLE
-//            binding.listItemPostDescription.visibility = View.VISIBLE
-            binding.listItemPostDescription.text =
-                postItem.selftext.trim()
+            binding.listItemPostDescription.text = postContent
         }
     }
 
     private fun shouldHidePostContent(postItem: Post) : Boolean =
         postItem.selftext.trim().isEmpty() && extractBaseImageUrl(postItem) == null
+
+    companion object {
+
+        private const val IMAGE_AND_TEXT_GUIDELINE_PERCENT = 0.3f
+        private const val NO_IMAGE_GUIDELINE_PERCENT = 0.0f
+
+    }
+
 }
