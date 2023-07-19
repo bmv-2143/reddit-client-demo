@@ -1,8 +1,7 @@
 package com.example.finalattestationreddit.di
 
-import android.util.Log
-import com.example.finalattestationreddit.data.RedditRepository
-import com.example.finalattestationreddit.log.TAG
+import android.content.SharedPreferences
+import com.example.finalattestationreddit.data.TokenManager
 import com.example.unsplashattestationproject.BuildConfig
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -16,6 +15,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -33,18 +33,10 @@ class NetworkModule {
         return AuthInterceptor(tokenProvider)
     }
 
+    @Singleton
     @Provides
-    fun provideTokenProvider(): TokenProvider {
-        return object : TokenProvider {
-            override fun getToken(): String {
-                // todo: remove dependency on repository ???? Repository is provided to other classes, so its ok...?
-                if (RedditRepository.redditAccessToken.isEmpty()) {
-                    Log.e(TAG, "getToken: ${RedditRepository.redditAccessToken}")
-                }
-                return RedditRepository.redditAccessToken
-            }
-        }
-    }
+    fun provideTokenProvider(sharedPreferences: SharedPreferences): TokenProvider =
+        TokenManager(sharedPreferences)
 
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =

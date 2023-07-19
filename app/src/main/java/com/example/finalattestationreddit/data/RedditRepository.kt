@@ -1,6 +1,5 @@
 package com.example.finalattestationreddit.data
 
-import android.content.SharedPreferences
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -18,41 +17,22 @@ const val PREFETCH_DISTANCE = PAGE_SIZE / 3
 
 @Singleton
 class RedditRepository @Inject constructor(
-    private val sharedPreferences: SharedPreferences,
-    private val redditNetworkDataSource: RedditNetworkDataSource
+    private val redditNetworkDataSource: RedditNetworkDataSource,
+    private val tokenManager : TokenManager
 ) {
-
-    init {
-        redditAccessToken = sharedPreferences.getString(PREFS_KEY_ACCESS_TOKEN, "") ?: ""
-    }
 
     val networkErrorsFlow = redditNetworkDataSource.networkErrorsFlow.onEach { networkError ->
         if (networkError is NetworkError.Unauthorized) {
             removeAccessTokenSync()
         }
-
     }
 
-    fun hasAccessToken(): Boolean = redditAccessToken.isNotEmpty()
+    fun hasAccessToken(): Boolean = tokenManager.hasAccessToken()
 
-    internal fun saveAccessToken(accessToken: String) {
-        cacheToken(accessToken)
+    internal fun saveAccessToken(accessToken: String) =
+        tokenManager.saveAccessToken(accessToken)
 
-        val editor = sharedPreferences.edit()
-        editor.putString(PREFS_KEY_ACCESS_TOKEN, accessToken)
-        editor.apply()
-    }
-
-    private fun cacheToken(accessToken: String) {
-        redditAccessToken = accessToken
-    }
-
-    internal fun removeAccessTokenSync() {
-        redditAccessToken = ""
-        val editor = sharedPreferences.edit()
-        editor.remove(PREFS_KEY_ACCESS_TOKEN)
-        editor.commit()  // deliberately using commit(), synchronous operation required
-    }
+    internal fun removeAccessTokenSync() = tokenManager.removeAccessTokenSync()
 
 //    internal fun getNewSubreddits(): Flow<PagingData<SubredditData>> {
 //        return Pager(
@@ -111,15 +91,6 @@ class RedditRepository @Inject constructor(
                 )
             }
         ).flow
-    }
-
-
-    companion object {
-
-        const val PREFS_KEY_ACCESS_TOKEN = "access_token"
-
-        var redditAccessToken: String = ""
-            private set
     }
 
 }
