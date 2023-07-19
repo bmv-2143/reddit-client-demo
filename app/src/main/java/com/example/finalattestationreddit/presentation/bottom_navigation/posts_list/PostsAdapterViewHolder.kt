@@ -52,7 +52,6 @@ class PostsAdapterViewHolder(
 
     private fun loadImageOrHide(postItem: Post) {
         val imageUrl = extractBaseImageUrl(postItem)
-        Log.e(TAG, "GLIDE_IMAGE_URL: $imageUrl")
 
         if (imageUrl == null) {
             hideImage()
@@ -63,15 +62,11 @@ class PostsAdapterViewHolder(
         }
     }
 
-    private fun hideImage() {
+    private fun hideImage() =
         binding.listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
-    }
 
     private fun extractBaseImageUrl(post: Post): String? {
-        Log.e(TAG, "GLIDE_IMAGE_URL: images ${post.preview?.images}")
         val url = post.preview?.images?.firstOrNull()?.source?.url
-
-        Log.e(TAG, "GLIDE_IMAGE_URL: url $url")
 
         if (url == null) {
             Log.e(TAG, "extractBaseImageUrl: url is null")
@@ -81,12 +76,10 @@ class PostsAdapterViewHolder(
         val uri = Uri.parse(url)
         val baseUrl = uri.scheme + "://" + uri.authority + uri.path
 
-//        if (!baseUrl.endsWith(".jpg")) {
-//            return null
-//        }
-
-        return baseUrl.replace("preview", "i")
+        return convertPreviewToImgUrl(baseUrl)
     }
+
+    private fun convertPreviewToImgUrl(baseUrl: String) = baseUrl.replace("preview", "i")
 
     private fun loadPostImage(imageUrl: String, onLoadFailed: () -> Unit = {}) {
         Glide.with(binding.root.context)
@@ -138,10 +131,7 @@ class PostsAdapterViewHolder(
         postItem.selftext.trim().isEmpty() && extractBaseImageUrl(postItem) == null
 
     companion object {
-
         private const val IMAGE_AND_TEXT_GUIDELINE_PERCENT = 0.3f
         private const val NO_IMAGE_GUIDELINE_PERCENT = 0.0f
-
     }
-
 }
