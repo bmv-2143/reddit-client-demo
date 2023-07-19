@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class RedditNetworkDataSource @Inject constructor(private val redditService: RedditService) {
 
-    private val _networkErrorFlow = MutableSharedFlow<NetworkError>()
+    private val _networkErrorFlow = MutableSharedFlow<NetworkError>(replay = 1)
     val networkErrorsFlow = _networkErrorFlow.asSharedFlow()
 
     suspend fun getSubreddits(

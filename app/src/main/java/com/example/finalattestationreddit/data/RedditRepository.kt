@@ -9,6 +9,7 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,7 +26,12 @@ class RedditRepository @Inject constructor(
         redditAccessToken = sharedPreferences.getString(PREFS_KEY_ACCESS_TOKEN, "") ?: ""
     }
 
-    val networkErrorsFlow = redditNetworkDataSource.networkErrorsFlow
+    val networkErrorsFlow = redditNetworkDataSource.networkErrorsFlow.onEach { networkError ->
+        if (networkError is NetworkError.Unauthorized) {
+            removeAccessTokenSync()
+        }
+
+    }
 
     fun hasAccessToken(): Boolean = redditAccessToken.isNotEmpty()
 
@@ -41,10 +47,11 @@ class RedditRepository @Inject constructor(
         redditAccessToken = accessToken
     }
 
-    internal fun removeAccessToken() {
+    internal fun removeAccessTokenSync() {
+        redditAccessToken = ""
         val editor = sharedPreferences.edit()
         editor.remove(PREFS_KEY_ACCESS_TOKEN)
-        editor.apply()
+        editor.commit()  // deliberately using commit(), synchronous operation required
     }
 
 //    internal fun getNewSubreddits(): Flow<PagingData<SubredditData>> {

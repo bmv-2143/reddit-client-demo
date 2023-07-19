@@ -134,6 +134,10 @@ class AuthorizationActivity : AppCompatActivity() {
 
     companion object {
         const val INTENT_FILTER_DATA_HOST_AUTH = "auth"
+
+        fun createIntent(context: Context): Intent {
+            return Intent(context, AuthorizationActivity::class.java)
+        }
     }
 }
 

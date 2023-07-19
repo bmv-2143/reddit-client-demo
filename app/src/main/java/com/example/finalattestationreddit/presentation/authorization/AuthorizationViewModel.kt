@@ -7,7 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.LocalRepository
 import com.example.finalattestationreddit.data.RedditRepository
 import com.example.finalattestationreddit.log.TAG
-import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.*
+import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Failed
+import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Idle
+import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.SecurityErrorResponseStateMismatch
+import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -50,7 +53,7 @@ class AuthorizationViewModel @Inject constructor(
     internal fun handleAuthResponseUri(authResponse: Uri) {
         viewModelScope.launch {
             if (!hasValidResponseState(authResponse)) {
-                redditRepository.removeAccessToken()
+                redditRepository.removeAccessTokenSync()
                 _authorizationState.emit(SecurityErrorResponseStateMismatch)
                 return@launch
             }
@@ -61,7 +64,7 @@ class AuthorizationViewModel @Inject constructor(
                 _authorizationState.emit(Success)
             } else {
                 Log.e(TAG, "handleAuthResponseUri: access token is null or empty")
-                redditRepository.removeAccessToken()
+                redditRepository.removeAccessTokenSync()
                 _authorizationState.emit(Failed)
             }
         }
@@ -69,5 +72,7 @@ class AuthorizationViewModel @Inject constructor(
 
     private fun hasValidResponseState(uri: Uri): Boolean =
         authRequest.doesResponseStateMatchRequestState(uri)
+
+    val networkErrorsFlow = redditRepository.networkErrorsFlow
 
 }

@@ -1,13 +1,10 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation
 
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,9 +15,11 @@ import androidx.navigation.fragment.NavHostFragment
 import com.example.finalattestationreddit.data.NetworkError
 import com.example.finalattestationreddit.data.NetworkError.ForbiddenApiRateExceeded
 import com.example.finalattestationreddit.data.NetworkError.Unauthorized
+import com.example.finalattestationreddit.presentation.authorization.AuthorizationActivity
 import com.example.finalattestationreddit.presentation.utils.SnackbarFactory
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.ActivityBottomNavigationBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -88,7 +87,6 @@ class BottomNavigationActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.networkErrorsFlow.collect { error ->
-                    Log.e(ContentValues.TAG, "observerNetworkErrors: $error")
                     handleNetworkError(error)
                 }
             }
@@ -99,14 +97,16 @@ class BottomNavigationActivity : AppCompatActivity() {
         when (error) {
             is ForbiddenApiRateExceeded -> {
                 snackbarFactory.showWarningSnackbar(
-                    binding.root, "API rate limit exceeded!"
+                    binding.root, "API rate limit exceeded!" // todo: hardcoded string
                 )
             }
 
             is Unauthorized -> {
-                snackbarFactory.showErrorSnackbar(
-                    binding.root, "Unauthorized!"
+                snackbarFactory.showErrorSnackbar(        // todo: this will not be visible, because we will be redirected to AuthorizationActivity
+                    binding.root, "Unauthorized!" // todo: hardcoded string
                 )
+                startActivity(AuthorizationActivity.createIntent(this))
+                finish()
             }
 
             else -> {
