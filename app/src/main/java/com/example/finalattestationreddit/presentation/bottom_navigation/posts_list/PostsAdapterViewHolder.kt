@@ -54,8 +54,10 @@ class PostsAdapterViewHolder(
         Log.e(TAG, "GLIDE_IMAGE_URL: $imageUrl")
 
         if (imageUrl == null) {
-            binding.listItemPostImage.visibility = View.GONE
+//            binding.listItemPostImage.visibility = View.GONE
+            binding.listItemPostTextBodyGuideline.setGuidelinePercent(0f)
         } else {
+            binding.listItemPostTextBodyGuideline.setGuidelinePercent(0.3f)
             loadPostImage(imageUrl)
         }
     }
@@ -73,6 +75,11 @@ class PostsAdapterViewHolder(
 
         val uri = Uri.parse(url)
         val baseUrl = uri.scheme + "://" + uri.authority + uri.path
+
+//        if (!baseUrl.endsWith(".jpg")) {
+//            return null
+//        }
+
         return baseUrl.replace("preview", "i")
     }
 
@@ -117,9 +124,11 @@ class PostsAdapterViewHolder(
     private fun loadPostBodyTextOrHide(postItem : Post) {
 
         if (postItem.selftext.trim().isEmpty()) {
-            binding.listItemPostDescription.visibility = View.GONE
+//            binding.listItemPostDescription.visibility = View.GONE
+            binding.listItemTextVisibilityControlGroup.visibility = View.GONE
         } else {
-            binding.listItemPostDescription.visibility = View.VISIBLE
+            binding.listItemTextVisibilityControlGroup.visibility = View.VISIBLE
+//            binding.listItemPostDescription.visibility = View.VISIBLE
             binding.listItemPostDescription.text =
                 postItem.selftext.trim()
         }
