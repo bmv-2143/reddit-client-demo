@@ -55,12 +55,16 @@ class PostsAdapterViewHolder(
         Log.e(TAG, "GLIDE_IMAGE_URL: $imageUrl")
 
         if (imageUrl == null) {
-            binding.listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
+            hideImage()
         } else {
             binding.listItemPostTextBodyGuideline.setGuidelinePercent(
                 IMAGE_AND_TEXT_GUIDELINE_PERCENT)
-            loadPostImage(imageUrl)
+            loadPostImage(imageUrl, ::hideImage)
         }
+    }
+
+    private fun hideImage() {
+        binding.listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
     }
 
     private fun extractBaseImageUrl(post: Post): String? {
@@ -84,7 +88,7 @@ class PostsAdapterViewHolder(
         return baseUrl.replace("preview", "i")
     }
 
-    private fun loadPostImage(imageUrl: String) {
+    private fun loadPostImage(imageUrl: String, onLoadFailed: () -> Unit = {}) {
         Glide.with(binding.root.context)
             .load(imageUrl)
             .placeholder(R.drawable.list_item_post_image_placeholder_24)
@@ -108,6 +112,7 @@ class PostsAdapterViewHolder(
                     isFirstResource: Boolean
                 ): Boolean {
                     Log.e(TAG, "Glide onLoadFailed: $imageUrl")
+                    onLoadFailed()
                     return false
                 }
             })
