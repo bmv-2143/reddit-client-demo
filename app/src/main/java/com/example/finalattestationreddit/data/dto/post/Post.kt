@@ -12,5 +12,7 @@ data class Post(
     @Json(name = "num_comments") val numComments: Int,
     @Json(name = "permalink") val permalink: String,
     @Json(name = "thumbnail") val thumbnail: String,
-    @Json(name = "url") val url: String
+    @Json(name = "url") val url: String,
+    @Json(name = "preview") val preview: PostPreview?,
+//    @Json(name = "selfText") val selfText: String,
 )
