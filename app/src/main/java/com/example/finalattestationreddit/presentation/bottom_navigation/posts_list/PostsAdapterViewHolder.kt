@@ -1,7 +1,6 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.posts_list
 
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +11,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.log.TAG
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.ImageUrlExtractor.extractBaseImageUrl
 import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.ListItemPostBinding
 
@@ -51,35 +51,20 @@ class PostsAdapterViewHolder(
     }
 
     private fun loadImageOrHide(postItem: Post) {
-        val imageUrl = extractBaseImageUrl(postItem)
+        val imageUrl = ImageUrlExtractor.extractBaseImageUrl(postItem)
 
-        if (imageUrl == null) {
+        if (imageUrl == null || imageUrl.contains("external")) {
             hideImage()
         } else {
             binding.listItemPostTextBodyGuideline.setGuidelinePercent(
-                IMAGE_AND_TEXT_GUIDELINE_PERCENT)
+                IMAGE_AND_TEXT_GUIDELINE_PERCENT
+            )
             loadPostImage(imageUrl, ::hideImage)
         }
     }
 
     private fun hideImage() =
         binding.listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
-
-    private fun extractBaseImageUrl(post: Post): String? {
-        val url = post.preview?.images?.firstOrNull()?.source?.url
-
-        if (url == null) {
-            Log.e(TAG, "extractBaseImageUrl: url is null")
-            return null
-        }
-
-        val uri = Uri.parse(url)
-        val baseUrl = uri.scheme + "://" + uri.authority + uri.path
-
-        return convertPreviewToImgUrl(baseUrl)
-    }
-
-    private fun convertPreviewToImgUrl(baseUrl: String) = baseUrl.replace("preview", "i")
 
     private fun loadPostImage(imageUrl: String, onLoadFailed: () -> Unit = {}) {
         Glide.with(binding.root.context)
@@ -117,7 +102,7 @@ class PostsAdapterViewHolder(
         loadPostBodyTextOrHide(postItem)
     }
 
-    private fun loadPostBodyTextOrHide(postItem : Post) {
+    private fun loadPostBodyTextOrHide(postItem: Post) {
         val postContent = postItem.selftext.trim()
         if (postContent.isEmpty()) {
             binding.listItemTextVisibilityControlGroup.visibility = View.GONE
@@ -127,7 +112,7 @@ class PostsAdapterViewHolder(
         }
     }
 
-    private fun shouldHidePostContent(postItem: Post) : Boolean =
+    private fun shouldHidePostContent(postItem: Post): Boolean =
         postItem.selftext.trim().isEmpty() && extractBaseImageUrl(postItem) == null
 
     companion object {
