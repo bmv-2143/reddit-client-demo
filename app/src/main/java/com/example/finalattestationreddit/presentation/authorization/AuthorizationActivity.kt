@@ -1,5 +1,6 @@
 package com.example.finalattestationreddit.presentation.authorization
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.finalattestationreddit.data.NetworkError
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Failed
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Idle
@@ -22,6 +24,7 @@ import com.example.unsplashattestationproject.R
 import com.example.unsplashattestationproject.databinding.ActivityAuthorizationBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -33,10 +36,14 @@ class AuthorizationActivity : AppCompatActivity() {
 
     private val viewModel: AuthorizationViewModel by viewModels()
 
+    @Inject
+    lateinit var snackbarFactory: SnackbarFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        observerNetworkErrors()
         observeAuthorizationState()
         openNextScreenIfRequired()
         setButtonListener()
@@ -131,6 +138,28 @@ class AuthorizationActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun observerNetworkErrors() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.networkErrorsFlow.collect { event ->
+                    event.consumeContent()?.let { error ->
+                        handleNetworkError(error)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleNetworkError(error: NetworkError) {
+        when (error) {
+            is NetworkError.Unauthorized -> snackbarFactory.showErrorSnackbar(
+                binding.root,
+                getString(R.string.activity_authorization_network_error_unauthorized)
+            )
+
+            else -> Log.e(TAG, "Network error: $error")
+        }
+    }
 
     companion object {
         const val INTENT_FILTER_DATA_HOST_AUTH = "auth"

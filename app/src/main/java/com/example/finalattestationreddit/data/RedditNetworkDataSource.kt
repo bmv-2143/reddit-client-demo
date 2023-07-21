@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class RedditNetworkDataSource @Inject constructor(private val redditService: RedditService) {
 
-    private val _networkErrorFlow = MutableSharedFlow<NetworkError>(replay = 1)
+    private val _networkErrorFlow = MutableSharedFlow<Event<NetworkError>>(replay = 1)
     val networkErrorsFlow = _networkErrorFlow.asSharedFlow()
 
     suspend fun getSubreddits(
@@ -40,8 +40,10 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     private suspend fun handleUnknownHostError(e: UnknownHostException) {
         logError(::handleUnknownHostError.name, e)
         _networkErrorFlow.emit(
-            NetworkError.NoInternetConnection(
-                e.message ?: "No internet connection"
+            Event(
+                NetworkError.NoInternetConnection(
+                    e.message ?: "No internet connection"
+                )
             )
         )
     }
@@ -49,11 +51,11 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     private suspend fun handleHttpException(e: HttpException) {
         Log.e(TAG, "${::handleHttpException.name} error: ${e.message}")
         when (e.code()) {
-            403 -> _networkErrorFlow.emit(NetworkError.ForbiddenApiRateExceeded(e.message()))
+            403 -> _networkErrorFlow.emit(Event(NetworkError.ForbiddenApiRateExceeded(e.message())))
 
-            401 -> _networkErrorFlow.emit(NetworkError.Unauthorized(e.message()))
+            401 -> _networkErrorFlow.emit(Event(NetworkError.Unauthorized(e.message())))
 
-            else -> _networkErrorFlow.emit(NetworkError.HttpError(e.message()))
+            else -> _networkErrorFlow.emit(Event(NetworkError.HttpError(e.message())))
         }
     }
 

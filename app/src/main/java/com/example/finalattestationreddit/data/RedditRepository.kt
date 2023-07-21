@@ -21,7 +21,11 @@ class RedditRepository @Inject constructor(
     private val tokenManager : TokenManager
 ) {
 
-    val networkErrorsFlow = redditNetworkDataSource.networkErrorsFlow.onEach { networkError ->
+    val networkErrorsFlow = redditNetworkDataSource.networkErrorsFlow.onEach { event ->
+        val networkError = event.peekContent()
+        if (event.hasBeenConsumed) {
+            return@onEach
+        }
         if (networkError is NetworkError.Unauthorized) {
             removeAccessTokenSync()
         }

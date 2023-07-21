@@ -86,8 +86,11 @@ class BottomNavigationActivity : AppCompatActivity() {
     private fun observerNetworkErrors() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.networkErrorsFlow.collect { error ->
-                    handleNetworkError(error)
+                viewModel.networkErrorsFlow.collect {  event ->
+                    if (!event.hasBeenConsumed) {
+                        val error = event.peekContent()
+                        handleNetworkError(error)
+                    }
                 }
             }
         }
@@ -102,9 +105,6 @@ class BottomNavigationActivity : AppCompatActivity() {
             }
 
             is Unauthorized -> {
-                snackbarFactory.showErrorSnackbar(        // todo: this will not be visible, because we will be redirected to AuthorizationActivity
-                    binding.root, "Unauthorized!" // todo: hardcoded string
-                )
                 startActivity(AuthorizationActivity.createIntent(this))
                 finish()
             }

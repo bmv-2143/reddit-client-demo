@@ -40,7 +40,13 @@ class TokenManager @Inject constructor(
         editor.commit()  // synchronous operation required
     }
 
-    override fun getToken(): String = accessToken
+    override fun getToken(): String {
+        Log.e(TAG, "getToken: $accessToken")
+        if (accessToken.isEmpty()) {
+            loadAccessToken()
+        }
+        return accessToken
+    }
 
     companion object {
 
