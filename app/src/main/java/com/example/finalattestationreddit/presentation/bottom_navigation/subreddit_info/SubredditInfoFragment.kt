@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.databinding.FragmentSubredditInfoBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragmentArgs
@@ -33,38 +34,37 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
 
-        val args = PostsListFragmentArgs.fromBundle(requireArguments())
-        toolbarTitleSetter.setToolbarTitle(args.subredditData.displayNamePrefixed)
-
-        setSubredditDescription(args)
-        setSubredditSubscriptionStatus(args)
-        setShareButtonClickListener(args)
+        val subredditData = PostsListFragmentArgs.fromBundle(requireArguments()).subredditData
+        toolbarTitleSetter.setToolbarTitle(subredditData.displayNamePrefixed)
+        setSubredditDescription(subredditData)
+        setSubredditSubscriptionStatus(subredditData)
+        setShareButtonClickListener(subredditData)
     }
 
-    private fun setSubredditDescription(args: PostsListFragmentArgs) {
-        binding.fragmentSubredditInfoDescription.text = args.subredditData.publicDescription
+    private fun initToolbar() {
+        val activity = (requireActivity() as AppCompatActivity)
+        activity.setSupportActionBar(binding.fragmentSubredditInfoToolbar)
+        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setSubredditSubscriptionStatus(args: PostsListFragmentArgs) {
-        binding.fragmentSubredditInfoButtonSubscribe.isChecked = args.subredditData.userIsSubscriber
+    private fun setSubredditDescription(subredditData: SubredditData) {
+        binding.fragmentSubredditInfoDescription.text = subredditData.publicDescription
     }
 
-    private fun setShareButtonClickListener(args: PostsListFragmentArgs) {
+    private fun setSubredditSubscriptionStatus(subredditData: SubredditData) {
+        binding.fragmentSubredditInfoButtonSubscribe.isChecked = subredditData.userIsSubscriber
+    }
+
+    private fun setShareButtonClickListener(subredditData: SubredditData) {
         binding.fragmentSubredditInfoButtonShare.setOnClickListener {
-            val shareUrl = viewModel.getSubredditUrl(args.subredditData)
+            val shareUrl = viewModel.getSubredditUrl(subredditData)
             shareSubreddit(shareUrl)
         }
     }
 
-    private fun initToolbar() {
-        (requireActivity() as AppCompatActivity)
-            .setSupportActionBar(binding.fragmentSubredditInfoToolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
     private fun shareSubreddit(shareUrl : String) {
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = "text/plain"
+            type = INTENT_MIME_TYPE_PLAIN_TEXT
             putExtra(Intent.EXTRA_TEXT, shareUrl)
         }
         startActivity(
@@ -73,5 +73,9 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
                 getString(R.string.chooser_share_subreddit_title)
             )
         )
+    }
+
+    companion object {
+        private const val INTENT_MIME_TYPE_PLAIN_TEXT = "text/plain"
     }
 }
