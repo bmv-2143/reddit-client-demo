@@ -2,6 +2,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.subred
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>() {
 
-    private val viewModel : SubredditInfoViewModel by viewModels()
+    private val viewModel: SubredditInfoViewModel by viewModels()
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
@@ -48,7 +49,10 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
     }
 
     private fun setSubredditDescription(subredditData: SubredditData) {
-        binding.fragmentSubredditInfoDescription.text = subredditData.publicDescription
+        binding.fragmentSubredditInfoDescription.text =
+            subredditData.publicDescription.ifEmpty {
+                getString(R.string.fragment_subreddit_info_no_description)
+            }
     }
 
     private fun setSubredditSubscriptionStatus(subredditData: SubredditData) {
@@ -62,7 +66,7 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
         }
     }
 
-    private fun shareSubreddit(shareUrl : String) {
+    private fun shareSubreddit(shareUrl: String) {
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             type = INTENT_MIME_TYPE_PLAIN_TEXT
             putExtra(Intent.EXTRA_TEXT, shareUrl)
