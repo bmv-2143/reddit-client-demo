@@ -13,7 +13,7 @@ import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.databinding.ListItemPostBinding
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.log.TAG
-import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.ImageUrlExtractor.extractBaseImageUrl
+import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor.extractBaseImageUrl
 
 class PostsAdapterViewHolder(
     private val binding: ListItemPostBinding,
@@ -37,6 +37,7 @@ class PostsAdapterViewHolder(
 
     fun bind(postItem: Post) {
         currentItem = postItem
+
         hidePostContentIfRequired(postItem)
         loadTexts(postItem)
         loadImageOrHide(postItem)
@@ -51,9 +52,16 @@ class PostsAdapterViewHolder(
     }
 
     private fun loadImageOrHide(postItem: Post) {
-        val imageUrl = ImageUrlExtractor.extractBaseImageUrl(postItem)
+        val url = postItem.getFirstUrlOrNull()
 
-        if (imageUrl == null || imageUrl.contains("external")) {
+        if (url == null) {
+            hideImage()
+            return
+        }
+
+        val imageUrl = extractBaseImageUrl(url)
+
+        if (imageUrl == null) {
             hideImage()
         } else {
             binding.listItemPostTextBodyGuideline.setGuidelinePercent(
@@ -62,6 +70,8 @@ class PostsAdapterViewHolder(
             loadPostImage(imageUrl, ::hideImage)
         }
     }
+
+    private fun Post.getFirstUrlOrNull(): String? = preview?.images?.firstOrNull()?.source?.url
 
     private fun hideImage() =
         binding.listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
@@ -113,7 +123,8 @@ class PostsAdapterViewHolder(
     }
 
     private fun shouldHidePostContent(postItem: Post): Boolean =
-        postItem.selftext.trim().isEmpty() && extractBaseImageUrl(postItem) == null
+        postItem.selftext.trim().isEmpty() && postItem.getFirstUrlOrNull()
+            ?.let { extractBaseImageUrl(it) } == null
 
     companion object {
         private const val IMAGE_AND_TEXT_GUIDELINE_PERCENT = 0.3f

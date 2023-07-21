@@ -1,31 +1,35 @@
-package com.example.finalattestationreddit.presentation.bottom_navigation.posts_list
+package com.example.finalattestationreddit.presentation.utils
 
 import android.net.Uri
-import com.example.finalattestationreddit.data.dto.post.Post
+import android.webkit.URLUtil
 
+// todo: move to another package
 object ImageUrlExtractor {
 
     private const val UNSUPPORTED_URL_WORD_EXTERNAL = "external"
     private const val URL_WORD_REPLACE_WHAT = "preview"
     private const val URL_WORD_REPLACE_TO = "i"
 
-    internal fun extractBaseImageUrl(post: Post): String? {
-        val url = post.preview?.images?.firstOrNull()?.source?.url
-
-        if (isInvalidUrl(url)) {
+    internal fun extractBaseImageUrl(fullUrl: String): String? {
+        if (isInvalidUrl(fullUrl)) {
             return null
         }
-        val baseUrl = extractBaseUrl(url!!)
+        val baseUrl = extractBaseUrl(fullUrl)
         return convertPreviewToImgUrl(baseUrl)
     }
 
     private fun extractBaseUrl(url: String): String {
         val uri = Uri.parse(url)
-        return "${uri.scheme}://${uri.authority}${uri.path}"
+        return Uri.Builder()
+            .scheme(uri.scheme)
+            .authority(uri.authority)
+            .path(uri.path)
+            .build()
+            .toString()
     }
 
     private fun isInvalidUrl(url: String?) =
-        url == null || url.contains(UNSUPPORTED_URL_WORD_EXTERNAL)
+        url == null || url.contains(UNSUPPORTED_URL_WORD_EXTERNAL) || !URLUtil.isValidUrl(url)
 
 
     private fun convertPreviewToImgUrl(baseUrl: String) =
