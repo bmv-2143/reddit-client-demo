@@ -40,8 +40,4 @@ abstract class ViewBindingFragment<T : ViewBinding> : Fragment() {
         // clean up views and resources in subclasses
     }
 
-    // todo: incorrect not all ViewBindingFragment have toolbar, should create ViewBinding toolbar fragment
-    protected fun setActionbarTitle(title : String) {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = title
-    }
 }

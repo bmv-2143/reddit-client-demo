@@ -17,14 +17,19 @@ import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.databinding.FragmentPostsListBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
+import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private val viewModel: PostsListViewModel by viewModels()
+
+    @Inject
+    lateinit var toolbarTitleSetter: ToolbarTitleSetter
 
     private val postsPagingAdapter = PostsPagingAdapter(
         ::onPostItemClick,
@@ -50,7 +55,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
         // todo: its better pass it to a view model? or use state handle from the view model?
         val args = PostsListFragmentArgs.fromBundle(requireArguments())
-        setActionbarTitle(args.subredditData.displayNamePrefixed)
+        toolbarTitleSetter.setToolbarTitle(args.subredditData.displayNamePrefixed)
         observePostsFlow(args.subredditData.displayName)
         observeLoadStateAndUpdateProgressBar()
     }

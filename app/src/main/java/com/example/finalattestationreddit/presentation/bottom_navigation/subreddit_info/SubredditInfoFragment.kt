@@ -1,7 +1,6 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.finalattestationreddit.databinding.FragmentSubredditInfoBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragmentArgs
+import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>() {
+
+    @Inject
+    lateinit var toolbarTitleSetter: ToolbarTitleSetter
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -24,7 +29,7 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
         initToolbar()
 
         val args = PostsListFragmentArgs.fromBundle(requireArguments())
-        setActionbarTitle(args.subredditData.displayNamePrefixed)
+        toolbarTitleSetter.setToolbarTitle(args.subredditData.displayNamePrefixed)
 
         binding.fragmentSubredditInfoDescription.text = args.subredditData.publicDescription
     }
