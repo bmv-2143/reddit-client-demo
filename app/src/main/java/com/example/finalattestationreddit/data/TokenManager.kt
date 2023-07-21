@@ -1,6 +1,5 @@
 package com.example.finalattestationreddit.data
 
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.finalattestationreddit.di.TokenProvider
@@ -15,6 +14,8 @@ class TokenManager @Inject constructor(
         loadAccessToken()
     }
 
+    private var accessToken: String = ""
+
     fun hasAccessToken(): Boolean = accessToken.isNotEmpty()
 
     private fun loadAccessToken() {
@@ -22,21 +23,19 @@ class TokenManager @Inject constructor(
     }
 
     internal fun saveAccessToken(accessToken: String) {
-        Log.e(TAG, "saveAccessToken: $accessToken")
-        Companion.accessToken = accessToken
+        this.accessToken = accessToken
 
         val editor = sharedPreferences.edit()
         editor.putString(PREFS_KEY_ACCESS_TOKEN, accessToken)
         editor.apply()
     }
 
-    @SuppressLint("ApplySharedPref")
-    internal fun removeAccessTokenSync() {
+    internal fun removeAccessToken() {
         accessToken = ""
 
         val editor = sharedPreferences.edit()
         editor.remove(PREFS_KEY_ACCESS_TOKEN)
-        editor.commit()  // synchronous operation required
+        editor.apply()
     }
 
     override fun getToken(): String {
@@ -50,8 +49,6 @@ class TokenManager @Inject constructor(
 
         const val PREFS_KEY_ACCESS_TOKEN = "access_token"
 
-        var accessToken: String = ""
-            private set
     }
 
 }
