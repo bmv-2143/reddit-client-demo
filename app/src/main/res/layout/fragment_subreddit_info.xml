@@ -14,59 +14,63 @@
         app:title="Subreddit Info"
         app:titleTextColor="?attr/colorOnPrimary" />
 
-    <ScrollView
-        android:id="@+id/fragment_subreddit_info_scroll_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/ic_share_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:strokeColor="?attr/colorPrimary" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:checkable="true"
+            app:backgroundTint="@color/white"
+            app:checkedIcon="@drawable/ic_list_item_subreddit_user_not_subscribed"
+            app:cornerRadius="16dp"
+            app:icon="@drawable/subscribe_button_state_list"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@color/subscribe_button_icon_tint_state_list"
+            app:strokeColor="@color/subscribe_button_icon_tint_state_list" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/fragment_subreddit_info_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/fragment_subreddit_info_description"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:text="@tools:sample/lorem/random" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal">
+        </ScrollView>
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    app:cornerRadius="16dp"
-                    app:icon="@drawable/ic_share_24"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:strokeColor="?attr/colorPrimary" />
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
-                    android:checkable="true"
-                    app:backgroundTint="@color/white"
-                    app:checkedIcon="@drawable/ic_list_item_subreddit_user_not_subscribed"
-                    app:cornerRadius="16dp"
-                    app:icon="@drawable/subscribe_button_state_list"
-                    app:iconGravity="textStart"
-                    app:iconPadding="0dp"
-                    app:iconTint="@color/subscribe_button_icon_tint_state_list"
-                    app:strokeColor="@color/subscribe_button_icon_tint_state_list" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </LinearLayout>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </ScrollView>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
