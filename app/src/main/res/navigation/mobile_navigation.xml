@@ -64,6 +64,11 @@
         android:id="@+id/subredditInfoFragment"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info.SubredditInfoFragment"
         android:label="fragment_subreddit"
-        tools:layout="@layout/fragment_subreddit_info" />
+        tools:layout="@layout/fragment_subreddit_info">
+
+        <argument
+            android:name="subredditData"
+            app:argType="com.example.finalattestationreddit.data.dto.subreddit.SubredditData" />
+    </fragment>
 
 </navigation>

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finalattestationreddit.databinding.FragmentSubredditInfoBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragmentArgs
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,6 +43,11 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
+
+        val args = PostsListFragmentArgs.fromBundle(requireArguments())
+        setActionbarTitle(args.subredditData.displayNamePrefixed)
+
+        binding.fragmentSubredditInfoDescription.text = args.subredditData.publicDescription
     }
 
     private fun initToolbar() {

@@ -77,7 +77,6 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
             val action = SubredditsFragmentDirections
                 .actionNavigationSubredditsToPostsListFragment(subredditData)
             findNavController().navigate(action)
-
         }
     }
 
