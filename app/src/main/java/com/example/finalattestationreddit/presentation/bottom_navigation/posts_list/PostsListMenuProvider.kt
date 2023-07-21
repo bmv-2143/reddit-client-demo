@@ -7,7 +7,6 @@ import androidx.core.view.MenuProvider
 import com.example.finalattestationreddit.R
 
 class PostsListMenuProvider(
-    private val onNavigateUpClick: () -> Unit,
     private val onSubredditInfoMenuClick: () -> Unit
 ) : MenuProvider {
 
@@ -17,10 +16,6 @@ class PostsListMenuProvider(
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
-            android.R.id.home -> {
-                onNavigateUpClick()
-                true
-            }
 
             R.id.action_fragment_menu_subreddit_info -> {
                 onSubredditInfoMenuClick()

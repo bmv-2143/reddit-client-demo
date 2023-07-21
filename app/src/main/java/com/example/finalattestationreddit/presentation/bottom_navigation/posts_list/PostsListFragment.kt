@@ -71,16 +71,11 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(
             PostsListMenuProvider(
-                onNavigateUpClick = ::navigateUp,
                 onSubredditInfoMenuClick = ::navigateToSubredditInfoFragment
             ),
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
-    }
-
-    private fun navigateUp() {
-        requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 
     private fun navigateToSubredditInfoFragment() {
