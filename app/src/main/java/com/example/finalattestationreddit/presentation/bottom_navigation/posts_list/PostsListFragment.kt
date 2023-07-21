@@ -51,7 +51,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         // todo: its better pass it to a view model? or use state handle from the view model?
         val args = PostsListFragmentArgs.fromBundle(requireArguments())
         setActionbarTitle(args.subredditData.displayNamePrefixed)
-        observerPostsFlow(args.subredditData.displayName)
+        observePostsFlow(args.subredditData.displayName)
         observeLoadStateAndUpdateProgressBar()
     }
 
@@ -88,7 +88,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         binding.fragmentPostsListRecyclerView.adapter = postsPagingAdapter
     }
 
-    private fun observerPostsFlow(subredditDisplayName : String) {
+    private fun observePostsFlow(subredditDisplayName : String) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getPostsFlow(subredditDisplayName).collectLatest { pagingData ->
