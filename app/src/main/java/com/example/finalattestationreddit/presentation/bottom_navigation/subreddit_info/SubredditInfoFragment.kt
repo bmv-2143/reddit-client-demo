@@ -2,20 +2,12 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.subred
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
-import androidx.lifecycle.Lifecycle
-import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.databinding.FragmentSubredditInfoBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragmentArgs
-import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListMenuProvider
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -39,7 +31,16 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
         val args = PostsListFragmentArgs.fromBundle(requireArguments())
         toolbarTitleSetter.setToolbarTitle(args.subredditData.displayNamePrefixed)
 
+        setSubredditDescription(args)
+        setSubredditSubscriptionStatus(args)
+    }
+
+    private fun setSubredditDescription(args: PostsListFragmentArgs) {
         binding.fragmentSubredditInfoDescription.text = args.subredditData.publicDescription
+    }
+
+    private fun setSubredditSubscriptionStatus(args: PostsListFragmentArgs) {
+        binding.fragmentSubredditInfoButtonSubscribe.isChecked = args.subredditData.userIsSubscriber
     }
 
     private fun initToolbar() {
