@@ -1,9 +1,7 @@
 package com.example.finalattestationreddit.data
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.example.finalattestationreddit.di.TokenProvider
-import com.example.finalattestationreddit.log.TAG
 import javax.inject.Inject
 
 class TokenManager @Inject constructor(
@@ -16,7 +14,7 @@ class TokenManager @Inject constructor(
 
     private var accessToken: String = ""
 
-    fun hasAccessToken(): Boolean = accessToken.isNotEmpty()
+    fun hasAccessToken(): Boolean = getToken().isNotEmpty()
 
     private fun loadAccessToken() {
         accessToken = sharedPreferences.getString(PREFS_KEY_ACCESS_TOKEN, "") ?: ""
