@@ -1,23 +1,72 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info.SubredditInfoFragment">
-
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/fragment_subreddit_info_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:titleTextColor="?attr/colorOnPrimary"
-        app:title="Subreddit Info" />
+        app:title="Subreddit Info"
+        app:titleTextColor="?attr/colorOnPrimary" />
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:id="@+id/fragment_subreddit_info_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Subreddit Info Fragment" />
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-</FrameLayout>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/fragment_subreddit_info_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="@tools:sample/lorem/random" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    app:cornerRadius="16dp"
+                    app:icon="@drawable/ic_share_24"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:strokeColor="?attr/colorPrimary" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:checkable="true"
+                    app:backgroundTint="@color/white"
+                    app:checkedIcon="@drawable/ic_list_item_subreddit_user_not_subscribed"
+                    app:cornerRadius="16dp"
+                    app:icon="@drawable/subscribe_button_state_list"
+                    app:iconGravity="textStart"
+                    app:iconPadding="0dp"
+                    app:iconTint="@color/subscribe_button_icon_tint_state_list"
+                    app:strokeColor="@color/subscribe_button_icon_tint_state_list" />
+
+            </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
