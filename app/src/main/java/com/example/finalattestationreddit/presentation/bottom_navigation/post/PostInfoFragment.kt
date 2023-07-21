@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import com.example.finalattestationreddit.databinding.FragmentPostInfoBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
-import com.example.unsplashattestationproject.databinding.FragmentFavoritesBinding
-import com.example.unsplashattestationproject.databinding.FragmentPostInfoBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

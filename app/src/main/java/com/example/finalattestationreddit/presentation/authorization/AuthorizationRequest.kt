@@ -2,9 +2,9 @@ package com.example.finalattestationreddit.presentation.authorization
 
 import android.net.Uri
 import android.util.Log
+import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.data.network.AuthQuery
 import com.example.finalattestationreddit.log.TAG
-import com.example.unsplashattestationproject.BuildConfig
 
 class AuthorizationRequest(val requestState: String = AuthQuery.generateAuthRequestState()) {
 

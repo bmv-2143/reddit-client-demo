@@ -9,11 +9,11 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.databinding.ListItemPostBinding
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.ImageUrlExtractor.extractBaseImageUrl
-import com.example.unsplashattestationproject.R
-import com.example.unsplashattestationproject.databinding.ListItemPostBinding
 
 class PostsAdapterViewHolder(
     private val binding: ListItemPostBinding,

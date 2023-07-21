@@ -3,9 +3,9 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.subred
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
+import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.databinding.ListItemSubredditBinding
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
-import com.example.unsplashattestationproject.R
-import com.example.unsplashattestationproject.databinding.ListItemSubredditBinding
 
 class SubredditsAdapterViewHolder(
     private val binding: ListItemSubredditBinding,

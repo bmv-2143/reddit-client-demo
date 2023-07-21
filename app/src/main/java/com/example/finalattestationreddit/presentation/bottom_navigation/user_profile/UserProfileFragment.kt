@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import com.example.finalattestationreddit.databinding.FragmentUserProfileBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
-import com.example.unsplashattestationproject.databinding.FragmentUserProfileBinding
 
 class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
 

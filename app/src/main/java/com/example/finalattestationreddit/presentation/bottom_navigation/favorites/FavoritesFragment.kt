@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.databinding.FragmentFavoritesBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
-import com.example.unsplashattestationproject.R
-import com.example.unsplashattestationproject.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
 

@@ -3,9 +3,8 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.posts_
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
+import com.example.finalattestationreddit.databinding.ListItemPostBinding
 import com.example.finalattestationreddit.data.dto.post.Post
-import com.example.unsplashattestationproject.databinding.ListItemPostBinding
-import com.example.unsplashattestationproject.databinding.ListItemSubredditBinding
 
 class PostsPagingAdapter(
     private val onItemClicked: (Post) -> Unit,

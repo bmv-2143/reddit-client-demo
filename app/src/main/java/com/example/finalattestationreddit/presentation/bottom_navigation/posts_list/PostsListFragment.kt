@@ -13,10 +13,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.databinding.FragmentPostsListBinding
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
-import com.example.unsplashattestationproject.R
-import com.example.unsplashattestationproject.databinding.FragmentPostsListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

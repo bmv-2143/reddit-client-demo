@@ -4,7 +4,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.core.view.MenuProvider
-import com.example.unsplashattestationproject.R
+import com.example.finalattestationreddit.R
 
 class PostsListMenuProvider(
     private val onNavigateUpClick: () -> Unit,

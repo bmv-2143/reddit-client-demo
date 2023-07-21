@@ -11,11 +11,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.unsplashattestationproject'
+    namespace 'com.example.finalattestationreddit'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.unsplashattestationproject"
+        applicationId "com.example.finalattestationreddit"
         minSdk 23
 
         targetSdk 33

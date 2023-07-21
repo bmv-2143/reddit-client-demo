@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.example.unsplashattestationproject.R
-import com.example.unsplashattestationproject.databinding.ActivityOnboardingBinding
+import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.databinding.ActivityOnboardingBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 class OnboardingActivity : AppCompatActivity() {

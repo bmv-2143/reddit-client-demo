@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
-import com.example.unsplashattestationproject.R
+import com.example.finalattestationreddit.R
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

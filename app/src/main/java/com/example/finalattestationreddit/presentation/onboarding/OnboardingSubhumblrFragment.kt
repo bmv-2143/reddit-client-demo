@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.unsplashattestationproject.databinding.FragmentOnboardingSubhumblrBinding
+import com.example.finalattestationreddit.databinding.FragmentOnboardingSubhumblrBinding
 
 
 class OnboardingSubhumblrFragment : Fragment() {

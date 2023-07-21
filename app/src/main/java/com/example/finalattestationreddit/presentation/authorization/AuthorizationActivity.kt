@@ -11,6 +11,8 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.databinding.ActivityAuthorizationBinding
 import com.example.finalattestationreddit.data.NetworkError
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Failed
@@ -20,8 +22,6 @@ import com.example.finalattestationreddit.presentation.authorization.Authorizati
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationActivity
 import com.example.finalattestationreddit.presentation.onboarding.OnboardingActivity
 import com.example.finalattestationreddit.presentation.utils.SnackbarFactory
-import com.example.unsplashattestationproject.R
-import com.example.unsplashattestationproject.databinding.ActivityAuthorizationBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
