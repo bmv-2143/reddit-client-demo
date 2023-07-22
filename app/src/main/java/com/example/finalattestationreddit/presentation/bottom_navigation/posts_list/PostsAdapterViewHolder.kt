@@ -52,14 +52,7 @@ class PostsAdapterViewHolder(
     }
 
     private fun loadImageOrHide(postItem: Post) {
-        val url = postItem.getFirstUrlOrNull()
-
-        if (url == null) {
-            hideImage()
-            return
-        }
-
-        val imageUrl = extractBaseImageUrl(url)
+        val imageUrl = postItem.getFirstUrlOrNull()?.let { extractBaseImageUrl(it) }
 
         if (imageUrl == null) {
             hideImage()
