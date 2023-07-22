@@ -1,18 +1,14 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.posts_list
 
-import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.databinding.ListItemPostBinding
 import com.example.finalattestationreddit.data.dto.post.Post
+import com.example.finalattestationreddit.databinding.ListItemPostBinding
 import com.example.finalattestationreddit.log.TAG
+import com.example.finalattestationreddit.presentation.utils.GlideRequestListenerFactory
 import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor.extractBaseImageUrl
 
 class PostsAdapterViewHolder(
@@ -69,34 +65,18 @@ class PostsAdapterViewHolder(
     private fun hideImage() =
         binding.listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
 
-    private fun loadPostImage(imageUrl: String, onLoadFailed: () -> Unit = {}) {
+    private fun loadPostImage(imageUrl: String, onGlideLoadFailed: () -> Unit = {}) {
+        val failListener = GlideRequestListenerFactory.makeReadyFailListener(
+            onLoadFailed = {
+                Log.e(TAG, "Glide onLoadFailed: $imageUrl")
+                onGlideLoadFailed()
+            }
+        )
+
         Glide.with(binding.root.context)
             .load(imageUrl)
             .placeholder(R.drawable.list_item_post_image_placeholder_24)
-            .listener(object : RequestListener<Drawable> {
-
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-//                    progressBarSetVisible(binding, false)
-                    return false
-                }
-
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    Log.e(TAG, "Glide onLoadFailed: $imageUrl")
-                    onLoadFailed()
-                    return false
-                }
-            })
+            .listener(failListener)
             .into(binding.listItemPostImage)
     }
 
@@ -122,7 +102,7 @@ class PostsAdapterViewHolder(
         postItem.selftext.trim().isEmpty()
 
 
-    private fun shouldHideImage(postItem: Post) : Boolean = postItem.getFirstUrlOrNull()
+    private fun shouldHideImage(postItem: Post): Boolean = postItem.getFirstUrlOrNull()
         ?.let { extractBaseImageUrl(it) } == null
 
 
