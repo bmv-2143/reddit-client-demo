@@ -123,8 +123,15 @@ class PostsAdapterViewHolder(
     }
 
     private fun shouldHidePostContent(postItem: Post): Boolean =
-        postItem.selftext.trim().isEmpty() && postItem.getFirstUrlOrNull()
-            ?.let { extractBaseImageUrl(it) } == null
+        shouldHidePostText(postItem) && shouldHideImage(postItem)
+
+    private fun shouldHidePostText(postItem: Post) =
+        postItem.selftext.trim().isEmpty()
+
+
+    private fun shouldHideImage(postItem: Post) : Boolean = postItem.getFirstUrlOrNull()
+        ?.let { extractBaseImageUrl(it) } == null
+
 
     companion object {
         private const val IMAGE_AND_TEXT_GUIDELINE_PERCENT = 0.3f
