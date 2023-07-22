@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.databinding.FragmentSubredditsListBinding
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +29,8 @@ import kotlinx.coroutines.launch
 class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding>() {
 
     private val viewModel: SubredditsListViewModel by viewModels()
+    private val activityViewModel : BottomNavigationViewModel by activityViewModels()
+
     private val subredditsPagingAdapter = SubredditsPagingAdapter(
         ::onSubredditItemClick, ::onSubredditSubscribeButtonClick
     )
@@ -59,7 +63,7 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
     private fun observerSubscriptionUpdatesFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.subscriptionUpdatesFlow.collectLatest { subredditData ->
+                activityViewModel.subscriptionUpdatesFlow.collectLatest { subredditData ->
                     subredditsPagingAdapter.updateItem(subredditData)
                 }
             }
@@ -87,7 +91,7 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
             Toast.LENGTH_SHORT
         ).show()
 
-        viewModel.switchSubscription(subreddit)
+        activityViewModel.switchSubscription(subreddit)
     }
 
     private fun observeLoadStateAndUpdateProgressBar() {
