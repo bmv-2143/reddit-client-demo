@@ -116,9 +116,22 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             emptyPostListingData()
         }
     }
-
     private fun emptyPostListingData(): PostListingData =
         PostListingData(emptyList(), null, null)
 
+    suspend fun getSubreddit(subredditDisplayName: String): SubredditData? {
+        return try {
+            redditService.redditApi.getSubreddit(subredditDisplayName).data
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            null
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            null
+        } catch (e: Exception) {
+            logError(::getSubreddits.name, e)
+            null
+        }
+    }
 }
 

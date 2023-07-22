@@ -2,6 +2,7 @@ package com.example.finalattestationreddit.data.network
 
 import com.example.finalattestationreddit.data.dto.post.PostListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingResponse
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -42,4 +43,8 @@ interface RedditApi {
         @Query("limit") perPage: Int
     ): PostListingResponse
 
+    @GET("r/{subreddit}/about")
+    suspend fun getSubreddit(
+        @Path("subreddit") subreddit: String
+    ): SubredditResponse
 }

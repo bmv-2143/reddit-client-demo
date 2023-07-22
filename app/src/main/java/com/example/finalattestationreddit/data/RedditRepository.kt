@@ -97,4 +97,8 @@ class RedditRepository @Inject constructor(
         ).flow
     }
 
+    internal suspend fun getSubreddit(subredditDisplayName: String): SubredditData? {
+        return redditNetworkDataSource.getSubreddit(subredditDisplayName)
+    }
+
 }
