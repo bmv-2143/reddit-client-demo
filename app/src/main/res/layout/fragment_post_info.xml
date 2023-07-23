@@ -1,8 +1,9 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.post.PostInfoFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -10,13 +11,123 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:titleTextColor="?attr/colorOnPrimary"
-        app:title="Posts Info with comments" />
+        app:title="Posts Info with comments"
+        app:titleTextColor="?attr/colorOnPrimary" />
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:id="@+id/fragment_post_info_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Post View Fragment" />
+        android:layout_height="wrap_content"
+        android:background="#7AFFF3">
 
-</FrameLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/fragment_post_info_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="16dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp">
+
+
+                <TextView
+                    android:id="@+id/fragment_post_info_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toStartOf="@+id/fragment_post_info_publication_time"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Author Name" />
+
+                <TextView
+                    android:id="@+id/fragment_post_info_publication_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/fragment_post_info_author"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="publication time" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/fragment_post_info_barrier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="fragment_post_info_author,fragment_post_info_publication_time" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/fragment_post_info_image"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/fragment_post_info_barrier"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/fragment_post_info_body_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_image"
+                    tools:text="@tools:sample/lorem/random" />
+
+                <TextView
+                    android:id="@+id/fragment_post_info_number_of_comments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="16dp"
+                    android:background="@color/light_blue_A200"
+                    app:layout_constraintEnd_toStartOf="@id/fragment_post_info_share"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text"
+                    tools:text="22 comments" />
+
+                <TextView
+                    android:id="@+id/fragment_post_info_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="#D4E157"
+                    app:layout_constraintEnd_toStartOf="@id/fragment_post_info_likes_count"
+                    app:layout_constraintStart_toEndOf="@id/fragment_post_info_number_of_comments"
+                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text"
+                    tools:text="Share" />
+
+                <TextView
+                    android:id="@+id/fragment_post_info_likes_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="16dp"
+                    android:background="#FFCA28"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text"
+                    tools:text="10 Hearts" />
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
+</LinearLayout>
