@@ -34,7 +34,7 @@
             app:iconPadding="0dp"
             app:strokeColor="?attr/colorPrimary" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.example.finalattestationreddit.presentation.widgets.ProgrammaticallyToggledOnlyMaterialButton
             android:id="@+id/fragment_subreddit_info_button_subscribe"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
@@ -53,13 +53,28 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/fragment_subreddit_info_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        app:srcCompat="@drawable/fragment_subreddit_info_frog_face_primary_color" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/fragment_subreddit_info_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            app:srcCompat="@drawable/fragment_subreddit_info_frog_face_primary_color" />
+        <!--            app:tint="#66AAAAAA" -->
+
+        <ProgressBar
+            android:id="@+id/fragment_subreddit_info_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/teal_200" />
+
+    </FrameLayout>
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

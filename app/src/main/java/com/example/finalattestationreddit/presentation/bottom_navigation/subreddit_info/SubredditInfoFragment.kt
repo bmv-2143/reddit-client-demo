@@ -18,6 +18,7 @@ import com.example.finalattestationreddit.databinding.FragmentSubredditInfoBindi
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragmentArgs
+import com.example.finalattestationreddit.presentation.utils.GlideRequestListenerFactory
 import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,17 +45,17 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
         super.onViewCreated(view, savedInstanceState)
 
         val subredditData = PostsListFragmentArgs.fromBundle(requireArguments()).subredditData
-        setInitialUiState(subredditData)
-        setShareButtonClickListener(subredditData)
-        setSubscribeButtonClickListener(subredditData)
-        observerSubscriptionUpdatesFlow()
+        initToolbar(subredditData.displayNamePrefixed)
         startLoadSubreddit(subredditData.displayName)
         observeSubredditFlow()
+
+        setShareButtonClickListener(subredditData)
+        setSubscribeButtonClickListener()
+        observerSubscriptionUpdatesFlow()
         loadSubredditIcon(subredditData)
     }
 
     private fun setInitialUiState(subredditData: SubredditData) {
-        initToolbar(subredditData.displayNamePrefixed)
         setSubredditDescription(subredditData)
         setSubredditSubscriptionStatus(subredditData)
     }
@@ -65,7 +66,13 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
             .load(imageUrl)
             .placeholder(R.drawable.fragment_subreddit_info_frog_face_primary_color)
             .circleCrop()
+            .listener(
+                GlideRequestListenerFactory.makeOperationEndListener(::hideProgressBar))
             .into(binding.fragmentSubredditInfoImage)
+    }
+
+    private fun hideProgressBar() {
+        binding.fragmentSubredditInfoProgressBar.visibility = View.GONE
     }
 
     private fun initToolbar(toolbarTitle: String) {
@@ -93,12 +100,6 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
         }
     }
 
-    private fun setSubscribeButtonClickListener(subredditData: SubredditData) {
-        binding.fragmentSubredditInfoButtonSubscribe.setOnClickListener {
-            activityViewModel.switchSubscription(subredditData)
-        }
-    }
-
     private fun startLoadSubreddit(subredditDisplayName: String) {
         viewModel.loadSubreddit(subredditDisplayName)
     }
@@ -107,7 +108,10 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.subredditFlow.collectLatest { subredditData ->
-                    setSubredditSubscriptionStatus(subredditData)
+                    if (subredditData != null) {
+                        setSubredditSubscriptionStatus(subredditData)
+                        setInitialUiState(subredditData)
+                    }
                 }
             }
         }
@@ -126,10 +130,23 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
         )
     }
 
+    private fun setSubscribeButtonClickListener() {
+        binding.fragmentSubredditInfoButtonSubscribe.setOnClickListener {
+            updateSubscription()
+        }
+    }
+
+    private fun updateSubscription() {
+        viewModel.subredditFlow.value?.let {
+            activityViewModel.switchSubscription(it)
+        }
+    }
+
     private fun observerSubscriptionUpdatesFlow() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 activityViewModel.subscriptionUpdatesFlow.collectLatest { subredditData ->
+                    viewModel.setSubreddit(subredditData)
                     setSubredditSubscriptionStatus(subredditData)
                 }
             }

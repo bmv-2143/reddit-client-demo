@@ -7,8 +7,8 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.domain.GetSubredditUseCase
 import com.example.finalattestationreddit.log.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,11 +18,15 @@ class SubredditInfoViewModel @Inject constructor(
 ) : ViewModel() {
 
     internal fun getSubredditUrl(subredditData : SubredditData) : String {
-        return "${redditBaseUrl}${subredditData.url}"
+        return "${REDDIT_BASE_URL}${subredditData.url}"
     }
 
-    private val _subredditFlow = MutableSharedFlow<SubredditData>()
-    internal val subredditFlow = _subredditFlow.asSharedFlow()
+    private val _subredditFlow = MutableStateFlow<SubredditData?>(null)
+    internal val subredditFlow = _subredditFlow.asStateFlow()
+
+    internal fun setSubreddit(subredditData : SubredditData) {
+        _subredditFlow.value = subredditData
+    }
 
     internal fun loadSubreddit(subredditDisplayName : String) {
         viewModelScope.launch {
@@ -37,7 +41,7 @@ class SubredditInfoViewModel @Inject constructor(
     }
 
     companion object {
-        private const val redditBaseUrl = "https://www.reddit.com"
+        private const val REDDIT_BASE_URL = "https://www.reddit.com"
     }
 
 }
