@@ -11,13 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.databinding.FragmentSubredditInfoBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
-import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragmentArgs
 import com.example.finalattestationreddit.presentation.utils.GlideRequestListenerFactory
 import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
@@ -31,6 +31,7 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
 
     private val viewModel: SubredditInfoViewModel by viewModels()
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
+    private val navigationArgs: SubredditInfoFragmentArgs by navArgs()
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
@@ -44,7 +45,7 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val subredditData = PostsListFragmentArgs.fromBundle(requireArguments()).subredditData
+        val subredditData = navigationArgs.subredditData
         initToolbar(subredditData.displayNamePrefixed)
         startLoadSubreddit(subredditData.displayName)
         observeSubredditFlow()
