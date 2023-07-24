@@ -45,6 +45,7 @@
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:textStyle="bold"
                     tools:text="Author Name" />
 
                 <TextView
@@ -67,6 +68,7 @@
                     android:id="@+id/fragment_post_info_image"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +79,7 @@
                     android:id="@+id/fragment_post_info_body_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:ellipsize="end"
                     android:maxLines="5"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -119,6 +121,7 @@
                     tools:text="10 Hearts" />
 
                 <ProgressBar
+                    android:id="@+id/fragment_post_info_progress_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
