@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.databinding.FragmentPostsListBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
@@ -42,7 +41,8 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     )
 
     private fun onPostItemClick(post: Post) {
-        findNavController().navigate(R.id.action_postsListFragment_to_postFragment)
+        val action = PostsListFragmentDirections.actionPostsListFragmentToPostFragment(post.name)
+        findNavController().navigate(action)
     }
 
     override fun inflateBinding(

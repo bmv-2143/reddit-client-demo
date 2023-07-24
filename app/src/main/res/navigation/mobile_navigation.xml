@@ -58,7 +58,14 @@
         android:id="@+id/postInfoFragment"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.post.PostInfoFragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_post_info" />
+        tools:layout="@layout/fragment_post_info">
+
+        <argument
+            android:name="postName"
+            app:argType="string"
+            android:defaultValue=""/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/subredditInfoFragment"
