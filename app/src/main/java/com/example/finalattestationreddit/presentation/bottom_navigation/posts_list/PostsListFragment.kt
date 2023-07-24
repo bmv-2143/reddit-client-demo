@@ -11,12 +11,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.databinding.FragmentPostsListBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info.SubredditInfoFragmentArgs
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -27,6 +29,7 @@ import javax.inject.Inject
 class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private val viewModel: PostsListViewModel by viewModels()
+    private val navigationArgs: SubredditInfoFragmentArgs by navArgs()
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
@@ -54,9 +57,10 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         setupRecyclerView()
 
         // todo: its better pass it to a view model? or use state handle from the view model?
-        val args = PostsListFragmentArgs.fromBundle(requireArguments())
-        toolbarTitleSetter.setToolbarTitle(args.subredditData.displayNamePrefixed)
-        observePostsFlow(args.subredditData.displayName)
+
+
+        toolbarTitleSetter.setToolbarTitle(navigationArgs.subredditData.displayNamePrefixed)
+        observePostsFlow(navigationArgs.subredditData.displayName)
         observeLoadStateAndUpdateProgressBar()
     }
 
@@ -79,9 +83,8 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     }
 
     private fun navigateToSubredditInfoFragment() {
-        val args: PostsListFragmentArgs = PostsListFragmentArgs.fromBundle(requireArguments())
         val navigateToSubredditInfoAction = PostsListFragmentDirections
-            .actionPostsListFragmentToSubredditInfoFragment(args.subredditData)
+            .actionPostsListFragmentToSubredditInfoFragment(navigationArgs.subredditData)
         findNavController().navigate(navigateToSubredditInfoAction)
     }
 
