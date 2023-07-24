@@ -1,14 +1,9 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.posts_list
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.databinding.ListItemPostBinding
-import com.example.finalattestationreddit.log.TAG
-import com.example.finalattestationreddit.presentation.utils.GlideRequestListenerFactory
 import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor.extractBaseImageUrl
 
 class PostsAdapterViewHolder(
@@ -25,9 +20,7 @@ class PostsAdapterViewHolder(
 
     private fun setPostsListItemClickListener() {
         binding.root.setOnClickListener {
-            currentItem?.let {
-                onClick(it)
-            }
+            currentItem?.let(onClick)
         }
     }
 
@@ -36,7 +29,19 @@ class PostsAdapterViewHolder(
 
         hidePostContentIfRequired(postItem)
         loadTexts(postItem)
-        loadImageOrHide(postItem)
+
+        with(binding) {
+            PostImageLoader(root.context, listItemPostImage,
+                onPreLoadAction = {
+                    listItemPostTextBodyGuideline.setGuidelinePercent(
+                        IMAGE_AND_TEXT_GUIDELINE_PERCENT
+                    )
+                },
+                onLoadFailed = {
+                    listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
+                }
+            ).loadImage(postItem)
+        }
     }
 
     private fun hidePostContentIfRequired(postItem: Post) {
@@ -45,39 +50,6 @@ class PostsAdapterViewHolder(
         } else {
             binding.listItemPostContent.visibility = View.VISIBLE
         }
-    }
-
-    private fun loadImageOrHide(postItem: Post) {
-        val imageUrl = postItem.getFirstUrlOrNull()?.let { extractBaseImageUrl(it) }
-
-        if (imageUrl == null) {
-            hideImage()
-        } else {
-            binding.listItemPostTextBodyGuideline.setGuidelinePercent(
-                IMAGE_AND_TEXT_GUIDELINE_PERCENT
-            )
-            loadPostImage(imageUrl, ::hideImage)
-        }
-    }
-
-    private fun Post.getFirstUrlOrNull(): String? = preview?.images?.firstOrNull()?.source?.url
-
-    private fun hideImage() =
-        binding.listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
-
-    private fun loadPostImage(imageUrl: String, onGlideLoadFailed: () -> Unit = {}) {
-        val failListener = GlideRequestListenerFactory.makeReadyFailListener(
-            onLoadFailed = {
-                Log.e(TAG, "Glide onLoadFailed: $imageUrl")
-                onGlideLoadFailed()
-            }
-        )
-
-        Glide.with(binding.root.context)
-            .load(imageUrl)
-            .placeholder(R.drawable.list_item_post_image_placeholder_24)
-            .listener(failListener)
-            .into(binding.listItemPostImage)
     }
 
     private fun loadTexts(postItem: Post) {
@@ -111,3 +83,4 @@ class PostsAdapterViewHolder(
         private const val NO_IMAGE_GUIDELINE_PERCENT = 0.0f
     }
 }
+
