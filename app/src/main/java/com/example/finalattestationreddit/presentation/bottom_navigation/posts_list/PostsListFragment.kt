@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,8 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.databinding.FragmentPostsListBinding
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationActivityViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info.SubredditInfoFragmentArgs
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
@@ -28,6 +31,8 @@ import javax.inject.Inject
 class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private val viewModel: PostsListViewModel by viewModels()
+    private val activityViewModel : BottomNavigationActivityViewModel by activityViewModels()
+
     private val navigationArgs: SubredditInfoFragmentArgs by navArgs()
 
     @Inject
@@ -41,8 +46,8 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     )
 
     private fun onPostItemClick(post: Post) {
-        val action = PostsListFragmentDirections.actionPostsListFragmentToPostFragment(post.name)
-        findNavController().navigate(action)
+        activityViewModel.setSelectedPost(post)
+        findNavController().navigate(R.id.action_postsListFragment_to_postFragment)
     }
 
     override fun inflateBinding(
