@@ -102,28 +102,46 @@
                     android:id="@+id/fragment_post_info_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="44dp"
                     android:padding="16dp"
-                    android:focusable="true"
-                    android:clickable="true"
+
                     android:background="?attr/selectableItemBackground"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:clickable="true"
+                    android:focusable="true"
+
+                    app:layout_constraintHorizontal_bias="1"
+
+                    android:text="@string/fragment_post_info_share"
+                    app:layout_constraintEnd_toStartOf="@id/fragment_post_info_score_voting"
                     app:layout_constraintStart_toEndOf="@id/fragment_post_info_number_of_comments"
-                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text"
-                    android:text="@string/fragment_post_info_share" />
+                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/fragment_post_info_like"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginVertical="16dp"-->
-<!--                    android:background="#FFCA28"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <com.example.finalattestationreddit.presentation.widgets.ScoreVotingViewGroup
+                    android:id="@+id/fragment_post_info_score_voting"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
 
-<!--                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text"-->
+                    app:layout_constraintHorizontal_bias="1"
 
-<!--                    android:text="10 Hearts"-->
+                    app:layout_constraintBottom_toBottomOf="@+id/fragment_post_info_number_of_comments"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/fragment_post_info_share"
+                    app:layout_constraintTop_toTopOf="@+id/fragment_post_info_number_of_comments" />
 
-<!--                    tools:text="10 Hearts" />-->
+                <!--                <TextView-->
+                <!--                    android:id="@+id/fragment_post_info_like"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginVertical="16dp"-->
+                <!--                    android:background="#FFCA28"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+
+                <!--                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text"-->
+
+                <!--                    android:text="10 Hearts"-->
+
+                <!--                    tools:text="10 Hearts" />-->
+
 
                 <ProgressBar
                     android:id="@+id/fragment_post_info_progress_bar"
