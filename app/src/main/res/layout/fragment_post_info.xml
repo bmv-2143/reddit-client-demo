@@ -102,22 +102,28 @@
                     android:id="@+id/fragment_post_info_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="#D4E157"
-                    app:layout_constraintEnd_toStartOf="@id/fragment_post_info_likes_count"
+                    android:padding="16dp"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/fragment_post_info_number_of_comments"
                     app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text"
-                    tools:text="Share" />
+                    android:text="@string/fragment_post_info_share" />
 
-                <TextView
-                    android:id="@+id/fragment_post_info_likes_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    android:background="#FFCA28"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text"
-                    tools:text="10 Hearts" />
+<!--                <TextView-->
+<!--                    android:id="@+id/fragment_post_info_like"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginVertical="16dp"-->
+<!--                    android:background="#FFCA28"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+
+<!--                    app:layout_constraintTop_toBottomOf="@id/fragment_post_info_body_text"-->
+
+<!--                    android:text="10 Hearts"-->
+
+<!--                    tools:text="10 Hearts" />-->
 
                 <ProgressBar
                     android:id="@+id/fragment_post_info_progress_bar"

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -15,6 +16,7 @@ import com.example.finalattestationreddit.databinding.FragmentPostInfoBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationActivityViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostImageLoader
+import com.example.finalattestationreddit.presentation.utils.ShareUtils
 import com.example.finalattestationreddit.presentation.utils.TimeUtils
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,12 +28,16 @@ import javax.inject.Inject
 class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private val activityViewModel: BottomNavigationActivityViewModel by activityViewModels()
+    private val viewModel: PostInfoViewModel by viewModels()
 
     @Inject
     lateinit var timeUtils: TimeUtils
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
+
+    @Inject
+    lateinit var shareUtils: ShareUtils
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -43,6 +49,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
         collectSelectedPost()
+        setShareButtonListener()
     }
 
     // todo: DRY, see other toolbar fragments
@@ -56,7 +63,9 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 activityViewModel.selectedPostFlow.collectLatest { post ->
-                    updateUi(post)
+                    if (post != null) {
+                        updateUi(post)
+                    }
                 }
             }
         }
@@ -82,4 +91,16 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         binding.fragmentPostInfoProgressBar.visibility = View.GONE
     }
 
+    private fun setShareButtonListener() {
+        binding.fragmentPostInfoShare.setOnClickListener {
+            val post = activityViewModel.selectedPostFlow.value
+            val shareLink = viewModel.getShareLink(post)
+            shareUtils.shareUrl(
+                shareLink,
+                getString(
+                    R.string.fragment_post_info_share_chooser_title
+                )
+            )
+        }
+    }
 }
