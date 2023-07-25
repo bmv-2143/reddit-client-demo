@@ -1,6 +1,5 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -104,7 +103,7 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
             val shareUrl = viewModel.getSubredditUrl(subredditData)
             shareUtils.shareUrl(
                 shareUrl,
-                getString(R.string.chooser_share_subreddit_title)
+                getString(R.string.fragment_subreddit_info_share_chooser_title)
             )
         }
     }

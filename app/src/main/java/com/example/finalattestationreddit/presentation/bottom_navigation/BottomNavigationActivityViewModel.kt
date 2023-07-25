@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.finalattestationreddit.data.RedditRepository
 import com.example.finalattestationreddit.data.dto.post.Post
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,12 +17,11 @@ class BottomNavigationActivityViewModel @Inject constructor(
 
     val networkErrorsFlow = redditRepository.networkErrorsFlow
 
-    // todo: this is the overkill to use SharedFlow for this purpose, can use a variable ???
-    private val _selectedPostFlow = MutableSharedFlow<Post>(replay = 1)
-    val selectedPostFlow = _selectedPostFlow.asSharedFlow()
+    private val _selectedPostFlow = MutableStateFlow<Post?>(null)
+    val selectedPostFlow = _selectedPostFlow.asStateFlow()
 
     internal fun setSelectedPost(post : Post) {
-        _selectedPostFlow.tryEmit(post)
+        _selectedPostFlow.value = post
     }
 
 }
