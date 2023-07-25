@@ -23,6 +23,7 @@
     <string name="chooser_share_subreddit_title">Share Subreddit link</string>
     <string name="fragment_subreddit_info_no_description">This subreddit doesn\'t have a description.</string>
 
+    <string name="fragment_post_info_number_of_comments">%1d comments</string>
 
     <string name="time_seconds_ago">%1d seconds ago</string>
     <string name="time_minutes_ago">%1d minutes ago</string>

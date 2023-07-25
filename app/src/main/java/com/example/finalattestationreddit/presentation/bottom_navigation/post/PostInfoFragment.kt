@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.databinding.FragmentPostInfoBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationActivityViewModel
@@ -55,7 +56,6 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 activityViewModel.selectedPostFlow.collectLatest { post ->
-                    toolbarTitleSetter.setToolbarTitle(post.title)
                     updateUi(post)
                 }
             }
@@ -63,9 +63,12 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     }
 
     private fun updateUi(post: Post) {
+        toolbarTitleSetter.setToolbarTitle(post.title)
         binding.fragmentPostInfoBodyText.text = post.selftext
         binding.fragmentPostInfoAuthor.text = post.author
         binding.fragmentPostInfoPublicationTime.text = timeUtils.formatElapsedTime(post.createdUtc)
+        binding.fragmentPostInfoNumberOfComments.text =
+            getString(R.string.fragment_post_info_number_of_comments, post.numComments)
 
         PostImageLoader(
             requireContext(), binding.fragmentPostInfoImage,
