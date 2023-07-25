@@ -14,7 +14,7 @@ data class Post(
     @Json(name = "thumbnail") val thumbnail: String,
     @Json(name = "url") val url: String,
     @Json(name = "preview") val preview: PostPreview?,
-    @Json(name = "selftext") val selftext: String,
+    @Json(name = "selftext") val selfText: String,
 ) {
     fun getFirstUrlOrNull(): String? = preview?.images?.firstOrNull()?.source?.url
 }

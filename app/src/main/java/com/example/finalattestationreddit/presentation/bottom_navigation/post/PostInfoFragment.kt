@@ -73,7 +73,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private fun updateUi(post: Post) {
         toolbarTitleSetter.setToolbarTitle(post.title)
-        binding.fragmentPostInfoBodyText.text = post.selftext
+        binding.fragmentPostInfoBodyText.text = post.selfText
         binding.fragmentPostInfoAuthor.text = post.author
         binding.fragmentPostInfoPublicationTime.text = timeUtils.formatElapsedTime(post.createdUtc)
         binding.fragmentPostInfoNumberOfComments.text =

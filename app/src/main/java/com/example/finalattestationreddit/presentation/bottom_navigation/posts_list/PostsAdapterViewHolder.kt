@@ -58,7 +58,7 @@ class PostsAdapterViewHolder(
     }
 
     private fun loadPostBodyTextOrHide(postItem: Post) {
-        val postContent = postItem.selftext.trim()
+        val postContent = postItem.selfText.trim()
         if (postContent.isEmpty()) {
             binding.listItemTextVisibilityControlGroup.visibility = View.GONE
         } else {
@@ -71,7 +71,7 @@ class PostsAdapterViewHolder(
         shouldHidePostText(postItem) && shouldHideImage(postItem)
 
     private fun shouldHidePostText(postItem: Post) =
-        postItem.selftext.trim().isEmpty()
+        postItem.selfText.trim().isEmpty()
 
 
     private fun shouldHideImage(postItem: Post): Boolean = postItem.getFirstUrlOrNull()
