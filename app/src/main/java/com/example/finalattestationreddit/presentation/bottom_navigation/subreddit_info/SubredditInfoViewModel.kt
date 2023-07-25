@@ -3,6 +3,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.subred
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.domain.GetSubredditUseCase
 import com.example.finalattestationreddit.log.TAG
@@ -18,7 +19,7 @@ class SubredditInfoViewModel @Inject constructor(
 ) : ViewModel() {
 
     internal fun getSubredditUrl(subredditData : SubredditData) : String {
-        return "${REDDIT_BASE_URL}${subredditData.url}"
+        return "${BuildConfig.REDDIT_BASE_URL}${subredditData.url}"
     }
 
     private val _subredditFlow = MutableStateFlow<SubredditData?>(null)
@@ -38,10 +39,6 @@ class SubredditInfoViewModel @Inject constructor(
                 Log.e(TAG, "${::loadSubreddit}: subreddit is null")
             }
         }
-    }
-
-    companion object {
-        private const val REDDIT_BASE_URL = "https://www.reddit.com"
     }
 
 }
