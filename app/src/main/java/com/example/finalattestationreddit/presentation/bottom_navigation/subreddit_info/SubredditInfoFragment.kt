@@ -20,6 +20,7 @@ import com.example.finalattestationreddit.presentation.bottom_navigation.BottomN
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.utils.GlideRequestListenerFactory
 import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor
+import com.example.finalattestationreddit.presentation.utils.ShareUtils
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -35,6 +36,9 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
+
+    @Inject
+    lateinit var shareUtils: ShareUtils
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -68,7 +72,8 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
             .placeholder(R.drawable.fragment_subreddit_info_frog_face_primary_color)
             .circleCrop()
             .listener(
-                GlideRequestListenerFactory.makeOperationEndListener(::hideProgressBar))
+                GlideRequestListenerFactory.makeOperationEndListener(::hideProgressBar)
+            )
             .into(binding.fragmentSubredditInfoImage)
     }
 
@@ -97,7 +102,10 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
     private fun setShareButtonClickListener(subredditData: SubredditData) {
         binding.fragmentSubredditInfoButtonShare.setOnClickListener {
             val shareUrl = viewModel.getSubredditUrl(subredditData)
-            shareSubreddit(shareUrl)
+            shareUtils.shareUrl(
+                shareUrl,
+                getString(R.string.chooser_share_subreddit_title)
+            )
         }
     }
 
@@ -116,19 +124,6 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
                 }
             }
         }
-    }
-
-    private fun shareSubreddit(shareUrl: String) {
-        val shareIntent = Intent(Intent.ACTION_SEND).apply {
-            type = INTENT_MIME_TYPE_PLAIN_TEXT
-            putExtra(Intent.EXTRA_TEXT, shareUrl)
-        }
-        startActivity(
-            Intent.createChooser(
-                shareIntent,
-                getString(R.string.chooser_share_subreddit_title)
-            )
-        )
     }
 
     private fun setSubscribeButtonClickListener() {
@@ -154,7 +149,4 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
         }
     }
 
-    companion object {
-        private const val INTENT_MIME_TYPE_PLAIN_TEXT = "text/plain"
-    }
 }
