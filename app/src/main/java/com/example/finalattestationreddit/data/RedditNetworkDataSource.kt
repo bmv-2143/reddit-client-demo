@@ -119,6 +119,11 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     private fun emptyPostListingData(): PostListingData =
         PostListingData(emptyList(), null, null)
 
+    suspend fun getPostsById(postName : String) {
+
+    }
+
+
     suspend fun getSubreddit(subredditDisplayName: String): SubredditData? {
         return try {
             redditService.redditApi.getSubreddit(subredditDisplayName).data
@@ -131,6 +136,22 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         } catch (e: Exception) {
             logError(::getSubreddits.name, e)
             null
+        }
+    }
+
+    suspend fun vote(targetId: String, dir: Int): Boolean {
+        return try {
+            redditService.redditApi.vote(targetId, dir)
+            true
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            false
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            false
+        } catch (e: Exception) {
+            logError(::getSubreddits.name, e)
+            false
         }
     }
 }

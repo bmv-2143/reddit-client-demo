@@ -26,28 +26,30 @@ class ScoreVotingViewGroup @JvmOverloads constructor(
     init {
         binding.compoundViewGroupScoreUpvote.setOnClickListener {
             upVote()
+            onUpVoteClickListener?.invoke()
         }
 
         binding.compoundViewGroupScoreDownvote.setOnClickListener {
             downVote()
-        }
-    }
-
-    private fun downVote() {
-        if (currentVoteState == VoteState.DOWN_VOTED) {
-            setVoteState(VoteState.INITIAL)
-        } else {
-            setVoteState(VoteState.DOWN_VOTED)
             onDownVoteClickListener?.invoke()
         }
     }
 
-    private fun upVote() {
+    fun downVote() {
+        if (currentVoteState == VoteState.DOWN_VOTED) {
+            setVoteState(VoteState.INITIAL)
+        } else {
+            setVoteState(VoteState.DOWN_VOTED)
+//            onDownVoteClickListener?.invoke()
+        }
+    }
+
+    fun upVote() {
         if (currentVoteState == VoteState.UP_VOTED) {
             setVoteState(VoteState.INITIAL)
         } else {
             setVoteState(VoteState.UP_VOTED)
-            onUpVoteClickListener?.invoke()
+//            onUpVoteClickListener?.invoke()
         }
     }
 

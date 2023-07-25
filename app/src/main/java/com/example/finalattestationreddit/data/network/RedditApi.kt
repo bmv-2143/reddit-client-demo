@@ -1,5 +1,6 @@
 package com.example.finalattestationreddit.data.network
 
+import android.support.annotation.IntRange
 import com.example.finalattestationreddit.data.dto.post.PostListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditResponse
@@ -47,4 +48,27 @@ interface RedditApi {
     suspend fun getSubreddit(
         @Path("subreddit") subreddit: String
     ): SubredditResponse
+
+    @GET("by_id/{names}")
+    suspend fun getPostsById(
+        @Path("names") names: String
+    ): PostListingResponse
+
+
+    /**
+     * @param targetFullName fullname (base36 string) of the post or comment
+     * @param dir -1 to down vote, 0 to remove vote, 1 to up vote
+     */
+    @POST("/api/vote")
+    suspend fun vote(
+        @Query("id") targetFullName: String,
+        @Query("dir") @IntRange(from = -1, to = 1) dir: Int
+    )
+
+//    @GET("r/{subreddit}/comments/{article}")
+//    suspend fun getPostComments(
+//        @Path("subreddit") subreddit: String,
+//        @Path("article") article: String,
+//        @Query("sort") sort: String = "top"
+//    ): List<CommentListingResponse>
 }

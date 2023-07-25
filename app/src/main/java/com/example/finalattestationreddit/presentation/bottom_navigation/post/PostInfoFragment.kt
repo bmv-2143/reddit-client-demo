@@ -50,6 +50,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         initToolbar()
         collectSelectedPost()
         setShareButtonListener()
+        setVoteControlsListeners()
     }
 
     // todo: DRY, see other toolbar fragments
@@ -73,18 +74,43 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private fun updateUi(post: Post) {
         toolbarTitleSetter.setToolbarTitle(post.title)
+        updatePostTexts(post)
+        updatePostVoteControls(post)
+        loadPostImage(post)
+    }
+
+    private fun updatePostTexts(post: Post) {
         binding.fragmentPostInfoBodyText.text = post.selfText
         binding.fragmentPostInfoAuthor.text = post.author
         binding.fragmentPostInfoPublicationTime.text = timeUtils.formatElapsedTime(post.createdUtc)
         binding.fragmentPostInfoNumberOfComments.text =
             getString(R.string.fragment_post_info_number_of_comments, post.numComments)
+    }
 
+    private fun updatePostVoteControls(post: Post) {
+        binding.fragmentPostInfoScoreVoting.setScore(post.score)
+
+        when (post.likedByUser) {
+            true -> {
+                binding.fragmentPostInfoScoreVoting.upVote()
+            }
+
+            false -> {
+                binding.fragmentPostInfoScoreVoting.downVote()
+            }
+
+            null -> {
+                //                binding.fragmentPostInfoScoreVoting.reset()
+            }
+        }
+    }
+
+    private fun loadPostImage(post: Post) {
         PostImageLoader(
             requireContext(), binding.fragmentPostInfoImage,
             onComplete = ::hideProgressBar,
             onLoadFailed = ::hideProgressBar
         ).loadImage(post)
-
     }
 
     private fun hideProgressBar() {
@@ -103,4 +129,20 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
             )
         }
     }
+
+    private fun setVoteControlsListeners() {
+        binding.fragmentPostInfoScoreVoting.onDownVoteClickListener = {
+            val post = activityViewModel.selectedPostFlow.value
+            if (post != null)
+                viewModel.downVote(post)
+
+        }
+
+        binding.fragmentPostInfoScoreVoting.onUpVoteClickListener = {
+            val post = activityViewModel.selectedPostFlow.value
+            if (post != null)
+                viewModel.upVote(post)
+        }
+    }
+
 }

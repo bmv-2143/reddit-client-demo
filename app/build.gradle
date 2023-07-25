@@ -129,6 +129,9 @@ dependencies {
 
     // Chrome Custom Tabs
     implementation 'androidx.browser:browser:1.5.0'
+
+    // Android Support Annotations library
+    implementation 'com.android.support:support-annotations:28.0.0'
 }
 
 def getRedditClientId() {

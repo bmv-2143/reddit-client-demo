@@ -101,4 +101,8 @@ class RedditRepository @Inject constructor(
         return redditNetworkDataSource.getSubreddit(subredditDisplayName)
     }
 
+    internal suspend fun vote(postId: String, dir: Int) {
+        redditNetworkDataSource.vote(postId, dir)
+    }
+
 }
