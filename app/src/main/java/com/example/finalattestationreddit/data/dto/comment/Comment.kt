@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Comment(
+    @Json(name = "name") val name: String,
     @Json(name = "body") val body: String?,
     @Json(name = "author") val author: String?,
     @Json(name = "created_utc") val createdUtc: Long?,

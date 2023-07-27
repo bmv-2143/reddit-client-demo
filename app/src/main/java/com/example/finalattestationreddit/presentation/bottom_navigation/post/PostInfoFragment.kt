@@ -38,6 +38,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
     private val viewModel: PostInfoViewModel by viewModels()
+    private val commentsAdapter = PostCommentsAdapter()
 
     @Inject
     lateinit var timeUtils: TimeUtils
@@ -59,6 +60,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.fragmentPostInfoRecyclerViewComments.adapter = commentsAdapter
 
         selectedAndUpdatedPostFlow =
             merge(activityViewModel.selectedPostFlow, viewModel.updatedPostFlow)
@@ -183,6 +185,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private fun displayComments(comments: List<Comment>) {
         Log.e(TAG, "displayComments: $comments")
+        commentsAdapter.submitList(comments)
     }
 
 }
