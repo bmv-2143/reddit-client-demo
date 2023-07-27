@@ -3,6 +3,7 @@ package com.example.finalattestationreddit.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPagingSource
@@ -103,6 +104,10 @@ class RedditRepository @Inject constructor(
 
     internal suspend fun vote(postId: String, dir: Int) {
         redditNetworkDataSource.vote(postId, dir)
+    }
+
+    internal suspend fun getFirstPost(postName: String): Post? {
+        return redditNetworkDataSource.getPostsById(postName).firstOrNull().let { it?.data }
     }
 
 }

@@ -35,21 +35,19 @@ class ScoreVotingViewGroup @JvmOverloads constructor(
         }
     }
 
-    fun downVote() {
+    private fun downVote() {
         if (currentVoteState == VoteState.DOWN_VOTED) {
             setVoteState(VoteState.INITIAL)
         } else {
             setVoteState(VoteState.DOWN_VOTED)
-//            onDownVoteClickListener?.invoke()
         }
     }
 
-    fun upVote() {
+    private fun upVote() {
         if (currentVoteState == VoteState.UP_VOTED) {
             setVoteState(VoteState.INITIAL)
         } else {
             setVoteState(VoteState.UP_VOTED)
-//            onUpVoteClickListener?.invoke()
         }
     }
 
@@ -57,7 +55,7 @@ class ScoreVotingViewGroup @JvmOverloads constructor(
         binding.compoundViewGroupScoreText.text = score.toString()
     }
 
-    private fun setVoteState(voteState: VoteState) {
+    fun setVoteState(voteState: VoteState) {
         currentVoteState = voteState
         voteState.activate(binding)
 

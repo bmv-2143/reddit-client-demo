@@ -19,8 +19,14 @@ import com.example.finalattestationreddit.presentation.bottom_navigation.posts_l
 import com.example.finalattestationreddit.presentation.utils.ShareUtils
 import com.example.finalattestationreddit.presentation.utils.TimeUtils
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
+import com.example.finalattestationreddit.presentation.widgets.ScoreVotingViewGroup.VoteState.DOWN_VOTED
+import com.example.finalattestationreddit.presentation.widgets.ScoreVotingViewGroup.VoteState.INITIAL
+import com.example.finalattestationreddit.presentation.widgets.ScoreVotingViewGroup.VoteState.UP_VOTED
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -39,6 +45,9 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     @Inject
     lateinit var shareUtils: ShareUtils
 
+    private lateinit var selectedAndUpdatedPostFlow: Flow<Post?>
+    private var latestSelectedOrUpdatedPost: Post? = null
+
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -47,6 +56,10 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        selectedAndUpdatedPostFlow =
+            merge(activityViewModel.selectedPostFlow, viewModel.updatedPostFlow)
+
         initToolbar()
         collectSelectedPost()
         setShareButtonListener()
@@ -63,10 +76,9 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     private fun collectSelectedPost() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                activityViewModel.selectedPostFlow.collectLatest { post ->
-                    if (post != null) {
-                        updateUi(post)
-                    }
+                selectedAndUpdatedPostFlow.filterNotNull().collectLatest { post ->
+                    latestSelectedOrUpdatedPost = post
+                    updateUi(post)
                 }
             }
         }
@@ -91,17 +103,11 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         binding.fragmentPostInfoScoreVoting.setScore(post.score)
 
         when (post.likedByUser) {
-            true -> {
-                binding.fragmentPostInfoScoreVoting.upVote()
-            }
+            true -> binding.fragmentPostInfoScoreVoting.setVoteState(UP_VOTED)
 
-            false -> {
-                binding.fragmentPostInfoScoreVoting.downVote()
-            }
+            false -> binding.fragmentPostInfoScoreVoting.setVoteState(DOWN_VOTED)
 
-            null -> {
-                //                binding.fragmentPostInfoScoreVoting.reset()
-            }
+            null -> binding.fragmentPostInfoScoreVoting.setVoteState(INITIAL)
         }
     }
 
@@ -119,7 +125,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private fun setShareButtonListener() {
         binding.fragmentPostInfoShare.setOnClickListener {
-            val post = activityViewModel.selectedPostFlow.value
+            val post = latestSelectedOrUpdatedPost
             val shareLink = viewModel.getShareLink(post)
             shareUtils.shareUrl(
                 shareLink,
@@ -132,16 +138,15 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private fun setVoteControlsListeners() {
         binding.fragmentPostInfoScoreVoting.onDownVoteClickListener = {
-            val post = activityViewModel.selectedPostFlow.value
-            if (post != null)
-                viewModel.downVote(post)
-
+            latestSelectedOrUpdatedPost?.let {
+                viewModel.downVote(it)
+            }
         }
 
         binding.fragmentPostInfoScoreVoting.onUpVoteClickListener = {
-            val post = activityViewModel.selectedPostFlow.value
-            if (post != null)
-                viewModel.upVote(post)
+            latestSelectedOrUpdatedPost?.let {
+                viewModel.upVote(it)
+            }
         }
     }
 

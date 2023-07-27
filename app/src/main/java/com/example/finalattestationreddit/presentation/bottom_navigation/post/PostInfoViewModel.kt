@@ -9,6 +9,8 @@ import com.example.finalattestationreddit.domain.DownVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.UnVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.UpVotePostOrCommentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,27 +19,39 @@ class PostInfoViewModel @Inject constructor(
     private val upVoteUseCase: UpVotePostOrCommentUseCase,
     private val downVoteUseCase: DownVotePostOrCommentUseCase,
     private val unVoteUseCase : UnVotePostOrCommentUseCase,
+    private val repository: RedditRepository
     ) : ViewModel() {
 
     internal fun getShareLink(post : Post?) : String {
         return "${BuildConfig.REDDIT_BASE_URL}${post?.permalink}"
     }
 
+    private val _updatedPostFlow = MutableStateFlow<Post?>(null)
+    val updatedPostFlow = _updatedPostFlow.asStateFlow()
+
     internal fun upVote(post : Post) {
         viewModelScope.launch() {
-            upVoteUseCase(post.name)
+            if (post.likedByUser == true) {
+                unVoteUseCase(post.name)
+            } else {
+                upVoteUseCase(post.name)
+            }
+            fetchUpdatedPost(post)
         }
+    }
+
+    private suspend fun fetchUpdatedPost(post: Post) {
+        _updatedPostFlow.value = repository.getFirstPost(post.name)
     }
 
     internal fun downVote(post : Post) {
         viewModelScope.launch() {
-            downVoteUseCase(post.name)
-        }
-    }
-
-    internal fun unVote(post : Post) {
-        viewModelScope.launch() {
-            unVoteUseCase(post.name)
+            if (post.likedByUser == false) {
+                unVoteUseCase(post.name)
+            } else {
+                downVoteUseCase(post.name)
+            }
+            fetchUpdatedPost(post)
         }
     }
 

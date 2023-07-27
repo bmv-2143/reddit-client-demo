@@ -1,6 +1,7 @@
 package com.example.finalattestationreddit.data
 
 import android.util.Log
+import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.post.PostListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
@@ -119,10 +120,9 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     private fun emptyPostListingData(): PostListingData =
         PostListingData(emptyList(), null, null)
 
-    suspend fun getPostsById(postName : String) {
-
+    suspend fun getPostsById(postName : String) : List<PostData> {
+        return redditService.redditApi.getPostsById(postName).data.children
     }
-
 
     suspend fun getSubreddit(subredditDisplayName: String): SubredditData? {
         return try {
