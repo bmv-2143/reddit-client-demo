@@ -4,12 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.data.RedditRepository
+import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.domain.DownVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.UnVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.UpVotePostOrCommentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,6 +54,16 @@ class PostInfoViewModel @Inject constructor(
                 downVoteUseCase(post.name)
             }
             fetchUpdatedPost(post)
+        }
+    }
+
+    private val _comments = MutableStateFlow<List<Comment>>(emptyList())
+    val comments: StateFlow<List<Comment>> = _comments
+
+    suspend fun startLoadingPostComments(subredditDisplayName: String, postName: String) {
+        viewModelScope.launch {
+            val responseData = repository.getPostComments(subredditDisplayName, postName)
+            _comments.value = responseData
         }
     }
 

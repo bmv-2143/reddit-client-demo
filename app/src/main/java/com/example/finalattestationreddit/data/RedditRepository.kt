@@ -3,6 +3,8 @@ package com.example.finalattestationreddit.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.finalattestationreddit.data.dto.comment.Comment
+import com.example.finalattestationreddit.data.dto.comment.CommentData
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
@@ -19,7 +21,7 @@ const val PREFETCH_DISTANCE = PAGE_SIZE / 3
 @Singleton
 class RedditRepository @Inject constructor(
     private val redditNetworkDataSource: RedditNetworkDataSource,
-    private val tokenManager : TokenManager
+    private val tokenManager: TokenManager
 ) {
 
     val networkErrorsFlow = redditNetworkDataSource.networkErrorsFlow.onEach { event ->
@@ -77,7 +79,10 @@ class RedditRepository @Inject constructor(
         ).flow
     }
 
-    internal suspend fun updateSubscription(subredditName: String, action: String): SubscriptionUpdateResult {
+    internal suspend fun updateSubscription(
+        subredditName: String,
+        action: String
+    ): SubscriptionUpdateResult {
         val updateSuccess = redditNetworkDataSource.updateSubscription(subredditName, action)
         return SubscriptionUpdateResult(subredditName, updateSuccess)
     }
@@ -108,6 +113,12 @@ class RedditRepository @Inject constructor(
 
     internal suspend fun getFirstPost(postName: String): Post? {
         return redditNetworkDataSource.getPostsById(postName).firstOrNull().let { it?.data }
+    }
+
+    internal suspend fun getPostComments(subredditDisplayName: String, article: String):
+            List<Comment> {
+        return redditNetworkDataSource.getPostComments(subredditDisplayName, article).children
+            .map { it.data }
     }
 
 }

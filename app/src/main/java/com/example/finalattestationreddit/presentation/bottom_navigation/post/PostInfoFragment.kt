@@ -67,6 +67,8 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         collectSelectedPost()
         setShareButtonListener()
         setVoteControlsListeners()
+        observeComments()
+        startLoadingComments()
     }
 
     // todo: DRY, see other toolbar fragments
@@ -151,6 +153,33 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
                 viewModel.upVote(it)
             }
         }
+    }
+
+    private fun observeComments() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.comments.collectLatest { comments ->
+                    displayComments(comments)
+                }
+            }
+        }
+    }
+
+    private fun startLoadingComments() {
+        val subredditName = activityViewModel.selectedSubredditFlow.value?.displayName
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                selectedAndUpdatedPostFlow.filterNotNull().collectLatest { post ->
+                    if (subredditName != null)
+                        viewModel.startLoadingPostComments(subredditName, post.getPostId())
+                }
+            }
+        }
+    }
+
+    private fun displayComments(comments: List<Comment>) {
+        Log.e(TAG, "displayComments: $comments")
     }
 
 }

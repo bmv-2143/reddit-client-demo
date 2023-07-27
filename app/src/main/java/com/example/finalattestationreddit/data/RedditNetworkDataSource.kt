@@ -1,6 +1,7 @@
 package com.example.finalattestationreddit.data
 
 import android.util.Log
+import com.example.finalattestationreddit.data.dto.comment.CommentListingData
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.post.PostListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
@@ -117,10 +118,11 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             emptyPostListingData()
         }
     }
+
     private fun emptyPostListingData(): PostListingData =
         PostListingData(emptyList(), null, null)
 
-    suspend fun getPostsById(postName : String) : List<PostData> {
+    suspend fun getPostsById(postName: String): List<PostData> {
         return redditService.redditApi.getPostsById(postName).data.children
     }
 
@@ -154,5 +156,51 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             false
         }
     }
+
+    suspend fun getPostComments(
+        subredditDisplayName: String,
+        postName: String,
+        depth: Int? = null,
+        limit: Int? = null
+    ): CommentListingData {
+        return try {
+            Log.e(TAG, "getPostComments START")
+            getOnlyCommentsToPost(subredditDisplayName, postName, depth = 1, limit = 5)
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptyCommentListingData()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptyCommentListingData()
+        } catch (e: Exception) {
+            logError(::getPostComments.name, e)
+            emptyCommentListingData()
+        }
+    }
+
+    private suspend fun getOnlyCommentsToPost(
+        subredditDisplayName: String,
+        postName: String,
+        depth: Int?,
+        limit: Int?
+    ): CommentListingData {
+        val response =
+            redditService.redditApi.getPostComments(
+                subredditDisplayName,
+                postName,
+                depth = depth,
+                limit = limit
+            )
+        return if (response.size >= 2) {
+            response[1].data
+        } else {
+            emptyCommentListingData()
+        }
+    }
+
+    private fun emptyCommentListingData(): CommentListingData =
+        CommentListingData(emptyList())
+
+
 }
 

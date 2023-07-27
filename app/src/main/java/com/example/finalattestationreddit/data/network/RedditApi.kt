@@ -1,6 +1,7 @@
 package com.example.finalattestationreddit.data.network
 
 import android.support.annotation.IntRange
+import com.example.finalattestationreddit.data.dto.comment.CommentListingResponse
 import com.example.finalattestationreddit.data.dto.post.PostListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditResponse
@@ -65,10 +66,18 @@ interface RedditApi {
         @Query("dir") @IntRange(from = -1, to = 1) dir: Int
     )
 
-//    @GET("r/{subreddit}/comments/{article}")
-//    suspend fun getPostComments(
-//        @Path("subreddit") subreddit: String,
-//        @Path("article") article: String,
-//        @Query("sort") sort: String = "top"
-//    ): List<CommentListingResponse>
+    @GET("r/{subreddit}/comments/{postName}")
+    suspend fun getPostComments(
+        @Path("subreddit") subreddit: String,
+        @Path("postName") postName: String,
+        @Query("sort") sort: String = "top",
+        @Query("depth") depth: Int? = null,
+        @Query("limit") limit: Int? = null,
+
+        // todo: do I need that?
+        @Query("more") more: Boolean = false,
+        @Query("threaded") threaded: Boolean = false,
+
+    ): List<CommentListingResponse>
+
 }
