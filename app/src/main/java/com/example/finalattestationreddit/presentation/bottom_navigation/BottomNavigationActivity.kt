@@ -3,6 +3,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.example.finalattestationreddit.data.NetworkError
 import com.example.finalattestationreddit.data.NetworkError.ForbiddenApiRateExceeded
 import com.example.finalattestationreddit.data.NetworkError.Unauthorized
 import com.example.finalattestationreddit.databinding.ActivityBottomNavigationBinding
+import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationActivity
 import com.example.finalattestationreddit.presentation.utils.SnackbarFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -109,9 +111,7 @@ class BottomNavigationActivity : AppCompatActivity() {
                 finish()
             }
 
-            else -> {
-                snackbarFactory.showErrorSnackbar(binding.root, error.message)
-            }
+            else -> Log.e(TAG, "handleNetworkError: ${error.message}")
         }
     }
 
