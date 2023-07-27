@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.databinding.FragmentPostsListBinding
-import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationActivityViewModel
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info.SubredditInfoFragmentArgs
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
@@ -31,7 +31,7 @@ import javax.inject.Inject
 class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private val viewModel: PostsListViewModel by viewModels()
-    private val activityViewModel : BottomNavigationActivityViewModel by activityViewModels()
+    private val activityViewModel : BottomNavigationViewModel by activityViewModels()
 
     private val navigationArgs: SubredditInfoFragmentArgs by navArgs()
 

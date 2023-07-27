@@ -1,6 +1,7 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.post
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.databinding.FragmentPostInfoBinding
-import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationActivityViewModel
+import com.example.finalattestationreddit.log.TAG
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostImageLoader
 import com.example.finalattestationreddit.presentation.utils.ShareUtils
@@ -33,7 +36,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
-    private val activityViewModel: BottomNavigationActivityViewModel by activityViewModels()
+    private val activityViewModel: BottomNavigationViewModel by activityViewModels()
     private val viewModel: PostInfoViewModel by viewModels()
 
     @Inject

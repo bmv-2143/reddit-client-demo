@@ -30,7 +30,7 @@ class BottomNavigationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBottomNavigationBinding
     private lateinit var navController: NavController
 
-    private val viewModel by viewModels<BottomNavigationActivityViewModel>()
+    private val viewModel by viewModels<BottomNavigationViewModel>()
 
     @Inject
     lateinit var snackbarFactory: SnackbarFactory
