@@ -7,6 +7,7 @@ import com.example.finalattestationreddit.data.RedditRepository
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.domain.DownVotePostOrCommentUseCase
+import com.example.finalattestationreddit.domain.GetPostCommentsUseCase
 import com.example.finalattestationreddit.domain.UnVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.UpVotePostOrCommentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,7 @@ class PostInfoViewModel @Inject constructor(
     private val upVoteUseCase: UpVotePostOrCommentUseCase,
     private val downVoteUseCase: DownVotePostOrCommentUseCase,
     private val unVoteUseCase : UnVotePostOrCommentUseCase,
+    private val getPostCommentsUseCase: GetPostCommentsUseCase,
     private val repository: RedditRepository
     ) : ViewModel() {
 
@@ -60,10 +62,9 @@ class PostInfoViewModel @Inject constructor(
     private val _comments = MutableStateFlow<List<Comment>>(emptyList())
     val comments: StateFlow<List<Comment>> = _comments
 
-    suspend fun startLoadingPostComments(subredditDisplayName: String, postName: String) {
+    fun startLoadingPostComments(subredditDisplayName: String, postName: String) {
         viewModelScope.launch {
-            val responseData = repository.getPostComments(subredditDisplayName, postName)
-            _comments.value = responseData
+            _comments.value = getPostCommentsUseCase(subredditDisplayName, postName)
         }
     }
 
