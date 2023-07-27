@@ -156,24 +156,27 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     }
 
     private fun observeComments() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.comments.collectLatest { comments ->
-                    displayComments(comments)
-                }
+        repeatOnLifecycleStarted {
+            viewModel.comments.collectLatest { comments ->
+                displayComments(comments)
             }
         }
     }
 
-    private fun startLoadingComments() {
-        val subredditName = activityViewModel.selectedSubredditFlow.value?.displayName
-
+    private fun repeatOnLifecycleStarted(action: suspend () -> Unit) =
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                selectedAndUpdatedPostFlow.filterNotNull().collectLatest { post ->
-                    if (subredditName != null)
-                        viewModel.startLoadingPostComments(subredditName, post.getPostId())
-                }
+                action()
+            }
+        }
+
+
+    private fun startLoadingComments() {
+        val subredditName = activityViewModel.selectedSubredditFlow.value?.displayName
+        repeatOnLifecycleStarted {
+            selectedAndUpdatedPostFlow.filterNotNull().collectLatest { post ->
+                if (subredditName != null)
+                    viewModel.startLoadingPostComments(subredditName, post.getPostId())
             }
         }
     }
