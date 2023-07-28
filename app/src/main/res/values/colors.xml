@@ -4,6 +4,8 @@
     <color name="purple_figma_secondary">#825222D0</color>
 
     <color name="purple_figma_bottom_nav_buttons_unselected">#9576EB</color>
+    <color name="figma_comment_text_buttons_color">#7F7F7F</color>
+
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
