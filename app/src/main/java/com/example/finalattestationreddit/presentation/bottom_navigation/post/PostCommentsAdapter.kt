@@ -8,13 +8,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.ListItemPostCommentBinding
 
-class PostCommentsAdapter constructor(private val formatElapsedTimeAction: (Long) -> String) :
-    ListAdapter<Comment, PostCommentsAdapter.ViewHolder>(CommentDiffCallback()) {
+class PostCommentsAdapter constructor(
+    private val formatElapsedTimeAction: (Long) -> String,
+    private val onDownloadButtonClick: (Comment) -> Unit,
+    private val onSaveButtonClick: (Comment) -> Unit
+) : ListAdapter<Comment, PostCommentsAdapter.ViewHolder>(CommentDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            ListItemPostCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding, formatElapsedTimeAction)
+        val binding = ListItemPostCommentBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(
+            binding,
+            formatElapsedTimeAction,
+            onDownloadButtonClick,
+            onSaveButtonClick
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -24,11 +32,27 @@ class PostCommentsAdapter constructor(private val formatElapsedTimeAction: (Long
 
     class ViewHolder(
         private val binding: ListItemPostCommentBinding,
-        private val formatElapsedTimeAction: (Long) -> String
+        private val formatElapsedTimeAction: (Long) -> String,
+        private val onDownloadButtonClick: (Comment) -> Unit,
+        private val onSaveButtonClick: (Comment) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(comment: Comment) {
             setTexts(comment)
+            setDownloadButtonClickListener(comment)
+            setSaveButtonClickListener(comment)
+        }
+
+        private fun setSaveButtonClickListener(comment: Comment) {
+            binding.listItemPostCommentButtonSaveButton.setOnClickListener {
+                onSaveButtonClick(comment)
+            }
+        }
+
+        private fun setDownloadButtonClickListener(comment: Comment) {
+            binding.listItemPostCommentButtonLocalDownload.setOnClickListener {
+                onDownloadButtonClick(comment)
+            }
         }
 
         private fun setTexts(comment: Comment) {

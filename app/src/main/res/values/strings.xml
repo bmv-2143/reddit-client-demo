@@ -35,5 +35,7 @@
     <string name="time_years_ago">%1d years ago</string>
     <string name="fragment_post_info_share">Share</string>
 
+    <string name="list_item_post_comment_btn_download_msg">Download: %1s</string>
+    <string name="list_item_post_comment_btn_save_msg">Save: %1s</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -39,7 +40,11 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
     private val viewModel: PostInfoViewModel by viewModels()
     private val commentsAdapter: PostCommentsAdapter by lazy {
-        PostCommentsAdapter(timeUtils::formatElapsedTime)
+        PostCommentsAdapter(
+            timeUtils::formatElapsedTime,
+            ::onCommentDownloadButtonClick,
+            ::onCommentSaveButtonClick
+        )
     }
 
     @Inject
@@ -162,7 +167,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     private fun observeComments() {
         repeatOnLifecycleStarted {
             viewModel.comments.collectLatest { comments ->
-                displayComments(comments.filter { comment -> comment.body != null})
+                displayComments(comments.filter { comment -> comment.body != null })
             }
         }
     }
@@ -188,6 +193,26 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     private fun displayComments(comments: List<Comment>) {
         Log.e(TAG, "displayComments: $comments")
         commentsAdapter.submitList(comments)
+    }
+
+    private fun onCommentDownloadButtonClick(comment: Comment) {
+        // STUB: not required by the assignment, no implementation details were given
+
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.list_item_post_comment_btn_download_msg, comment.name),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun onCommentSaveButtonClick(comment: Comment) {
+        // STUB: not required by the assignment, no implementation details were given
+
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.list_item_post_comment_btn_save_msg, comment.name),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
 }
