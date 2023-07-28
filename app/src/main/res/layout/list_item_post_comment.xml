@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     app:contentPaddingTop="8dp"
     app:contentPaddingBottom="8dp"
     app:contentPaddingLeft="16dp"
@@ -14,19 +15,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="4dp"
-
         >
+
+        <TextView
+            android:id="@+id/list_item_post_comment_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/list_item_post_comment_publication_time"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Author Name" />
+
+        <TextView
+            android:id="@+id/list_item_post_comment_publication_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/list_item_post_comment_author"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="publication time" />
+
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/list_item_post_comment_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="list_item_post_comment_author,list_item_post_comment_publication_time" />
 
         <TextView
             android:id="@+id/list_item_post_comment_text_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_marginTop="16dp"
             android:text="HELLO WORLD"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/list_item_post_comment_barrier" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

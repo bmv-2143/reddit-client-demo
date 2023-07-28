@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.ListItemPostCommentBinding
 
-class PostCommentsAdapter : ListAdapter<Comment, PostCommentsAdapter.ViewHolder>(CommentDiffCallback()) {
+class PostCommentsAdapter constructor(private val formatElapsedTimeAction: (Long) -> String) :
+    ListAdapter<Comment, PostCommentsAdapter.ViewHolder>(CommentDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ListItemPostCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        val binding =
+            ListItemPostCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding, formatElapsedTimeAction)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -20,10 +22,23 @@ class PostCommentsAdapter : ListAdapter<Comment, PostCommentsAdapter.ViewHolder>
         holder.bind(comment)
     }
 
-    class ViewHolder(private val binding: ListItemPostCommentBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ListItemPostCommentBinding,
+        private val formatElapsedTimeAction: (Long) -> String
+    ) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(comment: Comment) {
-//            binding.authorTextView.text = comment.author
+            setTexts(comment)
+        }
+
+        private fun setTexts(comment: Comment) {
+            binding.listItemPostCommentAuthor.text = comment.author
             binding.listItemPostCommentTextBody.text = comment.body
+
+            comment.createdUtc?.let { createdUtc ->
+                binding.listItemPostCommentPublicationTime.text =
+                    formatElapsedTimeAction(createdUtc)
+            }
         }
     }
 }

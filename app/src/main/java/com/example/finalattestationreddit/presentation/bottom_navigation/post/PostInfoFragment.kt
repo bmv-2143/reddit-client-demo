@@ -38,7 +38,9 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
     private val viewModel: PostInfoViewModel by viewModels()
-    private val commentsAdapter = PostCommentsAdapter()
+    private val commentsAdapter: PostCommentsAdapter by lazy {
+        PostCommentsAdapter(timeUtils::formatElapsedTime)
+    }
 
     @Inject
     lateinit var timeUtils: TimeUtils
@@ -160,7 +162,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     private fun observeComments() {
         repeatOnLifecycleStarted {
             viewModel.comments.collectLatest { comments ->
-                displayComments(comments)
+                displayComments(comments.filter { comment -> comment.body != null})
             }
         }
     }

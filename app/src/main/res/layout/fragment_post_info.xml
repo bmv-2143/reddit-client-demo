@@ -64,7 +64,7 @@
                         tools:text="publication time" />
 
                     <androidx.constraintlayout.widget.Barrier
-                        android:id="@+id/fragment_post_info_barrier"
+                        android:id="@+id/list_item_post_comment_barrier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:barrierDirection="bottom"
@@ -78,7 +78,7 @@
                         android:adjustViewBounds="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/fragment_post_info_barrier"
+                        app:layout_constraintTop_toTopOf="@id/list_item_post_comment_barrier"
                         tools:src="@tools:sample/avatars" />
 
                     <TextView
