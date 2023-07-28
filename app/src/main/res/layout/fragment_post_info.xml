@@ -48,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/fragment_post_info_publication_time"
+                        app:layout_constraintEnd_toStartOf="@id/fragment_post_info_publication_time"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -125,12 +125,12 @@
                         android:layout_width="100dp"
                         android:layout_height="48dp"
 
-                        app:layout_constraintBottom_toBottomOf="@+id/fragment_post_info_number_of_comments"
+                        app:layout_constraintBottom_toBottomOf="@id/fragment_post_info_number_of_comments"
 
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1"
-                        app:layout_constraintStart_toEndOf="@+id/fragment_post_info_share"
-                        app:layout_constraintTop_toTopOf="@+id/fragment_post_info_number_of_comments" />
+                        app:layout_constraintStart_toEndOf="@id/fragment_post_info_share"
+                        app:layout_constraintTop_toTopOf="@id/fragment_post_info_number_of_comments" />
 
                     <ProgressBar
                         android:id="@+id/fragment_post_info_progress_bar"
