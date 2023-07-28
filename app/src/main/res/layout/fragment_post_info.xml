@@ -145,14 +145,11 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_post_info_recycler_view_comments"
+<!--                android:name="com.example.finalattestationreddit.presentation.bottom_navigation.comments_list.CommentsListFragment"-->
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_post_info_comments_fragment_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-
-                app:layoutManager="LinearLayoutManager"
-                tools:listitem="@layout/list_item_post_comment" />
+                android:layout_height="wrap_content" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
