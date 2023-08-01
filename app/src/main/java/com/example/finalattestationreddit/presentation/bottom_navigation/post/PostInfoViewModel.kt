@@ -59,13 +59,13 @@ class PostInfoViewModel @Inject constructor(
         }
     }
 
-    private val _comments = MutableStateFlow<List<Comment>>(emptyList())
-    val comments: StateFlow<List<Comment>> = _comments
-
-    fun startLoadingPostComments(subredditDisplayName: String, postName: String) {
-        viewModelScope.launch {
-            _comments.value = getPostCommentsUseCase(subredditDisplayName, postName)
-        }
-    }
+//    private val _comments = MutableStateFlow<List<Comment>>(emptyList())
+//    val comments: StateFlow<List<Comment>> = _comments
+//
+//    fun startLoadingPostComments(subredditDisplayName: String, postName: String) {
+//        viewModelScope.launch {
+//            _comments.value = getPostCommentsUseCase(subredditDisplayName, postName)
+//        }
+//    }
 
 }

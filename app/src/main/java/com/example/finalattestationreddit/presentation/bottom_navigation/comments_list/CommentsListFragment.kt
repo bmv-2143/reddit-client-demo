@@ -15,7 +15,6 @@ import com.example.finalattestationreddit.databinding.FragmentCommentsListBindin
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.post.PostCommentsAdapter
-import com.example.finalattestationreddit.presentation.bottom_navigation.post.PostInfoViewModel
 import com.example.finalattestationreddit.presentation.utils.TimeUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -25,12 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() {
 
-    private val viewModel: PostInfoViewModel by viewModels({ requireParentFragment() })
-
-    // TODO: move / or handle in view model?
-//    private var subredditName: String? = null
-//    private var postId: String? = null
-
+    private val viewModel: CommentsListViewModel by viewModels()
     private val commentsAdapter: PostCommentsAdapter by lazy {
         PostCommentsAdapter(
             timeUtils::formatElapsedTime,
@@ -39,14 +33,14 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         )
     }
 
+    @Inject
+    lateinit var timeUtils: TimeUtils
+
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentCommentsListBinding =
         FragmentCommentsListBinding.inflate(inflater, container, false)
-
-    @Inject
-    lateinit var timeUtils: TimeUtils
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,21 +71,20 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         startLoadingComments()
     }
 
-    private fun startLoadingComments() {
-        viewLifecycleOwner.lifecycleScope.launch {
-
-            val subredditName = requireArguments().getString(ARG_SUBREDDIT_NAME)
-            val postId = requireArguments().getString(ARG_POST_ID)
-            if (subredditName != null || postId != null) {
-                viewModel.startLoadingPostComments(subredditName!!, postId!!) // TODO: fix me
-            }
-        }
-    }
-
     private fun observeComments() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.comments.collectLatest { comments ->
                 displayComments(comments.filter { comment -> comment.body != null })
+            }
+        }
+    }
+
+    private fun startLoadingComments() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val subredditName = requireArguments().getString(ARG_SUBREDDIT_NAME)
+            val postId = requireArguments().getString(ARG_POST_ID)
+            if (subredditName != null || postId != null) {
+                viewModel.startLoadingPostComments(subredditName!!, postId!!) // TODO: fix me
             }
         }
     }
@@ -101,8 +94,8 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     }
 
     private fun onCommentDownloadButtonClick(comment: Comment) {
-        // STUB: not required by the assignment, no implementation details were given
 
+        // STUB: not required by the assignment, no implementation details are given
         Toast.makeText(
             requireContext(),
             getString(R.string.list_item_post_comment_btn_download_msg, comment.name),
@@ -111,15 +104,14 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     }
 
     private fun onCommentSaveButtonClick(comment: Comment) {
-        // STUB: not required by the assignment, no implementation details were given
 
+        // STUB: not required by the assignment, no implementation details are given
         Toast.makeText(
             requireContext(),
             getString(R.string.list_item_post_comment_btn_save_msg, comment.name),
             Toast.LENGTH_SHORT
         ).show()
     }
-
 
     companion object {
 
