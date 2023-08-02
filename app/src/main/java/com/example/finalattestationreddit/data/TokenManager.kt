@@ -3,7 +3,9 @@ package com.example.finalattestationreddit.data
 import android.content.SharedPreferences
 import com.example.finalattestationreddit.di.TokenProvider
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class TokenManager @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ) : TokenProvider {
