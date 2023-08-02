@@ -1,11 +1,9 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.post
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -13,11 +11,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.databinding.FragmentPostInfoBinding
-import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.comments_list.CommentsListFragment
@@ -41,13 +37,6 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
     private val viewModel: PostInfoViewModel by viewModels()
-//    private val commentsAdapter: PostCommentsAdapter by lazy {
-//        PostCommentsAdapter(
-//            timeUtils::formatElapsedTime,
-//            ::onCommentDownloadButtonClick,
-//            ::onCommentSaveButtonClick
-//        )
-//    }
 
     @Inject
     lateinit var timeUtils: TimeUtils
@@ -69,7 +58,6 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.fragmentPostInfoRecyclerViewComments.adapter = commentsAdapter
 
         selectedAndUpdatedPostFlow =
             merge(activityViewModel.selectedPostFlow, viewModel.updatedPostFlow)
@@ -78,8 +66,6 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         collectSelectedPost()
         setShareButtonListener()
         setVoteControlsListeners()
-//        observeComments()
-//        startLoadingComments()
 
         addCommentsFragment()
     }
@@ -167,57 +153,6 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
             }
         }
     }
-
-//    private fun observeComments() {
-//        repeatOnLifecycleStarted {
-//            viewModel.comments.collectLatest { comments ->
-////                displayComments(comments.filter { comment -> comment.body != null })
-//            }
-//        }
-//    }
-
-    private fun repeatOnLifecycleStarted(action: suspend () -> Unit) =
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                action()
-            }
-        }
-
-
-//    private fun startLoadingComments() {
-//        val subredditName = activityViewModel.selectedSubredditFlow.value?.displayName
-//        repeatOnLifecycleStarted {
-//            selectedAndUpdatedPostFlow.filterNotNull().collectLatest { post ->
-//                if (subredditName != null)
-//                    viewModel.startLoadingPostComments(subredditName, post.getPostId())
-//            }
-//        }
-//    }
-
-//    private fun displayComments(comments: List<Comment>) {
-//        Log.e(TAG, "displayComments: $comments")
-//        commentsAdapter.submitList(comments)
-//    }
-
-//    private fun onCommentDownloadButtonClick(comment: Comment) {
-//        // STUB: not required by the assignment, no implementation details were given
-//
-//        Toast.makeText(
-//            requireContext(),
-//            getString(R.string.list_item_post_comment_btn_download_msg, comment.name),
-//            Toast.LENGTH_SHORT
-//        ).show()
-//    }
-//
-//    private fun onCommentSaveButtonClick(comment: Comment) {
-//        // STUB: not required by the assignment, no implementation details were given
-//
-//        Toast.makeText(
-//            requireContext(),
-//            getString(R.string.list_item_post_comment_btn_save_msg, comment.name),
-//            Toast.LENGTH_SHORT
-//        ).show()
-//    }
 
     private fun addCommentsFragment() {
         activityViewModel.selectedSubredditFlow.value?.let { subreddit ->
