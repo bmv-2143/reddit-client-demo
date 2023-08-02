@@ -37,5 +37,6 @@
 
     <string name="list_item_post_comment_btn_download_msg">Download: %1s</string>
     <string name="list_item_post_comment_btn_save_msg">Save: %1s</string>
+    <string name="fragment_post_info_button_show_all_comments">Show all</string>
 
 </resources>

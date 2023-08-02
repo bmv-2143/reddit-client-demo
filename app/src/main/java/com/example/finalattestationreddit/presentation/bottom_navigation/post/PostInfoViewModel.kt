@@ -3,7 +3,6 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.post
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.BuildConfig
-import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.domain.DownVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.GetPostCommentsUseCase
@@ -12,7 +11,6 @@ import com.example.finalattestationreddit.domain.UnVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.UpVotePostOrCommentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -59,13 +57,8 @@ class PostInfoViewModel @Inject constructor(
         }
     }
 
-//    private val _comments = MutableStateFlow<List<Comment>>(emptyList())
-//    val comments: StateFlow<List<Comment>> = _comments
-//
-//    fun startLoadingPostComments(subredditDisplayName: String, postName: String) {
-//        viewModelScope.launch {
-//            _comments.value = getPostCommentsUseCase(subredditDisplayName, postName)
-//        }
-//    }
+    internal fun shouldDisplayShowAllCommentsButton(post : Post) : Boolean {
+        return !(post.numComments <= BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
+    }
 
 }

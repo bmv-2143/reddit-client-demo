@@ -93,6 +93,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         updatePostTexts(post)
         updatePostVoteControls(post)
         loadPostImage(post)
+        updateShowAllCommentsButtonVisibility(post)
     }
 
     private fun updatePostTexts(post: Post) {
@@ -176,6 +177,14 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         val transaction = childFragmentManager.beginTransaction() // todo: which fragment manager?
         transaction.add(R.id.fragment_post_info_comments_fragment_container, fragment)
         transaction.commit()
+    }
+
+    private fun updateShowAllCommentsButtonVisibility(post : Post) {
+        binding.fragmentPostInfoButtonShowAllComments.visibility =
+            if (viewModel.shouldDisplayShowAllCommentsButton(post))
+                View.VISIBLE
+            else
+                View.GONE
     }
 
 }
