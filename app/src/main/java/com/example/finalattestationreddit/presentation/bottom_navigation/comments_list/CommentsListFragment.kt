@@ -18,6 +18,8 @@ import com.example.finalattestationreddit.presentation.bottom_navigation.post.Po
 import com.example.finalattestationreddit.presentation.utils.TimeUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -47,10 +49,11 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentCommentsListBinding.inflate(inflater, container, false)
+        val view = super.onCreateView(inflater, container, savedInstanceState)
         binding.fragmentPostInfoRecyclerViewComments.adapter = commentsAdapter
         configureLaunchMode(binding)
-        return binding.root
+        binding.fragmentCommentsListProgressBar.visibility = View.VISIBLE
+        return view
     }
 
     private fun configureLaunchMode(binding: FragmentCommentsListBinding) {
@@ -73,8 +76,11 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     private fun observeComments() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.comments.collectLatest { comments ->
-                displayComments(comments.filter { comment -> comment.body != null })
+            viewModel.comments
+                .map { comments -> comments.filter { comment -> comment.body != null } }
+                .filter { comments -> comments.isNotEmpty() }
+                .collectLatest { comments ->
+                    displayComments(comments)
             }
         }
     }
@@ -90,7 +96,9 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     }
 
     private fun displayComments(comments: List<Comment>) {
-        commentsAdapter.submitList(comments)
+        commentsAdapter.submitList(comments) {
+            binding.fragmentCommentsListProgressBar.visibility = View.GONE
+        }
     }
 
     private fun onCommentDownloadButtonClick(comment: Comment) {
