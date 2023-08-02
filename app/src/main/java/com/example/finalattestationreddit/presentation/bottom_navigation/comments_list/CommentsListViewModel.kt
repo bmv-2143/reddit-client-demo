@@ -13,14 +13,19 @@ import javax.inject.Inject
 @HiltViewModel
 class CommentsListViewModel @Inject constructor(
     private val getPostCommentsUseCase: GetPostCommentsUseCase,
-): ViewModel() {
+) : ViewModel() {
 
     private val _comments = MutableStateFlow<List<Comment>>(emptyList())
     val comments: StateFlow<List<Comment>> = _comments
 
-    fun startLoadingPostComments(subredditDisplayName: String, postName: String) {
+    fun startLoadingPostComments(
+        subredditDisplayName: String,
+        postName: String,
+        commentsCountLimit: Int
+    ) {
         viewModelScope.launch {
-            _comments.value = getPostCommentsUseCase(subredditDisplayName, postName)
+            _comments.value =
+                getPostCommentsUseCase(subredditDisplayName, postName, commentsCountLimit)
         }
     }
 

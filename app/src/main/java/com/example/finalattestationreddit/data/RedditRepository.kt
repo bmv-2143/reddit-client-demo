@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.finalattestationreddit.data.dto.comment.Comment
-import com.example.finalattestationreddit.data.dto.comment.CommentData
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
@@ -115,10 +114,16 @@ class RedditRepository @Inject constructor(
         return redditNetworkDataSource.getPostsById(postName).firstOrNull().let { it?.data }
     }
 
-    internal suspend fun getPostComments(subredditDisplayName: String, article: String):
-            List<Comment> {
-        return redditNetworkDataSource.getPostComments(subredditDisplayName, article).children
-            .map { it.data }
+    internal suspend fun getPostComments(
+        subredditDisplayName: String,
+        article: String,
+        commentsCountLimit: Int
+    ): List<Comment> {
+        return redditNetworkDataSource.getPostComments(
+            subredditDisplayName,
+            article,
+            limit = commentsCountLimit
+        ).children.map { it.data }
     }
 
 }

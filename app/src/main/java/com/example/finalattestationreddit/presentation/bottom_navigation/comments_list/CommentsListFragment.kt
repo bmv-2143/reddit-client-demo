@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.FragmentCommentsListBinding
@@ -34,6 +35,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             ::onCommentSaveButtonClick
         )
     }
+    private val launchMode : String? by lazy { requireArguments().getString(ARG_LAUNCH_MODE) }
 
     @Inject
     lateinit var timeUtils: TimeUtils
@@ -56,7 +58,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     }
 
     private fun configureLaunchMode(binding: FragmentCommentsListBinding) {
-        when (val launchMode = requireArguments().getString(ARG_LAUNCH_MODE)) {
+        when (launchMode) {
             LAUNCH_MODE_EMBEDED_NO_TOOLBAR ->
                 binding.fragmentCommentsListToolbar.visibility = View.GONE
 
@@ -81,21 +83,32 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             viewModel.comments
                 .map { comments -> comments.filter { comment -> comment.body != null } }
                 .filter { comments -> comments.isNotEmpty() }
-                .collectLatest { comments ->
+                .collectLatest { comments: List<Comment> ->
                     displayComments(comments)
                 }
         }
     }
 
     private fun startLoadingComments() {
+        when (launchMode) {
+            LAUNCH_MODE_EMBEDED_NO_TOOLBAR ->
+                startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
 
+            LAUNCH_MODE_SEPARATE_WITH_TOOLBAR ->
+                startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MAX)
 
+            else -> Log.e(TAG, "Unknown launch mode: $launchMode")
+        }
+    }
+
+    private fun startLoadingComments(commentsCountLimit : Int) {
         binding.fragmentCommentsListProgressBar.visibility = View.VISIBLE
+
         viewLifecycleOwner.lifecycleScope.launch {
             val subredditName = requireArguments().getString(ARG_SUBREDDIT_NAME)
             val postId = requireArguments().getString(ARG_POST_ID)
             if (subredditName != null || postId != null) {
-                viewModel.startLoadingPostComments(subredditName!!, postId!!) // TODO: fix me
+                viewModel.startLoadingPostComments(subredditName!!, postId!!, commentsCountLimit) // TODO: fix me
             }
         }
     }

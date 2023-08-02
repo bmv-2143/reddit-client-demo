@@ -160,12 +160,12 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     suspend fun getPostComments(
         subredditDisplayName: String,
         postName: String,
-        depth: Int? = null,
-        limit: Int? = null
+        limit: Int? = null,
+        depth: Int? = null
     ): CommentListingData {
         return try {
             Log.e(TAG, "getPostComments START")
-            getOnlyCommentsToPost(subredditDisplayName, postName, depth = 1, limit = 5)
+            getOnlyCommentsToPost(subredditDisplayName, postName, depth = 1, limit = limit) // todo: hardcoded depth
         } catch (e: UnknownHostException) {
             handleUnknownHostError(e)
             emptyCommentListingData()
