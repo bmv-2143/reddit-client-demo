@@ -52,7 +52,6 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         val view = super.onCreateView(inflater, container, savedInstanceState)
         binding.fragmentPostInfoRecyclerViewComments.adapter = commentsAdapter
         configureLaunchMode(binding)
-        binding.fragmentCommentsListProgressBar.visibility = View.VISIBLE
         return view
     }
 
@@ -70,8 +69,11 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeComments()
-        startLoadingComments()
+
+        if (requireArguments().getInt(ARG_NUMBER_OF_COMMENTS) > 0) {
+            observeComments()
+            startLoadingComments()
+        }
     }
 
     private fun observeComments() {
@@ -81,11 +83,14 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
                 .filter { comments -> comments.isNotEmpty() }
                 .collectLatest { comments ->
                     displayComments(comments)
-            }
+                }
         }
     }
 
     private fun startLoadingComments() {
+
+
+        binding.fragmentCommentsListProgressBar.visibility = View.VISIBLE
         viewLifecycleOwner.lifecycleScope.launch {
             val subredditName = requireArguments().getString(ARG_SUBREDDIT_NAME)
             val postId = requireArguments().getString(ARG_POST_ID)
@@ -126,16 +131,23 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         private const val ARG_LAUNCH_MODE = "launch_mode"
         private const val ARG_SUBREDDIT_NAME = "subreddit_name"
         private const val ARG_POST_ID = "post_id"
+        private const val ARG_NUMBER_OF_COMMENTS = "number_of_comments"
 
         const val LAUNCH_MODE_EMBEDED_NO_TOOLBAR = "embeded_no_toolbar"
         const val LAUNCH_MODE_SEPARATE_WITH_TOOLBAR = "separate_with_toolbar"
 
-        fun newInstance(launchMode: String, subredditName: String, postId: String) =
+        fun newInstance(
+            launchMode: String,
+            subredditName: String,
+            postId: String,
+            numberOfComments: Int
+        ) =
             CommentsListFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_LAUNCH_MODE, launchMode)
                     putString(ARG_SUBREDDIT_NAME, subredditName)
                     putString(ARG_POST_ID, postId)
+                    putInt(ARG_NUMBER_OF_COMMENTS, numberOfComments)
                 }
             }
     }

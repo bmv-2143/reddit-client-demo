@@ -235,7 +235,8 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
             .newInstance(
                 CommentsListFragment.LAUNCH_MODE_EMBEDED_NO_TOOLBAR,
                 subreddit.displayName,
-                post.getPostId()
+                post.getPostId(),
+                post.numComments
             )
         val transaction = childFragmentManager.beginTransaction() // todo: which fragment manager?
         transaction.add(R.id.fragment_post_info_comments_fragment_container, fragment)
