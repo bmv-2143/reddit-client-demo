@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
@@ -18,6 +19,7 @@ import com.example.finalattestationreddit.presentation.bottom_navigation.BottomN
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.comments_list.CommentsListFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostImageLoader
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragmentDirections
 import com.example.finalattestationreddit.presentation.utils.ShareUtils
 import com.example.finalattestationreddit.presentation.utils.TimeUtils
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
@@ -66,6 +68,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         collectSelectedPost()
         setShareButtonListener()
         setVoteControlsListeners()
+        setShowAllCommentsButtonListener()
 
         addCommentsFragment()
     }
@@ -155,6 +158,35 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         }
     }
 
+    private fun setShowAllCommentsButtonListener() {
+        binding.fragmentPostInfoButtonShowAllComments.setOnClickListener {
+
+            // todo: use navigation lib and safe args to open comments list fragment in a separate window
+            val subredditName = activityViewModel.selectedSubredditFlow.value?.displayName.orEmpty()
+            val postId = latestSelectedOrUpdatedPost?.getPostId().orEmpty()
+            val numberOfComments = latestSelectedOrUpdatedPost?.numComments ?: 0
+
+            val action = PostInfoFragmentDirections.actionPostInfoFragmentToCommentsListFragment(
+                launchMode = CommentsListFragment.LAUNCH_MODE_SEPARATE_WITH_TOOLBAR,
+                subredditName = subredditName,
+                postId = postId,
+                numberOfComments = numberOfComments
+            )
+            findNavController().navigate(action)
+        }
+
+
+    }
+
+
+    private fun doWithSubredditAndPost(action: (subreddit: SubredditData, post: Post) -> Unit) {
+        activityViewModel.selectedSubredditFlow.value?.let { subreddit ->
+            activityViewModel.selectedPostFlow.value?.let { post ->
+                action(subreddit, post)
+            }
+        }
+    }
+
     private fun addCommentsFragment() {
         activityViewModel.selectedSubredditFlow.value?.let { subreddit ->
             activityViewModel.selectedPostFlow.value?.let { post ->
@@ -179,7 +211,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         transaction.commit()
     }
 
-    private fun updateShowAllCommentsButtonVisibility(post : Post) {
+    private fun updateShowAllCommentsButtonVisibility(post: Post) {
         binding.fragmentPostInfoButtonShowAllComments.visibility =
             if (viewModel.shouldDisplayShowAllCommentsButton(post))
                 View.VISIBLE

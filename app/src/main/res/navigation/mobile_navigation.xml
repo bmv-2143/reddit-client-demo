@@ -55,19 +55,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/postInfoFragment"
-        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.post.PostInfoFragment"
-        android:label="fragment_post"
-        tools:layout="@layout/fragment_post_info">
-
-        <argument
-            android:name="postName"
-            app:argType="string"
-            android:defaultValue=""/>
-
-    </fragment>
-
-    <fragment
         android:id="@+id/subredditInfoFragment"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info.SubredditInfoFragment"
         android:label="fragment_subreddit"
@@ -76,6 +63,59 @@
         <argument
             android:name="subredditData"
             app:argType="com.example.finalattestationreddit.data.dto.subreddit.SubredditData" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postInfoFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.post.PostInfoFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post_info">
+
+        <action
+            android:id="@+id/action_postInfoFragment_to_commentsListFragment"
+            app:destination="@id/commentsListFragment"/>
+        <argument
+            android:name="postName"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="launch_mode"
+            app:argType="string" />
+        <argument
+            android:name="subreddit_name"
+            app:argType="string" />
+        <argument
+            android:name="post_id"
+            app:argType="string" />
+        <argument
+            android:name="number_of_comments"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/commentsListFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.comments_list.CommentsListFragment"
+        android:label="CommentsListFragment"
+        tools:layout= "@layout/fragment_comments_list">
+
+        <argument
+            android:name="postName"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="launch_mode"
+            app:argType="string" />
+        <argument
+            android:name="subreddit_name"
+            app:argType="string" />
+        <argument
+            android:name="post_id"
+            app:argType="string" />
+        <argument
+            android:name="number_of_comments"
+            app:argType="integer" />
+
     </fragment>
 
 </navigation>
