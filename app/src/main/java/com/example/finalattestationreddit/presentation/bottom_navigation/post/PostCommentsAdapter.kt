@@ -11,7 +11,9 @@ import com.example.finalattestationreddit.databinding.ListItemPostCommentBinding
 class PostCommentsAdapter constructor(
     private val formatElapsedTimeAction: (Long) -> String,
     private val onDownloadButtonClick: (Comment) -> Unit,
-    private val onSaveButtonClick: (Comment) -> Unit
+    private val onSaveButtonClick: (Comment) -> Unit,
+    private val onCommentUpVoteClick: (Comment) -> Unit,
+    private val onCommentDownVoteClick: (Comment) -> Unit,
 ) : ListAdapter<Comment, PostCommentsAdapter.ViewHolder>(CommentDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,7 +23,9 @@ class PostCommentsAdapter constructor(
             binding,
             formatElapsedTimeAction,
             onDownloadButtonClick,
-            onSaveButtonClick
+            onSaveButtonClick,
+            onCommentUpVoteClick,
+            onCommentDownVoteClick
         )
     }
 
@@ -34,13 +38,25 @@ class PostCommentsAdapter constructor(
         private val binding: ListItemPostCommentBinding,
         private val formatElapsedTimeAction: (Long) -> String,
         private val onDownloadButtonClick: (Comment) -> Unit,
-        private val onSaveButtonClick: (Comment) -> Unit
+        private val onSaveButtonClick: (Comment) -> Unit,
+        private val onCommentUpVoteClick: (Comment) -> Unit,
+        private val onCommentDownVoteClick: (Comment) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(comment: Comment) {
             setTexts(comment)
             setDownloadButtonClickListener(comment)
             setSaveButtonClickListener(comment)
+            setVoteButtonsClickListeners(comment)
+        }
+
+        private fun setVoteButtonsClickListeners(comment: Comment) {
+            binding.fragmentPostInfoScoreVoting.onUpVoteClickListener = {
+                onCommentUpVoteClick(comment)
+            }
+            binding.fragmentPostInfoScoreVoting.onDownVoteClickListener = {
+                onCommentDownVoteClick(comment)
+            }
         }
 
         private fun setSaveButtonClickListener(comment: Comment) {

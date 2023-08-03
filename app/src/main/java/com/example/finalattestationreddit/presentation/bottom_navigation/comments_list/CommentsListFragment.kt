@@ -35,7 +35,9 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         PostCommentsAdapter(
             timeUtils::formatElapsedTime,
             ::onCommentDownloadButtonClick,
-            ::onCommentSaveButtonClick
+            ::onCommentSaveButtonClick,
+            ::onCommentItemUpVoteClick,
+            ::onCommentItemDownVoteClick,
         )
     }
     private val launchMode : String? by lazy { requireArguments().getString(ARG_LAUNCH_MODE) }
@@ -154,6 +156,25 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         Toast.makeText(
             requireContext(),
             getString(R.string.list_item_post_comment_btn_save_msg, comment.name),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+
+    private fun onCommentItemUpVoteClick(comment: Comment) {
+//        viewModel.upVote(comment) // todo: implementation
+        Toast.makeText(
+            requireContext(),
+            "up Vote comment : ${comment.name}",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun onCommentItemDownVoteClick(comment : Comment) {
+//        viewModel.downVote(comment) // todo: implementation
+        Toast.makeText(
+            requireContext(),
+            "down Vote comment : ${comment.name}",
             Toast.LENGTH_SHORT
         ).show()
     }
