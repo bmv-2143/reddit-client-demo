@@ -19,7 +19,6 @@ import com.example.finalattestationreddit.presentation.bottom_navigation.BottomN
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.comments_list.CommentsListFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostImageLoader
-import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragmentDirections
 import com.example.finalattestationreddit.presentation.utils.ShareUtils
 import com.example.finalattestationreddit.presentation.utils.TimeUtils
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
@@ -160,24 +159,21 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private fun setShowAllCommentsButtonListener() {
         binding.fragmentPostInfoButtonShowAllComments.setOnClickListener {
+            openCommentsListFragment()
+        }
+    }
 
-            // todo: use navigation lib and safe args to open comments list fragment in a separate window
-            val subredditName = activityViewModel.selectedSubredditFlow.value?.displayName.orEmpty()
-            val postId = latestSelectedOrUpdatedPost?.getPostId().orEmpty()
-            val numberOfComments = latestSelectedOrUpdatedPost?.numComments ?: 0
-
+    private fun openCommentsListFragment() {
+        doWithSubredditAndPost { subreddit, post ->
             val action = PostInfoFragmentDirections.actionPostInfoFragmentToCommentsListFragment(
                 launchMode = CommentsListFragment.LAUNCH_MODE_SEPARATE_WITH_TOOLBAR,
-                subredditName = subredditName,
-                postId = postId,
-                numberOfComments = numberOfComments
+                subredditName = subreddit.displayName,
+                postId = post.getPostId(),
+                numberOfComments = post.numComments
             )
             findNavController().navigate(action)
         }
-
-
     }
-
 
     private fun doWithSubredditAndPost(action: (subreddit: SubredditData, post: Post) -> Unit) {
         activityViewModel.selectedSubredditFlow.value?.let { subreddit ->
@@ -188,14 +184,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     }
 
     private fun addCommentsFragment() {
-        activityViewModel.selectedSubredditFlow.value?.let { subreddit ->
-            activityViewModel.selectedPostFlow.value?.let { post ->
-                addCommentsFragment(
-                    subreddit,
-                    post
-                )
-            }
-        }
+        doWithSubredditAndPost(::addCommentsFragment)
     }
 
     private fun addCommentsFragment(subreddit: SubredditData, post: Post) {
@@ -218,5 +207,4 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
             else
                 View.GONE
     }
-
 }
