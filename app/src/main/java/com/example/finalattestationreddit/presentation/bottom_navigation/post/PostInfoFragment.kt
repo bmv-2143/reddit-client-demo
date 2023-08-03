@@ -169,6 +169,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
                 launchMode = CommentsListFragment.LAUNCH_MODE_SEPARATE_WITH_TOOLBAR,
                 subredditName = subreddit.displayName,
                 postId = post.getPostId(),
+                postTitle = post.title,
                 numberOfComments = post.numComments
             )
             findNavController().navigate(action)

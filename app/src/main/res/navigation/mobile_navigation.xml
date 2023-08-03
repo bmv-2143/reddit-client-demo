@@ -75,7 +75,7 @@
             android:id="@+id/action_postInfoFragment_to_commentsListFragment"
             app:destination="@id/commentsListFragment"/>
         <argument
-            android:name="postName"
+            android:name="post_title"
             app:argType="string"
             android:defaultValue=""/>
         <argument
@@ -100,7 +100,7 @@
         tools:layout= "@layout/fragment_comments_list">
 
         <argument
-            android:name="postName"
+            android:name="post_title"
             app:argType="string"
             android:defaultValue=""/>
         <argument

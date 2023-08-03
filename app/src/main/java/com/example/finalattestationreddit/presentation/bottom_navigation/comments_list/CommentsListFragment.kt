@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.comment.Comment
@@ -17,6 +19,7 @@ import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.post.PostCommentsAdapter
 import com.example.finalattestationreddit.presentation.utils.TimeUtils
+import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
@@ -40,6 +43,12 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     @Inject
     lateinit var timeUtils: TimeUtils
 
+    @Inject
+    lateinit var toolbarTitleSetter: ToolbarTitleSetter
+
+    private val args : CommentsListFragmentArgs by navArgs()
+
+
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -62,12 +71,22 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             LAUNCH_MODE_EMBEDED_NO_TOOLBAR ->
                 binding.fragmentCommentsListToolbar.visibility = View.GONE
 
-            LAUNCH_MODE_SEPARATE_WITH_TOOLBAR ->
+            LAUNCH_MODE_SEPARATE_WITH_TOOLBAR -> {
                 binding.fragmentCommentsListToolbar.visibility = View.VISIBLE
+                initToolbar()
+            }
 
             else -> Log.e(TAG, "Unknown launch mode: $launchMode")
         }
     }
+
+    private fun initToolbar() {
+        (requireActivity() as AppCompatActivity)
+            .setSupportActionBar(binding.fragmentCommentsListToolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbarTitleSetter.setToolbarTitle(args.postTitle)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
