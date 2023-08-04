@@ -12,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.R
@@ -20,6 +22,7 @@ import com.example.finalattestationreddit.databinding.FragmentCommentsListBindin
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.post.PostCommentsAdapter
+import com.example.finalattestationreddit.presentation.bottom_navigation.post.PostInfoFragmentDirections
 import com.example.finalattestationreddit.presentation.utils.TimeUtils
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
@@ -170,6 +173,23 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             "AUTHOR CLICKED: $authorName",
             Toast.LENGTH_SHORT
         ).show()
+        openUserFragment()
+    }
+
+    private fun openUserFragment() = findNavController().navigate(getOpenUserFragmentNavAction())
+
+    private fun getOpenUserFragmentNavAction() : NavDirections {
+        return if (launchMode == LAUNCH_MODE_EMBEDED_NO_TOOLBAR) {
+            PostInfoFragmentDirections.actionPostInfoFragmentToUserFragment(
+                // todo: pass parameters
+            )
+        }
+        else {
+            CommentsListFragmentDirections.actionCommentsListFragmentToUserFragment(
+                // todo: pass parameters
+                // username = post.author
+            )
+        }
     }
 
     private fun observerUpdatedComments() {
