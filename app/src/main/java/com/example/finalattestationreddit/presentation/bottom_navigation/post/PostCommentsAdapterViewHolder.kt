@@ -3,6 +3,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.post
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.ListItemPostCommentBinding
+import com.example.finalattestationreddit.presentation.widgets.ScoreVotingViewGroup
 
 class PostCommentsAdapterViewHolder(
     private val binding: ListItemPostCommentBinding,
@@ -18,19 +19,15 @@ class PostCommentsAdapterViewHolder(
         setDownloadButtonClickListener(comment)
         setSaveButtonClickListener(comment)
         setVoteButtonsClickListeners(comment)
+        updatePostVoteControls(comment)
     }
 
     private fun setTexts(comment: Comment) {
         binding.listItemPostCommentAuthor.text = comment.author
         binding.listItemPostCommentTextBody.text = comment.body
 
-        comment.score?.let {
-            binding.fragmentPostInfoScoreVoting.setScore(it)
-        }
-
         comment.createdUtc?.let { createdUtc ->
-            binding.listItemPostCommentPublicationTime.text =
-                formatElapsedTimeAction(createdUtc)
+            binding.listItemPostCommentPublicationTime.text = formatElapsedTimeAction(createdUtc)
         }
     }
 
@@ -52,6 +49,23 @@ class PostCommentsAdapterViewHolder(
         }
         binding.fragmentPostInfoScoreVoting.onDownVoteClickListener = {
             onCommentDownVoteClick(comment)
+        }
+    }
+
+    private fun updatePostVoteControls(comment: Comment) {
+        comment.score?.let {
+            binding.fragmentPostInfoScoreVoting.setScore(it)
+        }
+
+        when (comment.likedByUser) {
+            true -> binding.fragmentPostInfoScoreVoting.setVoteState(
+                ScoreVotingViewGroup.VoteState.UP_VOTED)
+
+            false -> binding.fragmentPostInfoScoreVoting.setVoteState(
+                ScoreVotingViewGroup.VoteState.DOWN_VOTED)
+
+            null -> binding.fragmentPostInfoScoreVoting.setVoteState(
+                ScoreVotingViewGroup.VoteState.INITIAL)
         }
     }
 }

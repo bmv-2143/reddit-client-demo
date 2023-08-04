@@ -162,7 +162,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
 
     private fun onCommentItemUpVoteClick(comment: Comment) {
-//        viewModel.upVote(comment) // todo: implementation
+        viewModel.upVote(comment)
         Toast.makeText(
             requireContext(),
             "up Vote comment : ${comment.name}",
@@ -171,7 +171,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     }
 
     private fun onCommentItemDownVoteClick(comment : Comment) {
-//        viewModel.downVote(comment) // todo: implementation
+        viewModel.downVote(comment)
         Toast.makeText(
             requireContext(),
             "down Vote comment : ${comment.name}",
