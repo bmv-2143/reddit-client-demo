@@ -41,6 +41,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             ::onCommentSaveButtonClick,
             ::onCommentItemUpVoteClick,
             ::onCommentItemDownVoteClick,
+            ::onAuthorClick,
         )
     }
     private val launchMode: String? by lazy { requireArguments().getString(ARG_LAUNCH_MODE) }
@@ -162,6 +163,14 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     private fun onCommentItemUpVoteClick(comment: Comment) = viewModel.upVote(comment)
 
     private fun onCommentItemDownVoteClick(comment: Comment) = viewModel.downVote(comment)
+
+    private fun onAuthorClick(authorName: String) {
+        Toast.makeText(
+            requireContext(),
+            "AUTHOR CLICKED: $authorName",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
     private fun observerUpdatedComments() {
         viewLifecycleOwner.lifecycleScope.launch {

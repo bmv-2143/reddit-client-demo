@@ -21,6 +21,7 @@ class PostCommentsAdapter constructor(
     private val onSaveButtonClick: (Comment) -> Unit,
     private val onCommentUpVoteClick: (Comment) -> Unit,
     private val onCommentDownVoteClick: (Comment) -> Unit,
+    private val onAuthorClick: (String) -> Unit
 ) : ListAdapter<Comment, PostCommentsAdapterViewHolder>(PostCommentsAdapterDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostCommentsAdapterViewHolder {
@@ -32,7 +33,8 @@ class PostCommentsAdapter constructor(
             onDownloadButtonClick,
             onSaveButtonClick,
             onCommentUpVoteClick,
-            onCommentDownVoteClick
+            onCommentDownVoteClick,
+            onAuthorClick
         )
     }
 

@@ -11,7 +11,9 @@ class PostCommentsAdapterViewHolder(
     private val onDownloadButtonClick: (Comment) -> Unit,
     private val onSaveButtonClick: (Comment) -> Unit,
     private val onCommentUpVoteClick: (Comment) -> Unit,
-    private val onCommentDownVoteClick: (Comment) -> Unit
+    private val onCommentDownVoteClick: (Comment) -> Unit,
+    private val onAuthorClick: (String) -> Unit
+
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(comment: Comment) {
@@ -19,6 +21,7 @@ class PostCommentsAdapterViewHolder(
         setDownloadButtonClickListener(comment)
         setSaveButtonClickListener(comment)
         setVoteButtonsClickListeners(comment)
+        setAuthorClickListener(comment)
         updatePostVoteControls(comment)
     }
 
@@ -52,6 +55,12 @@ class PostCommentsAdapterViewHolder(
         }
     }
 
+    private fun setAuthorClickListener(comment: Comment) {
+        binding.listItemPostCommentAuthor.setOnClickListener {
+            comment.author?.let { onAuthorClick(it) }
+        }
+    }
+
     private fun updatePostVoteControls(comment: Comment) {
         comment.score?.let {
             binding.fragmentPostInfoScoreVoting.setScore(it)
@@ -59,13 +68,16 @@ class PostCommentsAdapterViewHolder(
 
         when (comment.likedByUser) {
             true -> binding.fragmentPostInfoScoreVoting.setVoteState(
-                ScoreVotingViewGroup.VoteState.UP_VOTED)
+                ScoreVotingViewGroup.VoteState.UP_VOTED
+            )
 
             false -> binding.fragmentPostInfoScoreVoting.setVoteState(
-                ScoreVotingViewGroup.VoteState.DOWN_VOTED)
+                ScoreVotingViewGroup.VoteState.DOWN_VOTED
+            )
 
             null -> binding.fragmentPostInfoScoreVoting.setVoteState(
-                ScoreVotingViewGroup.VoteState.INITIAL)
+                ScoreVotingViewGroup.VoteState.INITIAL
+            )
         }
     }
 }

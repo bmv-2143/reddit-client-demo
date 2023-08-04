@@ -21,6 +21,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            android:paddingVertical="8dp"
+            android:paddingEnd="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintEnd_toStartOf="@+id/list_item_post_comment_publication_time"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,10 +37,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingVertical="8dp"
             app:layout_constraintStart_toEndOf="@id/list_item_post_comment_author"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="publication time" />
-
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/list_item_post_comment_barrier"
