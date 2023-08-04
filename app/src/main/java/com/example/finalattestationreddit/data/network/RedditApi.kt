@@ -5,6 +5,7 @@ import com.example.finalattestationreddit.data.dto.comment.CommentListingRespons
 import com.example.finalattestationreddit.data.dto.post.PostListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditResponse
+import com.example.finalattestationreddit.data.dto.user.UserResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -84,5 +85,10 @@ interface RedditApi {
     suspend fun getCommentById(
         @Query("id") commentId: String
     ): CommentListingResponse
+
+    @GET("/user/{username}/about")
+    suspend fun getUser(
+        @Path("username") username: String
+    ): UserResponse
 
 }

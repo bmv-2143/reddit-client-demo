@@ -7,6 +7,7 @@ import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
+import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
 import kotlinx.coroutines.flow.Flow
@@ -132,5 +133,8 @@ class RedditRepository @Inject constructor(
             limit = commentsCountLimit
         ).children.map { it.data }
     }
+
+    internal suspend fun getUser(userName: String) : User? =
+        redditNetworkDataSource.getUser(userName)
 
 }
