@@ -43,7 +43,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             ::onCommentItemDownVoteClick,
         )
     }
-    private val launchMode : String? by lazy { requireArguments().getString(ARG_LAUNCH_MODE) }
+    private val launchMode: String? by lazy { requireArguments().getString(ARG_LAUNCH_MODE) }
 
     @Inject
     lateinit var timeUtils: TimeUtils
@@ -51,19 +51,15 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
 
-    private val args : CommentsListFragmentArgs by navArgs()
+    private val args: CommentsListFragmentArgs by navArgs()
 
 
     override fun inflateBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentCommentsListBinding =
-        FragmentCommentsListBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater, container: ViewGroup?
+    ): FragmentCommentsListBinding = FragmentCommentsListBinding.inflate(inflater, container, false)
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         binding.fragmentPostInfoRecyclerViewComments.adapter = commentsAdapter
@@ -73,8 +69,8 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     private fun configureLaunchMode(binding: FragmentCommentsListBinding) {
         when (launchMode) {
-            LAUNCH_MODE_EMBEDED_NO_TOOLBAR ->
-                binding.fragmentCommentsListToolbar.visibility = View.GONE
+            LAUNCH_MODE_EMBEDED_NO_TOOLBAR -> binding.fragmentCommentsListToolbar.visibility =
+                View.GONE
 
             LAUNCH_MODE_SEPARATE_WITH_TOOLBAR -> {
                 binding.fragmentCommentsListToolbar.visibility = View.VISIBLE
@@ -86,8 +82,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     }
 
     private fun initToolbar() {
-        (requireActivity() as AppCompatActivity)
-            .setSupportActionBar(binding.fragmentCommentsListToolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentCommentsListToolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbarTitleSetter.setToolbarTitle(args.postTitle)
     }
@@ -106,8 +101,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     private fun observeComments() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.comments
-                .map { comments -> comments.filter { comment -> comment.body != null } }
+            viewModel.comments.map { comments -> comments.filter { comment -> comment.body != null } }
                 .filter { comments -> comments.isNotEmpty() }
                 .collectLatest { comments: List<Comment> ->
                     displayComments(comments)
@@ -117,24 +111,24 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     private fun startLoadingComments() {
         when (launchMode) {
-            LAUNCH_MODE_EMBEDED_NO_TOOLBAR ->
-                startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
+            LAUNCH_MODE_EMBEDED_NO_TOOLBAR -> startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
 
-            LAUNCH_MODE_SEPARATE_WITH_TOOLBAR ->
-                startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MAX)
+            LAUNCH_MODE_SEPARATE_WITH_TOOLBAR -> startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MAX)
 
             else -> Log.e(TAG, "Unknown launch mode: $launchMode")
         }
     }
 
-    private fun startLoadingComments(commentsCountLimit : Int) {
+    private fun startLoadingComments(commentsCountLimit: Int) {
         binding.fragmentCommentsListProgressBar.visibility = View.VISIBLE
 
         viewLifecycleOwner.lifecycleScope.launch {
             val subredditName = requireArguments().getString(ARG_SUBREDDIT_NAME)
             val postId = requireArguments().getString(ARG_POST_ID)
             if (subredditName != null || postId != null) {
-                viewModel.startLoadingPostComments(subredditName!!, postId!!, commentsCountLimit) // TODO: fix me
+                viewModel.startLoadingPostComments(
+                    subredditName!!, postId!!, commentsCountLimit
+                ) // TODO: fix me
             }
         }
     }
@@ -165,24 +159,9 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         ).show()
     }
 
+    private fun onCommentItemUpVoteClick(comment: Comment) = viewModel.upVote(comment)
 
-    private fun onCommentItemUpVoteClick(comment: Comment) {
-        viewModel.upVote(comment)
-        Toast.makeText(
-            requireContext(),
-            "up Vote comment : ${comment.name}",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun onCommentItemDownVoteClick(comment: Comment) {
-        viewModel.downVote(comment)
-        Toast.makeText(
-            requireContext(),
-            "down Vote comment : ${comment.name}",
-            Toast.LENGTH_SHORT
-        ).show()
-    }
+    private fun onCommentItemDownVoteClick(comment: Comment) = viewModel.downVote(comment)
 
     private fun observerUpdatedComments() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -205,18 +184,14 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         const val LAUNCH_MODE_SEPARATE_WITH_TOOLBAR = "separate_with_toolbar"
 
         fun newInstance(
-            launchMode: String,
-            subredditName: String,
-            postId: String,
-            numberOfComments: Int
-        ) =
-            CommentsListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_LAUNCH_MODE, launchMode)
-                    putString(ARG_SUBREDDIT_NAME, subredditName)
-                    putString(ARG_POST_ID, postId)
-                    putInt(ARG_NUMBER_OF_COMMENTS, numberOfComments)
-                }
+            launchMode: String, subredditName: String, postId: String, numberOfComments: Int
+        ) = CommentsListFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_LAUNCH_MODE, launchMode)
+                putString(ARG_SUBREDDIT_NAME, subredditName)
+                putString(ARG_POST_ID, postId)
+                putInt(ARG_NUMBER_OF_COMMENTS, numberOfComments)
             }
+        }
     }
 }
