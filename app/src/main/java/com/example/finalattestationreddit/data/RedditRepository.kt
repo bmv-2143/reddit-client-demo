@@ -106,12 +106,19 @@ class RedditRepository @Inject constructor(
         return redditNetworkDataSource.getSubreddit(subredditDisplayName)
     }
 
-    internal suspend fun vote(postId: String, dir: Int) {
-        redditNetworkDataSource.vote(postId, dir)
+    /**
+     * @param targetId - post or comment id, which is base36 string
+     */
+    internal suspend fun vote(targetId: String, dir: Int) {
+        redditNetworkDataSource.vote(targetId, dir)
     }
 
     internal suspend fun getFirstPost(postName: String): Post? {
         return redditNetworkDataSource.getPostsById(postName).firstOrNull().let { it?.data }
+    }
+
+    internal suspend fun getComment(commentName: String): Comment? {
+        return redditNetworkDataSource.getCommentById(commentName).firstOrNull().let { it?.data }
     }
 
     internal suspend fun getPostComments(

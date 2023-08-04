@@ -80,4 +80,9 @@ interface RedditApi {
 
     ): List<CommentListingResponse>
 
+    @GET("/api/info")
+    suspend fun getCommentById(
+        @Query("id") commentId: String
+    ): CommentListingResponse
+
 }

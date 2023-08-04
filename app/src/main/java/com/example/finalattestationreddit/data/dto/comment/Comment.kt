@@ -12,5 +12,6 @@ data class Comment(
 //    @Json(name = "replies") val replies: CommentListingResponse?,
     @Json(name = "kind") val kind: String?,
     @Json(name = "count") val count: Int?,
-    @Json(name = "children") val children: List<String>?
+    @Json(name = "children") val children: List<String>?,
+    @Json(name = "likes") val likedByUser: Boolean?
 )

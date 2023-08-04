@@ -1,6 +1,7 @@
 package com.example.finalattestationreddit.data
 
 import android.util.Log
+import com.example.finalattestationreddit.data.dto.comment.CommentData
 import com.example.finalattestationreddit.data.dto.comment.CommentListingData
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.post.PostListingData
@@ -124,6 +125,10 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
 
     suspend fun getPostsById(postName: String): List<PostData> {
         return redditService.redditApi.getPostsById(postName).data.children
+    }
+
+    suspend fun getCommentById(commentName: String): List<CommentData> {
+        return redditService.redditApi.getCommentById(commentName).data.children
     }
 
     suspend fun getSubreddit(subredditDisplayName: String): SubredditData? {
