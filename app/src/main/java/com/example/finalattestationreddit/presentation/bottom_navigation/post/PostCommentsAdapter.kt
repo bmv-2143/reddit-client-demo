@@ -2,7 +2,6 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.post
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.ListItemPostCommentBinding
@@ -33,14 +32,4 @@ class PostCommentsAdapter constructor(
         holder.bind(comment)
     }
 
-}
-
-class PostCommentsAdapterDiffCallback : DiffUtil.ItemCallback<Comment>() {
-    override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
-        return oldItem.name == newItem.name
-    }
-
-    override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
-        return oldItem == newItem
-    }
 }
