@@ -50,18 +50,17 @@ class PostCommentsAdapter constructor(
             setVoteButtonsClickListeners(comment)
         }
 
-        private fun setVoteButtonsClickListeners(comment: Comment) {
-            binding.fragmentPostInfoScoreVoting.onUpVoteClickListener = {
-                onCommentUpVoteClick(comment)
-            }
-            binding.fragmentPostInfoScoreVoting.onDownVoteClickListener = {
-                onCommentDownVoteClick(comment)
-            }
-        }
+        private fun setTexts(comment: Comment) {
+            binding.listItemPostCommentAuthor.text = comment.author
+            binding.listItemPostCommentTextBody.text = comment.body
 
-        private fun setSaveButtonClickListener(comment: Comment) {
-            binding.listItemPostCommentButtonSaveButton.setOnClickListener {
-                onSaveButtonClick(comment)
+            comment.score?.let {
+                binding.fragmentPostInfoScoreVoting.setScore(it)
+            }
+
+            comment.createdUtc?.let { createdUtc ->
+                binding.listItemPostCommentPublicationTime.text =
+                    formatElapsedTimeAction(createdUtc)
             }
         }
 
@@ -71,13 +70,18 @@ class PostCommentsAdapter constructor(
             }
         }
 
-        private fun setTexts(comment: Comment) {
-            binding.listItemPostCommentAuthor.text = comment.author
-            binding.listItemPostCommentTextBody.text = comment.body
+        private fun setSaveButtonClickListener(comment: Comment) {
+            binding.listItemPostCommentButtonSaveButton.setOnClickListener {
+                onSaveButtonClick(comment)
+            }
+        }
 
-            comment.createdUtc?.let { createdUtc ->
-                binding.listItemPostCommentPublicationTime.text =
-                    formatElapsedTimeAction(createdUtc)
+        private fun setVoteButtonsClickListeners(comment: Comment) {
+            binding.fragmentPostInfoScoreVoting.onUpVoteClickListener = {
+                onCommentUpVoteClick(comment)
+            }
+            binding.fragmentPostInfoScoreVoting.onDownVoteClickListener = {
+                onCommentDownVoteClick(comment)
             }
         }
     }
