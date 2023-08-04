@@ -41,12 +41,16 @@
                     android:layout_height="wrap_content"
                     android:paddingVertical="16dp">
 
-
                     <TextView
                         android:id="@+id/fragment_post_info_author"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingVertical="8dp"
+                        android:paddingEnd="8dp"
                         android:textStyle="bold"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         app:layout_constraintEnd_toStartOf="@id/fragment_post_info_publication_time"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +61,7 @@
                         android:id="@+id/fragment_post_info_publication_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingVertical="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/fragment_post_info_author"
                         app:layout_constraintTop_toTopOf="parent"

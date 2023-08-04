@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -68,7 +69,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         setShareButtonListener()
         setVoteControlsListeners()
         setShowAllCommentsButtonListener()
-
+        setPostAuthorClickListener()
         addCommentsFragment()
     }
 
@@ -89,6 +90,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
             }
         }
     }
+
 
     private fun updateUi(post: Post) {
         toolbarTitleSetter.setToolbarTitle(post.title)
@@ -160,6 +162,22 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     private fun setShowAllCommentsButtonListener() {
         binding.fragmentPostInfoButtonShowAllComments.setOnClickListener {
             openCommentsListFragment()
+        }
+    }
+
+    private fun setPostAuthorClickListener() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                selectedAndUpdatedPostFlow.filterNotNull().collectLatest { post ->
+                    binding.fragmentPostInfoAuthor.setOnClickListener {
+                        Toast.makeText(
+                            requireContext(),
+                            "AUTHOR CLICKED: ${post.author}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
     }
 
