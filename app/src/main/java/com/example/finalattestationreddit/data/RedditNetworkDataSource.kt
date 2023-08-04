@@ -5,8 +5,9 @@ import com.example.finalattestationreddit.data.dto.comment.CommentData
 import com.example.finalattestationreddit.data.dto.comment.CommentListingData
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.post.PostListingData
-import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
+import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -80,7 +81,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             false
         } catch (e: Exception) {
-            logError(::getSubreddits.name, e)
+            logError(::updateSubscription.name, e)
             false
         }
     }
@@ -95,7 +96,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             emptyList()
         } catch (e: Exception) {
-            logError(::getSubreddits.name, e)
+            logError(::getSubscribedSubreddits.name, e)
             emptyList()
         }
     }
@@ -115,7 +116,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             emptyPostListingData()
         } catch (e: Exception) {
-            logError(::getSubreddits.name, e)
+            logError(::getSubredditPosts.name, e)
             emptyPostListingData()
         }
     }
@@ -157,7 +158,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             false
         } catch (e: Exception) {
-            logError(::getSubreddits.name, e)
+            logError(::vote.name, e)
             false
         }
     }
