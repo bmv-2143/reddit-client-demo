@@ -32,4 +32,14 @@ class PostCommentsAdapter constructor(
         holder.bind(comment)
     }
 
+    fun updateComment(updatedComment: Comment) {
+        val position = currentList.indexOfFirst { it.name == updatedComment.name }
+        if (position != -1) {
+            val newList = currentList.toMutableList()
+            newList[position] = updatedComment
+            submitList(newList)
+        }
+    }
+
+
 }

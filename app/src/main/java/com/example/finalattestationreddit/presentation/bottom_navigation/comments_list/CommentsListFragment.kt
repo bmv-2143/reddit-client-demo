@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.R
@@ -23,6 +25,7 @@ import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -97,6 +100,8 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             observeComments()
             startLoadingComments()
         }
+
+        observerUpdatedComments()
     }
 
     private fun observeComments() {
@@ -170,13 +175,23 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         ).show()
     }
 
-    private fun onCommentItemDownVoteClick(comment : Comment) {
+    private fun onCommentItemDownVoteClick(comment: Comment) {
         viewModel.downVote(comment)
         Toast.makeText(
             requireContext(),
             "down Vote comment : ${comment.name}",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun observerUpdatedComments() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.updatedCommentsFlow.filterNotNull().collectLatest { updatedComment ->
+                    commentsAdapter.updateComment(updatedComment)
+                }
+            }
+        }
     }
 
     companion object {
