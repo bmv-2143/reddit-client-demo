@@ -175,21 +175,18 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
                             "AUTHOR CLICKED: ${post.author}",
                             Toast.LENGTH_SHORT
                         ).show()
-                        openUserFragment()
+                        openUserFragment(post.author)
                     }
                 }
             }
         }
     }
 
-    private fun openUserFragment() {
-        doWithSubredditAndPost { subreddit, post ->
-            val action = PostInfoFragmentDirections.actionPostInfoFragmentToUserFragment(
-                // todo: pass parameters
-//                username = post.author
-            )
-            findNavController().navigate(action)
-        }
+    private fun openUserFragment(userName: String) {
+        val action = PostInfoFragmentDirections.actionPostInfoFragmentToUserFragment(
+            username = userName
+        )
+        findNavController().navigate(action)
     }
 
     private fun openCommentsListFragment() {

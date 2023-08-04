@@ -173,21 +173,21 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             "AUTHOR CLICKED: $authorName",
             Toast.LENGTH_SHORT
         ).show()
-        openUserFragment()
+        openUserFragment(authorName)
     }
 
-    private fun openUserFragment() = findNavController().navigate(getOpenUserFragmentNavAction())
+    private fun openUserFragment(authorName: String) =
+        findNavController().navigate(getOpenUserFragmentNavAction(authorName))
 
-    private fun getOpenUserFragmentNavAction() : NavDirections {
+    private fun getOpenUserFragmentNavAction(authorName: String) : NavDirections {
         return if (launchMode == LAUNCH_MODE_EMBEDED_NO_TOOLBAR) {
             PostInfoFragmentDirections.actionPostInfoFragmentToUserFragment(
-                // todo: pass parameters
+                username = authorName
             )
         }
         else {
             CommentsListFragmentDirections.actionCommentsListFragmentToUserFragment(
-                // todo: pass parameters
-                // username = post.author
+                username = authorName
             )
         }
     }

@@ -90,9 +90,13 @@
         <argument
             android:name="number_of_comments"
             app:argType="integer" />
+
         <action
             android:id="@+id/action_postInfoFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <argument
+            android:name="username"
+            app:argType="string" />
 
     </fragment>
 
@@ -118,9 +122,14 @@
         <argument
             android:name="number_of_comments"
             app:argType="integer" />
+
         <action
             android:id="@+id/action_commentsListFragment_to_userFragment"
-            app:destination="@id/userFragment" />
+            app:destination="@id/userFragment">
+            <argument
+                android:name="username"
+                app:argType="string" />
+        </action>
 
     </fragment>
 
@@ -128,6 +137,13 @@
         android:id="@+id/userFragment"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.user.UserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user">
+
+        <argument
+            android:name="username"
+            app:argType="string" />
+
+
+    </fragment>
 
 </navigation>

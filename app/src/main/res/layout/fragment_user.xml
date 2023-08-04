@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".presentation.bottom_navigation.user.UserFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/fragment_user_user_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
