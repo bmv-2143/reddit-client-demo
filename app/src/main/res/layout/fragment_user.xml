@@ -14,10 +14,10 @@
         app:cardElevation="8dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
+        app:contentPaddingBottom="16dp"
         app:contentPaddingLeft="16dp"
         app:contentPaddingRight="16dp"
-        app:contentPaddingTop="16dp"
-        app:contentPaddingBottom="16dp">
+        app:contentPaddingTop="16dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -43,15 +43,15 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    tools:text="User Name"/>
+                    tools:text="User Name" />
 
                 <TextView
                     android:id="@+id/fragment_user_link_karma"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:textSize="14sp"
-                    android:text="@string/fragment_user_karma_default_value" />
+                    android:text="@string/fragment_user_karma_default_value"
+                    android:textSize="14sp" />
 
 
                 <com.example.unsplashattestationproject.presentation.compound.CompoundIconTextView
@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:icon="@drawable/ic_email"
-                    app:text="Message"/>
+                    app:text="Message" />
 
                 <com.example.unsplashattestationproject.presentation.compound.CompoundIconTextView
                     android:id="@+id/fragment_user_icon_text_post_count"
@@ -77,5 +77,18 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fragment_post_info_button_show_all_comments"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minWidth="250dp"
+        android:text="@string/fragment_user_button_subscribe"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_subscribe"
+        app:iconGravity="end"
+        app:iconTint="@color/white" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
