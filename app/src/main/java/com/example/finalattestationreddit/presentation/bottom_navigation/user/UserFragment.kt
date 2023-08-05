@@ -9,6 +9,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentUserBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,10 +57,17 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.userFlow.filterNotNull().collectLatest { user ->
-                    binding.fragmentUserLinkKarma.text = user.linkKarma.toString()
+                    setUserData(user)
                 }
 
             }
         }
     }
+
+    private fun setUserData(user: User) {
+        binding.fragmentUserLinkKarma.text =
+            getString(R.string.fragment_user_karma_template, user.linkKarma)
+
+    }
+
 }
