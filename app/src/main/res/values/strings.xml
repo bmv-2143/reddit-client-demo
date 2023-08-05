@@ -5,26 +5,31 @@
     <string name="activity_onboarding_button_skip">Skip</string>
     <string name="activity_onboarding_button_done">Done</string>
     <string name="activity_bottom_navigation_snackbar_view_close">Close</string>
+
     <string name="onboarding_fragment_welcome_title">Welcome to Humblr</string>
     <string name="onboarding_fragment_welcome_subtitle">Communities of all kinds of interests are gathered here</string>
     <string name="onboarding_fragment_subhumblr_subtitle">You can find new subs by interests and see the subs you are subscribed to</string>
     <string name="onboarding_fragment_subhumblr_title">SubHumblr</string>
     <string name="onboarding_fragment_share_and_save_subtitle">The favorites tab stores bookmarks with comments and subs. In the profile you will find information about yourself</string>
     <string name="onboarding_fragment_share_and_save_title">Share and Save</string>
+
     <string name="activity_authorization_result_msg_failed">Authorization failed. Try again later</string>
     <string name="activity_authorization_result_security_error">Authorization security error</string>
+
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+
     <string name="fragment_title_subreddits">Subreddits</string>
     <string name="fragment_title_favorites">Favorites</string>
     <string name="fragment_title_user_profile">User Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="activity_authorization_network_error_unauthorized">Unauthorized! Please repeat authorization process!</string>
     <string name="fragment_subreddit_info_no_description">This subreddit doesn\'t have a description.</string>
     <string name="fragment_subreddit_info_share_chooser_title">Share Subreddit link</string>
 
     <string name="fragment_post_info_number_of_comments">%1d comments</string>
     <string name="fragment_post_info_share_chooser_title">Share Post link</string>
+    <string name="fragment_post_info_share">Share</string>
+    <string name="fragment_post_info_button_show_all_comments">Show all</string>
 
     <string name="time_seconds_ago">%1d seconds ago</string>
     <string name="time_minutes_ago">%1d minutes ago</string>
@@ -33,10 +38,12 @@
     <string name="time_weeks_ago">%1d weeks ago</string>
     <string name="time_months_ago">%1d months ago</string>
     <string name="time_years_ago">%1d years ago</string>
-    <string name="fragment_post_info_share">Share</string>
 
     <string name="list_item_post_comment_btn_download_msg">Download: %1s</string>
     <string name="list_item_post_comment_btn_save_msg">Save: %1s</string>
-    <string name="fragment_post_info_button_show_all_comments">Show all</string>
+
+    <string name="fragment_user_icon_text_message">Message</string>
+    <string name="fragment_user_karma_template">Karma: %1d</string>
+    <string name="fragment_user_karma_default_value">Karma: 0</string>
 
 </resources>
