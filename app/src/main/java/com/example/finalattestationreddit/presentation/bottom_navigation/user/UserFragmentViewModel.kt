@@ -1,23 +1,38 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.user
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.domain.GetUserPostsCountUseCase
 import com.example.finalattestationreddit.domain.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserFragmentViewModel @Inject constructor(
-    private val getUserUseCase: GetUserUseCase
+    private val getUserUseCase: GetUserUseCase,
+    private val getUserPostsCountUseCase: GetUserPostsCountUseCase
 ) : ViewModel() {
 
     private val _userFlow = MutableStateFlow<User?>(null)
     val userFlow = _userFlow.asStateFlow()
 
-    suspend fun getUser(userName: String) {
-        _userFlow.value = getUserUseCase(userName)
+    internal fun getUser(userName: String) {
+        viewModelScope.launch {
+            _userFlow.value = getUserUseCase(userName)
+        }
     }
+
+    private val _userPostsCountFlow = MutableStateFlow(0)
+    val userPostsCountFlow = _userPostsCountFlow.asStateFlow()
+
+    internal fun loadUserPostsCount(userName: String) {
+        viewModelScope.launch {
+            _userPostsCountFlow.value = getUserPostsCountUseCase(userName)
+        }
+    }
+
 }

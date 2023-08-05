@@ -137,4 +137,8 @@ class RedditRepository @Inject constructor(
     internal suspend fun getUser(userName: String) : User? =
         redditNetworkDataSource.getUser(userName)
 
+    internal suspend fun getUserPostsCount(username: String) : Int {
+        return redditNetworkDataSource.getUserPosts(username).count()
+    }
+
 }

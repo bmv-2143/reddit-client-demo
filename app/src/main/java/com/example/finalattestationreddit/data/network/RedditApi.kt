@@ -79,7 +79,7 @@ interface RedditApi {
         @Query("more") more: Boolean = false,
         @Query("threaded") threaded: Boolean = false,
 
-    ): List<CommentListingResponse>
+        ): List<CommentListingResponse>
 
     @GET("/api/info")
     suspend fun getCommentById(
@@ -91,4 +91,13 @@ interface RedditApi {
         @Path("username") username: String
     ): UserResponse
 
+    @GET("/user/{username}/submitted")
+    suspend fun getUserPosts(
+        @Path("username") username: String,
+        @Query("limit") limit: Int = DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT
+    ): PostListingResponse
+
+    companion object {
+        const val DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT = 10_000
+    }
 }

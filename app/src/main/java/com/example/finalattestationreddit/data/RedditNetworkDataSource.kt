@@ -219,9 +219,23 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
+    internal suspend fun getUserPosts(username : String) : List<PostData> {
+        return try {
+            redditService.redditApi.getUserPosts(username).data.children
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptyList()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptyList()
+        } catch (e: Exception) {
+            logError(::getSubredditPosts.name, e)
+            emptyList()
+        }
+    }
+
     private fun emptyCommentListingData(): CommentListingData =
         CommentListingData(emptyList())
-
 
 }
 

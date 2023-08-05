@@ -42,16 +42,13 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         observerUserData()
-        startLoadUserData()
+        loadUserData()
+
+        obserUserPostsCount()
+        loadingUserPostsCount()
     }
 
-    private fun startLoadUserData() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getUser(args.username)
-            }
-        }
-    }
+    private fun loadUserData() = viewModel.getUser(args.username)
 
     private fun observerUserData() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -70,4 +67,19 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
 
     }
 
+    private fun obserUserPostsCount() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.userPostsCountFlow.collectLatest { userPostsCount ->
+                    setUserPostsCount(userPostsCount)
+                }
+            }
+        }
+    }
+
+    private fun setUserPostsCount(userPostsCount: Int) {
+        binding.fragmentUserIconTextPostCount.text = userPostsCount.toString()
+    }
+
+    private fun loadingUserPostsCount() = viewModel.loadUserPostsCount(args.username)
 }
