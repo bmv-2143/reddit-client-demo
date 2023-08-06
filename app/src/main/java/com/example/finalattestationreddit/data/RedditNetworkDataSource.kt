@@ -53,7 +53,10 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     }
 
     private suspend fun handleHttpException(e: HttpException) {
-        Log.e(TAG, "${::handleHttpException.name} error: ${e.message}")
+        Log.e(
+            TAG,
+            "Error in ${getParentFunctionName()} : ${::handleHttpException.name} error: ${e.message}"
+        )
         when (e.code()) {
             403 -> _networkErrorFlow.emit(Event(NetworkError.ForbiddenApiRateExceeded(e.message())))
 
@@ -258,5 +261,9 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     private fun emptyCommentListingData(): CommentListingData =
         CommentListingData(emptyList())
 
-}
+    private fun getParentFunctionName(): String {
+        val stackTrace = Thread.currentThread().stackTrace
+        return stackTrace[2].methodName
+    }
 
+}
