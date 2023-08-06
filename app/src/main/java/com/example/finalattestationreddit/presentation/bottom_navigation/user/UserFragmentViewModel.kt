@@ -3,10 +3,11 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.user
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.user.User
-import com.example.finalattestationreddit.domain.AddUserUseCase
+import com.example.finalattestationreddit.domain.AddFriendUseCase
 import com.example.finalattestationreddit.domain.CheckIfIsAFriendUseCase
 import com.example.finalattestationreddit.domain.GetUserPostsCountUseCase
 import com.example.finalattestationreddit.domain.GetUserUseCase
+import com.example.finalattestationreddit.domain.RemoveFriendUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,7 +18,8 @@ import javax.inject.Inject
 class UserFragmentViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val getUserPostsCountUseCase: GetUserPostsCountUseCase,
-    private val addUserUseCase: AddUserUseCase,
+    private val addFriendUseCase: AddFriendUseCase,
+    private val removeFriendUseCase: RemoveFriendUseCase,
     private val isFriendUseCase: CheckIfIsAFriendUseCase
 ) : ViewModel() {
 
@@ -39,11 +41,15 @@ class UserFragmentViewModel @Inject constructor(
         }
     }
 
-    internal fun addFriend() {
+    internal fun addFriend(userName: String) {
         viewModelScope.launch {
-            userFlow.value?.name?.let {
-                _isFriendFlow.value = addUserUseCase(it)
-            }
+            _isFriendFlow.value = addFriendUseCase(userName)
+        }
+    }
+
+    internal fun removeFriend(userName: String) {
+        viewModelScope.launch {
+            _isFriendFlow.value = removeFriendUseCase(userName)
         }
     }
 

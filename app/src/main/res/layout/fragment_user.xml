@@ -79,7 +79,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/fragment_post_info_button_add_remove_friend"
+        android:id="@+id/fragment_post_info_button_add_friend"
         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,6 +89,22 @@
         app:cornerRadius="16dp"
         app:icon="@drawable/ic_subscribe"
         app:iconGravity="end"
+        android:visibility="invisible"
+        app:iconTint="@color/white" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/fragment_post_info_button_remove_friend"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:minWidth="250dp"
+        android:text="@string/fragment_user_button_remove_friend"
+        app:backgroundTint="@color/colorAlternativeAction"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_remove_friend_24"
+        app:iconGravity="end"
+        android:visibility="gone"
         app:iconTint="@color/white" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

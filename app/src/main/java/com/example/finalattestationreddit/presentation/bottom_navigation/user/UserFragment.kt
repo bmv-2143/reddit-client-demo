@@ -53,6 +53,7 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
         observerIsFriend()
 
         setAddFriendButtonClickListener()
+        setRemoveFriendButtonClickListener()
     }
 
     private fun loadUserData() = viewModel.getUser(args.username)
@@ -91,8 +92,14 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
     private fun loadingUserPostsCount() = viewModel.loadUserPostsCount(args.username)
 
     private fun setAddFriendButtonClickListener() {
-        binding.fragmentPostInfoButtonAddRemoveFriend.setOnClickListener {
-            viewModel.addFriend()
+        binding.fragmentPostInfoButtonAddFriend.setOnClickListener {
+            viewModel.addFriend(args.username)
+        }
+    }
+
+    private fun setRemoveFriendButtonClickListener() {
+        binding.fragmentPostInfoButtonRemoveFriend.setOnClickListener {
+            viewModel.removeFriend(args.username)
         }
     }
 
@@ -119,11 +126,11 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
 
     private fun setAddFriendButtonState(isFriend: Boolean) {
         if (isFriend) {
-            binding.fragmentPostInfoButtonAddRemoveFriend.text =
-                getString(R.string.fragment_user_button_remove_friend)
+            binding.fragmentPostInfoButtonAddFriend.visibility = View.GONE
+            binding.fragmentPostInfoButtonRemoveFriend.visibility = View.VISIBLE
         } else {
-            binding.fragmentPostInfoButtonAddRemoveFriend.text =
-                getString(R.string.fragment_user_button_add_friend)
+            binding.fragmentPostInfoButtonAddFriend.visibility = View.VISIBLE
+            binding.fragmentPostInfoButtonRemoveFriend.visibility = View.GONE
         }
     }
 }

@@ -259,6 +259,22 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
+    internal suspend fun removeFriend(username: String): Boolean {
+        return try {
+            redditService.redditApi.removeFriend(username)
+            true
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            false
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            false
+        } catch (e: Exception) {
+            logError(::addFriend.name, e)
+            false
+        }
+    }
+
     internal suspend fun getFriends() : List<Friend>  {
         return try {
             redditService.redditApi.getFriends().data.children
