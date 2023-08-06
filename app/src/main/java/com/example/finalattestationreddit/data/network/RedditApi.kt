@@ -6,6 +6,7 @@ import com.example.finalattestationreddit.data.dto.post.PostListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditResponse
 import com.example.finalattestationreddit.data.dto.user.AddFriendRequest
+import com.example.finalattestationreddit.data.dto.user.FriendsResponse
 import com.example.finalattestationreddit.data.dto.user.UserResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -111,6 +112,9 @@ interface RedditApi {
     suspend fun removeFriend(
         @Path("username") username: String
     )
+
+    @GET("/api/v1/me/friends")
+    suspend fun getFriends(): FriendsResponse
 
     companion object {
         const val DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT = 10_000

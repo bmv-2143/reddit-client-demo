@@ -19,12 +19,24 @@ data class User(
 )
 
 @JsonClass(generateAdapter = true)
-data class FriendRequest(
-    @Json(name = "note") val note: String? = null,
-    @Json(name = "nsfw") val nsfw: Boolean? = null
+data class AddFriendRequest(
+    @Json(name = "name") val name: String
 )
 
 @JsonClass(generateAdapter = true)
-data class AddFriendRequest(
-    @Json(name = "name") val name: String
+data class FriendsResponse(
+    @Json(name = "data") val data: FriendsData
+)
+
+@JsonClass(generateAdapter = true)
+data class FriendsData(
+    @Json(name = "children") val children: List<Friend>
+)
+
+@JsonClass(generateAdapter = true)
+data class Friend(
+    @Json(name = "name") val name: String,
+    @Json(name = "id") val id: String,
+    @Json(name = "created_utc") val createdUtc: Long?,
+    @Json(name = "note") val note: String?
 )

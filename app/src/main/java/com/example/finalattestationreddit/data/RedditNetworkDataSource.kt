@@ -7,6 +7,7 @@ import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.post.PostListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
+import com.example.finalattestationreddit.data.dto.user.Friend
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 import com.example.finalattestationreddit.log.TAG
@@ -255,6 +256,21 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         } catch (e: Exception) {
             logError(::addFriend.name, e)
             false
+        }
+    }
+
+    internal suspend fun getFriends() : List<Friend>  {
+        return try {
+            redditService.redditApi.getFriends().data.children
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptyList()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptyList()
+        } catch (e: Exception) {
+            logError(::getFriends.name, e)
+            emptyList()
         }
     }
 

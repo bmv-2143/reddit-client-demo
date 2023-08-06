@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.domain.AddUserUseCase
+import com.example.finalattestationreddit.domain.CheckIfIsAFriendUseCase
 import com.example.finalattestationreddit.domain.GetUserPostsCountUseCase
 import com.example.finalattestationreddit.domain.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,8 @@ import javax.inject.Inject
 class UserFragmentViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val getUserPostsCountUseCase: GetUserPostsCountUseCase,
-    private val addUserUseCase: AddUserUseCase
+    private val addUserUseCase: AddUserUseCase,
+    private val isFriendUseCase: CheckIfIsAFriendUseCase
 ) : ViewModel() {
 
     private val _userFlow = MutableStateFlow<User?>(null)
@@ -39,7 +41,18 @@ class UserFragmentViewModel @Inject constructor(
 
     internal fun addFriend() {
         viewModelScope.launch {
-            userFlow.value?.name?.let { addUserUseCase(it) }
+            userFlow.value?.name?.let {
+                _isFriendFlow.value = addUserUseCase(it)
+            }
+        }
+    }
+
+    private val _isFriendFlow = MutableStateFlow(false)
+    val isFriendFlow = _isFriendFlow.asStateFlow()
+
+    internal fun checkIfIsAFriend(userName: String) {
+        viewModelScope.launch {
+            _isFriendFlow.value = isFriendUseCase(userName)
         }
     }
 

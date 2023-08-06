@@ -49,6 +49,9 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
         obserUserPostsCount()
         loadingUserPostsCount()
 
+        checkIfUserIsFriend()
+        observerIsFriend()
+
         setAddFriendButtonClickListener()
     }
 
@@ -100,5 +103,27 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
             .placeholder(R.drawable.user_placeholder_person_24)
             .circleCrop()
             .into(binding.fragmentUserUserAvatar)
+    }
+
+    private fun checkIfUserIsFriend() = viewModel.checkIfIsAFriend(args.username)
+
+    private fun observerIsFriend() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isFriendFlow.collectLatest { isFriend ->
+                    setAddFriendButtonState(isFriend)
+                }
+            }
+        }
+    }
+
+    private fun setAddFriendButtonState(isFriend: Boolean) {
+        if (isFriend) {
+            binding.fragmentPostInfoButtonAddRemoveFriend.text =
+                getString(R.string.fragment_user_button_remove_friend)
+        } else {
+            binding.fragmentPostInfoButtonAddRemoveFriend.text =
+                getString(R.string.fragment_user_button_add_friend)
+        }
     }
 }

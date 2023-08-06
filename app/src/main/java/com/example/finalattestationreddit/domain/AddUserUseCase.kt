@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class AddUserUseCase @Inject constructor(private val redditRepository: RedditRepository) {
 
-    suspend operator fun invoke(userName: String) =
+    suspend operator fun invoke(userName: String): Boolean =
         redditRepository.addFriend(userName)
 
 }

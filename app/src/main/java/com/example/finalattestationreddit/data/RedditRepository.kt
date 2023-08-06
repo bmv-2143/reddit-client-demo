@@ -144,4 +144,6 @@ class RedditRepository @Inject constructor(
     internal suspend fun addFriend(username: String) : Boolean =
         redditNetworkDataSource.addFriend(username)
 
+    internal suspend fun isFriend(username: String) : Boolean =
+        redditNetworkDataSource.getFriends().any { it.name == username }
 }
