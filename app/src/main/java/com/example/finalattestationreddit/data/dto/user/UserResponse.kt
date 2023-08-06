@@ -17,3 +17,14 @@ data class User(
     @Json(name = "comment_karma") val commentKarma: Int,
     @Json(name = "icon_img") val iconImg: String?,
 )
+
+@JsonClass(generateAdapter = true)
+data class FriendRequest(
+    @Json(name = "note") val note: String? = null,
+    @Json(name = "nsfw") val nsfw: Boolean? = null
+)
+
+@JsonClass(generateAdapter = true)
+data class AddFriendRequest(
+    @Json(name = "name") val name: String
+)

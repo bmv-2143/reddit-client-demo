@@ -3,6 +3,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.user
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.domain.AddUserUseCase
 import com.example.finalattestationreddit.domain.GetUserPostsCountUseCase
 import com.example.finalattestationreddit.domain.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UserFragmentViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
-    private val getUserPostsCountUseCase: GetUserPostsCountUseCase
+    private val getUserPostsCountUseCase: GetUserPostsCountUseCase,
+    private val addUserUseCase: AddUserUseCase
 ) : ViewModel() {
 
     private val _userFlow = MutableStateFlow<User?>(null)
@@ -32,6 +34,12 @@ class UserFragmentViewModel @Inject constructor(
     internal fun loadUserPostsCount(userName: String) {
         viewModelScope.launch {
             _userPostsCountFlow.value = getUserPostsCountUseCase(userName)
+        }
+    }
+
+    internal fun addFriend() {
+        viewModelScope.launch {
+            userFlow.value?.name?.let { addUserUseCase(it) }
         }
     }
 

@@ -48,6 +48,8 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
 
         obserUserPostsCount()
         loadingUserPostsCount()
+
+        setAddFriendButtonClickListener()
     }
 
     private fun loadUserData() = viewModel.getUser(args.username)
@@ -84,6 +86,12 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
     }
 
     private fun loadingUserPostsCount() = viewModel.loadUserPostsCount(args.username)
+
+    private fun setAddFriendButtonClickListener() {
+        binding.fragmentPostInfoButtonAddRemoveFriend.setOnClickListener {
+            viewModel.addFriend()
+        }
+    }
 
     private fun loadUserAvatar(avatarUrl : String) {
         val imageUrl = ImageUrlExtractor.extractBaseImageUrl(avatarUrl)

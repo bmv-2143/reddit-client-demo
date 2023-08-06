@@ -171,7 +171,12 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     ): CommentListingData {
         return try {
             Log.e(TAG, "getPostComments START")
-            getOnlyCommentsToPost(subredditDisplayName, postName, depth = 1, limit = limit) // todo: hardcoded depth
+            getOnlyCommentsToPost(
+                subredditDisplayName,
+                postName,
+                depth = 1,
+                limit = limit
+            ) // todo: hardcoded depth
         } catch (e: UnknownHostException) {
             handleUnknownHostError(e)
             emptyCommentListingData()
@@ -204,7 +209,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
-    internal suspend fun getUser(userName: String) : User? {
+    internal suspend fun getUser(userName: String): User? {
         return try {
             redditService.redditApi.getUser(userName).data
         } catch (e: UnknownHostException) {
@@ -219,7 +224,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
-    internal suspend fun getUserPosts(username : String) : List<PostData> {
+    internal suspend fun getUserPosts(username: String): List<PostData> {
         return try {
             redditService.redditApi.getUserPosts(username).data.children
         } catch (e: UnknownHostException) {
@@ -229,8 +234,24 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             emptyList()
         } catch (e: Exception) {
-            logError(::getSubredditPosts.name, e)
+            logError(::getUserPosts.name, e)
             emptyList()
+        }
+    }
+
+    internal suspend fun addFriend(username: String): Boolean {
+        return try {
+            redditService.redditApi.addFriend(username)
+            true
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            false
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            false
+        } catch (e: Exception) {
+            logError(::addFriend.name, e)
+            false
         }
     }
 

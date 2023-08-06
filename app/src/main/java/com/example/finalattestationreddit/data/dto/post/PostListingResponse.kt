@@ -7,4 +7,3 @@ import com.squareup.moshi.JsonClass
 data class PostListingResponse(
     @Json(name = "data") val data: PostListingData
 )
-

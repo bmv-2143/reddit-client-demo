@@ -5,9 +5,13 @@ import com.example.finalattestationreddit.data.dto.comment.CommentListingRespons
 import com.example.finalattestationreddit.data.dto.post.PostListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingResponse
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditResponse
+import com.example.finalattestationreddit.data.dto.user.AddFriendRequest
 import com.example.finalattestationreddit.data.dto.user.UserResponse
+import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -96,6 +100,17 @@ interface RedditApi {
         @Path("username") username: String,
         @Query("limit") limit: Int = DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT
     ): PostListingResponse
+
+    @PUT("/api/v1/me/friends/{username}")
+    suspend fun addFriend(
+        @Path("username") username: String,
+        @Body body: AddFriendRequest = AddFriendRequest(username)
+    )
+
+    @DELETE("/api/v1/me/friends/{username}")
+    suspend fun removeFriend(
+        @Path("username") username: String
+    )
 
     companion object {
         const val DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT = 10_000

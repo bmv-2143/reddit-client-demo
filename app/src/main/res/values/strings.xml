@@ -45,6 +45,7 @@
     <string name="fragment_user_icon_text_message">Message</string>
     <string name="fragment_user_karma_template">Karma: %1d</string>
     <string name="fragment_user_karma_default_value">Karma: 0</string>
-    <string name="fragment_user_button_subscribe">Subscribe</string>
+    <string name="fragment_user_button_add_friend">Add Friend</string>
+    <string name="fragment_user_button_remove_friend">Remove Friend</string>
 
 </resources>
