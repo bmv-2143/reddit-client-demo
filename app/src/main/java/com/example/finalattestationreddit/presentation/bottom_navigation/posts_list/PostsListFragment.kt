@@ -12,7 +12,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.R
@@ -31,8 +30,6 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private val viewModel: PostsListViewModel by viewModels()
     private val activityViewModel : BottomNavigationViewModel by activityViewModels()
-
-    private val navigationArgs: PostsListFragmentArgs by navArgs()
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
@@ -62,10 +59,12 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
         // todo: its better pass it to a view model? or use state handle from the view model?
 
+        activityViewModel.selectedSubredditFlow.value?.let { subredditData ->
+            toolbarTitleSetter.setToolbarTitle(subredditData.displayName)
+            observePostsFlow(subredditData.displayName)
+            observeLoadStateAndUpdateProgressBar()
+        }
 
-        toolbarTitleSetter.setToolbarTitle(navigationArgs.subredditName)
-        observePostsFlow(navigationArgs.subredditName)
-        observeLoadStateAndUpdateProgressBar()
     }
 
     private fun initToolbar() {
@@ -88,7 +87,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private fun navigateToSubredditInfoFragment() {
         val navigateToSubredditInfoAction = PostsListFragmentDirections
-            .actionPostsListFragmentToSubredditInfoFragment(navigationArgs.subredditName)
+            .actionPostsListFragmentToSubredditInfoFragment()
         findNavController().navigate(navigateToSubredditInfoAction)
     }
 
