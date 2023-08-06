@@ -20,7 +20,6 @@ import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.databinding.FragmentPostsListBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
-import com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info.SubredditInfoFragmentArgs
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -33,7 +32,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     private val viewModel: PostsListViewModel by viewModels()
     private val activityViewModel : BottomNavigationViewModel by activityViewModels()
 
-    private val navigationArgs: SubredditInfoFragmentArgs by navArgs()
+    private val navigationArgs: PostsListFragmentArgs by navArgs()
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
@@ -64,8 +63,8 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         // todo: its better pass it to a view model? or use state handle from the view model?
 
 
-        toolbarTitleSetter.setToolbarTitle(navigationArgs.subredditData.displayNamePrefixed)
-        observePostsFlow(navigationArgs.subredditData.displayName)
+        toolbarTitleSetter.setToolbarTitle(navigationArgs.subredditName)
+        observePostsFlow(navigationArgs.subredditName)
         observeLoadStateAndUpdateProgressBar()
     }
 
@@ -89,7 +88,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private fun navigateToSubredditInfoFragment() {
         val navigateToSubredditInfoAction = PostsListFragmentDirections
-            .actionPostsListFragmentToSubredditInfoFragment(navigationArgs.subredditData)
+            .actionPostsListFragmentToSubredditInfoFragment(navigationArgs.subredditName)
         findNavController().navigate(navigateToSubredditInfoAction)
     }
 

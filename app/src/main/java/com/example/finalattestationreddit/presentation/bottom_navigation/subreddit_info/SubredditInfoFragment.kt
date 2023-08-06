@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
@@ -31,7 +30,6 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
 
     private val viewModel: SubredditInfoViewModel by viewModels()
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
-    private val navigationArgs: SubredditInfoFragmentArgs by navArgs()
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
@@ -48,15 +46,16 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val subredditData = navigationArgs.subredditData
-        initToolbar(subredditData.displayNamePrefixed)
-        startLoadSubreddit(subredditData.displayName)
-        observeSubredditFlow()
+        activityViewModel.selectedSubredditFlow.value?.let { subredditData ->
+            initToolbar(subredditData.displayNamePrefixed)
+            startLoadSubreddit(subredditData.displayName)
+            observeSubredditFlow()
 
-        setShareButtonClickListener(subredditData)
-        setSubscribeButtonClickListener()
-        observerSubscriptionUpdatesFlow()
-        loadSubredditIcon(subredditData)
+            setShareButtonClickListener(subredditData)
+            setSubscribeButtonClickListener()
+            observerSubscriptionUpdatesFlow()
+            loadSubredditIcon(subredditData)
+        }
     }
 
     private fun setInitialUiState(subredditData: SubredditData) {

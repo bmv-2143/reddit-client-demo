@@ -80,7 +80,7 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         if (findNavController().currentDestination?.id == R.id.navigation_subreddits) {
             activityViewModel.setSelectedSubreddit(subredditData)
             val action = SubredditsFragmentDirections
-                .actionNavigationSubredditsToPostsListFragment(subredditData)
+                .actionNavigationSubredditsToPostsListFragment(subredditData.displayName)
             findNavController().navigate(action)
         }
     }
