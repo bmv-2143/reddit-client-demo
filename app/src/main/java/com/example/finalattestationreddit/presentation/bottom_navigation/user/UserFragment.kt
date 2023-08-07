@@ -63,7 +63,7 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickLi
         setAddFriendButtonClickListener()
         setRemoveFriendButtonClickListener()
 
-        addCommentsFragment()
+        addNoToolbarPostsListFragment()
     }
 
     private fun loadUserData() = viewModel.getUser(args.username)
@@ -143,7 +143,7 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickLi
         }
     }
 
-    private fun addCommentsFragment() {
+    private fun addNoToolbarPostsListFragment() {
         val fragment = makeNoToolbarPostsListFragment()
         val transaction = childFragmentManager.beginTransaction()
         transaction.add(R.id.fragment_user_posts_lists_fragment_container, fragment)
