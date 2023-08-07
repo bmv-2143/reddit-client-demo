@@ -62,13 +62,7 @@
         android:id="@+id/subredditInfoFragment"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info.SubredditInfoFragment"
         android:label="fragment_subreddit"
-        tools:layout="@layout/fragment_subreddit_info">
-
-<!--        <argument-->
-<!--            android:name="subreddit_name"-->
-<!--            app:argType="string" />-->
-
-    </fragment>
+        tools:layout="@layout/fragment_subreddit_info"/>
 
     <fragment
         android:id="@+id/postInfoFragment"
@@ -147,6 +141,11 @@
         <argument
             android:name="username"
             app:argType="string" />
+        <action
+            android:id="@+id/action_userFragment_to_postInfoFragment"
+            app:destination="@id/postInfoFragment"
+            app:popUpTo="@id/postInfoFragment"
+            app:popUpToInclusive="true"/>
 
 
     </fragment>

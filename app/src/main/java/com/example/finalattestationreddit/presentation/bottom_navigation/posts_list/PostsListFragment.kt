@@ -23,6 +23,7 @@ import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,6 +31,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private val viewModel: PostsListViewModel by viewModels()
     private val activityViewModel : BottomNavigationViewModel by activityViewModels()
+    internal var onPostItemClickListener: WeakReference<PostItemClickListener>? = null
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
@@ -41,16 +43,15 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         }
     )
 
-    // todo: crashes when clicked on an item in the nested posts list fragment view
-    // option 1: don't navigate if nested inside other fragment
-    // option 2: navigate and clear everything from certain point in back stack - draw picture to figure out
 
     private fun onPostItemClick(post: Post) {
-
-        // todo: check if at the right location before navigating
-
-        activityViewModel.setSelectedPost(post)
-        findNavController().navigate(R.id.action_postsListFragment_to_postFragment)
+        // todo: crashes when clicked on an item in the nested posts list fragment view
+        if (getShowToolbarArg()) {
+            activityViewModel.setSelectedPost(post)
+            findNavController().navigate(R.id.action_postsListFragment_to_postFragment)
+        } else {
+            onPostItemClickListener?.get()?.onPostItemClick(post)
+        }
     }
 
     override fun inflateBinding(
