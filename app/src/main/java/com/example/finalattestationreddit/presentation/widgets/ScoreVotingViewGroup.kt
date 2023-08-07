@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.databinding.CompoundViewGroupScoreVotingBinding
+import com.example.finalattestationreddit.presentation.utils.formatLargeNumber
 
 
 class ScoreVotingViewGroup @JvmOverloads constructor(
@@ -52,7 +53,7 @@ class ScoreVotingViewGroup @JvmOverloads constructor(
     }
 
     fun setScore(score: Int) {
-        binding.compoundViewGroupScoreText.text = score.toString()
+        binding.compoundViewGroupScoreText.text = formatLargeNumber(score)
     }
 
     fun setVoteState(voteState: VoteState) {
