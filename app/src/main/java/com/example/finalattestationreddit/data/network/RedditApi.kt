@@ -123,6 +123,21 @@ interface RedditApi {
     @GET("/api/v1/me/friends")
     suspend fun getFriends(): FriendsResponse
 
+    @POST("/api/save")
+    suspend fun savePost(
+        @Query("id") postName: String
+    )
+
+    @POST("/api/unsave")
+    suspend fun unsavePost(
+        @Query("id") postName: String
+    )
+
+    @GET("/user/{username}/saved/")
+    suspend fun getAllSavedPosts(
+        @Path("username") username: String?
+    ): PostListingResponse
+
     companion object {
         const val DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT = 10_000
     }

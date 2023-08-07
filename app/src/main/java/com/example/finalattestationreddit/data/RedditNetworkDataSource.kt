@@ -228,7 +228,11 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
-    internal suspend fun getUserPosts(username: String, after: String, perPage: Int): PostListingData {
+    internal suspend fun getUserPosts(
+        username: String,
+        after: String,
+        perPage: Int
+    ): PostListingData {
         return try {
             redditService.redditApi.getUserPosts(username, after, perPage).data
         } catch (e: UnknownHostException) {
@@ -243,7 +247,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
-    internal suspend fun getUserPostsAll(username: String): List<PostData>  {
+    internal suspend fun getUserPostsAll(username: String): List<PostData> {
         return try {
             redditService.redditApi.getUserPostsAll(username).data.children
         } catch (e: UnknownHostException) {
@@ -290,7 +294,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
-    internal suspend fun getFriends() : List<Friend>  {
+    internal suspend fun getFriends(): List<Friend> {
         return try {
             redditService.redditApi.getFriends().data.children
         } catch (e: UnknownHostException) {
@@ -302,6 +306,26 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         } catch (e: Exception) {
             logError(::getFriends.name, e)
             emptyList()
+        }
+    }
+
+    internal suspend fun setPostSavedState(postName: String, isSaved: Boolean) : Boolean {
+        return try {
+            if (isSaved) {
+                redditService.redditApi.savePost(postName)
+            } else {
+                redditService.redditApi.unsavePost(postName)
+            }
+            true
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            false
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            false
+        } catch (e: Exception) {
+            logError(::getFriends.name, e)
+            false
         }
     }
 

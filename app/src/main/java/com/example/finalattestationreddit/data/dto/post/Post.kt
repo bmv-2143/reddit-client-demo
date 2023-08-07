@@ -16,7 +16,8 @@ data class Post(
     @Json(name = "preview") val preview: PostPreview?,
     @Json(name = "selftext") val selfText: String,
     @Json(name = "score") val score: Int,
-    @Json(name = "likes") val likedByUser: Boolean?
+    @Json(name = "likes") val likedByUser: Boolean?,
+    @Json(name = "saved") val saved: Boolean
 ) {
 
     // todo: should it be here? in DTO? should it be defined as extension fun in another layer?

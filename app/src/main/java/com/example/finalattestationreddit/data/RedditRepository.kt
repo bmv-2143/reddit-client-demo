@@ -166,4 +166,8 @@ class RedditRepository @Inject constructor(
 
     internal suspend fun isFriend(username: String) : Boolean =
         redditNetworkDataSource.getFriends().any { it.name == username }
+
+    internal suspend fun setSavePostState(postName : String, isSaved : Boolean) : Boolean {
+        return redditNetworkDataSource.setPostSavedState(postName, isSaved)
+    }
 }

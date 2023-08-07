@@ -1,11 +1,13 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.post
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -70,6 +72,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         setVoteControlsListeners()
         setShowAllCommentsButtonListener()
         setPostAuthorClickListener()
+        setSavePostButtonClickListener()
         addCommentsFragment()
     }
 
@@ -97,6 +100,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         updatePostTexts(post)
         updatePostVoteControls(post)
         loadPostImage(post)
+        updatedPostSavedState(post)
         updateShowAllCommentsButtonVisibility(post)
     }
 
@@ -130,6 +134,34 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
 
     private fun hideProgressBar() {
         binding.fragmentPostInfoProgressBar.visibility = View.GONE
+    }
+
+    private fun updatedPostSavedState(post: Post) {
+        updateButtonIconTintColor(post)
+        updateButtonLabel(post)
+    }
+
+    private fun updateButtonIconTintColor(post: Post) {
+        val buttonIconColor = ContextCompat.getColor(
+            requireContext(),
+            if (post.saved)
+                R.color.colorAlternativeAction
+            else
+                R.color.colorSaveButtonIconNotSaved
+        )
+
+        val colorStateList = ColorStateList.valueOf(buttonIconColor)
+        binding.fragmentPostInfoButtonSavePost.iconTint = colorStateList
+    }
+
+    private fun updateButtonLabel(post: Post) {
+        binding.fragmentPostInfoButtonSavePost.text =
+            getString(
+                if (post.saved)
+                    R.string.fragment_post_info_button_save_label_post_unsave
+                else
+                    R.string.fragment_post_info_button_save_post_label_save
+            )
     }
 
     private fun setShareButtonListener() {
@@ -234,5 +266,13 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
                 View.VISIBLE
             else
                 View.GONE
+    }
+
+    private fun setSavePostButtonClickListener() {
+        binding.fragmentPostInfoButtonSavePost.setOnClickListener {
+            latestSelectedOrUpdatedPost?.let { post ->
+                viewModel.switchPostSavedState(post)
+            }
+        }
     }
 }

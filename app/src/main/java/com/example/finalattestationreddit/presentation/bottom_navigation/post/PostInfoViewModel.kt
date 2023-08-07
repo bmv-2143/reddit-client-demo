@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.domain.DownVotePostOrCommentUseCase
-import com.example.finalattestationreddit.domain.GetPostCommentsUseCase
 import com.example.finalattestationreddit.domain.GetPostUseCase
+import com.example.finalattestationreddit.domain.SaveUnsavePostUseCase
 import com.example.finalattestationreddit.domain.UnVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.UpVotePostOrCommentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +20,8 @@ class PostInfoViewModel @Inject constructor(
     private val upVoteUseCase: UpVotePostOrCommentUseCase,
     private val downVoteUseCase: DownVotePostOrCommentUseCase,
     private val unVoteUseCase: UnVotePostOrCommentUseCase,
-    private val getPostCommentsUseCase: GetPostCommentsUseCase,
-    private val getPostUseCase: GetPostUseCase
+    private val getPostUseCase: GetPostUseCase,
+    private val saveUnsavePostUseCase: SaveUnsavePostUseCase
 ) : ViewModel() {
 
     internal fun getShareLink(post: Post?): String {
@@ -59,6 +59,16 @@ class PostInfoViewModel @Inject constructor(
 
     internal fun shouldDisplayShowAllCommentsButton(post : Post) : Boolean {
         return !(post.numComments <= BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
+    }
+
+    internal fun switchPostSavedState(post : Post) {
+        viewModelScope.launch {
+            val success = saveUnsavePostUseCase(post.name, !post.saved)
+            if (success) {
+                _updatedPostFlow.value = post.copy(saved = !post.saved)
+                fetchUpdatedPost(post)
+            }
+        }
     }
 
 }

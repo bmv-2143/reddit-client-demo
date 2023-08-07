@@ -47,5 +47,8 @@
     <string name="fragment_user_karma_default_value">Karma: 0</string>
     <string name="fragment_user_button_add_friend">Add Friend</string>
     <string name="fragment_user_button_remove_friend">Remove Friend</string>
+    <string name="fragment_post_info_button_save">Save</string>
+    <string name="fragment_post_info_button_save_label_post_unsave">Unsave</string>
+    <string name="fragment_post_info_button_save_post_label_save">Save</string>
 
 </resources>
