@@ -166,10 +166,11 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     }
 
     private fun setPostAuthorClickListener() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {              // todo: don't collect in click listener
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 selectedAndUpdatedPostFlow.filterNotNull().collectLatest { post ->
                     binding.fragmentPostInfoAuthor.setOnClickListener {
+                        activityViewModel.setSelectedUser(post.author)
                         Toast.makeText(
                             requireContext(),
                             "AUTHOR CLICKED: ${post.author}",

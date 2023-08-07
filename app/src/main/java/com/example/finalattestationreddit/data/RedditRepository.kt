@@ -10,6 +10,7 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
+import com.example.finalattestationreddit.data.pagingsource.GetUserPostsPagingSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -138,7 +139,23 @@ class RedditRepository @Inject constructor(
         redditNetworkDataSource.getUser(userName)
 
     internal suspend fun getUserPostsCount(username: String) : Int {
-        return redditNetworkDataSource.getUserPosts(username).count()
+        return redditNetworkDataSource.getUserPostsAll(username).count()
+    }
+
+    internal fun getUserPosts(username: String) : Flow<PagingData<PostData>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE,
+                initialLoadSize = PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                GetUserPostsPagingSource(
+                    username,
+                    redditNetworkDataSource
+                )
+            }
+        ).flow
     }
 
     internal suspend fun addFriend(username: String) : Boolean =

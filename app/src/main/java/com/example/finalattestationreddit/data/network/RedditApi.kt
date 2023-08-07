@@ -99,6 +99,13 @@ interface RedditApi {
     @GET("/user/{username}/submitted")
     suspend fun getUserPosts(
         @Path("username") username: String,
+        @Query("after") after: String,
+        @Query("limit") limit: Int
+    ): PostListingResponse
+
+    @GET("/user/{username}/submitted")
+    suspend fun getUserPostsAll(
+        @Path("username") username: String,
         @Query("limit") limit: Int = DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT
     ): PostListingResponse
 

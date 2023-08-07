@@ -30,7 +30,7 @@ import javax.inject.Inject
 class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private val viewModel: PostsListViewModel by viewModels()
-    private val activityViewModel : BottomNavigationViewModel by activityViewModels()
+    private val activityViewModel: BottomNavigationViewModel by activityViewModels()
     internal var onPostItemClickListener: WeakReference<PostItemClickListener>? = null
 
     @Inject
@@ -67,11 +67,24 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
         // todo: its better pass it to a view model? or use state handle from the view model?
 
-        activityViewModel.selectedSubredditFlow.value?.let { subredditData ->
-            observePostsFlow(subredditData.displayName)
-            observeLoadStateAndUpdateProgressBar()
+        loadPosts()
+
+    }
+
+    private fun loadPosts() {
+        if (getShowToolbarArg()) {
+            activityViewModel.selectedSubredditFlow.value?.let { subredditData ->
+                observeSubredditPostsFlow(subredditData.displayName)
+            }
+        }
+        else {
+            activityViewModel.selectedUserFlow.value?.let { userName -> // todo: filter blank user names
+                if (userName.isNotBlank())
+                    observeUserPostsFlow(userName)
+            }
         }
 
+        observeAdapterLoadStateAndUpdateProgressBar()
     }
 
     private fun getShowToolbarArg(): Boolean =
@@ -116,17 +129,32 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         binding.fragmentPostsListRecyclerView.adapter = postsPagingAdapter
     }
 
-    private fun observePostsFlow(subredditDisplayName : String) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getPostsFlow(subredditDisplayName).collectLatest { pagingData ->
-                    postsPagingAdapter.submitData(pagingData)
-                }
+    private fun observeSubredditPostsFlow(subredditDisplayName: String) {
+        doOnLifecycleStarted {
+            viewModel.getPostsFlow(subredditDisplayName).collectLatest { pagingData ->
+                postsPagingAdapter.submitData(pagingData)
             }
         }
     }
 
-    private fun observeLoadStateAndUpdateProgressBar() {
+    private fun observeUserPostsFlow(username: String) {
+        doOnLifecycleStarted {
+            viewModel.getUserPostsFlow(username).collectLatest { pagingData ->
+                postsPagingAdapter.submitData(pagingData)
+            }
+        }
+    }
+
+
+    private fun doOnLifecycleStarted(action: suspend () -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                action()
+            }
+        }
+    }
+
+    private fun observeAdapterLoadStateAndUpdateProgressBar() {
         postsPagingAdapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading || loadState.append is LoadState.Loading) {
                 binding.fragmentPostsListProgressBar.visibility = View.VISIBLE

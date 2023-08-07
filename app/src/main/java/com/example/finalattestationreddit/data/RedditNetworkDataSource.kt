@@ -228,9 +228,24 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
-    internal suspend fun getUserPosts(username: String): List<PostData> {
+    internal suspend fun getUserPosts(username: String, after: String, perPage: Int): PostListingData {
         return try {
-            redditService.redditApi.getUserPosts(username).data.children
+            redditService.redditApi.getUserPosts(username, after, perPage).data
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptyPostListingData()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptyPostListingData()
+        } catch (e: Exception) {
+            logError(::getUserPosts.name, e)
+            emptyPostListingData()
+        }
+    }
+
+    internal suspend fun getUserPostsAll(username: String): List<PostData>  {
+        return try {
+            redditService.redditApi.getUserPostsAll(username).data.children
         } catch (e: UnknownHostException) {
             handleUnknownHostError(e)
             emptyList()
@@ -238,7 +253,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             emptyList()
         } catch (e: Exception) {
-            logError(::getUserPosts.name, e)
+            logError(::getUserPostsAll.name, e)
             emptyList()
         }
     }

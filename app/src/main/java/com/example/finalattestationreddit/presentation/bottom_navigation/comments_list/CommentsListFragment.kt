@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,7 @@ import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.FragmentCommentsListBinding
 import com.example.finalattestationreddit.log.TAG
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.post.PostCommentsAdapter
 import com.example.finalattestationreddit.presentation.bottom_navigation.post.PostInfoFragmentDirections
@@ -37,6 +39,8 @@ import javax.inject.Inject
 class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() {
 
     private val viewModel: CommentsListViewModel by viewModels()
+    private val activityViewModel: BottomNavigationViewModel by activityViewModels()
+
     private val commentsAdapter: PostCommentsAdapter by lazy {
         PostCommentsAdapter(
             timeUtils::formatElapsedTime,
@@ -168,6 +172,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     private fun onCommentItemDownVoteClick(comment: Comment) = viewModel.downVote(comment)
 
     private fun onAuthorClick(authorName: String) {
+        activityViewModel.setSelectedUser(authorName)
         Toast.makeText(
             requireContext(),
             "AUTHOR CLICKED: $authorName",

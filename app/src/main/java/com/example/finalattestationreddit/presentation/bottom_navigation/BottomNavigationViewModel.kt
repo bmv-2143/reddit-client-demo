@@ -46,6 +46,14 @@ class BottomNavigationViewModel @Inject constructor(
     private val _updatedSubscriptionFlow = MutableSharedFlow<SubredditData>()
     val subscriptionUpdatesFlow = _updatedSubscriptionFlow.asSharedFlow()
 
+
+    private val _selectedUserFlow = MutableStateFlow<String?>(null)
+    val selectedUserFlow = _selectedUserFlow.asStateFlow()
+
+    internal fun setSelectedUser(username : String) {
+        _selectedUserFlow.value = username
+    }
+
     fun switchSubscription(subredditData: SubredditData) {
         viewModelScope.launch {
             val updatedResult: SubscriptionUpdateResult = invertSubscription(subredditData)
