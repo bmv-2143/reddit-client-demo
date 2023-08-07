@@ -17,7 +17,7 @@
         android:id="@+id/compound_view_group_score_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="2dp"
         android:text="0"
         />
 
@@ -25,7 +25,6 @@
         android:id="@+id/compound_view_group_score_downvote"
         android:layout_width="@dimen/compound_view_group_score_update_btn_size"
         android:layout_height="@dimen/compound_view_group_score_update_btn_size"
-
         app:srcCompat="@drawable/arrow_down_boxed_empty"/>
 
 
