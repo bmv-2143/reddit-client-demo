@@ -6,8 +6,8 @@
     android:background="@android:color/darker_gray"
     tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragment">
 
-
     <LinearLayout
+        android:id="@+id/fragment_favorites_toggle_buttons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -87,9 +87,10 @@
         android:id="@+id/fragment_favorites_fragment_container_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_favorites_toggle_buttons"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

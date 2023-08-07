@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.data.network.SubredditListType
 import com.example.finalattestationreddit.databinding.FragmentFavoritesBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditsListFragment
 
 class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
 
@@ -26,6 +28,7 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
         binding.fragmentFavoritesToggleGroupAllSaved.check(R.id.fragment_favorites_button_all)
 
         setItemClickListeners() // todo: should be updated
+        addAllSubredditsFragment()
     }
 
 
@@ -53,4 +56,23 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
         }
     }
 
+
+    private fun addAllSubredditsFragment() {
+        val fragment = makeAllSubredditsListFragment()
+        val transaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_favorites_fragment_container_list, fragment)
+        transaction.commit()
+    }
+
+    private fun makeAllSubredditsListFragment(): SubredditsListFragment {
+        val fragment = SubredditsListFragment.newInstance(
+            SubredditListType.VAL_SUBREDDITS_LIST_TYPE_NEW)
+//            .apply {
+//            onPostItemClickListener = WeakReference(this@UserFragment)
+//            arguments = Bundle().apply {
+//                putBoolean(PostsListFragment.ARG_SHOW_TOOLBAR, false)
+//            }
+//        }
+        return fragment
+    }
 }
