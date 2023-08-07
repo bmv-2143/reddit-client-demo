@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
@@ -23,10 +22,8 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val textView: TextView = binding.textDashboard
-        favoritesViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        binding.fragmentFavoritesToggleGroupSubredditsPosts.check(R.id.fragment_favorites_button_subreddits)
+        binding.fragmentFavoritesToggleGroupAllSaved.check(R.id.fragment_favorites_button_all)
 
         setItemClickListeners() // todo: should be updated
     }

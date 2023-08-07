@@ -50,5 +50,9 @@
     <string name="fragment_post_info_button_save">Save</string>
     <string name="fragment_post_info_button_save_label_post_unsave">Unsave</string>
     <string name="fragment_post_info_button_save_post_label_save">Save</string>
+    <string name="fragment_favorites_toggle_button_subreddits">Subreddits</string>
+    <string name="fragment_favorites_toggle_button_posts">Posts</string>
+    <string name="fragment_favorites_toggle_button_all">All</string>
+    <string name="fragment_favorites_toggle_button_saved">Saved</string>
 
 </resources>

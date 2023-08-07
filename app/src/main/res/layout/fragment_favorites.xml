@@ -17,50 +17,52 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/fragment_favorites_toggle_group_subreddits_posts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@+id/subreddits_button"
-            app:singleSelection="true"
-            >
+            android:checkedButton="@id/fragment_favorites_button_subreddits"
+            app:singleSelection="true">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/subreddits_button"
+                android:id="@+id/fragment_favorites_button_subreddits"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Subreddits"
+                android:text="@string/fragment_favorites_toggle_button_subreddits"
+
                 app:cornerRadius="16dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/posts_button"
+                android:id="@+id/fragment_favorites_button_posts"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Posts"
+                android:text="@string/fragment_favorites_toggle_button_posts"
                 app:cornerRadius="16dp" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/fragment_favorites_toggle_group_all_saved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@+id/all_button"
+            android:checkedButton="@+id/fragment_favorites_button_all"
             app:singleSelection="true"
             >
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/all_button"
+                android:id="@+id/fragment_favorites_button_all"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All"
+                android:text="@string/fragment_favorites_toggle_button_all"
                 app:cornerRadius="16dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/saved_button"
+                android:id="@+id/fragment_favorites_button_saved"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Saved"
+                android:text="@string/fragment_favorites_toggle_button_saved"
                 app:cornerRadius="16dp" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -81,15 +83,10 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_favorites_fragment_container_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
