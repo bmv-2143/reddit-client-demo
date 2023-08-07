@@ -12,7 +12,9 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:title="Posts List"
-        app:titleTextColor="?attr/colorOnPrimary" />
+        app:titleTextColor="?attr/colorOnPrimary"
+        android:visibility="gone"
+        />
 
     <FrameLayout
         android:layout_width="match_parent"

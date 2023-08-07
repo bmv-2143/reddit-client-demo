@@ -41,7 +41,14 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         }
     )
 
+    // todo: crashes when clicked on an item in the nested posts list fragment view
+    // option 1: don't navigate if nested inside other fragment
+    // option 2: navigate and clear everything from certain point in back stack - draw picture to figure out
+
     private fun onPostItemClick(post: Post) {
+
+        // todo: check if at the right location before navigating
+
         activityViewModel.setSelectedPost(post)
         findNavController().navigate(R.id.action_postsListFragment_to_postFragment)
     }
@@ -60,18 +67,29 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         // todo: its better pass it to a view model? or use state handle from the view model?
 
         activityViewModel.selectedSubredditFlow.value?.let { subredditData ->
-            toolbarTitleSetter.setToolbarTitle(subredditData.displayName)
             observePostsFlow(subredditData.displayName)
             observeLoadStateAndUpdateProgressBar()
         }
 
     }
 
+    private fun getShowToolbarArg(): Boolean =
+        arguments?.getBoolean(ARG_SHOW_TOOLBAR) ?: true
+
     private fun initToolbar() {
+        if (!getShowToolbarArg())
+            return
+
+        binding.fragmentPostsListToolbar.visibility = View.VISIBLE
+
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentPostsListToolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         initToolbarMenu()
+
+        activityViewModel.selectedSubredditFlow.value?.let { subredditData ->
+            toolbarTitleSetter.setToolbarTitle(subredditData.displayName)
+        }
     }
 
     private fun initToolbarMenu() {
@@ -115,5 +133,9 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
                 binding.fragmentPostsListProgressBar.visibility = View.GONE
             }
         }
+    }
+
+    companion object {
+        const val ARG_SHOW_TOOLBAR = "show_toolbar"
     }
 }

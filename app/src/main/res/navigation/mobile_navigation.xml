@@ -49,6 +49,13 @@
         <action
             android:id="@+id/action_posts_list_fragment_to_subredditInfoFragment"
             app:destination="@id/subredditInfoFragment" />
+
+        <argument
+            android:name="show_toolbar"
+            app:argType="boolean"
+            android:defaultValue="true"
+            />
+
     </fragment>
 
     <fragment
@@ -57,9 +64,9 @@
         android:label="fragment_subreddit"
         tools:layout="@layout/fragment_subreddit_info">
 
-        <argument
-            android:name="subreddit_name"
-            app:argType="string" />
+<!--        <argument-->
+<!--            android:name="subreddit_name"-->
+<!--            app:argType="string" />-->
 
     </fragment>
 

@@ -14,6 +14,7 @@ import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentUserBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment
 import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -54,6 +55,8 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
 
         setAddFriendButtonClickListener()
         setRemoveFriendButtonClickListener()
+
+        addCommentsFragment()
     }
 
     private fun loadUserData() = viewModel.getUser(args.username)
@@ -132,5 +135,15 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>() {
             binding.fragmentPostInfoButtonAddFriend.visibility = View.VISIBLE
             binding.fragmentPostInfoButtonRemoveFriend.visibility = View.GONE
         }
+    }
+
+    private fun addCommentsFragment() {
+        val fragment = PostsListFragment()
+        fragment.arguments = Bundle().apply {
+            putBoolean(PostsListFragment.ARG_SHOW_TOOLBAR, false)
+        }
+        val transaction = childFragmentManager.beginTransaction()
+        transaction.add(R.id.fragment_user_posts_lists_fragment_container, fragment)
+        transaction.commit()
     }
 }
