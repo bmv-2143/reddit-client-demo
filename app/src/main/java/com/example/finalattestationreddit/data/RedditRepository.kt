@@ -10,6 +10,7 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
+import com.example.finalattestationreddit.data.pagingsource.GetSubscribedSubredditsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetUserPostsPagingSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
@@ -86,6 +87,19 @@ class RedditRepository @Inject constructor(
     ): SubscriptionUpdateResult {
         val updateSuccess = redditNetworkDataSource.updateSubscription(subredditName, action)
         return SubscriptionUpdateResult(subredditName, updateSuccess)
+    }
+
+    internal fun getSubscribedSubreddits(): Flow<PagingData<SubredditData>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE,
+                initialLoadSize = PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                GetSubscribedSubredditsPagingSource(redditNetworkDataSource)
+            }
+        ).flow
     }
 
     internal fun getPosts(subredditDisplayName: String): Flow<PagingData<PostData>> {

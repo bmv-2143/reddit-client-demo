@@ -34,15 +34,18 @@ interface RedditApi {
     @GET("subreddits/popular")
     suspend fun getPopularSubreddits(): SubredditListingResponse
 
+    @GET("/subreddits/mine/subscriber")
+    suspend fun getSubscribedSubreddits(
+        @Query("after") after: String,
+        @Query("limit") perPage: Int
+    ): SubredditListingResponse
+
 
     @POST("/api/subscribe")
     suspend fun updateSubscription(
         @Query("sr_name") subredditName: String,
         @Query("action") action: String
     )
-
-    @GET("/subreddits/mine/subscriber")
-    suspend fun getSubscribedSubreddits(): SubredditListingResponse
 
     @GET("r/{subreddit}/hot")
     suspend fun getSubredditPosts(

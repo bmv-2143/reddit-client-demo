@@ -58,21 +58,22 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
 
 
     private fun addAllSubredditsFragment() {
-        val fragment = makeAllSubredditsListFragment()
+//        val fragment = makeAllSubredditsListFragment()
+        val fragment = makeSubscribedSubredditsListFragment()
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_favorites_fragment_container_list, fragment)
         transaction.commit()
     }
 
     private fun makeAllSubredditsListFragment(): SubredditsListFragment {
-        val fragment = SubredditsListFragment.newInstance(
-            SubredditListType.VAL_SUBREDDITS_LIST_TYPE_NEW)
-//            .apply {
-//            onPostItemClickListener = WeakReference(this@UserFragment)
-//            arguments = Bundle().apply {
-//                putBoolean(PostsListFragment.ARG_SHOW_TOOLBAR, false)
-//            }
-//        }
-        return fragment
+        return SubredditsListFragment.newInstance(
+            SubredditListType.VAL_SUBREDDITS_LIST_TYPE_UNSPECIFIED
+        )
+    }
+
+    private fun makeSubscribedSubredditsListFragment(): SubredditsListFragment {
+        return SubredditsListFragment.newInstance(
+            SubredditListType.VAL_SUBREDDITS_LIST_TYPE_SUBSCRIBED
+        )
     }
 }

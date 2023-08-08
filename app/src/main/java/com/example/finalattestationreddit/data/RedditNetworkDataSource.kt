@@ -74,6 +74,24 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     private fun emptySubredditListingData(): SubredditListingData =
         SubredditListingData(emptyList(), null, null)
 
+    suspend fun getSubscribedSubreddits(
+        after: String,
+        perPage: Int
+    ): SubredditListingData {
+        return try {
+            redditService.redditApi.getSubscribedSubreddits(after, perPage).data
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptySubredditListingData()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptySubredditListingData()
+        } catch (e: Exception) {
+            logError(::getSubscribedSubreddits.name, e)
+            emptySubredditListingData()
+        }
+    }
+
     suspend fun updateSubscription(subredditName: String, action: String): Boolean {
         return try {
             redditService.redditApi.updateSubscription(subredditName, action)
@@ -87,21 +105,6 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         } catch (e: Exception) {
             logError(::updateSubscription.name, e)
             false
-        }
-    }
-
-    suspend fun getSubscribedSubreddits(): List<SubredditData> {
-        return try {
-            redditService.redditApi.getSubscribedSubreddits().toSubredditDataList()
-        } catch (e: UnknownHostException) {
-            handleUnknownHostError(e)
-            emptyList()
-        } catch (e: HttpException) {
-            handleHttpException(e)
-            emptyList()
-        } catch (e: Exception) {
-            logError(::getSubscribedSubreddits.name, e)
-            emptyList()
         }
     }
 
