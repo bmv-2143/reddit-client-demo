@@ -17,11 +17,23 @@ class PostsListViewModel @Inject constructor(
     private val getUserPostsUseCase: GetUserPostsUseCase
 ) : ViewModel() {
 
-    internal fun getPostsFlow(subredditDisplayName: String): Flow<PagingData<Post>> {
+    private fun getSubredditPostsFlow(subredditDisplayName: String): Flow<PagingData<Post>> {
         return getPostsUseCase(subredditDisplayName).cachedIn(viewModelScope)
     }
 
-    internal fun getUserPostsFlow(userName: String): Flow<PagingData<Post>> {
+    private fun getUserPostsFlow(userName: String): Flow<PagingData<Post>> {
         return getUserPostsUseCase(userName).cachedIn(viewModelScope)
+    }
+
+
+    fun getPostsFlow(
+        showToolbar: Boolean,
+        subredditOrUserName: String
+    ): Flow<PagingData<Post>> {
+        return if (showToolbar) {
+            getSubredditPostsFlow(subredditOrUserName)
+        } else {
+            getUserPostsFlow(subredditOrUserName)
+        }
     }
 }

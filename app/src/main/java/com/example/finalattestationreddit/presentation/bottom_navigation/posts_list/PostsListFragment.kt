@@ -43,7 +43,6 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         }
     )
 
-
     private fun onPostItemClick(post: Post) {
         // todo: crashes when clicked on an item in the nested posts list fragment view
         if (getShowToolbarArg()) {
@@ -74,13 +73,12 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     private fun loadPosts() {
         if (getShowToolbarArg()) {
             activityViewModel.selectedSubredditFlow.value?.let { subredditData ->
-                observeSubredditPostsFlow(subredditData.displayName)
+                observePostsFlow(subredditData.displayName)
             }
-        }
-        else {
+        } else {
             activityViewModel.selectedUserFlow.value?.let { userName -> // todo: filter blank user names
                 if (userName.isNotBlank())
-                    observeUserPostsFlow(userName)
+                    observePostsFlow(userName)
             }
         }
 
@@ -129,22 +127,13 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         binding.fragmentPostsListRecyclerView.adapter = postsPagingAdapter
     }
 
-    private fun observeSubredditPostsFlow(subredditDisplayName: String) {
+    private fun observePostsFlow(subredditOrUserName: String) {
         doOnLifecycleStarted {
-            viewModel.getPostsFlow(subredditDisplayName).collectLatest { pagingData ->
+            viewModel.getPostsFlow(getShowToolbarArg(), subredditOrUserName).collectLatest { pagingData ->
                 postsPagingAdapter.submitData(pagingData)
             }
         }
     }
-
-    private fun observeUserPostsFlow(username: String) {
-        doOnLifecycleStarted {
-            viewModel.getUserPostsFlow(username).collectLatest { pagingData ->
-                postsPagingAdapter.submitData(pagingData)
-            }
-        }
-    }
-
 
     private fun doOnLifecycleStarted(action: suspend () -> Unit) {
         viewLifecycleOwner.lifecycleScope.launch {
