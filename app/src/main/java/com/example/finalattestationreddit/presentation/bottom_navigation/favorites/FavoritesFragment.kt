@@ -1,7 +1,6 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.favorites
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.network.SubredditListType
 import com.example.finalattestationreddit.databinding.FragmentFavoritesBinding
-import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragmentTogglesState.PostsAll
 import com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragmentTogglesState.PostsSaved
@@ -149,8 +147,10 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
     }
 
     private fun makeAllPostsFragment(): PostsListFragment {
-        return PostsListFragment.createNoToolbarInstance {
-            //                TODO("Not yet implemented")
-        }
+        return PostsListFragment.newAllPostsInstance(
+            {
+                // todo
+            })
+
     }
 }

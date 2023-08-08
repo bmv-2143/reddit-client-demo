@@ -143,7 +143,8 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickLi
     }
 
     private fun addNoToolbarPostsListFragment() {
-        val fragment = PostsListFragment.createNoToolbarInstance(this)
+        val fragment = PostsListFragment.newUserPostsInstance(
+            false, this)
         val transaction = childFragmentManager.beginTransaction()
         transaction.add(R.id.fragment_user_posts_lists_fragment_container, fragment)
         transaction.commit()

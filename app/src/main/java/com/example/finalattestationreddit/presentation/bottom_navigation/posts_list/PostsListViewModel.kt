@@ -7,6 +7,10 @@ import androidx.paging.cachedIn
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.domain.GetPostsUseCase
 import com.example.finalattestationreddit.domain.GetUserPostsUseCase
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType.ALL_POSTS
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType.SAVED_POSTS
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType.SUBREDDIT_POSTS
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType.USER_POSTS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -25,15 +29,20 @@ class PostsListViewModel @Inject constructor(
         return getUserPostsUseCase(userName).cachedIn(viewModelScope)
     }
 
-
     fun getPostsFlow(
-        showToolbar: Boolean,
+        postsListType: PostsListType,
         subredditOrUserName: String
     ): Flow<PagingData<Post>> {
-        return if (showToolbar) {
-            getSubredditPostsFlow(subredditOrUserName)
-        } else {
-            getUserPostsFlow(subredditOrUserName)
+        return when (postsListType) {
+            SUBREDDIT_POSTS -> getSubredditPostsFlow(subredditOrUserName)
+            USER_POSTS -> getUserPostsFlow(subredditOrUserName)
+            SAVED_POSTS -> {
+                getSubredditPostsFlow("AskReddit") // todo: this is a stub
+            }
+            ALL_POSTS -> {
+                getSubredditPostsFlow("Home") // todo: this is a stub
+            }
         }
     }
+
 }

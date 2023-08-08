@@ -106,6 +106,13 @@ interface RedditApi {
         @Query("limit") limit: Int
     ): PostListingResponse
 
+    @GET("/user/{username}/saved")
+    suspend fun getSavedPosts(
+        @Path("username") username: String,
+        @Query("after") after: String? = null,
+        @Query("limit") limit: Int? = null
+    ): PostListingResponse
+
     @GET("/user/{username}/submitted")
     suspend fun getUserPostsAll(
         @Path("username") username: String,
