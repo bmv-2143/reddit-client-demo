@@ -165,6 +165,17 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     }
 
     companion object {
+
         const val ARG_SHOW_TOOLBAR = "show_toolbar"
+
+        fun createNoToolbarInstance(postItemClickListener: PostItemClickListener): PostsListFragment {
+            return PostsListFragment().apply {
+                onPostItemClickListener = WeakReference(postItemClickListener)
+                arguments = Bundle().apply {
+                    putBoolean(ARG_SHOW_TOOLBAR, false)
+                }
+            }
+        }
+
     }
 }

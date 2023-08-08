@@ -25,7 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
-import java.lang.ref.WeakReference
 
 @AndroidEntryPoint
 class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickListener {
@@ -144,20 +143,10 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickLi
     }
 
     private fun addNoToolbarPostsListFragment() {
-        val fragment = makeNoToolbarPostsListFragment()
+        val fragment = PostsListFragment.createNoToolbarInstance(this)
         val transaction = childFragmentManager.beginTransaction()
         transaction.add(R.id.fragment_user_posts_lists_fragment_container, fragment)
         transaction.commit()
-    }
-
-    private fun makeNoToolbarPostsListFragment(): PostsListFragment {
-        val fragment = PostsListFragment().apply {
-            onPostItemClickListener = WeakReference(this@UserFragment)
-            arguments = Bundle().apply {
-                putBoolean(PostsListFragment.ARG_SHOW_TOOLBAR, false)
-            }
-        }
-        return fragment
     }
 
     override fun onPostItemClick(post: Post) {
