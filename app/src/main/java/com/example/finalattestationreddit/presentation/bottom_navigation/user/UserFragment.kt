@@ -54,7 +54,7 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickLi
         observerUserData()
         loadUserData()
 
-        obserUserPostsCount()
+        observeUserPostsCount()
         loadingUserPostsCount()
 
         checkIfUserIsFriend()
@@ -84,7 +84,7 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickLi
             getString(R.string.fragment_user_karma_template, user.linkKarma)
     }
 
-    private fun obserUserPostsCount() {
+    private fun observeUserPostsCount() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.userPostsCountFlow.collectLatest { userPostsCount ->
