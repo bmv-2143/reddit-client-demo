@@ -19,6 +19,7 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -80,7 +81,7 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         if (findNavController().currentDestination?.id == R.id.navigation_subreddits) {
             activityViewModel.setSelectedSubreddit(subredditData)
             val action = SubredditsFragmentDirections
-                .actionNavigationSubredditsToPostsListFragment()
+                .actionNavigationSubredditsToPostsListFragment(postsType = PostsListType.SUBREDDIT_POSTS)
             findNavController().navigate(action)
         }
     }

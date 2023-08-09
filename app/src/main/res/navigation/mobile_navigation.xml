@@ -16,6 +16,12 @@
         <argument
             android:name="subredditsListType"
             app:argType="string" />
+
+        <argument
+            android:name="posts_type"
+            app:argType="com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType"
+            android:defaultValue="SUBREDDIT_POSTS" />
+
     </fragment>
 
     <fragment
