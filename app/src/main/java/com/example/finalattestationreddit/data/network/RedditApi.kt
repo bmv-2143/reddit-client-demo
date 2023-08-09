@@ -148,6 +148,13 @@ interface RedditApi {
         @Path("username") username: String?
     ): PostListingResponse
 
+//    @GET("/r/all") // WORKS ALSO
+    @GET("/r/all/new")
+    suspend fun getAllRecentPosts(
+        @Query("after") after: String? = null,
+        @Query("limit") limit: Int? = null
+    ): PostListingResponse
+
     companion object {
         const val DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT = 10_000
     }

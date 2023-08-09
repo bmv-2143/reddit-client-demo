@@ -8,6 +8,7 @@ import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.data.pagingsource.GetAllRecentPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubscribedSubredditsPagingSource
@@ -114,6 +115,19 @@ class RedditRepository @Inject constructor(
                     subredditDisplayName,
                     redditNetworkDataSource
                 )
+            }
+        ).flow
+    }
+
+    internal fun getAllRecentPosts(): Flow<PagingData<PostData>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE,
+                initialLoadSize = PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                GetAllRecentPostsPagingSource(redditNetworkDataSource)
             }
         ).flow
     }

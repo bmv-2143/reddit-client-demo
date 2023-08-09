@@ -113,7 +113,6 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         after: String,
         perPage: Int
     ): PostListingData {
-
         return try {
             redditService.redditApi.getSubredditPosts(subredditDisplayName, after, perPage).data
         } catch (e: UnknownHostException) {
@@ -124,6 +123,24 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             emptyPostListingData()
         } catch (e: Exception) {
             logError(::getSubredditPosts.name, e)
+            emptyPostListingData()
+        }
+    }
+
+    suspend fun getAllRecentPosts(
+        after: String,
+        perPage: Int
+    ): PostListingData {
+        return try {
+            redditService.redditApi.getAllRecentPosts(after, perPage).data
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptyPostListingData()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptyPostListingData()
+        } catch (e: Exception) {
+            logError(::getAllRecentPosts.name, e)
             emptyPostListingData()
         }
     }
