@@ -248,6 +248,21 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
+    internal suspend fun getMe(): User? {
+        return try {
+            redditService.redditApi.getMe()
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            null
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            null
+        } catch (e: Exception) {
+            logError(::getMe.name, e)
+            null
+        }
+    }
+
     internal suspend fun getUserPosts(
         username: String,
         after: String,
@@ -281,6 +296,26 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             emptyList()
         }
     }
+
+    internal suspend fun getMySavedPosts(
+        myUsername: String,
+        after: String,
+        pageSize: Int
+    ): PostListingData {
+        return try {
+            redditService.redditApi.getAllSavedPosts(myUsername, after, pageSize).data
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptyPostListingData()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptyPostListingData()
+        } catch (e: Exception) {
+            logError(::getMySavedPosts.name, e)
+            emptyPostListingData()
+        }
+    }
+
 
     internal suspend fun addFriend(username: String): Boolean {
         return try {
@@ -329,7 +364,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
-    internal suspend fun setPostSavedState(postName: String, isSaved: Boolean) : Boolean {
+    internal suspend fun setPostSavedState(postName: String, isSaved: Boolean): Boolean {
         return try {
             if (isSaved) {
                 redditService.redditApi.savePost(postName)

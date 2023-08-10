@@ -7,6 +7,7 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingRes
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditResponse
 import com.example.finalattestationreddit.data.dto.user.AddFriendRequest
 import com.example.finalattestationreddit.data.dto.user.FriendsResponse
+import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.data.dto.user.UserResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -99,6 +100,9 @@ interface RedditApi {
         @Path("username") username: String
     ): UserResponse
 
+    @GET("/api/v1/me")
+    suspend fun getMe(): User
+
     @GET("/user/{username}/submitted")
     suspend fun getUserPosts(
         @Path("username") username: String,
@@ -145,10 +149,12 @@ interface RedditApi {
 
     @GET("/user/{username}/saved/")
     suspend fun getAllSavedPosts(
-        @Path("username") username: String?
+        @Path("username") username: String?,
+        @Query("after") after: String? = null,
+        @Query("limit") limit: Int? = null
     ): PostListingResponse
 
-//    @GET("/r/all") // WORKS ALSO
+    //    @GET("/r/all") // WORKS ALSO
     @GET("/r/all/new")
     suspend fun getAllRecentPosts(
         @Query("after") after: String? = null,

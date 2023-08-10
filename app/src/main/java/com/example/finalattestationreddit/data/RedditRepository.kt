@@ -1,5 +1,6 @@
 package com.example.finalattestationreddit.data
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -9,11 +10,16 @@ import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.data.pagingsource.GetAllRecentPostsPagingSource
+import com.example.finalattestationreddit.data.pagingsource.GetMySavedPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubscribedSubredditsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetUserPostsPagingSource
+import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -166,6 +172,9 @@ class RedditRepository @Inject constructor(
     internal suspend fun getUser(userName: String) : User? =
         redditNetworkDataSource.getUser(userName)
 
+    private suspend fun getMyName() : String? =
+        redditNetworkDataSource.getMe()?.name
+
     internal suspend fun getUserPostsCount(username: String) : Int {
         return redditNetworkDataSource.getUserPostsAll(username).count()
     }
@@ -184,6 +193,30 @@ class RedditRepository @Inject constructor(
                 )
             }
         ).flow
+    }
+
+    internal fun getMySavedPosts() : Flow<PagingData<PostData>> = flow {
+        val username = getMyName()
+
+        if (username == null) {
+            Log.e(TAG, "getMySavedPosts: my username is null")
+            emitAll(flowOf<PagingData<PostData>>())
+        } else {
+            val pagerFlow = Pager(
+                config = PagingConfig(
+                    pageSize = PAGE_SIZE,
+                    prefetchDistance = PREFETCH_DISTANCE,
+                    initialLoadSize = PAGE_SIZE
+                ),
+                pagingSourceFactory = {
+                    GetMySavedPostsPagingSource(
+                        username,
+                        redditNetworkDataSource
+                    )
+                }
+            ).flow
+            emitAll(pagerFlow)
+        }
     }
 
     internal suspend fun addFriend(username: String) : Boolean =
