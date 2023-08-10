@@ -21,10 +21,7 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val textView: TextView = binding.textNotifications
-        userProfileViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
     }
 
 }

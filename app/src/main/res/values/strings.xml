@@ -54,5 +54,10 @@
     <string name="fragment_favorites_toggle_button_posts">Posts</string>
     <string name="fragment_favorites_toggle_button_all">All</string>
     <string name="fragment_favorites_toggle_button_saved">Saved</string>
+    <string name="fragment_user_profile_number_of_comments">Comments: %1d</string>
+    <string name="fragment_user_profile_number_of_subreddits">Subreddits: 0</string>
+    <string name="fragment_user_profile_list_of_friends">List of friends</string>
+    <string name="fragment_user_profile_button_clear_saved">Clear saved</string>
+    <string name="fragment_user_profile_button_exit">Exit</string>
 
 </resources>
