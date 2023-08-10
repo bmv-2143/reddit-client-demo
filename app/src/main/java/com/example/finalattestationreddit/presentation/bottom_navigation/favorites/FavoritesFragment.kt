@@ -151,13 +151,8 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostI
         transaction.commit()
     }
 
-    private fun makeAllPostsFragment(): PostsListFragment {
-        return PostsListFragment.newAllPostsInstance(
-            {
-                // todo
-            })
-
-    }
+    private fun makeAllPostsFragment(): PostsListFragment =
+        PostsListFragment.newAllPostsInstance(this)
 
     private fun addMySavedPostsFragment() {
         val transaction = childFragmentManager.beginTransaction()
