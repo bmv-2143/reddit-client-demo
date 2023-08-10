@@ -46,7 +46,7 @@
             android:id="@+id/fragment_favorites_toggle_group_all_saved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checkedButton="@+id/fragment_favorites_button_all"
+            android:checkedButton="@id/fragment_favorites_button_all"
             app:selectionRequired="true"
             app:singleSelection="true"
             >
@@ -67,21 +67,6 @@
                 android:text="@string/fragment_favorites_toggle_button_saved"
                 app:cornerRadius="16dp" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/fragment_favorites_button_open_subreddit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Open Subreddit"
-            />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/fragment_favorites_button_open_post"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Open Post"
-            />
 
     </LinearLayout>
 
