@@ -4,26 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.network.SubredditListType
 import com.example.finalattestationreddit.databinding.FragmentFavoritesBinding
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragmentTogglesState.PostsAll
 import com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragmentTogglesState.PostsSaved
 import com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragmentTogglesState.SubredditsAll
 import com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragmentTogglesState.SubredditsSaved
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostItemClickListener
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditsListFragment
 import kotlinx.coroutines.launch
 
-class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
+class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostItemClickListener {
 
     private val viewModel: FavoritesViewModel by viewModels()
+    private val activityViewModel: BottomNavigationViewModel by activityViewModels()
 
 
     override fun inflateBinding(
@@ -164,11 +169,11 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>() {
         transaction.commit()
     }
 
-    private fun makeMySavedPostsFragment(): PostsListFragment {
-        return PostsListFragment.newSavedPostsInstance(
-            {
-                // todo
-            })
+    private fun makeMySavedPostsFragment(): PostsListFragment =
+        PostsListFragment.newSavedPostsInstance(this)
 
+    override fun onPostItemClick(post: Post) {
+        activityViewModel.setSelectedPost(post)
+        findNavController().navigate(R.id.action_navigation_favorites_to_postInfoFragment)
     }
 }
