@@ -12,6 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
+import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.network.SubredditListType
 import com.example.finalattestationreddit.databinding.FragmentFavoritesBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
@@ -22,10 +23,12 @@ import com.example.finalattestationreddit.presentation.bottom_navigation.favorit
 import com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragmentTogglesState.SubredditsSaved
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostItemClickListener
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment
+import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditItemClickListener
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditsListFragment
 import kotlinx.coroutines.launch
 
-class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostItemClickListener {
+class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostItemClickListener, SubredditItemClickListener {
 
     private val viewModel: FavoritesViewModel by viewModels()
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
@@ -110,7 +113,6 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostI
         }
     }
 
-
     private fun addAllSubredditsFragment() {
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(
@@ -122,7 +124,8 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostI
 
     private fun makeAllSubredditsListFragment(): SubredditsListFragment {
         return SubredditsListFragment.newInstance(
-            SubredditListType.VAL_SUBREDDITS_LIST_TYPE_UNSPECIFIED
+            SubredditListType.VAL_SUBREDDITS_LIST_TYPE_UNSPECIFIED,
+            this
         )
     }
 
@@ -137,7 +140,8 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostI
 
     private fun makeSubscribedSubredditsListFragment(): SubredditsListFragment {
         return SubredditsListFragment.newInstance(
-            SubredditListType.VAL_SUBREDDITS_LIST_TYPE_SUBSCRIBED
+            SubredditListType.VAL_SUBREDDITS_LIST_TYPE_SUBSCRIBED,
+            this
         )
     }
 
@@ -171,4 +175,12 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostI
         activityViewModel.setSelectedPost(post)
         findNavController().navigate(R.id.action_navigation_favorites_to_postInfoFragment)
     }
+
+    override fun onSubredditItemClick(subreddit: SubredditData) {
+        activityViewModel.setSelectedSubreddit(subreddit)
+        val action = FavoritesFragmentDirections
+            .actionNavigationFavoritesToPostsListFragment(postsType = PostsListType.SUBREDDIT_POSTS)
+        findNavController().navigate(action)
+    }
+
 }
