@@ -39,15 +39,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:backgroundTint="@color/bg_main"
+        android:background="@color/bg_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_subreddits_search_view"
-        app:tabBackground="@color/white"
+        app:tabTextAppearance="@style/SubredditTabTextAppearance"
         app:tabGravity="center"
-        android:background="@color/bg_main"
         app:tabIndicatorColor="@color/light_blue_600"
         app:tabIndicatorHeight="2dp"
-        app:tabSelectedTextColor="?android:textColorPrimary"
+        app:tabPaddingEnd="48dp"
+        app:tabPaddingStart="48dp"
+        android:textSize="28sp"
+        app:tabSelectedTextColor="@color/purple_figma_primary"
+
         app:tabTextColor="#ADADAD" />
 
     <androidx.viewpager2.widget.ViewPager2
