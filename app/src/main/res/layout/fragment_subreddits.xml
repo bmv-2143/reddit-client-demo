@@ -10,13 +10,15 @@
         android:id="@+id/fragment_subreddits_search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_view_outlined_background"
-        android:layout_marginTop="8dp"
         android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/search_view_outlined_background"
+        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:queryHint="@string/fragment_subreddits_search_view_hint"
+        app:searchIcon="@drawable/ic_search_24"/>
 
     <TextView
         android:id="@+id/text_home"

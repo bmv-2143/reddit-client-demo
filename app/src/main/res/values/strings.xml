@@ -59,5 +59,6 @@
     <string name="fragment_user_profile_list_of_friends">List of friends</string>
     <string name="fragment_user_profile_button_clear_saved">Clear saved</string>
     <string name="fragment_user_profile_button_exit">Exit</string>
+    <string name="fragment_subreddits_search_view_hint">Search</string>
 
 </resources>
