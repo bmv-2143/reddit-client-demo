@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/bg_main"
     tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -26,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="8dp"
-            android:background="#FFA726"
+            android:background="@color/bg_main"
             app:layoutManager="LinearLayoutManager"
             tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditsListFragment"
             tools:listitem="@layout/list_item_post" />

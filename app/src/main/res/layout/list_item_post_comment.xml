@@ -20,6 +20,7 @@
             android:id="@+id/list_item_post_comment_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#5222CF"
             android:textStyle="bold"
             android:paddingVertical="8dp"
             android:paddingEnd="8dp"

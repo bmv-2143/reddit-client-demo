@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_main"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -23,7 +24,7 @@
             android:id="@+id/fragment_post_info_recycler_view_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#f0f"
+
             app:layoutManager="LinearLayoutManager"
             tools:listitem="@layout/list_item_post_comment" />
 
