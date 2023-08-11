@@ -64,5 +64,7 @@
     <string name="fragment_user_profile_toast_clear_saved_posts_started">Clearing saved posts. Please wait.</string>
     <string name="fragment_user_profile_toast_clear_saved_posts_success">Clear saved posts: Success</string>
     <string name="fragment_user_profile_toast_clear_saved_posts_fail">Clear saved posts: Failed</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -41,7 +41,11 @@
         android:id="@+id/navigation_user_profile"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.user_profile.UserProfileFragment"
         android:label="@string/fragment_title_user_profile"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_navigation_user_profile_to_friendsListFragment"
+            app:destination="@id/friendsListFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/posts_list_fragment"
@@ -159,5 +163,10 @@
 
 
     </fragment>
+    <fragment
+        android:id="@+id/friendsListFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.friends_list.FriendsListFragment"
+        android:label="fragment_friends_list"
+        tools:layout="@layout/fragment_friends_list" />
 
 </navigation>

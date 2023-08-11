@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentUserProfileBinding
@@ -40,6 +41,7 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
         observerClearSavedPosts()
         setClearSavedPostsClickListener()
         setExitClickListener()
+        setListOfFriendsClickListener()
     }
 
     private fun loadUserData() = viewModel.getUser()
@@ -107,6 +109,12 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
     private fun setExitClickListener() {
         binding.fragmentUserProfileExit.setOnClickListener {
             activityViewModel.logout()
+        }
+    }
+
+    private fun setListOfFriendsClickListener() {
+        binding.fragmentUserProfileButtonListOfFriends.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_user_profile_to_friendsListFragment)
         }
     }
 }
