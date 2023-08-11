@@ -79,7 +79,7 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickLi
 
     private fun updateUiKarma(user: User) {
         binding.fragmentUserLinkKarma.text =
-            getString(R.string.fragment_user_karma_template, user.linkKarma)
+            getString(R.string.fragment_user_karma_template, user.totalKarma)
     }
 
     private fun observeUserPostsCount() {

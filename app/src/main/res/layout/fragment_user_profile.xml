@@ -48,22 +48,20 @@
                 tools:text="User Name" />
 
             <TextView
-                android:id="@+id/fragment_user_profile_number_of_comments"
+                android:id="@+id/fragment_user_profile_karma"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/fragment_user_profile_number_of_comments"
-                android:textSize="14sp"
-                tools:text="Comments: 132" />
+                tools:text="Karma: 1234"
+                android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/fragment_user_profile_number_of_subreddits"
+                android:id="@+id/fragment_user_profile_number_of_friends"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/fragment_user_profile_number_of_subreddits"
                 android:textSize="14sp"
-                tools:text="Comments: 52" />
+                tools:text="Friends: 132" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

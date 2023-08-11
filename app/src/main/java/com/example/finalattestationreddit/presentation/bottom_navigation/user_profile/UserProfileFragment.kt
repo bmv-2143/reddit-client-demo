@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentUserProfileBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
 
-    private val userProfileViewModel: UserProfileViewModel by viewModels()
+    private val viewModel: UserProfileViewModel by viewModels()
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -34,14 +35,15 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
         observerUserData()
     }
 
-    private fun loadUserData() = userProfileViewModel.getUser()
+    private fun loadUserData() = viewModel.getUser()
 
     private fun observerUserData() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                userProfileViewModel.userFlow.filterNotNull().collectLatest { user ->
+                viewModel.userFlow.filterNotNull().collectLatest { user ->
                     updateTexts(user)
                     user.iconImg?.let { loadUserAvatar(it) }
+                    loadingUserPostsCount(user.name)
                 }
             }
         }
@@ -49,9 +51,15 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
 
     private fun updateTexts(user: User) {
         binding.fragmentProfileUserName.text = user.name
+        binding.fragmentUserProfileKarma.text =
+            getString(R.string.fragment_user_profile_karma, user.totalKarma)
+        binding.fragmentUserProfileNumberOfFriends.text =
+            getString(R.string.fragment_user_profile_number_of_friends, user.friendsNum)
     }
 
-    private fun loadUserAvatar(avatarUrl : String) = ImageUtils()
+    private fun loadUserAvatar(avatarUrl: String) = ImageUtils()
         .loadCircularAvatar(requireContext(), avatarUrl, binding.fragmentUserProfileUserAvatar)
+
+    private fun loadingUserPostsCount(username: String) = viewModel.loadUserPostsCount(username)
 
 }
