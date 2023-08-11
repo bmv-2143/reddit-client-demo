@@ -1,13 +1,38 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.user_profile
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.domain.GetMyUserCase
+import com.example.finalattestationreddit.domain.GetUserPostsCountUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserProfileViewModel : ViewModel() {
+@HiltViewModel
+class UserProfileViewModel @Inject constructor(
+//    private val getUserUseCase: GetUserUseCase,
+    private val getMyUserUseCase: GetMyUserCase,
+    private val getUserPostsCountUseCase: GetUserPostsCountUseCase
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is User Profile Fragment"
+    private val _userFlow = MutableStateFlow<User?>(null)
+    val userFlow = _userFlow.asStateFlow()
+
+    internal fun getUser() {
+        viewModelScope.launch {
+            _userFlow.value = getMyUserUseCase()
+        }
     }
-    val text: LiveData<String> = _text
+
+    private val _userPostsCountFlow = MutableStateFlow(0)
+    val userPostsCountFlow = _userPostsCountFlow.asStateFlow()
+
+    internal fun loadUserPostsCount(userName: String) {
+        viewModelScope.launch {
+            _userPostsCountFlow.value = getUserPostsCountUseCase(userName)
+        }
+    }
 }

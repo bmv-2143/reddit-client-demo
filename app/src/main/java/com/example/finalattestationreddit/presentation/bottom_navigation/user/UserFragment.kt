@@ -71,14 +71,14 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickLi
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.userFlow.filterNotNull().collectLatest { user ->
-                    setUserData(user)
+                    updateUiKarma(user)
                     user.iconImg?.let { loadUserAvatar(it) }
                 }
             }
         }
     }
 
-    private fun setUserData(user: User) {
+    private fun updateUiKarma(user: User) {
         binding.fragmentUserLinkKarma.text =
             getString(R.string.fragment_user_karma_template, user.linkKarma)
     }

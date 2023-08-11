@@ -9,7 +9,6 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
 import com.example.finalattestationreddit.data.dto.user.Friend
 import com.example.finalattestationreddit.data.dto.user.User
-import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -248,7 +247,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
-    internal suspend fun getMe(): User? {
+    internal suspend fun getMyUser(): User? {
         return try {
             redditService.redditApi.getMe()
         } catch (e: UnknownHostException) {
@@ -258,7 +257,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             null
         } catch (e: Exception) {
-            logError(::getMe.name, e)
+            logError(::getMyUser.name, e)
             null
         }
     }
