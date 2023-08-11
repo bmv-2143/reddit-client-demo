@@ -66,5 +66,8 @@
     <string name="fragment_user_profile_toast_clear_saved_posts_fail">Clear saved posts: Failed</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_friends_list_toolbar_title">List of friends</string>
+    <string name="fragment_friends_list_menu_dummy_info">Dummy Info Menu Item</string>
+    <string name="fragment_friends_list_menu_item_dummy_info_click">Dummy menu item clicked</string>
 
 </resources>
