@@ -14,7 +14,7 @@ class GetSubredditsPagingSource(
     override suspend fun loadData(params: LoadParams<String>):
             Pair<List<SubredditData>, Map<String, String?>> {
 
-        val after = params.key ?: "" // todo: ???? add constant
+        val after = params.key ?: CURSOR_FIRST_PAGE
 
         val responseData: SubredditListingData =
             redditNetworkDataSource.getSubreddits(subredditsListType, after, PAGE_SIZE)
