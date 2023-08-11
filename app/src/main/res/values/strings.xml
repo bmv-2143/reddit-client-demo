@@ -58,8 +58,10 @@
     <string name="fragment_user_profile_karma">Karma: %1d</string>
     <string name="fragment_user_profile_number_of_friends">Friends: %1d</string>
     <string name="fragment_user_profile_list_of_friends">List of friends</string>
-    <string name="fragment_user_profile_button_clear_saved">Clear saved</string>
+    <string name="fragment_user_profile_button_clear_saved_posts">Clear saved posts</string>
     <string name="fragment_user_profile_button_exit">Exit</string>
     <string name="fragment_subreddits_search_view_hint">Search</string>
+    <string name="fragment_user_profile_toast_clear_saved_posts_success">Clear saved posts: Success</string>
+    <string name="fragment_user_profile_toast_clear_saved_posts_fail">Clear saved posts: Failed</string>
 
 </resources>

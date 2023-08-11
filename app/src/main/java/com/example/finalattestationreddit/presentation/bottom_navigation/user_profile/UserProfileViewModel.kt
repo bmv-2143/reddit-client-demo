@@ -3,6 +3,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.user_p
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.domain.ClearSavedPostUseCase
 import com.example.finalattestationreddit.domain.GetMyUserCase
 import com.example.finalattestationreddit.domain.GetUserPostsCountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 class UserProfileViewModel @Inject constructor(
 //    private val getUserUseCase: GetUserUseCase,
     private val getMyUserUseCase: GetMyUserCase,
-    private val getUserPostsCountUseCase: GetUserPostsCountUseCase
+    private val getUserPostsCountUseCase: GetUserPostsCountUseCase,
+    private val clearSavedPostUseCase: ClearSavedPostUseCase
 ) : ViewModel() {
 
     private val _userFlow = MutableStateFlow<User?>(null)
@@ -33,6 +35,15 @@ class UserProfileViewModel @Inject constructor(
     internal fun loadUserPostsCount(userName: String) {
         viewModelScope.launch {
             _userPostsCountFlow.value = getUserPostsCountUseCase(userName)
+        }
+    }
+
+    private val _clearSavedPostsFlow = MutableStateFlow(false)
+    val clearSavedPostsFlow = _clearSavedPostsFlow.asStateFlow()
+
+    internal fun clearSavedPosts() {
+        viewModelScope.launch {
+            _clearSavedPostsFlow.value = clearSavedPostUseCase()
         }
     }
 }

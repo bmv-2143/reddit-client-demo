@@ -82,14 +82,14 @@
         app:cornerRadius="16dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/fragment_user_profile_clear_saved"
+        android:id="@+id/fragment_user_profile_button_clear_saved_posts"
         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="24dp"
         android:minWidth="250dp"
-        android:text="@string/fragment_user_profile_button_clear_saved"
+        android:text= "@string/fragment_user_profile_button_clear_saved_posts"
         app:cornerRadius="16dp" />
 
     <com.google.android.material.button.MaterialButton

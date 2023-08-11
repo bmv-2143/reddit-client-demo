@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -33,6 +34,8 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
         super.onViewCreated(view, savedInstanceState)
         loadUserData()
         observerUserData()
+        observerClearSavedPosts()
+        setClearSavedPostsClickListener()
     }
 
     private fun loadUserData() = viewModel.getUser()
@@ -62,4 +65,35 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
 
     private fun loadingUserPostsCount(username: String) = viewModel.loadUserPostsCount(username)
 
+    private fun setClearSavedPostsClickListener() {
+        binding.fragmentUserProfileButtonClearSavedPosts.setOnClickListener {
+            viewModel.clearSavedPosts()
+        }
+    }
+
+    private fun observerClearSavedPosts() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.clearSavedPostsFlow.collectLatest { clearSuccess ->
+                    notifyUserOnClearSavedPosts(clearSuccess)
+                }
+            }
+        }
+    }
+
+    private fun notifyUserOnClearSavedPosts(clearSuccess: Boolean) {
+
+        fun getClearSavedPostsResultText(clearSuccess: Boolean) =
+            if (clearSuccess) {
+                getString(R.string.fragment_user_profile_toast_clear_saved_posts_success)
+            } else {
+                getString(R.string.fragment_user_profile_toast_clear_saved_posts_fail)
+            }
+
+        Toast.makeText(
+            requireContext(),
+            getClearSavedPostsResultText(clearSuccess),
+            Toast.LENGTH_LONG
+        ).show()
+    }
 }

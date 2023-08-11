@@ -302,7 +302,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         pageSize: Int
     ): PostListingData {
         return try {
-            redditService.redditApi.getAllSavedPosts(myUsername, after, pageSize).data
+            redditService.redditApi.getSavedPosts(myUsername, after, pageSize).data
         } catch (e: UnknownHostException) {
             handleUnknownHostError(e)
             emptyPostListingData()

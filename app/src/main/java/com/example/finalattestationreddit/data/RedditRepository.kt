@@ -169,19 +169,18 @@ class RedditRepository @Inject constructor(
         ).children.map { it.data }
     }
 
-    internal suspend fun getUser(userName: String) : User? =
+    internal suspend fun getUser(userName: String): User? =
         redditNetworkDataSource.getUser(userName)
 
-    private suspend fun getMyName() : String? = redditNetworkDataSource.getMyUser()?.name
+    private suspend fun getMyName(): String? = redditNetworkDataSource.getMyUser()?.name
 
     internal suspend fun getMyUser(): User? = redditNetworkDataSource.getMyUser()
 
-
-    internal suspend fun getUserPostsCount(username: String) : Int {
+    internal suspend fun getUserPostsCount(username: String): Int {
         return redditNetworkDataSource.getUserPostsAll(username).count()
     }
 
-    internal fun getUserPosts(username: String) : Flow<PagingData<PostData>> {
+    internal fun getUserPosts(username: String): Flow<PagingData<PostData>> {
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
@@ -197,7 +196,7 @@ class RedditRepository @Inject constructor(
         ).flow
     }
 
-    internal fun getMySavedPosts() : Flow<PagingData<PostData>> = flow {
+    internal fun getMySavedPosts(): Flow<PagingData<PostData>> = flow {
         val username = getMyName()
 
         if (username == null) {
@@ -221,16 +220,40 @@ class RedditRepository @Inject constructor(
         }
     }
 
-    internal suspend fun addFriend(username: String) : Boolean =
+    internal suspend fun clearSavedPosts(): Boolean {
+        val myUsername = getMyName()
+        if (myUsername == null) {
+            Log.e(TAG, "${::clearSavedPosts.name}: my username is null")
+            return false
+        }
+
+        val savedPosts = redditNetworkDataSource.getMySavedPosts(
+            myUsername,
+            "",        // todo: hardcoded consts
+            10_000  // todo: hardcoded consts
+        )
+
+        for (post in savedPosts.children) {
+            val unsavePostSuccess = redditNetworkDataSource.setPostSavedState(post.data.name, false)
+
+            if (!unsavePostSuccess)
+                return false
+
+            Log.e(TAG, "Unsaving post: ${post.data.name} done")
+        }
+        return true
+    }
+
+    internal suspend fun addFriend(username: String): Boolean =
         redditNetworkDataSource.addFriend(username)
 
-    internal suspend fun removeFriend(username: String) : Boolean =
+    internal suspend fun removeFriend(username: String): Boolean =
         redditNetworkDataSource.removeFriend(username)
 
-    internal suspend fun isFriend(username: String) : Boolean =
+    internal suspend fun isFriend(username: String): Boolean =
         redditNetworkDataSource.getFriends().any { it.name == username }
 
-    internal suspend fun setSavePostState(postName : String, isSaved : Boolean) : Boolean {
+    internal suspend fun setSavePostState(postName: String, isSaved: Boolean): Boolean {
         return redditNetworkDataSource.setPostSavedState(postName, isSaved)
     }
 }
