@@ -11,16 +11,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentUserBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
+import com.example.finalattestationreddit.presentation.bottom_navigation.image_utils.ImageUtils
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostItemClickListener
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment
-import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
@@ -111,14 +110,8 @@ class UserFragment : ViewBindingFragment<FragmentUserBinding>(), PostItemClickLi
         }
     }
 
-    private fun loadUserAvatar(avatarUrl : String) {
-        val imageUrl = ImageUrlExtractor.extractBaseImageUrl(avatarUrl)
-        Glide.with(requireContext())
-            .load(imageUrl)
-            .placeholder(R.drawable.user_placeholder_person_24)
-            .circleCrop()
-            .into(binding.fragmentUserUserAvatar)
-    }
+    private fun loadUserAvatar(avatarUrl : String) =
+        ImageUtils().loadCircularAvatar(requireContext(), avatarUrl, binding.fragmentUserUserAvatar)
 
     private fun checkIfUserIsFriend() = viewModel.checkIfIsAFriend(args.username)
 

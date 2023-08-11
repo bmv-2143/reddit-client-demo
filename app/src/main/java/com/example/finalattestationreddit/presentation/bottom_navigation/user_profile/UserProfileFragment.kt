@@ -8,12 +8,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.bumptech.glide.Glide
-import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentUserProfileBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
-import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor
+import com.example.finalattestationreddit.presentation.bottom_navigation.image_utils.ImageUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
@@ -53,13 +51,7 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
         binding.fragmentProfileUserName.text = user.name
     }
 
-    private fun loadUserAvatar(avatarUrl : String) {
-        val imageUrl = ImageUrlExtractor.extractBaseImageUrl(avatarUrl)
-        Glide.with(requireContext())
-            .load(imageUrl)
-            .placeholder(R.drawable.user_placeholder_person_24)
-            .circleCrop()
-            .into(binding.fragmentUserProfileUserAvatar)
-    }
+    private fun loadUserAvatar(avatarUrl : String) = ImageUtils()
+        .loadCircularAvatar(requireContext(), avatarUrl, binding.fragmentUserProfileUserAvatar)
 
 }
