@@ -67,6 +67,7 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
 
     private fun setClearSavedPostsClickListener() {
         binding.fragmentUserProfileButtonClearSavedPosts.setOnClickListener {
+            binding.fragmentUserProfileButtonClearSavedPostsProgressBar.visibility = View.VISIBLE
             viewModel.clearSavedPosts()
         }
     }
@@ -89,6 +90,8 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
             } else {
                 getString(R.string.fragment_user_profile_toast_clear_saved_posts_fail)
             }
+
+        binding.fragmentUserProfileButtonClearSavedPostsProgressBar.visibility = View.GONE
 
         Toast.makeText(
             requireContext(),

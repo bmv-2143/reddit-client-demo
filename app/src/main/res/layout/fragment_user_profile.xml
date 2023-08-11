@@ -81,16 +81,32 @@
         android:text="@string/fragment_user_profile_list_of_friends"
         app:cornerRadius="16dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/fragment_user_profile_button_clear_saved_posts"
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginHorizontal="24dp"
-        android:minWidth="250dp"
-        android:text= "@string/fragment_user_profile_button_clear_saved_posts"
-        app:cornerRadius="16dp" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/fragment_user_profile_button_clear_saved_posts"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="24dp"
+            android:minWidth="250dp"
+            android:text= "@string/fragment_user_profile_button_clear_saved_posts"
+            app:cornerRadius="16dp" />
+
+        <ProgressBar
+            android:id="@+id/fragment_user_profile_button_clear_saved_posts_progress_bar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="34dp"
+            android:layout_gravity="center_vertical|end"
+            android:indeterminateDrawable="@drawable/white_progressbar"
+            android:visibility="gone"
+            android:indeterminate="true" />
+
+    </FrameLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/fragment_user_profile_exit"
@@ -104,5 +120,6 @@
         android:text="@string/fragment_user_profile_button_exit"
         app:backgroundTint="@color/colorAlternativeAction"
         app:cornerRadius="16dp" />
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

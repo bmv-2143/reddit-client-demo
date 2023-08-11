@@ -233,6 +233,9 @@ class RedditRepository @Inject constructor(
             10_000  // todo: hardcoded consts
         )
 
+        if (savedPosts.children.isEmpty())
+            return true
+
         for (post in savedPosts.children) {
             val unsavePostSuccess = redditNetworkDataSource.setPostSavedState(post.data.name, false)
 

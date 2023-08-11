@@ -7,14 +7,15 @@ import com.example.finalattestationreddit.domain.ClearSavedPostUseCase
 import com.example.finalattestationreddit.domain.GetMyUserCase
 import com.example.finalattestationreddit.domain.GetUserPostsCountUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserProfileViewModel @Inject constructor(
-//    private val getUserUseCase: GetUserUseCase,
     private val getMyUserUseCase: GetMyUserCase,
     private val getUserPostsCountUseCase: GetUserPostsCountUseCase,
     private val clearSavedPostUseCase: ClearSavedPostUseCase
@@ -38,12 +39,12 @@ class UserProfileViewModel @Inject constructor(
         }
     }
 
-    private val _clearSavedPostsFlow = MutableStateFlow(false)
-    val clearSavedPostsFlow = _clearSavedPostsFlow.asStateFlow()
+    private val _clearSavedPostsFlow = MutableSharedFlow<Boolean>()
+    val clearSavedPostsFlow = _clearSavedPostsFlow.asSharedFlow()
 
     internal fun clearSavedPosts() {
         viewModelScope.launch {
-            _clearSavedPostsFlow.value = clearSavedPostUseCase()
+            _clearSavedPostsFlow.emit(clearSavedPostUseCase())
         }
     }
 }
