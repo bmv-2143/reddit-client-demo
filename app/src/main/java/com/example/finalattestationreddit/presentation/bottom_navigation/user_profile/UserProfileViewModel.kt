@@ -18,7 +18,7 @@ import javax.inject.Inject
 class UserProfileViewModel @Inject constructor(
     private val getMyUserUseCase: GetMyUserCase,
     private val getUserPostsCountUseCase: GetUserPostsCountUseCase,
-    private val clearSavedPostUseCase: ClearSavedPostUseCase
+    private val clearSavedPostUseCase: ClearSavedPostUseCase,
 ) : ViewModel() {
 
     private val _userFlow = MutableStateFlow<User?>(null)

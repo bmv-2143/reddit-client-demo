@@ -23,6 +23,7 @@ import com.example.finalattestationreddit.presentation.authorization.Authorizati
 import com.example.finalattestationreddit.presentation.utils.SnackbarFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -46,6 +47,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         setupBottomNavView()
         observerNetworkErrors()
 //        setupActionBarWithNavController()
+        observeLogoutEvents()
     }
 
     private fun initNavController() {
@@ -107,12 +109,16 @@ class BottomNavigationActivity : AppCompatActivity() {
             }
 
             is Unauthorized -> {
-                startActivity(AuthorizationActivity.createIntent(this))
-                finish()
+                openAuthorizationScreenAndCloseSelf()
             }
 
             else -> Log.e(TAG, "handleNetworkError: ${error.message}")
         }
+    }
+
+    private fun openAuthorizationScreenAndCloseSelf() {
+        startActivity(AuthorizationActivity.createIntent(this))
+        finish()
     }
 
     private fun makePoppingUpToRootNaveOptions(): NavOptions {
@@ -138,6 +144,16 @@ class BottomNavigationActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun observeLogoutEvents() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.logoutEvents.collectLatest { _ ->
+                    openAuthorizationScreenAndCloseSelf()
+                }
+            }
+        }
     }
 
     companion object {

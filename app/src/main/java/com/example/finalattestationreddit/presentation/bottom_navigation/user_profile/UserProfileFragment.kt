@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentUserProfileBinding
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.image_utils.ImageUtils
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +25,7 @@ import kotlinx.coroutines.launch
 class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
 
     private val viewModel: UserProfileViewModel by viewModels()
+    private val activityViewModel: BottomNavigationViewModel by activityViewModels()
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -36,6 +39,7 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
         observerUserData()
         observerClearSavedPosts()
         setClearSavedPostsClickListener()
+        setExitClickListener()
     }
 
     private fun loadUserData() = viewModel.getUser()
@@ -98,5 +102,11 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
             getClearSavedPostsResultText(clearSuccess),
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    private fun setExitClickListener() {
+        binding.fragmentUserProfileExit.setOnClickListener {
+            activityViewModel.logout()
+        }
     }
 }
