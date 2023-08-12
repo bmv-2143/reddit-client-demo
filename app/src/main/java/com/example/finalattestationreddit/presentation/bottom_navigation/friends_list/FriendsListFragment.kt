@@ -15,6 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.user.Friend
+import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentFriendsListBinding
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
@@ -90,7 +91,7 @@ class FriendsListFragment : ViewBindingFragment<FragmentFriendsListBinding>() {
         }
     }
 
-    private fun onFriendItemClick(friend: Friend) {
+    private fun onFriendItemClick(friend: User) {
         Toast.makeText(
             requireContext(),
             getString(R.string.fragment_friends_list_friend_item_click_msg, friend.name),

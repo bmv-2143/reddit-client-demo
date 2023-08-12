@@ -5,16 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.finalattestationreddit.data.dto.user.Friend
+import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.ListItemFriendBinding
 
-class FriendsListAdapter(private val onFriendClick: (Friend) -> Unit) : ListAdapter<Friend, FriendViewHolder>(DIFF_CALLBACK) {
+class FriendsListAdapter(private val onItemClick: (User) -> Unit) : ListAdapter<User, FriendViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
 
         val binding = ListItemFriendBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return FriendViewHolder(binding, onFriendClick)
+        return FriendViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
@@ -22,12 +23,12 @@ class FriendsListAdapter(private val onFriendClick: (Friend) -> Unit) : ListAdap
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Friend>() {
-            override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<User>() {
+            override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
                 return oldItem.name == newItem.name
             }
 
-            override fun areContentsTheSame(oldItem: Friend, newItem: Friend): Boolean {
+            override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
                 return oldItem == newItem
             }
         }

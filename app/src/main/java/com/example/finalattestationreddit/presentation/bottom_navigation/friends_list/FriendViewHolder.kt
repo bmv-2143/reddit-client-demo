@@ -2,16 +2,20 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.friend
 
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
+import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.user.Friend
+import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.ListItemFriendBinding
 import com.example.finalattestationreddit.log.TAG
+import com.example.finalattestationreddit.presentation.bottom_navigation.image_utils.ImageUtils
+import com.example.finalattestationreddit.presentation.utils.formatLargeNumber
 
 
 class FriendViewHolder(
     private val binding: ListItemFriendBinding,
-    private val onClick: (Friend) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    private val onClick: (User) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
-    private var currentItem: Friend? = null
+    private var currentItem: User? = null
 
     init {
         setFriendListItemClickListener()
@@ -23,18 +27,22 @@ class FriendViewHolder(
         }
     }
 
-    fun bind(friend: Friend) {
+    fun bind(friend: User) {
         currentItem = friend
+        setUserTexts(friend)
+        friend.iconImg?.let { loadUserAvatar(it) }
+    }
+
+    private fun setUserTexts(friend: User) {
         binding.listItemFriendUserName.text = friend.name
+        binding.listItemFriendKarma.text = binding.root.context.getString(
+            R.string.fragment_friends_list_friend_item_karma,
+            formatLargeNumber(friend.totalKarma)
+        )
+    }
 
-        Log.e(TAG, "bind: " + friend.name)
-
-//        Glide.with(binding.listItemFriendUserAvatar)
-//            .load(friend.avatarUrl)
-//            .placeholder(R.drawable.user_placeholder_person_24)
-//            .into(binding.listItemFriendUserAvatar)
+    private fun loadUserAvatar(avatarUrl : String) {
+        ImageUtils().loadCircularAvatar(binding.root.context, avatarUrl, binding.listItemFriendUserAvatar)
     }
 }
-    // Use your favorite image loading library to load the avatar image from the URL
-        // For example, with Glide:
-        // Glide.with(avatarImageView).load(friend.avatarUrl).into(avatarImageView)
+
