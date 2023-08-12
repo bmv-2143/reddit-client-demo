@@ -16,7 +16,7 @@ data class User(
     @Json(name = "total_karma") val totalKarma: Int,
     @Json(name = "comment_karma") val commentKarma: Int,
     @Json(name = "icon_img") val iconImg: String?,
-    @Json(name = "num_friends") val friendsNum: Int,
+    @Json(name = "num_friends") val friendsNum: Int?,
 )
 
 @JsonClass(generateAdapter = true)
