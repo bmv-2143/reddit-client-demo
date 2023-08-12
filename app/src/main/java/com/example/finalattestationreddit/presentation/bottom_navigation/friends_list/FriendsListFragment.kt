@@ -8,16 +8,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.user.Friend
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentFriendsListBinding
 import com.example.finalattestationreddit.log.TAG
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +32,7 @@ import javax.inject.Inject
 class FriendsListFragment : ViewBindingFragment<FragmentFriendsListBinding>() {
 
     private val viewModel : FriendsListViewModel by viewModels()
+    private val activityViewModel: BottomNavigationViewModel by activityViewModels()
 
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
@@ -92,10 +96,9 @@ class FriendsListFragment : ViewBindingFragment<FragmentFriendsListBinding>() {
     }
 
     private fun onFriendItemClick(friend: User) {
-        Toast.makeText(
-            requireContext(),
-            getString(R.string.fragment_friends_list_friend_item_click_msg, friend.name),
-            Toast.LENGTH_SHORT
-        ).show()
+        activityViewModel.setSelectedUser(friend.name)
+        findNavController().navigate(
+            FriendsListFragmentDirections.actionFriendsListFragmentToUserFragment(friend.name)
+        )
     }
 }
