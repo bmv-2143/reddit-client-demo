@@ -24,15 +24,17 @@ class FriendsListViewModel @Inject constructor(
     internal fun getFriends() {
         viewModelScope.launch() {
             val friends = getFriendsUseCase()
-            val users = loadMatchingUsers(friends)
-            _friends.emit(users)
+            loadMatchingUsers(friends)
         }
     }
 
-    private suspend fun loadMatchingUsers(
-        friends: List<Friend>
-    ): List<User> = friends.map { friend ->
-        getUserUseCase(friend.name)
-    }.filterNotNull()
-
+    private suspend fun loadMatchingUsers(friends: List<Friend>) {
+        val users = mutableListOf<User>()
+        friends.forEach { friend ->
+            getUserUseCase(friend.name)?.let { user ->
+                users.add(user)
+                _friends.emit(users.toList())
+            }
+        }
+    }
 }
