@@ -8,6 +8,7 @@ import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
+import com.example.finalattestationreddit.data.dto.user.Friend
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.data.pagingsource.GetAllRecentPostsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetMySavedPostsPagingSource
@@ -259,4 +260,7 @@ class RedditRepository @Inject constructor(
     internal suspend fun setSavePostState(postName: String, isSaved: Boolean): Boolean {
         return redditNetworkDataSource.setPostSavedState(postName, isSaved)
     }
+
+    internal suspend fun getFriends() : List<Friend> =
+        redditNetworkDataSource.getFriends()
 }

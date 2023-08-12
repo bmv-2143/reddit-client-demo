@@ -23,13 +23,13 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_posts_list_recycler_view"
-            android:name="com.example.finalattestationreddit.presentation.bottom_navigation.ui.subreddits.tabs.SubredditListFragment"
+            android:name="com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="8dp"
             android:background="@color/bg_main"
             app:layoutManager="LinearLayoutManager"
-            tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditsListFragment"
+            tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment"
             tools:listitem="@layout/list_item_post" />
 
         <ProgressBar

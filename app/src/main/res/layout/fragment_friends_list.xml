@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_main"
+    android:orientation="vertical"
     tools:context=".presentation.bottom_navigation.friends_list.FriendsListFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -14,5 +15,31 @@
         android:background="?attr/colorPrimary"
         app:title="Posts List"
         app:titleTextColor="?attr/colorOnPrimary"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/white"
+        android:background="@color/bg_main">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_friends_list_recycler_view"
+            android:name="com.example.finalattestationreddit.presentation.bottom_navigation.friends_list.FriendsListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_main"
+            app:layoutManager="GridLayoutManager"
+            app:spanCount="2"
+            tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.friends_list.FriendsListFragment"
+            tools:listitem="@layout/list_item_friend" />
+
+        <ProgressBar
+            android:id="@+id/fragment_posts_list_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>
