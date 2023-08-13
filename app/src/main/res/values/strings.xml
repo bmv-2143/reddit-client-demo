@@ -72,5 +72,6 @@
     <string name="fragment_friends_list_friend_item_click_msg">Friend click: %1s</string>
     <string name="fragment_friends_list_friend_item_karma">Karma: %1s</string>
     <string name="fragment_subreddits_search_title">Search subreddits</string>
+    <string name="fragment_subreddits_search_hint">Search...</string>
 
 </resources>

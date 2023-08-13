@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.lifecycle.Lifecycle
+import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.databinding.FragmentSubredditsSearchBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,7 +41,8 @@ class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBin
             intialQuery,
             onSearchQuerySubmit = { query ->
                 Toast.makeText(requireContext(), query, Toast.LENGTH_SHORT).show()
-            }
+            },
+            getString(R.string.fragment_subreddits_search_hint)
         )
     }
 

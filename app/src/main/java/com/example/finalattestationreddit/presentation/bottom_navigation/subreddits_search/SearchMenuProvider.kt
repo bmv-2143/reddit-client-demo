@@ -10,6 +10,7 @@ import com.example.finalattestationreddit.R
 class SearchMenuProvider(
     private val initialSearchQuery: String?,
     private val onSearchQuerySubmit: (query : String) -> Unit,
+    private val queryHint : String? = null
 ) : MenuProvider {
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -19,6 +20,15 @@ class SearchMenuProvider(
 
         setOnQueryTextListener(searchView)
         setInitialSearchQuery(searchItem, searchView)
+
+        configureAppearance(searchView)
+    }
+
+    private fun configureAppearance(searchView: SearchView) {
+        searchView.setIconifiedByDefault(false)
+        queryHint?.let {
+            searchView.queryHint = queryHint
+        }
     }
 
     private fun setInitialSearchQuery(
