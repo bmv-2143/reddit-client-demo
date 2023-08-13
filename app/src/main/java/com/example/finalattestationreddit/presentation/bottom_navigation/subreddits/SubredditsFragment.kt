@@ -31,10 +31,9 @@ class SubredditsFragment : ViewBindingFragment<FragmentSubredditsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val textView: TextView = binding.textHome
-        subredditsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
         initTabs()
+        setSearchViewListener()
     }
 
     private fun initTabs() {
@@ -65,5 +64,19 @@ class SubredditsFragment : ViewBindingFragment<FragmentSubredditsBinding>() {
         tabLayoutMediator.detach()
         binding.fragmentSubredditsTabTabLayout.removeAllTabs()
         binding.fragmentSubredditsTabViewPager.adapter = null // fix memory leak
+    }
+
+    private fun setSearchViewListener() {
+        binding.fragmentSubredditsSearchView
+            .setOnQueryTextListener(
+                SearchQuerySubmittedListener(::openSubredditsSearchFragment))
+    }
+
+    private fun openSubredditsSearchFragment(searchQuery: String) {
+        findNavController().navigate(
+            SubredditsFragmentDirections.actionNavigationSubredditsToSubredditsSearchFragment(
+                searchQuery
+            )
+        )
     }
 }

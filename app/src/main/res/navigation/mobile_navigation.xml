@@ -21,6 +21,9 @@
             android:name="posts_type"
             app:argType="com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType"
             android:defaultValue="SUBREDDIT_POSTS" />
+        <action
+            android:id="@+id/action_navigation_subreddits_to_subredditsSearchFragment"
+            app:destination="@id/subredditsSearchFragment" />
 
     </fragment>
 
@@ -175,6 +178,18 @@
         <argument
             android:name="username"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/subredditsSearchFragment"
+        android:name="com.example.finalattestationreddit.presentation.bottom_navigation.subreddits_search.SubredditsSearchFragment"
+        android:label="fragment_subreddits_search"
+        tools:layout="@layout/fragment_subreddits_search">
+
+        <argument
+            android:name="search_query"
+            app:argType="string" />
+
     </fragment>
 
 </navigation>
