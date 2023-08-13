@@ -107,6 +107,25 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
+    suspend fun searchSubreddits(
+        query: String,
+        after: String,
+        perPage: Int
+    ): SubredditListingData {
+        return try {
+            redditService.redditApi.searchSubreddits(query, after, perPage).data
+        } catch (e: UnknownHostException) {
+            handleUnknownHostError(e)
+            emptySubredditListingData()
+        } catch (e: HttpException) {
+            handleHttpException(e)
+            emptySubredditListingData()
+        } catch (e: Exception) {
+            logError(::getSubreddits.name, e)
+            emptySubredditListingData()
+        }
+    }
+
     suspend fun getSubredditPosts(
         subredditDisplayName: String,
         after: String,

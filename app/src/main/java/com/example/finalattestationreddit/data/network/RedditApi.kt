@@ -60,6 +60,14 @@ interface RedditApi {
         @Path("subreddit") subreddit: String
     ): SubredditResponse
 
+
+    @GET("/subreddits/search")
+    suspend fun searchSubreddits(
+        @Query("q") query: String?,
+        @Query("after") after: String?,
+        @Query("limit") perPage: Int
+    ): SubredditListingResponse
+
     @GET("by_id/{names}")
     suspend fun getPostsById(
         @Path("names") names: String

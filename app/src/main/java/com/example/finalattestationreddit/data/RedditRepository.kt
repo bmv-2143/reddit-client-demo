@@ -16,6 +16,7 @@ import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPag
 import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetSubscribedSubredditsPagingSource
 import com.example.finalattestationreddit.data.pagingsource.GetUserPostsPagingSource
+import com.example.finalattestationreddit.data.pagingsource.SearchSubredditsPagingSource
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
@@ -106,6 +107,22 @@ class RedditRepository @Inject constructor(
             ),
             pagingSourceFactory = {
                 GetSubscribedSubredditsPagingSource(redditNetworkDataSource)
+            }
+        ).flow
+    }
+
+    internal fun searchSubreddits(query: String): Flow<PagingData<SubredditData>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PREFETCH_DISTANCE,
+                initialLoadSize = PAGE_SIZE
+            ),
+            pagingSourceFactory = {
+                SearchSubredditsPagingSource(
+                    query,
+                    redditNetworkDataSource
+                )
             }
         ).flow
     }
