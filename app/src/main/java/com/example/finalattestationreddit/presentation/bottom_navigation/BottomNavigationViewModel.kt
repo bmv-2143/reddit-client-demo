@@ -62,8 +62,10 @@ class BottomNavigationViewModel @Inject constructor(
             val updatedResult: SubscriptionUpdateResult = invertSubscription(subredditData)
 
             if (updatedResult.subscriptionUpdateSuccess) {
-                _updatedSubscriptionFlow.emit(
-                    subredditData.copy(userIsSubscriber = !subredditData.userIsSubscriber))
+                subredditData.userIsSubscriber?.let { userIsSubscriber ->
+                    _updatedSubscriptionFlow.emit(
+                        subredditData.copy(userIsSubscriber = !userIsSubscriber))
+                }
             } else {
                 Log.e(TAG, "Failed to update subscription status")
             }
@@ -72,11 +74,16 @@ class BottomNavigationViewModel @Inject constructor(
 
     private suspend fun invertSubscription(
         subredditData: SubredditData
-    ) = if (subredditData.userIsSubscriber) {
-        unsubscribeFromSubredditUseCase(subredditData.displayName)
-    } else {
-        subscribeToSubredditUseCase(subredditData.displayName)
+    ): SubscriptionUpdateResult {
+        return when (subredditData.userIsSubscriber) {
+            true -> unsubscribeFromSubredditUseCase(subredditData.displayName)
+
+            false -> subscribeToSubredditUseCase(subredditData.displayName)
+
+            null -> SubscriptionUpdateResult(subredditData.displayName, false)
+        }
     }
+
 
     private val _logoutEvent = MutableSharedFlow<Unit>()
     val logoutEvents: SharedFlow<Unit> = _logoutEvent.asSharedFlow()

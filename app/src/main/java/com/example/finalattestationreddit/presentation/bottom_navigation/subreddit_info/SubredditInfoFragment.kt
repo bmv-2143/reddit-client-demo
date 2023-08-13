@@ -94,7 +94,9 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
     }
 
     private fun setSubredditSubscriptionStatus(subredditData: SubredditData) {
-        binding.fragmentSubredditInfoButtonSubscribe.isChecked = subredditData.userIsSubscriber
+        subredditData.userIsSubscriber?.let { userIsSubscriber ->
+            binding.fragmentSubredditInfoButtonSubscribe.isChecked = userIsSubscriber
+        }
     }
 
     private fun setShareButtonClickListener(subredditData: SubredditData) {

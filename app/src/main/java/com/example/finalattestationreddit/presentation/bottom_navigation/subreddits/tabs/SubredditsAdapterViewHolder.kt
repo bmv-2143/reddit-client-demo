@@ -47,16 +47,18 @@ class SubredditsAdapterViewHolder(
 
     private fun updateSubscriptionStatusImage(subredditItem: SubredditData) {
         binding.listItemSubredditButtonUserSubscribed.setImageDrawable(
-            if (subredditItem.userIsSubscriber) {
-                AppCompatResources.getDrawable(
-                    binding.root.context,
-                    R.drawable.ic_list_item_subreddit_user_subscribed
-                )
-            } else {
-                AppCompatResources.getDrawable(
-                    binding.root.context,
-                    R.drawable.ic_list_item_subreddit_user_not_subscribed
-                )
+            subredditItem.userIsSubscriber?.let { userIsSubscriber ->
+                if (userIsSubscriber) {
+                    AppCompatResources.getDrawable(
+                        binding.root.context,
+                        R.drawable.ic_list_item_subreddit_user_subscribed
+                    )
+                } else {
+                    AppCompatResources.getDrawable(
+                        binding.root.context,
+                        R.drawable.ic_list_item_subreddit_user_not_subscribed
+                    )
+                }
             }
         )
     }
