@@ -12,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="Posts List"
+        app:title="@string/fragment_subreddits_search_title"
         app:titleTextColor="?attr/colorOnPrimary"
+        app:theme="@style/AppTheme.Toolbar"
         />
 
     <TextView

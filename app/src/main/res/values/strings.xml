@@ -71,5 +71,6 @@
     <string name="fragment_friends_list_menu_item_dummy_info_click">Dummy menu item clicked</string>
     <string name="fragment_friends_list_friend_item_click_msg">Friend click: %1s</string>
     <string name="fragment_friends_list_friend_item_karma">Karma: %1s</string>
+    <string name="fragment_subreddits_search_title">Search subreddits</string>
 
 </resources>
