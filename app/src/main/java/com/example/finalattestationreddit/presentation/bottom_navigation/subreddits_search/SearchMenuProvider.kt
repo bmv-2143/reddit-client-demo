@@ -1,8 +1,10 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits_search
 
+import android.content.Context
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import com.example.finalattestationreddit.R
@@ -48,6 +50,7 @@ class SearchMenuProvider(
                 if (!query.isNullOrEmpty()) {
                     onSearchQuerySubmit(query)
                 }
+                hideSoftInputKeyboard(searchView)
                 return true
             }
 
@@ -55,6 +58,12 @@ class SearchMenuProvider(
                 return true
             }
         })
+    }
+
+    private fun hideSoftInputKeyboard(searchView: SearchView) {
+        val inputMethodManager =
+            searchView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(searchView.windowToken, 0)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
