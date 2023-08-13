@@ -73,6 +73,7 @@ class SubredditsFragment : ViewBindingFragment<FragmentSubredditsBinding>() {
     }
 
     private fun openSubredditsSearchFragment(searchQuery: String) {
+        binding.fragmentSubredditsSearchView.setQuery("", false)
         findNavController().navigate(
             SubredditsFragmentDirections.actionNavigationSubredditsToSubredditsSearchFragment(
                 searchQuery
