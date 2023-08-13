@@ -121,7 +121,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             emptySubredditListingData()
         } catch (e: Exception) {
-            logError(::getSubreddits.name, e)
+            logError(::searchSubreddits.name, e)
             emptySubredditListingData()
         }
     }
