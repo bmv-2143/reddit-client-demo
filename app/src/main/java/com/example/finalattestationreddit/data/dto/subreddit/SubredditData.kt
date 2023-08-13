@@ -15,8 +15,7 @@ data class SubredditData(
     @Json(name="display_name_prefixed") val displayNamePrefixed: String,
     @Json(name="subscribers") val subscribers: Int?,
     @Json(name="user_is_subscriber") val userIsSubscriber: Boolean?,
-//    @Json(name="public_description") val publicDescription: String?,
-    @Json(name="public_description") val publicDescription: String,
+    @Json(name="public_description") val publicDescription: String?,
     @Json(name="url") val url: String,
     @Json(name="community_icon") val communityIcon: String,
 

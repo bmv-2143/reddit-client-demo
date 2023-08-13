@@ -69,7 +69,7 @@ class SubredditsAdapterViewHolder(
         binding.listItemSubredditDisplayName.text =
             subredditItem.displayNamePrefixed // TODO: fix me
 
-        if (subredditItem.publicDescription.isEmpty()) {
+        if (subredditItem.publicDescription.isNullOrEmpty()) {
             binding.listItemSubredditDescription.visibility = View.GONE
         } else {
             binding.listItemSubredditDescription.visibility = View.VISIBLE

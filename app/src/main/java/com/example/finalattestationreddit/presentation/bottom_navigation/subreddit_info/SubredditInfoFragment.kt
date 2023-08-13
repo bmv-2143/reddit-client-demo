@@ -88,9 +88,10 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
 
     private fun setSubredditDescription(subredditData: SubredditData) {
         binding.fragmentSubredditInfoDescription.text =
-            subredditData.publicDescription.ifEmpty {
+            if (subredditData.publicDescription.isNullOrEmpty())
                 getString(R.string.fragment_subreddit_info_no_description)
-            }
+            else
+                subredditData.publicDescription
     }
 
     private fun setSubredditSubscriptionStatus(subredditData: SubredditData) {
