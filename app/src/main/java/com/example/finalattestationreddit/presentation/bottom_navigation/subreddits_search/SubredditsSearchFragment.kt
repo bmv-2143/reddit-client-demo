@@ -46,6 +46,7 @@ class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBin
         initSearchMenuProvider(arguments?.getString("search_query"))
         addActionBarMenu()
         binding.fragmentSubredditSearchRecyclerView.adapter = subredditsAdapter
+        observerSubscriptionUpdatesFlow()
     }
 
     private fun intiToolbar() {
@@ -82,12 +83,21 @@ class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBin
         menuHost.addMenuProvider(searchMenuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun onSubredditSubscribeClick(subredditData: SubredditData) {
-        TODO("Not yet implemented")
-    }
+    private fun onSubredditSubscribeClick(subreddit: SubredditData) =
+        activityViewModel.switchSubscription(subreddit)
 
     private fun onSubredditItemClick(subredditData: SubredditData) {
         activityViewModel.setSelectedSubreddit(subredditData)
         findNavController().navigate(R.id.action_subredditsSearchFragment_to_posts_list_fragment)
+    }
+
+    private fun observerSubscriptionUpdatesFlow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                activityViewModel.subscriptionUpdatesFlow.collectLatest { subredditData ->
+                    subredditsAdapter.updateItem(subredditData)
+                }
+            }
+        }
     }
 }
