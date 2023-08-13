@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.lifecycle.Lifecycle
 import com.example.finalattestationreddit.databinding.FragmentSubredditsSearchBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
-import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBinding>() {
 
-    @Inject
-    lateinit var toolbarTitleSetter: ToolbarTitleSetter
+    private lateinit var searchMenuProvider: SearchMenuProvider
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -27,16 +27,25 @@ class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         intiToolbar()
+        initSearchMenuProvider(arguments?.getString("search_query"))
+        addActionBarMenu()
     }
 
     private fun intiToolbar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentSubredditsSearchToolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+    private fun initSearchMenuProvider(intialQuery: String?) {
+        searchMenuProvider = SearchMenuProvider(
+            intialQuery,
+            onSearchQuerySubmit = { query ->
+                Toast.makeText(requireContext(), query, Toast.LENGTH_SHORT).show()
+            }
+        )
+    }
 
-        requireArguments().getString("search_query")?.let { searchQuery ->
-            toolbarTitleSetter.setToolbarTitle(searchQuery)
-        }
-
-//        initToolbarMenu()
+    private fun addActionBarMenu() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(searchMenuProvider, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 }
