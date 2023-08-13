@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.databinding.FragmentSubredditsSearchBinding
+import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditsPagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +27,8 @@ import kotlinx.coroutines.launch
 class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBinding>() {
 
     private val viewModel: SubredditsSearchViewModel by viewModels()
+    private val activityViewModel : BottomNavigationViewModel by activityViewModels()
+
     private lateinit var searchMenuProvider: SearchMenuProvider
     private val subredditsAdapter = SubredditsPagingAdapter(
         ::onSubredditItemClick, ::onSubredditSubscribeClick)
@@ -82,5 +87,7 @@ class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBin
     }
 
     private fun onSubredditItemClick(subredditData: SubredditData) {
+        activityViewModel.setSelectedSubreddit(subredditData)
+        findNavController().navigate(R.id.action_subredditsSearchFragment_to_posts_list_fragment)
     }
 }

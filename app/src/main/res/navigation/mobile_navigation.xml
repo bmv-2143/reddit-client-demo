@@ -189,6 +189,9 @@
         <argument
             android:name="search_query"
             app:argType="string" />
+        <action
+            android:id="@+id/action_subredditsSearchFragment_to_posts_list_fragment"
+            app:destination="@id/posts_list_fragment" />
 
     </fragment>
 
