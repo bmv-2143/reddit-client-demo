@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
@@ -17,9 +16,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class SubredditsFragment : ViewBindingFragment<FragmentSubredditsBinding>() {
 
-    private val subredditsViewModel: SubredditsViewModel by viewModels()
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
-
     private lateinit var tabLayoutMediator: TabLayoutMediator
 
     override fun inflateBinding(
