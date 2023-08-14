@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.fragment.app.activityViewModels
@@ -53,14 +52,10 @@ class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBin
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentSubredditsSearchToolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-    private fun initSearchMenuProvider(intialQuery: String?) {
+    private fun initSearchMenuProvider(initialQuery: String?) {
         searchMenuProvider = SearchMenuProvider(
-            intialQuery,
-            onSearchQuerySubmit = { query ->
-                Toast.makeText(requireContext(), query, Toast.LENGTH_SHORT).show()
-                search(query)
-
-            },
+            initialQuery,
+            onSearchQuerySubmit = ::search,
             getString(R.string.fragment_subreddits_search_hint)
         )
     }
