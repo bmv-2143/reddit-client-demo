@@ -23,6 +23,8 @@ class AuthorizationViewModel @Inject constructor(
     private val redditRepository: RedditRepository
 ) : ViewModel() {
 
+    internal val networkErrorsFlow = redditRepository.networkErrorsFlow
+
     private val authRequest: AuthorizationRequest = makeAuthRequest()
 
     internal fun getCachingAuthorizationRequestUri(): Uri = authRequest.browserAuthUri
@@ -59,20 +61,22 @@ class AuthorizationViewModel @Inject constructor(
             }
 
             val accessToken = authRequest.extractAccessToken(authResponse)
-            if (!accessToken.isNullOrEmpty()) {
-                redditRepository.saveAccessToken(accessToken)
-                _authorizationState.emit(Success)
-            } else {
-                Log.e(TAG, "handleAuthResponseUri: access token is null or empty")
-                redditRepository.removeAccessTokenSync()
-                _authorizationState.emit(Failed)
-            }
+            updateAuthorizationState(accessToken)
         }
     }
 
     private fun hasValidResponseState(uri: Uri): Boolean =
         authRequest.doesResponseStateMatchRequestState(uri)
 
-    internal val networkErrorsFlow = redditRepository.networkErrorsFlow
+    private suspend fun updateAuthorizationState(accessToken: String?) {
+        if (!accessToken.isNullOrEmpty()) {
+            redditRepository.saveAccessToken(accessToken)
+            _authorizationState.emit(Success)
+        } else {
+            Log.e(TAG, "${::updateAuthorizationState}: access token is null or empty")
+            redditRepository.removeAccessTokenSync()
+            _authorizationState.emit(Failed)
+        }
+    }
 
 }
