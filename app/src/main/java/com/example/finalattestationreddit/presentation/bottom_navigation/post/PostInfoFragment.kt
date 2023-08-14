@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -76,7 +75,6 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
         addCommentsFragment()
     }
 
-    // todo: DRY, see other toolbar fragments
     private fun initToolbar() {
         (requireActivity() as AppCompatActivity)
             .setSupportActionBar(binding.fragmentPostsListToolbar)
@@ -93,7 +91,6 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
             }
         }
     }
-
 
     private fun updateUi(post: Post) {
         toolbarTitleSetter.setToolbarTitle(post.title)
@@ -203,11 +200,6 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
                 selectedAndUpdatedPostFlow.filterNotNull().collectLatest { post ->
                     binding.fragmentPostInfoAuthor.setOnClickListener {
                         activityViewModel.setSelectedUser(post.author)
-                        Toast.makeText(
-                            requireContext(),
-                            "AUTHOR CLICKED: ${post.author}",
-                            Toast.LENGTH_SHORT
-                        ).show()
                         openUserFragment(post.author)
                     }
                 }
