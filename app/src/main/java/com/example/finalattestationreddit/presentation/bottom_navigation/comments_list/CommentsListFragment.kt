@@ -152,11 +152,6 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     private fun onAuthorClick(authorName: String) {
         activityViewModel.setSelectedUser(authorName)
-        Toast.makeText(
-            requireContext(),
-            "AUTHOR CLICKED: $authorName",
-            Toast.LENGTH_SHORT
-        ).show()
         openUserFragment(authorName)
     }
 
