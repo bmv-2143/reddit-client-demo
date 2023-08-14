@@ -38,7 +38,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private val viewModel: PostsListViewModel by viewModels()
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
-    private val navigationArgs : PostsListFragmentArgs by navArgs()
+    private val navigationArgs: PostsListFragmentArgs by navArgs()
     internal var onPostItemClickListener: WeakReference<PostItemClickListener>? = null
 
     @Inject
@@ -105,26 +105,29 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
             return
 
         binding.fragmentPostsListToolbar.visibility = View.VISIBLE
+        setupSupportActionBar()
+        initToolbarMenu()
+        setSubredditToolbarTitle()
+    }
 
+    private fun setupSupportActionBar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentPostsListToolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        initToolbarMenu()
-
-        activityViewModel.selectedSubredditFlow.value?.let { subredditData ->
-            toolbarTitleSetter.setToolbarTitle(subredditData.displayName)
-        }
     }
 
     private fun initToolbarMenu() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(
-            PostsListMenuProvider(
-                onSubredditInfoMenuClick = ::navigateToSubredditInfoFragment
-            ),
+            PostsListMenuProvider(onSubredditInfoMenuClick = ::navigateToSubredditInfoFragment),
             viewLifecycleOwner,
             Lifecycle.State.RESUMED
         )
+    }
+
+    private fun setSubredditToolbarTitle() {
+        activityViewModel.selectedSubredditFlow.value?.let { subredditData ->
+            toolbarTitleSetter.setToolbarTitle(subredditData.displayName)
+        }
     }
 
     private fun navigateToSubredditInfoFragment() {
@@ -140,18 +143,11 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     }
 
     private fun observePostsFlow(postsType: PostsListType) {
-        doOnLifecycleStarted {
-            viewModel.getPostsFlow(postsType)
-                .collectLatest { pagingData ->
-                    postsPagingAdapter.submitData(pagingData)
-                }
-        }
-    }
-
-    private fun doOnLifecycleStarted(action: suspend () -> Unit) {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                action()
+                viewModel.getPostsFlow(postsType).collectLatest { pagingData ->
+                    postsPagingAdapter.submitData(pagingData)
+                }
             }
         }
     }
