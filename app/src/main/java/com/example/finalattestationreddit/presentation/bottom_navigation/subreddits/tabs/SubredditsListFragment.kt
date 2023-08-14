@@ -1,7 +1,6 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
 import com.example.finalattestationreddit.databinding.FragmentSubredditsListBinding
-import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,8 +34,7 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
     )
 
     override fun inflateBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+        inflater: LayoutInflater, container: ViewGroup?
     ): FragmentSubredditsListBinding =
         FragmentSubredditsListBinding.inflate(inflater, container, false)
 
@@ -76,21 +73,13 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         binding.fragmentSubredditsListRecyclerView.adapter = subredditsPagingAdapter
     }
 
-    // todo: refactor this method
     private fun onSubredditItemClick(subredditData: SubredditData) {
-        val subredditClickListener = onSubredditItemClickListener
-        if (subredditClickListener == null) {
-            Log.e(TAG, "onSubredditItemClick: onSubredditItemClickListener is null")
-            return
-        }
-        subredditClickListener.onSubredditItemClick(subredditData)
+        onSubredditItemClickListener?.onSubredditItemClick(subredditData)
     }
 
     private fun onSubredditSubscribeButtonClick(subreddit: SubredditData) {
         Toast.makeText(
-            requireContext(),
-            "Subreddit ${subreddit.displayName} subscribed",
-            Toast.LENGTH_SHORT
+            requireContext(), "Subreddit ${subreddit.displayName} subscribed", Toast.LENGTH_SHORT
         ).show()
 
         activityViewModel.switchSubscription(subreddit)
@@ -110,14 +99,12 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
 
         @JvmStatic
         fun newInstance(
-            subredditsListType: String,
-            subredditItemClickListener: SubredditItemClickListener
-        ) =
-            SubredditsListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_SUBREDDITS_LIST_TYPE, subredditsListType)
-                }
-                onSubredditItemClickListener = subredditItemClickListener
+            subredditsListType: String, subredditItemClickListener: SubredditItemClickListener
+        ) = SubredditsListFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_SUBREDDITS_LIST_TYPE, subredditsListType)
             }
+            onSubredditItemClickListener = subredditItemClickListener
+        }
     }
 }
