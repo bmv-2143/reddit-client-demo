@@ -52,7 +52,6 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
                 viewModel.userFlow.filterNotNull().collectLatest { user ->
                     updateTexts(user)
                     user.iconImg?.let { loadUserAvatar(it) }
-                    loadingUserPostsCount(user.name)
                 }
             }
         }
@@ -68,8 +67,6 @@ class UserProfileFragment : ViewBindingFragment<FragmentUserProfileBinding>() {
 
     private fun loadUserAvatar(avatarUrl: String) = ImageUtils()
         .loadCircularAvatar(requireContext(), avatarUrl, binding.fragmentUserProfileUserAvatar)
-
-    private fun loadingUserPostsCount(username: String) = viewModel.loadUserPostsCount(username)
 
     private fun setClearSavedPostsClickListener() {
         binding.fragmentUserProfileButtonClearSavedPosts.setOnClickListener {
