@@ -43,12 +43,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     @Inject
     lateinit var toolbarTitleSetter: ToolbarTitleSetter
 
-    private val postsPagingAdapter = PostsPagingAdapter(
-        ::onPostItemClick,
-        {
-            // todo: implement or delete
-        }
-    )
+    private val postsPagingAdapter = PostsPagingAdapter(::onPostItemClick)
 
     private fun onPostItemClick(post: Post) {
         // todo: crashes when clicked on an item in the nested posts list fragment view

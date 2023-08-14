@@ -9,7 +9,6 @@ import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor.e
 class PostsAdapterViewHolder(
     private val binding: ListItemPostBinding,
     private val onClick: (Post) -> Unit,
-    private val onItemSubscribeButtonClick: (Post) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private var currentItem: Post? = null
@@ -26,7 +25,6 @@ class PostsAdapterViewHolder(
 
     fun bind(postItem: Post) {
         currentItem = postItem
-
         hidePostContentIfRequired(postItem)
         loadTexts(postItem)
         loadImage(postItem)
