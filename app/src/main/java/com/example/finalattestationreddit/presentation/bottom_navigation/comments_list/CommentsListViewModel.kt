@@ -9,9 +9,10 @@ import com.example.finalattestationreddit.domain.GetPostCommentsUseCase
 import com.example.finalattestationreddit.domain.UnVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.UpVotePostOrCommentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,11 +44,11 @@ class CommentsListViewModel @Inject constructor(
     }
 
 
-    private val _updatedCommentsFlow = MutableStateFlow<Comment?>(null)
-    val updatedCommentsFlow = _updatedCommentsFlow.asStateFlow()
+    private val _updatedCommentsFlow = MutableSharedFlow<Comment>()
+    val updatedCommentsFlow = _updatedCommentsFlow.asSharedFlow()
 
     internal fun upVote(comment: Comment) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             if (comment.likedByUser == true) {
                 unVoteUseCase(comment.name)
             } else {
@@ -58,11 +59,13 @@ class CommentsListViewModel @Inject constructor(
     }
 
     private suspend fun fetchUpdatedComment(comment: Comment) {
-        _updatedCommentsFlow.value = getCommentUseCase(comment.name)
+        getCommentUseCase(comment.name)?.let {
+            _updatedCommentsFlow.emit(it)
+        }
     }
 
     internal fun downVote(comment: Comment) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             if (comment.likedByUser == false) {
                 unVoteUseCase(comment.name)
             } else {

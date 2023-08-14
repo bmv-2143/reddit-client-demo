@@ -29,7 +29,6 @@ import com.example.finalattestationreddit.presentation.utils.TimeUtils
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -173,7 +172,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     private fun observerUpdatedComments() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.updatedCommentsFlow.filterNotNull().collectLatest { updatedComment ->
+                viewModel.updatedCommentsFlow.collectLatest { updatedComment ->
                     commentsAdapter.updateComment(updatedComment)
                 }
             }
