@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -77,13 +76,8 @@ class SubredditsListFragment : ViewBindingFragment<FragmentSubredditsListBinding
         onSubredditItemClickListener?.onSubredditItemClick(subredditData)
     }
 
-    private fun onSubredditSubscribeButtonClick(subreddit: SubredditData) {
-        Toast.makeText(
-            requireContext(), "Subreddit ${subreddit.displayName} subscribed", Toast.LENGTH_SHORT
-        ).show()
-
+    private fun onSubredditSubscribeButtonClick(subreddit: SubredditData) =
         activityViewModel.switchSubscription(subreddit)
-    }
 
     private fun observeLoadStateAndUpdateProgressBar() {
         subredditsPagingAdapter.addLoadStateListener { loadState ->
