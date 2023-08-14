@@ -13,13 +13,13 @@
 
     <string name="activity_auth_subtitle">Find like-minded people with Humblr</string>
     <string name="activity_auth_btn_login">Login</string>
-
-    <string name="activity_bottom_navigation_snackbar_view_close">Close</string>
-
     <string name="activity_authorization_result_msg_failed">Authorization failed. Try again later</string>
     <string name="activity_authorization_result_security_error">Authorization security error</string>
 
-    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="activity_bottom_navigation_title">BottomNavigationActivity</string>
+    <string name="activity_bottom_navigation_snackbar_view_close">Close</string>
+    <string name="activity_bottom_navigation_error_no_internet_connection">No Internet connection! Please try again later.</string>
+    <string name="activity_bottom_navigation_error_api_rate_limit_exceeded">API rate limit exceeded!</string>
 
     <string name="fragment_title_subreddits">Subreddits</string>
     <string name="fragment_title_favorites">Favorites</string>
@@ -76,6 +76,6 @@
     <string name="fragment_friends_list_friend_item_karma">Karma: %1s</string>
     <string name="fragment_subreddits_search_title">Search subreddits</string>
     <string name="fragment_subreddits_search_hint">Search...</string>
-    <string name="activity_bottom_navigation_error_no_internet_connection">No Internet connection! Please try again later.</string>
+
 
 </resources>

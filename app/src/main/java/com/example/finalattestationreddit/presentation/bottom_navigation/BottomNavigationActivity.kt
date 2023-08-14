@@ -102,7 +102,8 @@ class BottomNavigationActivity : AppCompatActivity() {
         when (error) {
             is ForbiddenApiRateExceeded -> {
                 snackbarFactory.showWarningSnackbar(
-                    binding.root, "API rate limit exceeded!" // todo: hardcoded string
+                    binding.root,
+                    getString(R.string.activity_bottom_navigation_error_api_rate_limit_exceeded)
                 )
             }
 
