@@ -3,7 +3,6 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.commen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.comment.Comment
-import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.domain.DownVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.GetCommentUseCase
 import com.example.finalattestationreddit.domain.GetPostCommentsUseCase
@@ -34,8 +33,12 @@ class CommentsListViewModel @Inject constructor(
         commentsCountLimit: Int
     ) {
         viewModelScope.launch {
-            _comments.value =
-                getPostCommentsUseCase(subredditDisplayName, postName, commentsCountLimit)
+            val filteredComments = getPostCommentsUseCase(
+                subredditDisplayName,
+                postName,
+                commentsCountLimit
+            ).filter { comment -> comment.body != null }
+            _comments.value = filteredComments
         }
     }
 

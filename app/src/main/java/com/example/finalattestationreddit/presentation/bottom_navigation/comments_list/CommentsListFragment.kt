@@ -94,7 +94,8 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     }
 
     private fun initToolbar() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentCommentsListToolbar)
+        (requireActivity() as AppCompatActivity)
+            .setSupportActionBar(binding.fragmentCommentsListToolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toolbarTitleSetter.setToolbarTitle(args.postTitle)
     }
@@ -102,11 +103,9 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     private fun observeComments() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.comments.map { comments -> comments.filter { comment -> comment.body != null } }
-                .filter { comments -> comments.isNotEmpty() }
-                .collectLatest { comments: List<Comment> ->
-                    displayComments(comments)
-                }
+            viewModel.comments.collectLatest { comments ->
+                displayComments(comments)
+            }
         }
     }
 
