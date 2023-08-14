@@ -69,9 +69,7 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
             .load(imageUrl)
             .placeholder(R.drawable.fragment_subreddit_info_frog_face_primary_color)
             .circleCrop()
-            .listener(
-                GlideRequestListenerFactory.makeOperationEndListener(::hideProgressBar)
-            )
+            .listener(GlideRequestListenerFactory.makeOperationEndListener(::hideProgressBar))
             .into(binding.fragmentSubredditInfoImage)
     }
 
@@ -149,5 +147,4 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
             }
         }
     }
-
 }
