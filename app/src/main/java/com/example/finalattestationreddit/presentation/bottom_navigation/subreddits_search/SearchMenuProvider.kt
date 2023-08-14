@@ -17,12 +17,12 @@ class SearchMenuProvider(
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.fragment_subreddits_search_menu, menu)
+
         val searchItem = menu.findItem(R.id.action_search)
         val searchView = searchItem.actionView as SearchView
 
         setOnQueryTextListener(searchView)
         setInitialSearchQuery(searchItem, searchView)
-
         configureAppearance(searchView)
     }
 
