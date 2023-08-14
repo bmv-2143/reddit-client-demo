@@ -112,6 +112,13 @@ class BottomNavigationActivity : AppCompatActivity() {
                 openAuthorizationScreenAndCloseSelf()
             }
 
+            is NetworkError.NoInternetConnection -> {
+                snackbarFactory.showWarningSnackbar(
+                    binding.root,
+                    getString(R.string.activity_bottom_navigation_error_no_internet_connection)
+                )
+            }
+
             else -> Log.e(TAG, "handleNetworkError: ${error.message}")
         }
     }

@@ -76,5 +76,6 @@
     <string name="fragment_friends_list_friend_item_karma">Karma: %1s</string>
     <string name="fragment_subreddits_search_title">Search subreddits</string>
     <string name="fragment_subreddits_search_hint">Search...</string>
+    <string name="activity_bottom_navigation_error_no_internet_connection">No Internet connection! Please try again later.</string>
 
 </resources>
