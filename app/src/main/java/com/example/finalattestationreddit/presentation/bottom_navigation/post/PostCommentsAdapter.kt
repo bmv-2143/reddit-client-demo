@@ -18,7 +18,6 @@ import com.example.finalattestationreddit.databinding.ListItemPostCommentBinding
 class PostCommentsAdapter constructor(
     private val formatElapsedTimeAction: (Long) -> String,
     private val onDownloadButtonClick: (Comment) -> Unit,
-    private val onSaveButtonClick: (Comment) -> Unit,
     private val onCommentUpVoteClick: (Comment) -> Unit,
     private val onCommentDownVoteClick: (Comment) -> Unit,
     private val onAuthorClick: (String) -> Unit
@@ -33,7 +32,6 @@ class PostCommentsAdapter constructor(
             binding,
             formatElapsedTimeAction,
             onDownloadButtonClick,
-            onSaveButtonClick,
             onCommentUpVoteClick,
             onCommentDownVoteClick,
             onAuthorClick

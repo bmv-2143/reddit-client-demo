@@ -45,7 +45,6 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         PostCommentsAdapter(
             timeUtils::formatElapsedTime,
             ::onCommentDownloadButtonClick,
-            ::onCommentSaveButtonClick,
             ::onCommentItemUpVoteClick,
             ::onCommentItemDownVoteClick,
             ::onAuthorClick,
@@ -153,16 +152,6 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         Toast.makeText(
             requireContext(),
             getString(R.string.list_item_post_comment_btn_download_msg, comment.name),
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    private fun onCommentSaveButtonClick(comment: Comment) {
-
-        // STUB: not required by the assignment, no implementation details are given
-        Toast.makeText(
-            requireContext(),
-            getString(R.string.list_item_post_comment_btn_save_msg, comment.name),
             Toast.LENGTH_SHORT
         ).show()
     }

@@ -9,7 +9,6 @@ class PostCommentsAdapterViewHolder(
     private val binding: ListItemPostCommentBinding,
     private val formatElapsedTimeAction: (Long) -> String,
     private val onDownloadButtonClick: (Comment) -> Unit,
-    private val onSaveButtonClick: (Comment) -> Unit,
     private val onCommentUpVoteClick: (Comment) -> Unit,
     private val onCommentDownVoteClick: (Comment) -> Unit,
     private val onAuthorClick: (String) -> Unit
@@ -19,7 +18,6 @@ class PostCommentsAdapterViewHolder(
     fun bind(comment: Comment) {
         setTexts(comment)
         setDownloadButtonClickListener(comment)
-//        setSaveButtonClickListener(comment)
         setVoteButtonsClickListeners(comment)
         setAuthorClickListener(comment)
         updatePostVoteControls(comment)
@@ -39,12 +37,6 @@ class PostCommentsAdapterViewHolder(
             onDownloadButtonClick(comment)
         }
     }
-
-//    private fun setSaveButtonClickListener(comment: Comment) {
-//        binding.listItemPostCommentButtonSaveButton.setOnClickListener {
-//            onSaveButtonClick(comment)
-//        }
-//    }
 
     private fun setVoteButtonsClickListeners(comment: Comment) {
         binding.fragmentPostInfoScoreVoting.onUpVoteClickListener = {
