@@ -32,13 +32,13 @@ class AuthorizationRequest(val requestState: String = AuthQuery.generateAuthRequ
         val fragment = authResponse.fragment
 
         return if (fragment == null) {
-            Log.e(TAG, "${::extractAccessToken} : fragment response part is null")
+            Log.e(TAG, "${::extractFragmentParam} : fragment response part is null")
             null
         } else {
             val paramsMap = extractUriFragmentParams(fragment)
             paramsMap[paramName]
         }.also {
-            Log.e(TAG, "${::extractAccessToken} : $paramName: $it")
+            Log.e(TAG, "${::extractFragmentParam} : $paramName: $it")
         }
     }
 
@@ -49,7 +49,6 @@ class AuthorizationRequest(val requestState: String = AuthQuery.generateAuthRequ
 
     internal fun doesResponseStateMatchRequestState(authResponse: Uri) : Boolean {
         val responseState = extractResponseState(authResponse)
-        Log.e(TAG, "$responseState ::: $requestState")
         return responseState == requestState
     }
 
