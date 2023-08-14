@@ -29,9 +29,7 @@ import com.example.finalattestationreddit.presentation.utils.TimeUtils
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -50,7 +48,8 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             ::onAuthorClick,
         )
     }
-    private val launchMode: String? by lazy { requireArguments().getString(ARG_LAUNCH_MODE) }
+    private val navigationArgs : CommentsListFragmentArgs by navArgs()
+    private val launchMode: String by lazy { navigationArgs.launchMode }
 
     @Inject
     lateinit var timeUtils: TimeUtils
@@ -111,9 +110,11 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     private fun startLoadingComments() {
         when (launchMode) {
-            LAUNCH_MODE_EMBEDED_NO_TOOLBAR -> startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
+            LAUNCH_MODE_EMBEDED_NO_TOOLBAR ->
+                startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
 
-            LAUNCH_MODE_SEPARATE_WITH_TOOLBAR -> startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MAX)
+            LAUNCH_MODE_SEPARATE_WITH_TOOLBAR ->
+                startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MAX)
 
             else -> Log.e(TAG, "Unknown launch mode: $launchMode")
         }
