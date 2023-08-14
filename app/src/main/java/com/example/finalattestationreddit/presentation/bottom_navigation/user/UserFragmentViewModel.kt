@@ -24,7 +24,7 @@ class UserFragmentViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _userFlow = MutableStateFlow<User?>(null)
-    val userFlow = _userFlow.asStateFlow()
+    internal val userFlow = _userFlow.asStateFlow()
 
     internal fun getUser(userName: String) {
         viewModelScope.launch {
@@ -33,7 +33,7 @@ class UserFragmentViewModel @Inject constructor(
     }
 
     private val _userPostsCountFlow = MutableStateFlow(0)
-    val userPostsCountFlow = _userPostsCountFlow.asStateFlow()
+    internal val userPostsCountFlow = _userPostsCountFlow.asStateFlow()
 
     internal fun loadUserPostsCount(userName: String) {
         viewModelScope.launch {
@@ -54,7 +54,7 @@ class UserFragmentViewModel @Inject constructor(
     }
 
     private val _isFriendFlow = MutableStateFlow(false)
-    val isFriendFlow = _isFriendFlow.asStateFlow()
+    internal val isFriendFlow = _isFriendFlow.asStateFlow()
 
     internal fun checkIfIsAFriend(userName: String) {
         viewModelScope.launch {
