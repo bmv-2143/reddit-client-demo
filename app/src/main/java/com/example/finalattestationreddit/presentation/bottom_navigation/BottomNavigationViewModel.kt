@@ -30,34 +30,37 @@ class BottomNavigationViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase
 ) : AndroidViewModel(application) {
 
-    val networkErrorsFlow = redditRepository.networkErrorsFlow
+    internal val networkErrorsFlow = redditRepository.networkErrorsFlow
+
 
     private val _selectedSubredditFlow = MutableStateFlow<SubredditData?>(null)
-    val selectedSubredditFlow = _selectedSubredditFlow.asStateFlow()
+    internal val selectedSubredditFlow = _selectedSubredditFlow.asStateFlow()
 
     internal fun setSelectedSubreddit(subreddit : SubredditData) {
         _selectedSubredditFlow.value = subreddit
     }
 
+
     private val _selectedPostFlow = MutableStateFlow<Post?>(null)
-    val selectedPostFlow = _selectedPostFlow.asStateFlow()
+    internal val selectedPostFlow = _selectedPostFlow.asStateFlow()
 
     internal fun setSelectedPost(post : Post) {
         _selectedPostFlow.value = post
     }
 
-    private val _updatedSubscriptionFlow = MutableSharedFlow<SubredditData>()
-    val subscriptionUpdatesFlow = _updatedSubscriptionFlow.asSharedFlow()
-
 
     private val _selectedUserFlow = MutableStateFlow<String?>(null)
-    val selectedUserFlow = _selectedUserFlow.asStateFlow()
+    internal val selectedUserFlow = _selectedUserFlow.asStateFlow()
 
     internal fun setSelectedUser(username : String) {
         _selectedUserFlow.value = username
     }
 
-    fun switchSubscription(subredditData: SubredditData) {
+
+    private val _updatedSubscriptionFlow = MutableSharedFlow<SubredditData>()
+    internal val subscriptionUpdatesFlow = _updatedSubscriptionFlow.asSharedFlow()
+
+    internal fun switchSubscription(subredditData: SubredditData) {
         viewModelScope.launch {
             val updatedResult: SubscriptionUpdateResult = invertSubscription(subredditData)
 
@@ -86,7 +89,7 @@ class BottomNavigationViewModel @Inject constructor(
 
 
     private val _logoutEvent = MutableSharedFlow<Unit>()
-    val logoutEvents: SharedFlow<Unit> = _logoutEvent.asSharedFlow()
+    internal val logoutEvents: SharedFlow<Unit> = _logoutEvent.asSharedFlow()
 
     internal fun logout() {
         viewModelScope.launch {
