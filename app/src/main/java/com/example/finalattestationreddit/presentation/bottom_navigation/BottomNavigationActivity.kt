@@ -46,7 +46,6 @@ class BottomNavigationActivity : AppCompatActivity() {
         initNavController()
         setupBottomNavView()
         observerNetworkErrors()
-//        setupActionBarWithNavController()
         observeLogoutEvents()
     }
 
@@ -59,7 +58,6 @@ class BottomNavigationActivity : AppCompatActivity() {
 
     private fun setupBottomNavView() {
         val navView: BottomNavigationView = binding.activityBottomNavNavView
-//        navView.setupWithNavController(navController)
 
         navView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -90,7 +88,7 @@ class BottomNavigationActivity : AppCompatActivity() {
     private fun observerNetworkErrors() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.networkErrorsFlow.collect {  event ->
+                viewModel.networkErrorsFlow.collect { event ->
                     if (!event.hasBeenConsumed) {
                         val error = event.peekContent()
                         handleNetworkError(error)
@@ -134,17 +132,6 @@ class BottomNavigationActivity : AppCompatActivity() {
             .build()
     }
 
-//    private fun setupActionBarWithNavController() {
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_subreddits,
-//                R.id.navigation_favorites,
-//                R.id.navigation_user_profile
-//            )
-//        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             onBackPressedDispatcher.onBackPressed()
@@ -156,7 +143,7 @@ class BottomNavigationActivity : AppCompatActivity() {
     private fun observeLogoutEvents() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.logoutEvents.collectLatest { _ ->
+                viewModel.logoutEvents.collectLatest {
                     openAuthorizationScreenAndCloseSelf()
                 }
             }
