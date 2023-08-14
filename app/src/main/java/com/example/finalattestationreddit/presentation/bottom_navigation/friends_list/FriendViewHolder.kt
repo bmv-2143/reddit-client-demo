@@ -1,19 +1,17 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.friends_list
 
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.user.Friend
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.ListItemFriendBinding
-import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.image_utils.ImageUtils
 import com.example.finalattestationreddit.presentation.utils.formatLargeNumber
 
 
 class FriendViewHolder(
     private val binding: ListItemFriendBinding,
-    private val onClick: (User) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    private val onClick: (User) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
 
     private var currentItem: User? = null
 
@@ -41,8 +39,12 @@ class FriendViewHolder(
         )
     }
 
-    private fun loadUserAvatar(avatarUrl : String) {
-        ImageUtils().loadCircularAvatar(binding.root.context, avatarUrl, binding.listItemFriendUserAvatar)
+    private fun loadUserAvatar(avatarUrl: String) {
+        ImageUtils().loadCircularAvatar(
+            binding.root.context,
+            avatarUrl,
+            binding.listItemFriendUserAvatar
+        )
     }
 }
 
