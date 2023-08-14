@@ -16,7 +16,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.user.Friend
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentFriendsListBinding
 import com.example.finalattestationreddit.log.TAG
@@ -31,7 +30,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FriendsListFragment : ViewBindingFragment<FragmentFriendsListBinding>() {
 
-    private val viewModel : FriendsListViewModel by viewModels()
+    private val viewModel: FriendsListViewModel by viewModels()
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
 
     @Inject
@@ -57,10 +56,15 @@ class FriendsListFragment : ViewBindingFragment<FragmentFriendsListBinding>() {
     }
 
     private fun initToolbar() {
-        (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentFriendsListToolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setupSupportActionBar()
         toolbarTitleSetter.setToolbarTitle(getString(R.string.fragment_friends_list_toolbar_title))
         initToolbarMenu()
+    }
+
+    private fun setupSupportActionBar() {
+        (requireActivity() as AppCompatActivity)
+            .setSupportActionBar(binding.fragmentFriendsListToolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initToolbarMenu() {
