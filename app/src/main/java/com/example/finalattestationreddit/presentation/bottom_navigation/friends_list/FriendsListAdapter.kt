@@ -4,23 +4,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.finalattestationreddit.data.dto.user.Friend
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.ListItemFriendBinding
 
-class FriendsListAdapter(private val onItemClick: (User) -> Unit) : ListAdapter<User, FriendViewHolder>(DIFF_CALLBACK) {
+class FriendsListAdapter(private val onItemClick: (User) -> Unit) :
+    ListAdapter<User, FriendViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
-
         val binding = ListItemFriendBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
         return FriendViewHolder(binding, onItemClick)
     }
 
-    override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FriendViewHolder, position: Int) =
         holder.bind(getItem(position))
-    }
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<User>() {
