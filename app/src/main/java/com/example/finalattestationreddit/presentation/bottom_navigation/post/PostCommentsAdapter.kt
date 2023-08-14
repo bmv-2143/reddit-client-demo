@@ -24,9 +24,11 @@ class PostCommentsAdapter constructor(
     private val onAuthorClick: (String) -> Unit
 ) : ListAdapter<Comment, PostCommentsAdapterViewHolder>(PostCommentsAdapterDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostCommentsAdapterViewHolder {
-        val binding = ListItemPostCommentBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ): PostCommentsAdapterViewHolder {
+        val binding =
+            ListItemPostCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostCommentsAdapterViewHolder(
             binding,
             formatElapsedTimeAction,
