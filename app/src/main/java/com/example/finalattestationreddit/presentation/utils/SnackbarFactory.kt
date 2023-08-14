@@ -35,13 +35,6 @@ class SnackbarFactory @Inject constructor(@ApplicationContext val context: Conte
         onClick
     )
 
-    fun showSnackbar(
-        view: View,
-        message: String,
-        actionButtonText: String,
-        onClick: (() -> Unit)? = null
-    ) = showSnackbar(view, message, null, actionButtonText, onClick)
-
     private fun showSnackbar(
         view: View,
         message: String,
