@@ -28,6 +28,8 @@
     <string name="fragment_subreddits_search_title">Search subreddits</string>
     <string name="fragment_subreddits_search_hint">Search…</string>
     <string name="fragment_subreddits_search_view_hint">Search</string>
+    <string name="fragment_subreddits_tab_new">New</string>
+    <string name="fragment_subreddits_tab_popular">Popular</string>
 
     <string name="fragment_post_info_number_of_comments">%1d comments</string>
     <string name="fragment_post_info_share_chooser_title">Share Post link</string>

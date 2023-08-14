@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.databinding.FragmentSubredditsBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
@@ -30,8 +30,6 @@ class SubredditsFragment : ViewBindingFragment<FragmentSubredditsBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val textView: TextView = binding.textHome
-
         initTabs()
         setSearchViewListener()
     }
@@ -45,8 +43,8 @@ class SubredditsFragment : ViewBindingFragment<FragmentSubredditsBinding>() {
 
         tabLayoutMediator = TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "New" // TODO: hardcoded
-                1 -> "Popular"
+                0 -> getString(R.string.fragment_subreddits_tab_new)
+                1 -> getString(R.string.fragment_subreddits_tab_popular)
                 else -> null
             }
         }
@@ -56,14 +54,15 @@ class SubredditsFragment : ViewBindingFragment<FragmentSubredditsBinding>() {
     private fun onSubredditItemClick(subredditData: SubredditData) {
         activityViewModel.setSelectedSubreddit(subredditData)
         val action = SubredditsFragmentDirections
-            .actionNavigationSubredditsToPostsListFragment(postsType = PostsListType.SUBREDDIT_POSTS)
+            .actionNavigationSubredditsToPostsListFragment(
+                postsType = PostsListType.SUBREDDIT_POSTS)
         findNavController().navigate(action)
     }
 
     override fun cleanUp() {
         tabLayoutMediator.detach()
         binding.fragmentSubredditsTabTabLayout.removeAllTabs()
-        binding.fragmentSubredditsTabViewPager.adapter = null // fix memory leak
+        binding.fragmentSubredditsTabViewPager.adapter = null
     }
 
     private fun setSearchViewListener() {
