@@ -4,6 +4,7 @@ import androidx.appcompat.widget.SearchView
 
 class SearchQuerySubmittedListener(private val onQuerySubmitted: (String) -> Unit) :
     SearchView.OnQueryTextListener {
+
     override fun onQueryTextSubmit(query: String?): Boolean {
         if (!query.isNullOrEmpty()) {
             onQuerySubmitted(query)
