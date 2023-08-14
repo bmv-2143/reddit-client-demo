@@ -28,28 +28,33 @@ import com.example.finalattestationreddit.presentation.bottom_navigation.subredd
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.tabs.SubredditsListFragment
 import kotlinx.coroutines.launch
 
-class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostItemClickListener, SubredditItemClickListener {
+class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostItemClickListener,
+    SubredditItemClickListener {
 
     private val viewModel: FavoritesViewModel by viewModels()
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
 
-
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentFavoritesBinding = FragmentFavoritesBinding.inflate(inflater, container, false)
+    ): FragmentFavoritesBinding =
+        FragmentFavoritesBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.fragmentFavoritesToggleGroupSubredditsPosts.check(R.id.fragment_favorites_button_subreddits)
-        binding.fragmentFavoritesToggleGroupAllSaved.check(R.id.fragment_favorites_button_all)
-
+        setInitialTogglesStates()
         addAllSubredditsFragment()
         setSubredditsPostsToggleGroupListener()
         setAllSavedToggleGroupListener()
-
         observeTogglesStateFlow()
+    }
+
+    private fun setInitialTogglesStates() {
+        binding.fragmentFavoritesToggleGroupSubredditsPosts
+            .check(R.id.fragment_favorites_button_subreddits)
+        binding.fragmentFavoritesToggleGroupAllSaved
+            .check(R.id.fragment_favorites_button_all)
     }
 
     private fun setSubredditsPostsToggleGroupListener() {
@@ -75,20 +80,6 @@ class FavoritesFragment : ViewBindingFragment<FragmentFavoritesBinding>(), PostI
                         R.id.fragment_favorites_button_all -> viewModel.onAllToggleSelected()
                     }
             }
-    }
-
-    private fun onSubredditItemClick(subreddit: String) {
-        // todo: do I need this check?
-        if (findNavController().currentDestination?.id == R.id.navigation_favorites) {
-            findNavController().navigate(R.id.action_navigation_favorites_to_postsListFragment)
-        }
-    }
-
-    private fun onPostItemClick(subreddit: String) {
-        // todo: do I need this check?
-        if (findNavController().currentDestination?.id == R.id.navigation_favorites) {
-            findNavController().navigate(R.id.action_navigation_favorites_to_postInfoFragment)
-        }
     }
 
     private fun observeTogglesStateFlow() {
