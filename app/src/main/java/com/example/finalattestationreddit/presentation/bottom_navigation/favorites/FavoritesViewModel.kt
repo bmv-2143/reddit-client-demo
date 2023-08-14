@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class FavoritesViewModel : ViewModel() {
 
-
     private val _togglesStateFlow : MutableStateFlow<FavoritesFragmentTogglesState> =
         MutableStateFlow(FavoritesFragmentTogglesState.SubredditsAll)
     val togglesStateFlow = _togglesStateFlow.asStateFlow()
