@@ -45,6 +45,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/list_item_post_image_placeholder_24" />
 
+            <ProgressBar
+                android:id="@+id/list_item_post_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/list_item_post_image"
+                app:layout_constraintEnd_toEndOf="@+id/list_item_post_image"
+                app:layout_constraintStart_toStartOf="@+id/list_item_post_image"
+                app:layout_constraintTop_toTopOf="@+id/list_item_post_image"
+                />
+
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"
                 android:layout_width="wrap_content"

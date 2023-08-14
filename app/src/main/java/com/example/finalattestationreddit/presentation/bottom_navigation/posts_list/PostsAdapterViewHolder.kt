@@ -29,19 +29,33 @@ class PostsAdapterViewHolder(
 
         hidePostContentIfRequired(postItem)
         loadTexts(postItem)
+        loadImage(postItem)
+    }
 
+    private fun loadImage(postItem: Post) {
         with(binding) {
             PostImageLoader(root.context, listItemPostImage,
                 onPreLoadAction = {
+                    showProgressBar()
                     listItemPostTextBodyGuideline.setGuidelinePercent(
                         IMAGE_AND_TEXT_GUIDELINE_PERCENT
                     )
                 },
+                onComplete = ::hideProgressBar,
                 onLoadFailed = {
+                    hideProgressBar()
                     listItemPostTextBodyGuideline.setGuidelinePercent(NO_IMAGE_GUIDELINE_PERCENT)
                 }
             ).loadImage(postItem)
         }
+    }
+
+    private fun hideProgressBar() {
+        binding.listItemPostProgressBar.visibility = View.GONE
+    }
+
+    private fun showProgressBar() {
+        binding.listItemPostProgressBar.visibility = View.VISIBLE
     }
 
     private fun hidePostContentIfRequired(postItem: Post) {
