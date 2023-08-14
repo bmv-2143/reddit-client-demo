@@ -1,7 +1,6 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.friends_list
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentFriendsListBinding
-import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
 import com.example.finalattestationreddit.presentation.utils.ToolbarTitleSetter
@@ -91,7 +89,6 @@ class FriendsListFragment : ViewBindingFragment<FragmentFriendsListBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.friends.collect { friends ->
-                    Log.e(TAG, "observeFriends: $friends")
                     friendsListAdapter.submitList(friends)
                     binding.fragmentPostsListProgressBar.visibility = View.GONE
                 }
