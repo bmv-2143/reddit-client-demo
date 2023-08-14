@@ -56,10 +56,8 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     }
 
     override fun inflateBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentPostsListBinding =
-        FragmentPostsListBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater, container: ViewGroup?
+    ): FragmentPostsListBinding = FragmentPostsListBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -101,8 +99,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     }
 
     private fun initToolbar() {
-        if (!navigationArgs.showToolbar)
-            return
+        if (!navigationArgs.showToolbar) return
 
         binding.fragmentPostsListToolbar.visibility = View.VISIBLE
         setupSupportActionBar()
@@ -131,14 +128,13 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     }
 
     private fun navigateToSubredditInfoFragment() {
-        val navigateToSubredditInfoAction = PostsListFragmentDirections
-            .actionPostsListFragmentToSubredditInfoFragment()
+        val navigateToSubredditInfoAction =
+            PostsListFragmentDirections.actionPostsListFragmentToSubredditInfoFragment()
         findNavController().navigate(navigateToSubredditInfoAction)
     }
 
     private fun setupRecyclerView() {
-        binding.fragmentPostsListRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext())
+        binding.fragmentPostsListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.fragmentPostsListRecyclerView.adapter = postsPagingAdapter
     }
 
@@ -168,34 +164,25 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         const val ARG_POSTS_TYPE = "posts_type"
 
         fun newUserPostsInstance(
+            showToolbar: Boolean, postItemClickListener: PostItemClickListener
+        ): PostsListFragment = newInstance(showToolbar, postItemClickListener, USER_POSTS)
+
+        fun newAllPostsInstance(postItemClickListener: PostItemClickListener): PostsListFragment =
+            newInstance(false, postItemClickListener, ALL_POSTS)
+
+        fun newSavedPostsInstance(postItemClickListener: PostItemClickListener): PostsListFragment =
+            newInstance(false, postItemClickListener, SAVED_POSTS)
+
+        private fun newInstance(
             showToolbar: Boolean,
-            postItemClickListener: PostItemClickListener
+            postItemClickListener: PostItemClickListener,
+            postsType: PostsListType
         ): PostsListFragment {
             return PostsListFragment().apply {
                 onPostItemClickListener = WeakReference(postItemClickListener)
                 arguments = Bundle().apply {
                     putBoolean(ARG_SHOW_TOOLBAR, showToolbar)
-                    putSerializable(ARG_POSTS_TYPE, USER_POSTS)
-                }
-            }
-        }
-
-        fun newAllPostsInstance(postItemClickListener: PostItemClickListener): PostsListFragment {
-            return PostsListFragment().apply {
-                onPostItemClickListener = WeakReference(postItemClickListener)
-                arguments = Bundle().apply {
-                    putBoolean(ARG_SHOW_TOOLBAR, false)
-                    putSerializable(ARG_POSTS_TYPE, ALL_POSTS)
-                }
-            }
-        }
-
-        fun newSavedPostsInstance(postItemClickListener: PostItemClickListener): PostsListFragment {
-            return PostsListFragment().apply {
-                onPostItemClickListener = WeakReference(postItemClickListener)
-                arguments = Bundle().apply {
-                    putBoolean(ARG_SHOW_TOOLBAR, false)
-                    putSerializable(ARG_POSTS_TYPE, SAVED_POSTS)
+                    putSerializable(ARG_POSTS_TYPE, postsType)
                 }
             }
         }
