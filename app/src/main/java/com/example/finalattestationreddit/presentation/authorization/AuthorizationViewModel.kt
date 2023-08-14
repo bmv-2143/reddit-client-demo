@@ -40,14 +40,14 @@ class AuthorizationViewModel @Inject constructor(
 
     internal fun isOnboardingShowed(): Boolean = localRepository.isOnboardingShowed()
 
-    fun saveOnboardingShowedStatus() {
+    internal fun saveOnboardingShowedStatus() {
         localRepository.saveOnboardingShowedStatus()
     }
 
     private var _authorizationState = MutableStateFlow<AuthorizationState>(Idle)
-    val authorizationState = _authorizationState.asStateFlow()
+    internal val authorizationState = _authorizationState.asStateFlow()
 
-    fun isUserAuthorized(): Boolean = redditRepository.hasAccessToken()
+    internal fun isUserAuthorized(): Boolean = redditRepository.hasAccessToken()
 
 
     internal fun handleAuthResponseUri(authResponse: Uri) {
@@ -73,6 +73,6 @@ class AuthorizationViewModel @Inject constructor(
     private fun hasValidResponseState(uri: Uri): Boolean =
         authRequest.doesResponseStateMatchRequestState(uri)
 
-    val networkErrorsFlow = redditRepository.networkErrorsFlow
+    internal val networkErrorsFlow = redditRepository.networkErrorsFlow
 
 }
