@@ -59,7 +59,7 @@
                     android:textSize="14sp" />
 
 
-                <com.example.unsplashattestationproject.presentation.compound.CompoundIconTextView
+                <com.example.finalattestationreddit.presentation.compound.CompoundIconTextView
                     android:id="@+id/fragment_user_icont_text_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                     app:icon="@drawable/ic_email"
                     app:text="Message" />
 
-                <com.example.unsplashattestationproject.presentation.compound.CompoundIconTextView
+                <com.example.finalattestationreddit.presentation.compound.CompoundIconTextView
                     android:id="@+id/fragment_user_icon_text_post_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
