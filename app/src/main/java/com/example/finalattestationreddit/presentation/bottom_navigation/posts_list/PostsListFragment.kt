@@ -1,6 +1,5 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.posts_list
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.R
@@ -38,6 +38,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private val viewModel: PostsListViewModel by viewModels()
     private val activityViewModel: BottomNavigationViewModel by activityViewModels()
+    private val navigationArgs : PostsListFragmentArgs by navArgs()
     internal var onPostItemClickListener: WeakReference<PostItemClickListener>? = null
 
     @Inject
@@ -46,8 +47,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     private val postsPagingAdapter = PostsPagingAdapter(::onPostItemClick)
 
     private fun onPostItemClick(post: Post) {
-        // todo: crashes when clicked on an item in the nested posts list fragment view
-        if (getShowToolbarArg()) {
+        if (navigationArgs.showToolbar) {
             activityViewModel.setSelectedPost(post)
             findNavController().navigate(R.id.action_postsListFragment_to_postFragment)
         } else {
@@ -71,7 +71,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     }
 
     private fun loadPosts() {
-        when (val postsType = getPostsTypeArg()) {
+        when (val postsType = navigationArgs.postsType) {
             SUBREDDIT_POSTS -> {
                 val subredditData = activityViewModel.selectedSubredditFlow.value
                 if (subredditData != null) {
@@ -102,20 +102,8 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         observeAdapterLoadStateAndUpdateProgressBar()
     }
 
-    @Suppress("DEPRECATION")
-    private fun getPostsTypeArg(): PostsListType? {
-        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU)
-            arguments?.getSerializable(ARG_POSTS_TYPE) as? PostsListType
-        else
-            arguments?.getSerializable(ARG_POSTS_TYPE, PostsListType::class.java)
-
-    }
-
-    private fun getShowToolbarArg(): Boolean =
-        arguments?.getBoolean(ARG_SHOW_TOOLBAR) ?: true
-
     private fun initToolbar() {
-        if (!getShowToolbarArg())
+        if (!navigationArgs.showToolbar)
             return
 
         binding.fragmentPostsListToolbar.visibility = View.VISIBLE
