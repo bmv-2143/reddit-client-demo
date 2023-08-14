@@ -170,7 +170,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         fun newUserPostsInstance(
             showToolbar: Boolean,
             postItemClickListener: PostItemClickListener
-        ): PostsListFragment { // todo: which list type?
+        ): PostsListFragment {
             return PostsListFragment().apply {
                 onPostItemClickListener = WeakReference(postItemClickListener)
                 arguments = Bundle().apply {
@@ -180,7 +180,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
             }
         }
 
-        fun newAllPostsInstance(postItemClickListener: PostItemClickListener): PostsListFragment { // todo: which list type?
+        fun newAllPostsInstance(postItemClickListener: PostItemClickListener): PostsListFragment {
             return PostsListFragment().apply {
                 onPostItemClickListener = WeakReference(postItemClickListener)
                 arguments = Bundle().apply {
@@ -190,7 +190,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
             }
         }
 
-        fun newSavedPostsInstance(postItemClickListener: PostItemClickListener): PostsListFragment { // todo: which list type?
+        fun newSavedPostsInstance(postItemClickListener: PostItemClickListener): PostsListFragment {
             return PostsListFragment().apply {
                 onPostItemClickListener = WeakReference(postItemClickListener)
                 arguments = Bundle().apply {
