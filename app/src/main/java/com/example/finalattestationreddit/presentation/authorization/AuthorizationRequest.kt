@@ -43,13 +43,18 @@ class AuthorizationRequest(val requestState: String = AuthQuery.generateAuthRequ
     }
 
     private fun extractUriFragmentParams(uriFragment: String): Map<String, String> {
-        val params = uriFragment.split("&")
-        return params.map { it.split("=") }.associate { it[0] to it[1] }
+        val params = uriFragment.split(QUERY_PARAM_DELIMITER)
+        return params.map { it.split(KEY_VALUE_PAIR_DELIMITER) }.associate { it[0] to it[1] }
     }
 
     internal fun doesResponseStateMatchRequestState(authResponse: Uri) : Boolean {
         val responseState = extractResponseState(authResponse)
         return responseState == requestState
+    }
+
+    companion object {
+        private const val QUERY_PARAM_DELIMITER = "&"
+        private const val KEY_VALUE_PAIR_DELIMITER = "="
     }
 
 }
