@@ -32,7 +32,7 @@ class PostInfoViewModel @Inject constructor(
     val updatedPostFlow = _updatedPostFlow.asStateFlow()
 
     internal fun upVote(post: Post) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             if (post.likedByUser == true) {
                 unVoteUseCase(post.name)
             } else {
@@ -47,7 +47,7 @@ class PostInfoViewModel @Inject constructor(
     }
 
     internal fun downVote(post: Post) {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             if (post.likedByUser == false) {
                 unVoteUseCase(post.name)
             } else {
