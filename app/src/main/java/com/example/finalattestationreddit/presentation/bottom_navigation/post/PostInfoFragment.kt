@@ -195,14 +195,10 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     }
 
     private fun setPostAuthorClickListener() {
-        viewLifecycleOwner.lifecycleScope.launch {              // todo: don't collect in click listener
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                selectedAndUpdatedPostFlow.filterNotNull().collectLatest { post ->
-                    binding.fragmentPostInfoAuthor.setOnClickListener {
-                        activityViewModel.setSelectedUser(post.author)
-                        openUserFragment(post.author)
-                    }
-                }
+        binding.fragmentPostInfoAuthor.setOnClickListener {
+            latestSelectedOrUpdatedPost?.let { post ->
+                activityViewModel.setSelectedUser(post.author)
+                openUserFragment(post.author)
             }
         }
     }
