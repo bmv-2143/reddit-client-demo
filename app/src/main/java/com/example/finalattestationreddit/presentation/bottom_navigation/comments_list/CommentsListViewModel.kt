@@ -26,9 +26,9 @@ class CommentsListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _comments = MutableStateFlow<List<Comment>>(emptyList())
-    val comments: StateFlow<List<Comment>> = _comments
+    internal val comments: StateFlow<List<Comment>> = _comments
 
-    fun startLoadingPostComments(
+    internal fun startLoadingPostComments(
         subredditDisplayName: String,
         postName: String,
         commentsCountLimit: Int
@@ -45,7 +45,7 @@ class CommentsListViewModel @Inject constructor(
 
 
     private val _updatedCommentsFlow = MutableSharedFlow<Comment>()
-    val updatedCommentsFlow = _updatedCommentsFlow.asSharedFlow()
+    internal val updatedCommentsFlow = _updatedCommentsFlow.asSharedFlow()
 
     internal fun upVote(comment: Comment) {
         viewModelScope.launch {
