@@ -48,7 +48,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             ::onAuthorClick,
         )
     }
-    private val navigationArgs : CommentsListFragmentArgs by navArgs()
+    private val navigationArgs: CommentsListFragmentArgs by navArgs()
     private val launchMode: String by lazy { navigationArgs.launchMode }
 
     @Inject
@@ -113,24 +113,20 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
             LAUNCH_MODE_EMBEDED_NO_TOOLBAR ->
                 startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
 
-            LAUNCH_MODE_SEPARATE_WITH_TOOLBAR ->
+            LAUNCH_MODE_SEPARATE_WITH_TOOLBAR -> {
+                binding.fragmentCommentsListProgressBar.visibility = View.VISIBLE
                 startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MAX)
+            }
 
             else -> Log.e(TAG, "Unknown launch mode: $launchMode")
         }
     }
 
     private fun startLoadingComments(commentsCountLimit: Int) {
-        binding.fragmentCommentsListProgressBar.visibility = View.VISIBLE
-
         viewLifecycleOwner.lifecycleScope.launch {
-            val subredditName = requireArguments().getString(ARG_SUBREDDIT_NAME)
-            val postId = requireArguments().getString(ARG_POST_ID)
-            if (subredditName != null || postId != null) {
-                viewModel.startLoadingPostComments(
-                    subredditName!!, postId!!, commentsCountLimit
-                ) // TODO: fix me
-            }
+            viewModel.startLoadingPostComments(
+                navigationArgs.subredditName, navigationArgs.postId, commentsCountLimit
+            )
         }
     }
 
