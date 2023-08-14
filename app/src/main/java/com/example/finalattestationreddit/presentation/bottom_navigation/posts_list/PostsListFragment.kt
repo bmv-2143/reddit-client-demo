@@ -160,8 +160,8 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     companion object {
 
-        const val ARG_SHOW_TOOLBAR = "show_toolbar"
-        const val ARG_POSTS_TYPE = "posts_type"
+        private const val ARG_SHOW_TOOLBAR = "show_toolbar"
+        private const val ARG_POSTS_TYPE = "posts_type"
 
         fun newUserPostsInstance(
             showToolbar: Boolean, postItemClickListener: PostItemClickListener
