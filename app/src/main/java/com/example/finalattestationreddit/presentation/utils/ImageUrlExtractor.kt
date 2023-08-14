@@ -3,8 +3,6 @@ package com.example.finalattestationreddit.presentation.utils
 import android.net.Uri
 import android.webkit.URLUtil
 
-// todo: move to another package
-// todo: inject is, don't use object
 object ImageUrlExtractor {
 
     private const val UNSUPPORTED_URL_WORD_EXTERNAL = "external"
