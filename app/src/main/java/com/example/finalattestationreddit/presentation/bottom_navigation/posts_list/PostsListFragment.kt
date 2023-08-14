@@ -88,7 +88,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
     }
 
     private fun loadUserPosts(postsType: PostsListType) {
-        activityViewModel.selectedUserFlow.value?.let { userName -> // todo: filter blank user names
+        activityViewModel.selectedUserFlow.value?.let { userName ->
             if (userName.isNotBlank()) {
                 viewModel.setPostsTarget(userName)
                 observePostsFlow(postsType)
