@@ -13,8 +13,7 @@ class SubredditsTabsAdapter(
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle,
     private val subredditItemClickListener: SubredditItemClickListener
-) :
-    FragmentStateAdapter(fragmentManager, lifecycle) {
+) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount(): Int {
         return NUMBER_OF_FRAGMENTS
@@ -23,10 +22,16 @@ class SubredditsTabsAdapter(
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             FRAGMENT_POSITION_NEW_SUBREDDITS ->
-                SubredditsListFragment.newInstance(VAL_SUBREDDITS_LIST_TYPE_NEW, subredditItemClickListener)
+                SubredditsListFragment.newInstance(
+                    VAL_SUBREDDITS_LIST_TYPE_NEW,
+                    subredditItemClickListener
+                )
 
             else ->
-                SubredditsListFragment.newInstance(VAL_SUBREDDITS_LIST_TYPE_POPULAR, subredditItemClickListener)
+                SubredditsListFragment.newInstance(
+                    VAL_SUBREDDITS_LIST_TYPE_POPULAR,
+                    subredditItemClickListener
+                )
         }
     }
 
