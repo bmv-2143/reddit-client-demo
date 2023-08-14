@@ -38,7 +38,8 @@ class SubredditsAdapterViewHolder(
 
     fun bind(subredditItem: SubredditData) {
         currentItem = subredditItem
-        loadTexts(subredditItem)
+        setDisplayNamePrefixed(subredditItem)
+        setPublicDescription(subredditItem)
         updateSubscriptionStatusImage(subredditItem)
     }
 
@@ -60,17 +61,17 @@ class SubredditsAdapterViewHolder(
         )
     }
 
-    private fun loadTexts(subredditItem: SubredditData) {
+    private fun setDisplayNamePrefixed(subredditItem: SubredditData) {
         binding.listItemSubredditDisplayName.text =
-            subredditItem.displayNamePrefixed // TODO: fix me
+            subredditItem.displayNamePrefixed
+    }
 
+    private fun setPublicDescription(subredditItem: SubredditData) {
         if (subredditItem.publicDescription.isNullOrEmpty()) {
             binding.listItemSubredditDescription.visibility = View.GONE
         } else {
             binding.listItemSubredditDescription.visibility = View.VISIBLE
             binding.listItemSubredditDescription.text = subredditItem.publicDescription
         }
-
-        binding.listItemSubredditDescription.text = subredditItem.publicDescription
     }
 }
