@@ -68,7 +68,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fragmentPostInfoRecyclerViewComments.adapter = commentsAdapter
-        configureLaunchMode(binding)
+        configureToolbar(binding)
 
         if (requireArguments().getInt(ARG_NUMBER_OF_COMMENTS) > 0) {
             observeComments()
@@ -78,7 +78,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         observerUpdatedComments()
     }
 
-    private fun configureLaunchMode(binding: FragmentCommentsListBinding) {
+    private fun configureToolbar(binding: FragmentCommentsListBinding) {
         when (launchMode) {
             LAUNCH_MODE_EMBEDED_NO_TOOLBAR -> binding.fragmentCommentsListToolbar.visibility =
                 View.GONE
