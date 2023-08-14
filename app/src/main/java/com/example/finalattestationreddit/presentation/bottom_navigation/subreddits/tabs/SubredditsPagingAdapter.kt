@@ -25,10 +25,14 @@ class SubredditsPagingAdapter(
     suspend fun updateItem(subredditData: SubredditData) {
         val currentList = snapshot().items.toMutableList()
         val index = currentList.indexOfFirst { it.id == subredditData.id }
-        if (index != -1) {
+        if (index != LIST_INDEX_NOT_FOUND) {
             currentList[index] = subredditData
             submitData(PagingData.from(currentList))
             notifyItemChanged(index)
         }
+    }
+
+    companion object {
+        private const val LIST_INDEX_NOT_FOUND = -1
     }
 }
