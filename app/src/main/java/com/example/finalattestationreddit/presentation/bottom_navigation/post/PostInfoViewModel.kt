@@ -57,9 +57,8 @@ class PostInfoViewModel @Inject constructor(
         }
     }
 
-    internal fun shouldDisplayShowAllCommentsButton(post : Post) : Boolean {
-        return !(post.numComments <= BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
-    }
+    internal fun shouldDisplayShowAllCommentsButton(post : Post) : Boolean =
+        post.numComments > BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN
 
     internal fun switchPostSavedState(post : Post) {
         viewModelScope.launch {
