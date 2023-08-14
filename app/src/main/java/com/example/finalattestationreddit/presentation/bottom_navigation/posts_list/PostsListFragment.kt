@@ -65,41 +65,39 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
         setupRecyclerView()
-
-        // todo: its better pass it to a view model? or use state handle from the view model?
-        loadPosts()
+        observePosts()
     }
 
-    private fun loadPosts() {
+    private fun observePosts() {
         when (val postsType = navigationArgs.postsType) {
-            SUBREDDIT_POSTS -> {
-                val subredditData = activityViewModel.selectedSubredditFlow.value
-                if (subredditData != null) {
-                    viewModel.setPostsTarget(subredditData.displayName)
-                    observePostsFlow(postsType)
-                } else {
-                    Log.e(TAG, "Subreddit data is null")
-                }
-            }
+            SUBREDDIT_POSTS -> loadSubredditPosts(postsType)
 
-            USER_POSTS -> {
-                activityViewModel.selectedUserFlow.value?.let { userName -> // todo: filter blank user names
-                    if (userName.isNotBlank()) {
-                        viewModel.setPostsTarget(userName)
-                        observePostsFlow(postsType)
-                    } else {
-                        Log.e(TAG, "User name is blank")
-                    }
-                }
-            }
+            USER_POSTS -> loadUserPosts(postsType)
 
-            ALL_POSTS, SAVED_POSTS -> {
-                observePostsFlow(postsType)
-            }
-
-            null -> Log.e(TAG, "Posts List type is null")
+            ALL_POSTS, SAVED_POSTS -> observePostsFlow(postsType)
         }
         observeAdapterLoadStateAndUpdateProgressBar()
+    }
+
+    private fun loadSubredditPosts(postsType: PostsListType) {
+        val subredditData = activityViewModel.selectedSubredditFlow.value
+        if (subredditData != null) {
+            viewModel.setPostsTarget(subredditData.displayName)
+            observePostsFlow(postsType)
+        } else {
+            Log.e(TAG, "Subreddit data is null")
+        }
+    }
+
+    private fun loadUserPosts(postsType: PostsListType) {
+        activityViewModel.selectedUserFlow.value?.let { userName -> // todo: filter blank user names
+            if (userName.isNotBlank()) {
+                viewModel.setPostsTarget(userName)
+                observePostsFlow(postsType)
+            } else {
+                Log.e(TAG, "User name is blank")
+            }
+        }
     }
 
     private fun initToolbar() {
