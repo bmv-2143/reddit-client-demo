@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.databinding.FragmentSubredditsSearchBinding
@@ -28,6 +29,8 @@ class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBin
     private val viewModel: SubredditsSearchViewModel by viewModels()
     private val activityViewModel : BottomNavigationViewModel by activityViewModels()
 
+    private val navigationArgs : SubredditsSearchFragmentArgs by navArgs()
+
     private lateinit var searchMenuProvider: SearchMenuProvider
     private val subredditsAdapter = SubredditsPagingAdapter(
         ::onSubredditItemClick, ::onSubredditSubscribeClick)
@@ -42,7 +45,7 @@ class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         intiToolbar()
-        initSearchMenuProvider(arguments?.getString("search_query"))
+        initSearchMenuProvider(navigationArgs.searchQuery)
         addActionBarMenu()
         binding.fragmentSubredditSearchRecyclerView.adapter = subredditsAdapter
         observerSubscriptionUpdatesFlow()
