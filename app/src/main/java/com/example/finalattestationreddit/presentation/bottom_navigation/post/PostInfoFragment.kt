@@ -243,7 +243,7 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
                 post.getPostId(),
                 post.numComments
             )
-        val transaction = childFragmentManager.beginTransaction() // todo: which fragment manager?
+        val transaction = childFragmentManager.beginTransaction()
         transaction.add(R.id.fragment_post_info_comments_fragment_container, fragment)
         transaction.commit()
     }
