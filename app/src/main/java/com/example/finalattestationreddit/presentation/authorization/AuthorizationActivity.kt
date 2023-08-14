@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.data.Event
 import com.example.finalattestationreddit.databinding.ActivityAuthorizationBinding
 import com.example.finalattestationreddit.data.NetworkError
 import com.example.finalattestationreddit.log.TAG
@@ -98,10 +99,9 @@ class AuthorizationActivity : AppCompatActivity() {
     private fun observeAuthorizationState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.authorizationState
-                    .collect { isAuthorizationSuccess ->
-                        handleAuthorizationState(isAuthorizationSuccess)
-                    }
+                viewModel.authorizationState.collect { isAuthorizationSuccess ->
+                    handleAuthorizationState(isAuthorizationSuccess)
+                }
             }
         }
     }
@@ -113,7 +113,7 @@ class AuthorizationActivity : AppCompatActivity() {
             is Success -> proceedToBottomNavActivity()
 
             is Failed -> {
-                Log.e(TAG, "Authorization failed: user declined")
+                Log.e(TAG, "Authorization failed")
                 Toast.makeText(
                     applicationContext,
                     getString(R.string.activity_authorization_result_msg_failed), Toast.LENGTH_SHORT
@@ -142,11 +142,15 @@ class AuthorizationActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.networkErrorsFlow.collect { event ->
-                    event.consumeContent()?.let { error ->
-                        handleNetworkError(error)
-                    }
+                    handleNetworkErrorEvent(event)
                 }
             }
+        }
+    }
+
+    private fun handleNetworkErrorEvent(event: Event<NetworkError>) {
+        event.consumeContent()?.let { error ->
+            handleNetworkError(error)
         }
     }
 
