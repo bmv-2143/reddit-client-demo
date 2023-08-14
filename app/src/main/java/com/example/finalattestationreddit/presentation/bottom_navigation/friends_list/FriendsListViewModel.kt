@@ -22,7 +22,7 @@ class FriendsListViewModel @Inject constructor(
     internal val friends = _friends.asSharedFlow()
 
     internal fun getFriends() {
-        viewModelScope.launch() {
+        viewModelScope.launch {
             val friends = getFriendsUseCase()
             loadMatchingUsers(friends)
         }
