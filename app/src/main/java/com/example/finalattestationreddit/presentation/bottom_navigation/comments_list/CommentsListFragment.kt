@@ -63,15 +63,20 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     override fun inflateBinding(
         inflater: LayoutInflater, container: ViewGroup?
-    ): FragmentCommentsListBinding = FragmentCommentsListBinding.inflate(inflater, container, false)
+    ): FragmentCommentsListBinding =
+        FragmentCommentsListBinding.inflate(inflater, container, false)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.fragmentPostInfoRecyclerViewComments.adapter = commentsAdapter
         configureLaunchMode(binding)
-        return view
+
+        if (requireArguments().getInt(ARG_NUMBER_OF_COMMENTS) > 0) {
+            observeComments()
+            startLoadingComments()
+        }
+
+        observerUpdatedComments()
     }
 
     private fun configureLaunchMode(binding: FragmentCommentsListBinding) {
@@ -94,17 +99,6 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
         toolbarTitleSetter.setToolbarTitle(args.postTitle)
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        if (requireArguments().getInt(ARG_NUMBER_OF_COMMENTS) > 0) {
-            observeComments()
-            startLoadingComments()
-        }
-
-        observerUpdatedComments()
-    }
 
     private fun observeComments() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -173,13 +167,12 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     private fun openUserFragment(authorName: String) =
         findNavController().navigate(getOpenUserFragmentNavAction(authorName))
 
-    private fun getOpenUserFragmentNavAction(authorName: String) : NavDirections {
+    private fun getOpenUserFragmentNavAction(authorName: String): NavDirections {
         return if (launchMode == LAUNCH_MODE_EMBEDED_NO_TOOLBAR) {
             PostInfoFragmentDirections.actionPostInfoFragmentToUserFragment(
                 username = authorName
             )
-        }
-        else {
+        } else {
             CommentsListFragmentDirections.actionCommentsListFragmentToUserFragment(
                 username = authorName
             )
