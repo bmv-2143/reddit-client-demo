@@ -29,17 +29,16 @@ class SubredditsListViewModel @Inject constructor(
             return makeSubredditsFlow(subredditsListType)
         }
 
-    private fun makeSubredditsFlow(subredditsListType: String?) =
-        when (subredditsListType) {
-            null -> {
-                Log.e(TAG, "subredditsListType is null")
-                null
-            }
-
-            VAL_SUBREDDITS_LIST_TYPE_SUBSCRIBED ->
-                getSubscribedSubredditsUseCase().cachedIn(viewModelScope)
-
-            else -> getSubredditsUseCase(subredditsListType).cachedIn(viewModelScope)
-
+    private fun makeSubredditsFlow(subredditsListType: String?) = when (subredditsListType) {
+        null -> {
+            Log.e(TAG, "subredditsListType is null")
+            null
         }
+
+        VAL_SUBREDDITS_LIST_TYPE_SUBSCRIBED -> getSubscribedSubredditsUseCase().cachedIn(
+            viewModelScope
+        )
+
+        else -> getSubredditsUseCase(subredditsListType).cachedIn(viewModelScope)
+    }
 }
