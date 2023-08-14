@@ -8,13 +8,17 @@ import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor
 
 class ImageUtils {
 
-    internal fun loadCircularAvatar(context: Context, redditAvatarUrl: String, targetImageView: ImageView) {
+    internal fun loadCircularAvatar(
+        context: Context,
+        redditAvatarUrl: String,
+        targetImageView: ImageView
+    ) {
         val imageUrl = ImageUrlExtractor.extractBaseImageUrl(redditAvatarUrl)
         Glide.with(context)
-        .load(imageUrl)
-        .placeholder(R.drawable.user_placeholder_person_24)
-        .circleCrop()
-        .into(targetImageView)
+            .load(imageUrl)
+            .placeholder(R.drawable.user_placeholder_person_24)
+            .circleCrop()
+            .into(targetImageView)
     }
 
 }
