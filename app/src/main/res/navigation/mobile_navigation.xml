@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_subreddits"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.subreddits.SubredditsFragment"
-        android:label="@string/fragment_title_subreddits"
+        android:label="@string/fragment_subreddits_title"
         tools:layout="@layout/fragment_subreddits" >
         <action
             android:id="@+id/action_navigation_subreddits_to_postsListFragment"
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/navigation_favorites"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.favorites.FavoritesFragment"
-        android:label="@string/fragment_title_favorites"
+        android:label="@string/fragment_favorites_title"
         tools:layout="@layout/fragment_favorites" >
         <action
             android:id="@+id/action_navigation_favorites_to_postsListFragment"
@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/navigation_user_profile"
         android:name="com.example.finalattestationreddit.presentation.bottom_navigation.user_profile.UserProfileFragment"
-        android:label="@string/fragment_title_user_profile"
+        android:label="@string/fragment_user_profile_title"
         tools:layout="@layout/fragment_user_profile" >
         <action
             android:id="@+id/action_navigation_user_profile_to_friendsListFragment"

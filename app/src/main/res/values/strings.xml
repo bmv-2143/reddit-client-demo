@@ -11,6 +11,7 @@
     <string name="onboarding_fragment_share_and_save_subtitle">The favorites tab stores bookmarks with comments and subs. In the profile you will find information about yourself</string>
     <string name="onboarding_fragment_share_and_save_title">Share and Save</string>
 
+    <string name="activity_authorization_network_error_unauthorized">Unauthorized! Please repeat authorization process!</string>
     <string name="activity_auth_subtitle">Find like-minded people with Humblr</string>
     <string name="activity_auth_btn_login">Login</string>
     <string name="activity_authorization_result_msg_failed">Authorization failed. Try again later</string>
@@ -21,26 +22,20 @@
     <string name="activity_bottom_navigation_error_no_internet_connection">No Internet connection! Please try again later.</string>
     <string name="activity_bottom_navigation_error_api_rate_limit_exceeded">API rate limit exceeded!</string>
 
-    <string name="fragment_title_subreddits">Subreddits</string>
-    <string name="fragment_title_favorites">Favorites</string>
-    <string name="fragment_title_user_profile">User Profile</string>
-
-    <string name="activity_authorization_network_error_unauthorized">Unauthorized! Please repeat authorization process!</string>
+    <string name="fragment_subreddits_title">Subreddits</string>
     <string name="fragment_subreddit_info_no_description">This subreddit doesn\'t have a description.</string>
     <string name="fragment_subreddit_info_share_chooser_title">Share Subreddit link</string>
+    <string name="fragment_subreddits_search_title">Search subreddits</string>
+    <string name="fragment_subreddits_search_hint">Search…</string>
+    <string name="fragment_subreddits_search_view_hint">Search</string>
 
     <string name="fragment_post_info_number_of_comments">%1d comments</string>
     <string name="fragment_post_info_share_chooser_title">Share Post link</string>
     <string name="fragment_post_info_share">Share</string>
     <string name="fragment_post_info_button_show_all_comments">Show all</string>
-
-    <string name="time_seconds_ago">%1d seconds ago</string>
-    <string name="time_minutes_ago">%1d minutes ago</string>
-    <string name="time_hours_ago">%1d hours ago</string>
-    <string name="time_days_ago">%1d days ago</string>
-    <string name="time_weeks_ago">%1d weeks ago</string>
-    <string name="time_months_ago">%1d months ago</string>
-    <string name="time_years_ago">%1d years ago</string>
+    <string name="fragment_post_info_button_save">Save</string>
+    <string name="fragment_post_info_button_save_label_post_unsave">Unsave</string>
+    <string name="fragment_post_info_button_save_post_label_save">Save</string>
 
     <string name="list_item_post_comment_btn_download_msg">Download: %1s</string>
     <string name="list_item_post_comment_btn_save_msg">Save: %1s</string>
@@ -50,32 +45,35 @@
     <string name="fragment_user_karma_default_value">Karma: 0</string>
     <string name="fragment_user_button_add_friend">Add Friend</string>
     <string name="fragment_user_button_remove_friend">Remove Friend</string>
-    <string name="fragment_post_info_button_save">Save</string>
-    <string name="fragment_post_info_button_save_label_post_unsave">Unsave</string>
-    <string name="fragment_post_info_button_save_post_label_save">Save</string>
-    <string name="fragment_favorites_toggle_button_subreddits">Subreddits</string>
-    <string name="fragment_favorites_toggle_button_posts">Posts</string>
-    <string name="fragment_favorites_toggle_button_all">All</string>
-    <string name="fragment_favorites_toggle_button_saved">Saved</string>
+
+    <string name="fragment_user_profile_title">User Profile</string>
     <string name="fragment_user_profile_number_of_comments">Comments: %1d</string>
     <string name="fragment_user_profile_karma">Karma: %1d</string>
     <string name="fragment_user_profile_number_of_friends">Friends: %1d</string>
     <string name="fragment_user_profile_list_of_friends">List of friends</string>
     <string name="fragment_user_profile_button_clear_saved_posts">Clear saved posts</string>
     <string name="fragment_user_profile_button_exit">Exit</string>
-    <string name="fragment_subreddits_search_view_hint">Search</string>
     <string name="fragment_user_profile_toast_clear_saved_posts_started">Clearing saved posts. Please wait.</string>
     <string name="fragment_user_profile_toast_clear_saved_posts_success">Clear saved posts: Success</string>
     <string name="fragment_user_profile_toast_clear_saved_posts_fail">Clear saved posts: Failed</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="fragment_favorites_title">Favorites</string>
+    <string name="fragment_favorites_toggle_button_subreddits">Subreddits</string>
+    <string name="fragment_favorites_toggle_button_posts">Posts</string>
+    <string name="fragment_favorites_toggle_button_all">All</string>
+    <string name="fragment_favorites_toggle_button_saved">Saved</string>
+
     <string name="fragment_friends_list_toolbar_title">List of friends</string>
     <string name="fragment_friends_list_menu_dummy_info">Dummy Info Menu Item</string>
     <string name="fragment_friends_list_menu_item_dummy_info_click">Dummy menu item clicked</string>
     <string name="fragment_friends_list_friend_item_click_msg">Friend click: %1s</string>
     <string name="fragment_friends_list_friend_item_karma">Karma: %1s</string>
-    <string name="fragment_subreddits_search_title">Search subreddits</string>
-    <string name="fragment_subreddits_search_hint">Search...</string>
 
-
+    <string name="time_seconds_ago">%1d seconds ago</string>
+    <string name="time_minutes_ago">%1d minutes ago</string>
+    <string name="time_hours_ago">%1d hours ago</string>
+    <string name="time_days_ago">%1d days ago</string>
+    <string name="time_weeks_ago">%1d weeks ago</string>
+    <string name="time_months_ago">%1d months ago</string>
+    <string name="time_years_ago">%1d years ago</string>
 </resources>
