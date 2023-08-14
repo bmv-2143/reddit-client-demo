@@ -21,17 +21,18 @@
             android:name="com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_bottom_navigation"
-            android:theme="@style/Base.Theme.FinalAttestationRedditNoActionBar"
-            />
+            android:theme="@style/Base.Theme.FinalAttestationRedditNoActionBar" />
 
         <activity
             android:name="com.example.finalattestationreddit.presentation.authorization.AuthorizationActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -47,6 +48,7 @@
         <activity
             android:name="com.example.finalattestationreddit.presentation.onboarding.OnboardingActivity"
             android:exported="false" />
+
     </application>
 
 </manifest>
