@@ -7,12 +7,9 @@ import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.ListItemPostCommentBinding
 
 /*
-    A note for the reviewer:
-
     The Reddit API doesn't support pagination for comments, it uses "limit" and "depth" to control
-    the number of fetched comments.
-
-    Pagination was implemented for Subreddits and Posts lists in this assignment.
+    the number of fetched comments. Pagination was implemented for Subreddits and Posts lists in
+    this assignment.
  */
 
 class PostCommentsAdapter constructor(
