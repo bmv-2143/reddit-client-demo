@@ -78,4 +78,5 @@
     <string name="time_weeks_ago">%1d weeks ago</string>
     <string name="time_months_ago">%1d months ago</string>
     <string name="time_years_ago">%1d years ago</string>
+    <string name="fragment_posts_list_menu_subreddits_info">Menu Item</string>
 </resources>
