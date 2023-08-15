@@ -210,15 +210,13 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         subredditDisplayName: String,
         postName: String,
         limit: Int? = null,
-        depth: Int? = null
     ): CommentListingData {
         return try {
             getOnlyCommentsToPost(
                 subredditDisplayName,
                 postName,
-                depth = 1,
                 limit = limit
-            ) // todo: hardcoded depth
+            )
         } catch (e: UnknownHostException) {
             handleUnknownHostError(e)
             emptyCommentListingData()
@@ -234,14 +232,12 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
     private suspend fun getOnlyCommentsToPost(
         subredditDisplayName: String,
         postName: String,
-        depth: Int?,
         limit: Int?
     ): CommentListingData {
         val response =
             redditService.redditApi.getPostComments(
                 subredditDisplayName,
                 postName,
-                depth = depth,
                 limit = limit
             )
         return if (response.size >= 2) {
