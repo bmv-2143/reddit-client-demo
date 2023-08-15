@@ -263,4 +263,6 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
             }
         }
     }
+
+    private fun Post.getPostId() : String = name.substringAfter("_")
 }

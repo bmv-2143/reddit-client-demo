@@ -23,5 +23,4 @@ data class Post(
     // todo: should it be here? in DTO? should it be defined as extension fun in another layer?
     fun getFirstUrlOrNull(): String? = preview?.images?.firstOrNull()?.source?.url
 
-    fun getPostId() : String = name.substringAfter("_")
 }
