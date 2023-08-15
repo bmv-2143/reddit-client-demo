@@ -18,5 +18,4 @@ object AppModule {
         return context.getSharedPreferences(App.SHARED_PREFERENCES, Context.MODE_PRIVATE)
     }
 
-
 }
