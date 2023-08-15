@@ -11,19 +11,18 @@ class GetMySavedPostsPagingSource(
 ) : BasePagingSource<PostData>() {
 
     override suspend fun loadData(params: LoadParams<String>):
-            Pair<List<PostData>, Map<String, String?>> {
+            LoadDataResult<PostData> {
 
         val after = params.key ?: CURSOR_FIRST_PAGE
 
         val responseData: PostListingData =
             redditNetworkDataSource.getMySavedPosts(username, after, PAGE_SIZE)
 
-        val beforeAfterMap = mapOf(
-            CURSOR_BEFORE to responseData.before,
-            CURSOR_AFTER to responseData.after
+        return LoadDataResult(
+            responseData.toPostDataList(),
+            responseData.before,
+            responseData.after
         )
-
-        return Pair(responseData.toPostDataList(), beforeAfterMap)
     }
 
 }

@@ -17,11 +17,11 @@ abstract class BasePagingSource<T : Any> : PagingSource<String, T>() {
             loadData(params)
 
         }.fold(
-            onSuccess = { data: Pair<List<T>, Map<String, String?>> ->
+            onSuccess = { data: LoadDataResult<T> ->
                 return LoadResult.Page(
-                    data = data.first,
-                    prevKey = data.second[CURSOR_BEFORE],
-                    nextKey = data.second[CURSOR_AFTER]
+                    data = data.responseData,
+                    prevKey = data.cursorBefore,
+                    nextKey = data.cursorAfter
                 )
             },
             onFailure = { exception ->
@@ -32,8 +32,7 @@ abstract class BasePagingSource<T : Any> : PagingSource<String, T>() {
             })
     }
 
-    protected abstract suspend fun loadData(params: LoadParams<String>):
-            Pair<List<T>, Map<String, String?>>
+    protected abstract suspend fun loadData(params: LoadParams<String>): LoadDataResult<T>
 
     internal companion object {
         internal const val CURSOR_BEFORE = "before"

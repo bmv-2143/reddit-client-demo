@@ -11,19 +11,18 @@ class GetSubredditsPagingSource(
 ) : BasePagingSource<SubredditData>() {
 
     override suspend fun loadData(params: LoadParams<String>):
-            Pair<List<SubredditData>, Map<String, String?>> {
+            LoadDataResult<SubredditData> {
 
         val after = params.key ?: CURSOR_FIRST_PAGE
 
         val responseData: SubredditListingData =
             redditNetworkDataSource.getSubreddits(subredditsListType, after, PAGE_SIZE)
 
-        val beforeAfterMap = mapOf(
-            CURSOR_BEFORE to responseData.before,
-            CURSOR_AFTER to responseData.after
+        return LoadDataResult(
+            responseData.toSubredditDataList(),
+            responseData.before,
+            responseData.after
         )
-
-        return Pair(responseData.toSubredditDataList(), beforeAfterMap)
     }
 
 }
