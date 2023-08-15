@@ -1,7 +1,6 @@
 package com.example.finalattestationreddit.data.data_sources
 
 import android.util.Log
-import com.example.finalattestationreddit.data.network.RedditService
 import com.example.finalattestationreddit.data.model.dto.comment.CommentData
 import com.example.finalattestationreddit.data.model.dto.comment.CommentListingData
 import com.example.finalattestationreddit.data.model.dto.post.PostData
@@ -12,13 +11,16 @@ import com.example.finalattestationreddit.data.model.dto.user.Friend
 import com.example.finalattestationreddit.data.model.dto.user.User
 import com.example.finalattestationreddit.data.model.errors.NetworkError
 import com.example.finalattestationreddit.data.model.events.Event
+import com.example.finalattestationreddit.data.network.RedditService
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import retrofit2.HttpException
 import java.net.UnknownHostException
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class RedditNetworkDataSource @Inject constructor(private val redditService: RedditService) {
 
     private val _networkErrorFlow = MutableSharedFlow<Event<NetworkError>>(replay = 1)
