@@ -1,27 +1,16 @@
 package com.example.finalattestationreddit.data.repositories
 
 import android.util.Log
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.finalattestationreddit.data.model.errors.NetworkError
-import com.example.finalattestationreddit.data.config.PagingConfig.PAGE_SIZE
-import com.example.finalattestationreddit.data.config.PagingConfig.PREFETCH_DISTANCE
 import com.example.finalattestationreddit.data.data_sources.RedditNetworkDataSource
-import com.example.finalattestationreddit.data.model.subscription.SubscriptionUpdateResult
 import com.example.finalattestationreddit.data.model.dto.comment.Comment
 import com.example.finalattestationreddit.data.model.dto.post.Post
 import com.example.finalattestationreddit.data.model.dto.post.PostData
 import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.model.dto.user.Friend
 import com.example.finalattestationreddit.data.model.dto.user.User
-import com.example.finalattestationreddit.data.pagingsource.GetAllRecentPostsPagingSource
-import com.example.finalattestationreddit.data.pagingsource.GetMySavedPostsPagingSource
-import com.example.finalattestationreddit.data.pagingsource.GetSubredditPostsPagingSource
-import com.example.finalattestationreddit.data.pagingsource.GetSubredditsPagingSource
-import com.example.finalattestationreddit.data.pagingsource.GetSubscribedSubredditsPagingSource
-import com.example.finalattestationreddit.data.pagingsource.GetUserPostsPagingSource
-import com.example.finalattestationreddit.data.pagingsource.SearchSubredditsPagingSource
+import com.example.finalattestationreddit.data.model.errors.NetworkError
+import com.example.finalattestationreddit.data.model.subscription.SubscriptionUpdateResult
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
@@ -34,7 +23,8 @@ import javax.inject.Singleton
 @Singleton
 class RedditRepository @Inject constructor(
     private val redditNetworkDataSource: RedditNetworkDataSource,
-    private val tokenManager: TokenManager
+    private val tokenManager: TokenManager,
+    private val pagerFactory: PagerFactory
 ) {
 
     val networkErrorsFlow = redditNetworkDataSource.networkErrorsFlow.onEach { event ->
@@ -54,21 +44,8 @@ class RedditRepository @Inject constructor(
 
     internal fun removeAccessTokenSync() = tokenManager.removeAccessToken()
 
-    internal fun getSubreddits(subredditsListType: String): Flow<PagingData<SubredditData>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                initialLoadSize = PAGE_SIZE
-            ),
-            pagingSourceFactory = {
-                GetSubredditsPagingSource(
-                    subredditsListType,
-                    redditNetworkDataSource
-                )
-            }
-        ).flow
-    }
+    internal fun getSubreddits(subredditsListType: String): Flow<PagingData<SubredditData>> =
+        pagerFactory.makeGetSubredditsPager(subredditsListType).flow
 
     internal suspend fun updateSubscription(
         subredditName: String,
@@ -78,63 +55,17 @@ class RedditRepository @Inject constructor(
         return SubscriptionUpdateResult(subredditName, updateSuccess)
     }
 
-    internal fun getSubscribedSubreddits(): Flow<PagingData<SubredditData>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                initialLoadSize = PAGE_SIZE
-            ),
-            pagingSourceFactory = {
-                GetSubscribedSubredditsPagingSource(redditNetworkDataSource)
-            }
-        ).flow
-    }
+    internal fun getSubscribedSubreddits(): Flow<PagingData<SubredditData>> =
+        pagerFactory.makeSubscribedSubredditsPager().flow
 
-    internal fun searchSubreddits(query: String): Flow<PagingData<SubredditData>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                initialLoadSize = PAGE_SIZE
-            ),
-            pagingSourceFactory = {
-                SearchSubredditsPagingSource(
-                    query,
-                    redditNetworkDataSource
-                )
-            }
-        ).flow
-    }
+    internal fun searchSubreddits(query: String): Flow<PagingData<SubredditData>> =
+        pagerFactory.makeSearchSubredditsPager(query).flow
 
-    internal fun getPosts(subredditDisplayName: String): Flow<PagingData<PostData>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                initialLoadSize = PAGE_SIZE
-            ),
-            pagingSourceFactory = {
-                GetSubredditPostsPagingSource(
-                    subredditDisplayName,
-                    redditNetworkDataSource
-                )
-            }
-        ).flow
-    }
+    internal fun getPosts(subredditDisplayName: String): Flow<PagingData<PostData>> =
+        pagerFactory.makePostsPager(subredditDisplayName).flow
 
-    internal fun getAllRecentPosts(): Flow<PagingData<PostData>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                initialLoadSize = PAGE_SIZE
-            ),
-            pagingSourceFactory = {
-                GetAllRecentPostsPagingSource(redditNetworkDataSource)
-            }
-        ).flow
-    }
+    internal fun getAllRecentPosts(): Flow<PagingData<PostData>> =
+        pagerFactory.makeAllRecentPostsPager().flow
 
     internal suspend fun getSubreddit(subredditDisplayName: String): SubredditData? {
         return redditNetworkDataSource.getSubreddit(subredditDisplayName)
@@ -178,21 +109,8 @@ class RedditRepository @Inject constructor(
         return redditNetworkDataSource.getUserPostsAll(username).count()
     }
 
-    internal fun getUserPosts(username: String): Flow<PagingData<PostData>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = PAGE_SIZE,
-                prefetchDistance = PREFETCH_DISTANCE,
-                initialLoadSize = PAGE_SIZE
-            ),
-            pagingSourceFactory = {
-                GetUserPostsPagingSource(
-                    username,
-                    redditNetworkDataSource
-                )
-            }
-        ).flow
-    }
+    internal fun getUserPosts(username: String): Flow<PagingData<PostData>> =
+        pagerFactory.makeUserPostsPager(username).flow
 
     internal fun getMySavedPosts(): Flow<PagingData<PostData>> = flow {
         val username = getMyName()
@@ -201,19 +119,7 @@ class RedditRepository @Inject constructor(
             Log.e(TAG, "getMySavedPosts: my username is null")
             emitAll(flowOf<PagingData<PostData>>())
         } else {
-            val pagerFlow = Pager(
-                config = PagingConfig(
-                    pageSize = PAGE_SIZE,
-                    prefetchDistance = PREFETCH_DISTANCE,
-                    initialLoadSize = PAGE_SIZE
-                ),
-                pagingSourceFactory = {
-                    GetMySavedPostsPagingSource(
-                        username,
-                        redditNetworkDataSource
-                    )
-                }
-            ).flow
+            val pagerFlow = pagerFactory.makeMySavedPostsPager(username).flow
             emitAll(pagerFlow)
         }
     }
