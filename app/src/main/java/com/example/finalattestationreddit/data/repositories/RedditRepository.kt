@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import com.example.finalattestationreddit.data.errors.NetworkError
 import com.example.finalattestationreddit.data.PagingConfig.PAGE_SIZE
 import com.example.finalattestationreddit.data.PagingConfig.PREFETCH_DISTANCE
-import com.example.finalattestationreddit.data.RedditNetworkDataSource
+import com.example.finalattestationreddit.data.data_sources.RedditNetworkDataSource
 import com.example.finalattestationreddit.data.SubscriptionUpdateResult
 import com.example.finalattestationreddit.data.TokenManager
 import com.example.finalattestationreddit.data.dto.comment.Comment

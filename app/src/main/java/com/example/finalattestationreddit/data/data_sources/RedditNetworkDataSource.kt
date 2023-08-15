@@ -1,6 +1,7 @@
-package com.example.finalattestationreddit.data
+package com.example.finalattestationreddit.data.data_sources
 
 import android.util.Log
+import com.example.finalattestationreddit.data.RedditService
 import com.example.finalattestationreddit.data.dto.comment.CommentData
 import com.example.finalattestationreddit.data.dto.comment.CommentListingData
 import com.example.finalattestationreddit.data.dto.post.PostData
