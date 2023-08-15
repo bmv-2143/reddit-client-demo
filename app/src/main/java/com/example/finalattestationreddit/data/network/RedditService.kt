@@ -1,6 +1,5 @@
-package com.example.finalattestationreddit.data
+package com.example.finalattestationreddit.data.network
 
-import com.example.finalattestationreddit.data.network.RedditApi
 import retrofit2.Retrofit
 import javax.inject.Inject
 import javax.inject.Named
