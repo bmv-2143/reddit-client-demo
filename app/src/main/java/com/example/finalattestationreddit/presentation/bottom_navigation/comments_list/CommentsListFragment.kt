@@ -94,7 +94,10 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     private fun initToolbar() {
         (requireActivity() as AppCompatActivity)
             .setSupportActionBar(binding.fragmentCommentsListToolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_toolbar_home_up)
+        }
         toolbarTitleSetter.setToolbarTitle(args.postTitle)
     }
 

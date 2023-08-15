@@ -80,7 +80,10 @@ class SubredditInfoFragment : ViewBindingFragment<FragmentSubredditInfoBinding>(
     private fun initToolbar(toolbarTitle: String) {
         val activity = (requireActivity() as AppCompatActivity)
         activity.setSupportActionBar(binding.fragmentSubredditInfoToolbar)
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        activity.supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_toolbar_home_up)
+        }
         toolbarTitleSetter.setToolbarTitle(toolbarTitle)
     }
 

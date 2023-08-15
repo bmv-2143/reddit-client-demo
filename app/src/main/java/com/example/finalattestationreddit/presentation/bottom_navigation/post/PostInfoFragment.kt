@@ -78,7 +78,10 @@ class PostInfoFragment : ViewBindingFragment<FragmentPostInfoBinding>() {
     private fun initToolbar() {
         (requireActivity() as AppCompatActivity)
             .setSupportActionBar(binding.fragmentPostsListToolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_toolbar_home_up)
+        }
     }
 
     private fun collectSelectedPost() {
