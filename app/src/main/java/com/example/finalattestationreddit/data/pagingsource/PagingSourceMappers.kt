@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.data.mappers
+package com.example.finalattestationreddit.data.pagingsource
 
 import com.example.finalattestationreddit.data.model.dto.post.PostData
 import com.example.finalattestationreddit.data.model.dto.post.PostListingData

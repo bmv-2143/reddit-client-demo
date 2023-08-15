@@ -4,7 +4,6 @@ import com.example.finalattestationreddit.data.config.PagingConfig.PAGE_SIZE
 import com.example.finalattestationreddit.data.data_sources.RedditNetworkDataSource
 import com.example.finalattestationreddit.data.model.dto.post.PostData
 import com.example.finalattestationreddit.data.model.dto.post.PostListingData
-import com.example.finalattestationreddit.data.mappers.toPostDataList
 
 class GetUserPostsPagingSource(
     private val username: String,
