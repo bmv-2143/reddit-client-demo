@@ -12,9 +12,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.events.Event
+import com.example.finalattestationreddit.data.model.events.Event
 import com.example.finalattestationreddit.databinding.ActivityAuthorizationBinding
-import com.example.finalattestationreddit.data.errors.NetworkError
+import com.example.finalattestationreddit.data.model.errors.NetworkError
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Failed
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Idle

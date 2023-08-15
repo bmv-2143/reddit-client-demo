@@ -10,8 +10,8 @@ import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditListingData
 import com.example.finalattestationreddit.data.model.dto.user.Friend
 import com.example.finalattestationreddit.data.model.dto.user.User
-import com.example.finalattestationreddit.data.errors.NetworkError
-import com.example.finalattestationreddit.data.events.Event
+import com.example.finalattestationreddit.data.model.errors.NetworkError
+import com.example.finalattestationreddit.data.model.events.Event
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.data.events
+package com.example.finalattestationreddit.data.model.events
 
 class Event<out T>(private val content: T) {
 

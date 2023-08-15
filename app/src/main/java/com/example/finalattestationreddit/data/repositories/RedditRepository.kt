@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.finalattestationreddit.data.errors.NetworkError
+import com.example.finalattestationreddit.data.model.errors.NetworkError
 import com.example.finalattestationreddit.data.config.PagingConfig.PAGE_SIZE
 import com.example.finalattestationreddit.data.config.PagingConfig.PREFETCH_DISTANCE
 import com.example.finalattestationreddit.data.data_sources.RedditNetworkDataSource
