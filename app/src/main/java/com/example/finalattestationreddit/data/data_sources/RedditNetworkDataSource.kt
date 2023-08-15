@@ -48,9 +48,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         logError(::handleUnknownHostError.name, e)
         _networkErrorFlow.emit(
             Event(
-                NetworkError.NoInternetConnection(
-                    e.message ?: "No internet connection"
-                )
+                NetworkError.NoInternetConnection(e.message ?: "No internet connection")
             )
         )
     }
@@ -215,7 +213,6 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         depth: Int? = null
     ): CommentListingData {
         return try {
-            Log.e(TAG, "getPostComments START")
             getOnlyCommentsToPost(
                 subredditDisplayName,
                 postName,
@@ -337,7 +334,6 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         }
     }
 
-
     internal suspend fun addFriend(username: String): Boolean {
         return try {
             redditService.redditApi.addFriend(username)
@@ -365,7 +361,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             false
         } catch (e: Exception) {
-            logError(::addFriend.name, e)
+            logError(::removeFriend.name, e)
             false
         }
     }
@@ -400,7 +396,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleHttpException(e)
             false
         } catch (e: Exception) {
-            logError(::getFriends.name, e)
+            logError(::setPostSavedState.name, e)
             false
         }
     }
