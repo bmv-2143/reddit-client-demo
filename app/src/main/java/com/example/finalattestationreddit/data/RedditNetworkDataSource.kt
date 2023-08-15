@@ -9,6 +9,7 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
 import com.example.finalattestationreddit.data.dto.user.Friend
 import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.data.events.Event
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

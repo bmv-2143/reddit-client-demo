@@ -12,7 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.Event
+import com.example.finalattestationreddit.data.events.Event
 import com.example.finalattestationreddit.databinding.ActivityAuthorizationBinding
 import com.example.finalattestationreddit.data.NetworkError
 import com.example.finalattestationreddit.log.TAG
