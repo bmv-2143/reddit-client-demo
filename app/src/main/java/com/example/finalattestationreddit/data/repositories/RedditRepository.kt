@@ -6,11 +6,13 @@ import com.example.finalattestationreddit.data.data_sources.RedditNetworkDataSou
 import com.example.finalattestationreddit.data.model.dto.comment.Comment
 import com.example.finalattestationreddit.data.model.dto.post.Post
 import com.example.finalattestationreddit.data.model.dto.post.PostData
+import com.example.finalattestationreddit.data.model.dto.post.PostListingData
 import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.model.dto.user.Friend
 import com.example.finalattestationreddit.data.model.dto.user.User
 import com.example.finalattestationreddit.data.model.errors.NetworkError
 import com.example.finalattestationreddit.data.model.subscription.SubscriptionUpdateResult
+import com.example.finalattestationreddit.data.pagingsource.BasePagingSource
 import com.example.finalattestationreddit.log.TAG
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
@@ -129,17 +131,26 @@ class RedditRepository @Inject constructor(
             return false
         }
 
+        return unsaveSavedPosts(myUsername)
+    }
+
+    private suspend fun unsaveSavedPosts(myUsername: String): Boolean {
         val savedPosts = redditNetworkDataSource.getMySavedPosts(
             myUsername,
-            "",        // todo: hardcoded consts
+            BasePagingSource.CURSOR_FIRST_PAGE,
             10_000  // todo: hardcoded consts
         )
 
         if (savedPosts.children.isEmpty())
             return true
 
+        return unsaveAll(savedPosts)
+    }
+
+    private suspend fun unsaveAll(savedPosts: PostListingData): Boolean {
         for (post in savedPosts.children) {
-            val unsavePostSuccess = redditNetworkDataSource.setPostSavedState(post.data.name, false)
+            val unsavePostSuccess = redditNetworkDataSource
+                .setPostSavedState(post.data.name, false)
 
             if (!unsavePostSuccess)
                 return false
