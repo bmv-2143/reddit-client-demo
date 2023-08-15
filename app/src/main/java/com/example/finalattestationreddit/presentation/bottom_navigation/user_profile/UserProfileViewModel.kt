@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.domain.posts.ClearSavedPostUseCase
-import com.example.finalattestationreddit.domain.GetMyUserUseCase
+import com.example.finalattestationreddit.domain.users.GetMyUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

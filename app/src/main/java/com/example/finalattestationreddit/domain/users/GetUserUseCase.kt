@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.domain
+package com.example.finalattestationreddit.domain.users
 
 import com.example.finalattestationreddit.data.RedditRepository
 import javax.inject.Inject

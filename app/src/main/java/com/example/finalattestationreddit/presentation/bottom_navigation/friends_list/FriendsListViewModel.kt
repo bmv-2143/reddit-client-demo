@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.user.Friend
 import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.domain.friends.GetFriendsUseCase
-import com.example.finalattestationreddit.domain.GetUserUseCase
+import com.example.finalattestationreddit.domain.users.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow

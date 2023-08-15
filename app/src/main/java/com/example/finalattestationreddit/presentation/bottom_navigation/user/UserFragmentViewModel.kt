@@ -6,7 +6,7 @@ import com.example.finalattestationreddit.data.dto.user.User
 import com.example.finalattestationreddit.domain.friends.AddFriendUseCase
 import com.example.finalattestationreddit.domain.friends.CheckIfIsAFriendUseCase
 import com.example.finalattestationreddit.domain.posts.GetUserPostsCountUseCase
-import com.example.finalattestationreddit.domain.GetUserUseCase
+import com.example.finalattestationreddit.domain.users.GetUserUseCase
 import com.example.finalattestationreddit.domain.friends.RemoveFriendUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
