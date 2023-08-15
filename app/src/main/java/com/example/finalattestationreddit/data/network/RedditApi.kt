@@ -77,11 +77,8 @@ interface RedditApi {
     suspend fun getPostComments(
         @Path("subreddit") subreddit: String,
         @Path("postName") postName: String,
-        @Query("sort") sort: String = "top",
-        @Query("depth") depth: Int? = null,
+        @Query("sort") sort: String = DEFAULT_COMMENTS_SORT,
         @Query("limit") limit: Int? = null,
-        @Query("more") more: Boolean = false,
-        @Query("threaded") threaded: Boolean = false,
     ): List<CommentListingResponse>
 
     @GET("/api/info")
@@ -149,5 +146,6 @@ interface RedditApi {
 
     companion object {
         const val DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT = 100 // the max limit of the reddit api
+        const val DEFAULT_COMMENTS_SORT = "top"
     }
 }
