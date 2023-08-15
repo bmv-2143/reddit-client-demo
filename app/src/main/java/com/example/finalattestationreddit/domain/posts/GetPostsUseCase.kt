@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.domain
+package com.example.finalattestationreddit.domain.posts
 
 import androidx.paging.PagingData
 import androidx.paging.map
@@ -8,12 +8,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class GetMySavedPostsUseCase @Inject constructor(
+class GetPostsUseCase @Inject constructor(
     private val redditRepository: RedditRepository,
 ) {
 
-    operator fun invoke(): Flow<PagingData<Post>> =
-        redditRepository.getMySavedPosts()
+    operator fun invoke(subredditDisplayName: String): Flow<PagingData<Post>> =
+        redditRepository.getPosts(subredditDisplayName)
             .map { pagingData ->
                 pagingData.map { post ->
                     post.data

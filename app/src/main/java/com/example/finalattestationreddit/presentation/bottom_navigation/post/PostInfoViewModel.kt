@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.domain.DownVotePostOrCommentUseCase
-import com.example.finalattestationreddit.domain.GetPostUseCase
-import com.example.finalattestationreddit.domain.SaveUnsavePostUseCase
+import com.example.finalattestationreddit.domain.posts.GetPostUseCase
+import com.example.finalattestationreddit.domain.posts.SaveUnsavePostUseCase
 import com.example.finalattestationreddit.domain.UnVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.UpVotePostOrCommentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.domain
+package com.example.finalattestationreddit.domain.posts
 
 import com.example.finalattestationreddit.data.RedditRepository
 import com.example.finalattestationreddit.data.dto.post.Post

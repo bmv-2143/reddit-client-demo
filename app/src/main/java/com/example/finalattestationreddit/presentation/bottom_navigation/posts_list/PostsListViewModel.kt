@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.finalattestationreddit.data.dto.post.Post
-import com.example.finalattestationreddit.domain.GetAllRecentPostsUseCase
-import com.example.finalattestationreddit.domain.GetMySavedPostsUseCase
-import com.example.finalattestationreddit.domain.GetPostsUseCase
-import com.example.finalattestationreddit.domain.GetUserPostsUseCase
+import com.example.finalattestationreddit.domain.posts.GetAllRecentPostsUseCase
+import com.example.finalattestationreddit.domain.posts.GetMySavedPostsUseCase
+import com.example.finalattestationreddit.domain.posts.GetPostsUseCase
+import com.example.finalattestationreddit.domain.posts.GetUserPostsUseCase
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType.ALL_POSTS
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType.SAVED_POSTS
 import com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListType.SUBREDDIT_POSTS
