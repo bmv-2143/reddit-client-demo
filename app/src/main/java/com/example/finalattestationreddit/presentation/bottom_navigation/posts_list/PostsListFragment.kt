@@ -109,10 +109,7 @@ class PostsListFragment : ViewBindingFragment<FragmentPostsListBinding>() {
 
     private fun setupSupportActionBar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentPostsListToolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_toolbar_home_up)
-        }
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initToolbarMenu() {

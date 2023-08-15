@@ -53,10 +53,7 @@ class SubredditsSearchFragment : ViewBindingFragment<FragmentSubredditsSearchBin
 
     private fun intiToolbar() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(binding.fragmentSubredditsSearchToolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_toolbar_home_up)
-        }
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
     private fun initSearchMenuProvider(initialQuery: String?) {
         searchMenuProvider = SearchMenuProvider(
