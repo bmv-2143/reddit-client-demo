@@ -155,8 +155,6 @@ class RedditRepository @Inject constructor(
 
             if (!unsavePostSuccess)
                 return false
-
-            Log.e(TAG, "Unsaving post: ${post.data.name} done")
         }
         return true
     }
