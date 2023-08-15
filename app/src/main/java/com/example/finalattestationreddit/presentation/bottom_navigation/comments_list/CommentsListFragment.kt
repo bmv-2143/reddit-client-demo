@@ -16,10 +16,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.PagingConfig.POST_COMMENTS_PAGE_SIZE_MAX
-import com.example.finalattestationreddit.data.PagingConfig.POST_COMMENTS_PAGE_SIZE_MIN
+import com.example.finalattestationreddit.data.config.PagingConfig.POST_COMMENTS_PAGE_SIZE_MAX
+import com.example.finalattestationreddit.data.config.PagingConfig.POST_COMMENTS_PAGE_SIZE_MIN
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.FragmentCommentsListBinding
 import com.example.finalattestationreddit.log.TAG
