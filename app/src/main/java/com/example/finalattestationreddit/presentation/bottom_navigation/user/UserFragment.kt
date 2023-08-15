@@ -12,8 +12,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.post.Post
-import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.data.model.dto.post.Post
+import com.example.finalattestationreddit.data.model.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentUserBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment

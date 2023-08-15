@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.data.dto.subreddit
+package com.example.finalattestationreddit.data.model.dto.subreddit
 
 import android.os.Parcelable
 import com.squareup.moshi.Json

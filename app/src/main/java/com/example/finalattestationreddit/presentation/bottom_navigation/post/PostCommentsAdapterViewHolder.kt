@@ -1,7 +1,7 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.post
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.finalattestationreddit.data.dto.comment.Comment
+import com.example.finalattestationreddit.data.model.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.ListItemPostCommentBinding
 import com.example.finalattestationreddit.presentation.widgets.ScoreVotingViewGroup
 

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.example.finalattestationreddit.databinding.ListItemPostBinding
-import com.example.finalattestationreddit.data.dto.post.Post
+import com.example.finalattestationreddit.data.model.dto.post.Post
 
 class PostsPagingAdapter(private val onItemClicked: (Post) -> Unit) :
     PagingDataAdapter<Post, PostsAdapterViewHolder>(PostsDiffUtilCallback()) {

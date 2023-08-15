@@ -1,14 +1,14 @@
 package com.example.finalattestationreddit.data.network
 
 import android.support.annotation.IntRange
-import com.example.finalattestationreddit.data.dto.comment.CommentListingResponse
-import com.example.finalattestationreddit.data.dto.post.PostListingResponse
-import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingResponse
-import com.example.finalattestationreddit.data.dto.subreddit.SubredditResponse
-import com.example.finalattestationreddit.data.dto.user.AddFriendRequest
-import com.example.finalattestationreddit.data.dto.user.FriendsResponse
-import com.example.finalattestationreddit.data.dto.user.User
-import com.example.finalattestationreddit.data.dto.user.UserResponse
+import com.example.finalattestationreddit.data.model.dto.comment.CommentListingResponse
+import com.example.finalattestationreddit.data.model.dto.post.PostListingResponse
+import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditListingResponse
+import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditResponse
+import com.example.finalattestationreddit.data.model.dto.user.AddFriendRequest
+import com.example.finalattestationreddit.data.model.dto.user.FriendsResponse
+import com.example.finalattestationreddit.data.model.dto.user.User
+import com.example.finalattestationreddit.data.model.dto.user.UserResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

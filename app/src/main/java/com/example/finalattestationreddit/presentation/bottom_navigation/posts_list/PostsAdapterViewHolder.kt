@@ -2,7 +2,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.posts_
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.example.finalattestationreddit.data.dto.post.Post
+import com.example.finalattestationreddit.data.model.dto.post.Post
 import com.example.finalattestationreddit.databinding.ListItemPostBinding
 import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor.extractBaseImageUrl
 

@@ -4,7 +4,7 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
+import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.databinding.ListItemSubredditBinding
 
 class SubredditsAdapterViewHolder(

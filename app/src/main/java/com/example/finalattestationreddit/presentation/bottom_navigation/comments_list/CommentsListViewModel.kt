@@ -2,7 +2,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.commen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.finalattestationreddit.data.dto.comment.Comment
+import com.example.finalattestationreddit.data.model.dto.comment.Comment
 import com.example.finalattestationreddit.domain.posts_comments.DownVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.comments.GetCommentUseCase
 import com.example.finalattestationreddit.domain.comments.GetPostCommentsUseCase

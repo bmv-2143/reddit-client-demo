@@ -2,7 +2,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.data.model.dto.user.User
 import com.example.finalattestationreddit.domain.friends.AddFriendUseCase
 import com.example.finalattestationreddit.domain.friends.CheckIfIsAFriendUseCase
 import com.example.finalattestationreddit.domain.posts.GetUserPostsCountUseCase

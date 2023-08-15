@@ -17,7 +17,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.post.Post
+import com.example.finalattestationreddit.data.model.dto.post.Post
 import com.example.finalattestationreddit.databinding.FragmentPostsListBinding
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel

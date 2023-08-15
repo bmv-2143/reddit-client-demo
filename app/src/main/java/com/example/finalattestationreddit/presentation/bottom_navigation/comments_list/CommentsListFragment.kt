@@ -19,7 +19,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.finalattestationreddit.R
 import com.example.finalattestationreddit.data.config.PagingConfig.POST_COMMENTS_PAGE_SIZE_MAX
 import com.example.finalattestationreddit.data.config.PagingConfig.POST_COMMENTS_PAGE_SIZE_MIN
-import com.example.finalattestationreddit.data.dto.comment.Comment
+import com.example.finalattestationreddit.data.model.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.FragmentCommentsListBinding
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel

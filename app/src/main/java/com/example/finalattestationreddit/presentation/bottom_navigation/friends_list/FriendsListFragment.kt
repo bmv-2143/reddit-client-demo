@@ -15,7 +15,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.data.model.dto.user.User
 import com.example.finalattestationreddit.databinding.FragmentFriendsListBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment

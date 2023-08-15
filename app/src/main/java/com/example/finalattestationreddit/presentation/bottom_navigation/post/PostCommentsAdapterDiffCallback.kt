@@ -1,7 +1,7 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.post
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.finalattestationreddit.data.dto.comment.Comment
+import com.example.finalattestationreddit.data.model.dto.comment.Comment
 
 class PostCommentsAdapterDiffCallback : DiffUtil.ItemCallback<Comment>() {
     override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {

@@ -2,8 +2,8 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.friend
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.finalattestationreddit.data.dto.user.Friend
-import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.data.model.dto.user.Friend
+import com.example.finalattestationreddit.data.model.dto.user.User
 import com.example.finalattestationreddit.domain.friends.GetFriendsUseCase
 import com.example.finalattestationreddit.domain.users.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

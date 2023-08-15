@@ -5,7 +5,7 @@ import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.post.Post
+import com.example.finalattestationreddit.data.model.dto.post.Post
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.utils.GlideRequestListenerFactory
 import com.example.finalattestationreddit.presentation.utils.ImageUrlExtractor

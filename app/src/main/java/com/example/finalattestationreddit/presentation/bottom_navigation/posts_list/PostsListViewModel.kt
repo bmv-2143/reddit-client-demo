@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.finalattestationreddit.data.dto.post.Post
+import com.example.finalattestationreddit.data.model.dto.post.Post
 import com.example.finalattestationreddit.domain.posts.GetAllRecentPostsUseCase
 import com.example.finalattestationreddit.domain.posts.GetMySavedPostsUseCase
 import com.example.finalattestationreddit.domain.posts.GetPostsUseCase

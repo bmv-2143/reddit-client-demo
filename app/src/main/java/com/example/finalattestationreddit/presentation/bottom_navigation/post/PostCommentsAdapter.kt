@@ -3,7 +3,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.post
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import com.example.finalattestationreddit.data.dto.comment.Comment
+import com.example.finalattestationreddit.data.model.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.ListItemPostCommentBinding
 
 /*

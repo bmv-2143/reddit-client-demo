@@ -2,14 +2,14 @@ package com.example.finalattestationreddit.data.data_sources
 
 import android.util.Log
 import com.example.finalattestationreddit.data.network.RedditService
-import com.example.finalattestationreddit.data.dto.comment.CommentData
-import com.example.finalattestationreddit.data.dto.comment.CommentListingData
-import com.example.finalattestationreddit.data.dto.post.PostData
-import com.example.finalattestationreddit.data.dto.post.PostListingData
-import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
-import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
-import com.example.finalattestationreddit.data.dto.user.Friend
-import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.data.model.dto.comment.CommentData
+import com.example.finalattestationreddit.data.model.dto.comment.CommentListingData
+import com.example.finalattestationreddit.data.model.dto.post.PostData
+import com.example.finalattestationreddit.data.model.dto.post.PostListingData
+import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditData
+import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditListingData
+import com.example.finalattestationreddit.data.model.dto.user.Friend
+import com.example.finalattestationreddit.data.model.dto.user.User
 import com.example.finalattestationreddit.data.errors.NetworkError
 import com.example.finalattestationreddit.data.events.Event
 import com.example.finalattestationreddit.log.TAG

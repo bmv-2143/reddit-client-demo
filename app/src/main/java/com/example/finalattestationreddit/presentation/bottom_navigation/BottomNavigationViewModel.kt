@@ -6,8 +6,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.repositories.RedditRepository
 import com.example.finalattestationreddit.data.SubscriptionUpdateResult
-import com.example.finalattestationreddit.data.dto.post.Post
-import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
+import com.example.finalattestationreddit.data.model.dto.post.Post
+import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.domain.LogoutUseCase
 import com.example.finalattestationreddit.domain.subreddits.SubscribeToSubredditUseCase
 import com.example.finalattestationreddit.domain.subreddits.UnsubscribeFromSubredditUseCase

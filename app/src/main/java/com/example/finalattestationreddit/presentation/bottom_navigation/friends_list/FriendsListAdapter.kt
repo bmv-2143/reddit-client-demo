@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.data.model.dto.user.User
 import com.example.finalattestationreddit.databinding.ListItemFriendBinding
 
 class FriendsListAdapter(private val onItemClick: (User) -> Unit) :

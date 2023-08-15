@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.data.dto.subreddit
+package com.example.finalattestationreddit.data.model.dto.subreddit
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

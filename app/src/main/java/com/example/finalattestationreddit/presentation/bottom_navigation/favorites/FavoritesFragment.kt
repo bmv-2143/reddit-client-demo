@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.post.Post
-import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
+import com.example.finalattestationreddit.data.model.dto.post.Post
+import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_common.SubredditListType
 import com.example.finalattestationreddit.databinding.FragmentFavoritesBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel

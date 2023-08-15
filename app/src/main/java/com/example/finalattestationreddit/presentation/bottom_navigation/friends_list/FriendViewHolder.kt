@@ -2,7 +2,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.friend
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.dto.user.User
+import com.example.finalattestationreddit.data.model.dto.user.User
 import com.example.finalattestationreddit.databinding.ListItemFriendBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.image_utils.ImageUtils
 import com.example.finalattestationreddit.presentation.utils.formatLargeNumber

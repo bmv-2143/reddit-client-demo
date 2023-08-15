@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.BuildConfig
-import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
+import com.example.finalattestationreddit.data.model.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.domain.subreddits.GetSubredditUseCase
 import com.example.finalattestationreddit.log.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
