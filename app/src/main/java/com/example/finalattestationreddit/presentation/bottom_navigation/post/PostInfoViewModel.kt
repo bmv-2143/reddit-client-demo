@@ -3,6 +3,7 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.post
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.BuildConfig
+import com.example.finalattestationreddit.data.PagingConfig.POST_COMMENTS_PAGE_SIZE_MIN
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.domain.posts_comments.DownVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.posts.GetPostUseCase
@@ -58,7 +59,7 @@ class PostInfoViewModel @Inject constructor(
     }
 
     internal fun shouldDisplayShowAllCommentsButton(post : Post) : Boolean =
-        post.numComments > BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN
+        post.numComments > POST_COMMENTS_PAGE_SIZE_MIN
 
     internal fun switchPostSavedState(post : Post) {
         viewModelScope.launch {

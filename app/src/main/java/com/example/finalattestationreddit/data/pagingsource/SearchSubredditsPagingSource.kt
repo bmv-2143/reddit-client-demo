@@ -1,6 +1,6 @@
 package com.example.finalattestationreddit.data.pagingsource
 
-import com.example.finalattestationreddit.data.repositories.PAGE_SIZE
+import com.example.finalattestationreddit.data.PagingConfig.PAGE_SIZE
 import com.example.finalattestationreddit.data.RedditNetworkDataSource
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditListingData
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData

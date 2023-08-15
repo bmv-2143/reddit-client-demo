@@ -18,6 +18,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.finalattestationreddit.BuildConfig
 import com.example.finalattestationreddit.R
+import com.example.finalattestationreddit.data.PagingConfig.POST_COMMENTS_PAGE_SIZE_MAX
+import com.example.finalattestationreddit.data.PagingConfig.POST_COMMENTS_PAGE_SIZE_MIN
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.databinding.FragmentCommentsListBinding
 import com.example.finalattestationreddit.log.TAG
@@ -110,11 +112,11 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
     private fun startLoadingComments() {
         when (launchMode) {
             LAUNCH_MODE_EMBEDED_NO_TOOLBAR ->
-                startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MIN)
+                startLoadingComments(POST_COMMENTS_PAGE_SIZE_MIN)
 
             LAUNCH_MODE_SEPARATE_WITH_TOOLBAR -> {
                 binding.fragmentCommentsListProgressBar.visibility = View.VISIBLE
-                startLoadingComments(BuildConfig.POST_COMMENTS_PAGE_SIZE_MAX)
+                startLoadingComments(POST_COMMENTS_PAGE_SIZE_MAX)
             }
 
             else -> Log.e(TAG, "Unknown launch mode: $launchMode")

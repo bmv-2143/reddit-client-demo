@@ -29,8 +29,6 @@ android {
         buildConfigField("String", "API_URL", "\"https://oauth.reddit.com/\"")
         buildConfigField("Boolean", "HTTP_LOGGING_ENABLED", "true")
         buildConfigField("String", "REDDIT_BASE_URL", "\"https://www.reddit.com\"")
-        buildConfigField("int", "POST_COMMENTS_PAGE_SIZE_MIN", "10")
-        buildConfigField("int", "POST_COMMENTS_PAGE_SIZE_MAX", "100")
     }
 
     buildTypes {

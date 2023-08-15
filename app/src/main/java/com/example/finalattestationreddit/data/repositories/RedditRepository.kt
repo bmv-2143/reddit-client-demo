@@ -5,6 +5,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.finalattestationreddit.data.NetworkError
+import com.example.finalattestationreddit.data.PagingConfig.PAGE_SIZE
+import com.example.finalattestationreddit.data.PagingConfig.PREFETCH_DISTANCE
 import com.example.finalattestationreddit.data.RedditNetworkDataSource
 import com.example.finalattestationreddit.data.SubscriptionUpdateResult
 import com.example.finalattestationreddit.data.TokenManager
@@ -29,9 +31,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 import javax.inject.Singleton
-
-const val PAGE_SIZE = 30
-const val PREFETCH_DISTANCE = PAGE_SIZE / 3
 
 @Singleton
 class RedditRepository @Inject constructor(
