@@ -31,7 +31,6 @@ class AuthQuery {
 
         const val PARAM_SCOPE: String = "scope"
 
-        // todo: request only the scopes you need
         const val VAL_SCOPE: String =
             "identity edit flair history modconfig modflair modlog modposts modwiki mysubreddits " +
                     "privatemessages read report save submit subscribe vote wikiedit wikiread"
