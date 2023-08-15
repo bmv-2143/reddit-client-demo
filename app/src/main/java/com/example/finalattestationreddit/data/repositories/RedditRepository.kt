@@ -54,28 +54,6 @@ class RedditRepository @Inject constructor(
 
     internal fun removeAccessTokenSync() = tokenManager.removeAccessToken()
 
-//    internal fun getNewSubreddits(): Flow<PagingData<SubredditData>> {
-//        return Pager(
-//            config = PagingConfig(
-//                pageSize = PAGE_SIZE,
-//                prefetchDistance = PREFETCH_DISTANCE,
-//                initialLoadSize = PAGE_SIZE
-//            ),
-//            pagingSourceFactory = { GetSubredditsPagingSource(redditNetworkDataSource) }
-//        ).flow
-//    }
-//
-//    internal fun getPopularSubreddits(): Flow<PagingData<SubredditData>> {
-//        return Pager(
-//            config = PagingConfig(
-//                pageSize = PAGE_SIZE,
-//                prefetchDistance = PREFETCH_DISTANCE,
-//                initialLoadSize = PAGE_SIZE
-//            ),
-//            pagingSourceFactory = { GetSubredditsPagingSource(redditNetworkDataSource) }
-//        ).flow
-//    }
-
     internal fun getSubreddits(subredditsListType: String): Flow<PagingData<SubredditData>> {
         return Pager(
             config = PagingConfig(
