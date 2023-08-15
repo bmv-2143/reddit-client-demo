@@ -78,13 +78,11 @@ class RedditRepository @Inject constructor(
         redditNetworkDataSource.vote(targetId, dir)
     }
 
-    internal suspend fun getFirstPost(postName: String): Post? {
-        return redditNetworkDataSource.getPostsById(postName).firstOrNull().let { it?.data }
-    }
+    internal suspend fun getFirstPost(postName: String): Post? =
+        redditNetworkDataSource.getPostsById(postName).firstOrNull().let { it?.data }
 
-    internal suspend fun getComment(commentName: String): Comment? {
-        return redditNetworkDataSource.getCommentById(commentName).firstOrNull().let { it?.data }
-    }
+    internal suspend fun getComment(commentName: String): Comment? =
+        redditNetworkDataSource.getCommentById(commentName).firstOrNull().let { it?.data }
 
     internal suspend fun getPostComments(
         subredditDisplayName: String,
@@ -105,9 +103,8 @@ class RedditRepository @Inject constructor(
 
     internal suspend fun getMyUser(): User? = redditNetworkDataSource.getMyUser()
 
-    internal suspend fun getUserPostsCount(username: String): Int {
-        return redditNetworkDataSource.getUserPostsAll(username).count()
-    }
+    internal suspend fun getUserPostsCount(username: String): Int =
+        redditNetworkDataSource.getUserPostsAll(username).count()
 
     internal fun getUserPosts(username: String): Flow<PagingData<PostData>> =
         pagerFactory.makeUserPostsPager(username).flow
@@ -116,8 +113,8 @@ class RedditRepository @Inject constructor(
         val username = getMyName()
 
         if (username == null) {
-            Log.e(TAG, "getMySavedPosts: my username is null")
-            emitAll(flowOf<PagingData<PostData>>())
+            Log.e(TAG, "${::getMySavedPosts.name}: my username is null")
+            emitAll(flowOf())
         } else {
             val pagerFlow = pagerFactory.makeMySavedPostsPager(username).flow
             emitAll(pagerFlow)
@@ -126,6 +123,7 @@ class RedditRepository @Inject constructor(
 
     internal suspend fun clearSavedPosts(): Boolean {
         val myUsername = getMyName()
+
         if (myUsername == null) {
             Log.e(TAG, "${::clearSavedPosts.name}: my username is null")
             return false
