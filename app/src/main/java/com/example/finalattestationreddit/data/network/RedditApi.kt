@@ -26,21 +26,11 @@ interface RedditApi {
         @Query("limit") perPage: Int
     ): SubredditListingResponse
 
-    @GET("subreddits/new")
-    suspend fun getNewSubreddits(
-        @Query("after") after: String,
-        @Query("limit") perPage: Int
-    ): SubredditListingResponse
-
-    @GET("subreddits/popular")
-    suspend fun getPopularSubreddits(): SubredditListingResponse
-
     @GET("/subreddits/mine/subscriber")
     suspend fun getSubscribedSubreddits(
         @Query("after") after: String,
         @Query("limit") perPage: Int
     ): SubredditListingResponse
-
 
     @POST("/api/subscribe")
     suspend fun updateSubscription(
@@ -60,7 +50,6 @@ interface RedditApi {
         @Path("subreddit") subreddit: String
     ): SubredditResponse
 
-
     @GET("/subreddits/search")
     suspend fun searchSubreddits(
         @Query("q") query: String?,
@@ -68,11 +57,11 @@ interface RedditApi {
         @Query("limit") perPage: Int
     ): SubredditListingResponse
 
+
     @GET("by_id/{names}")
     suspend fun getPostsById(
         @Path("names") names: String
     ): PostListingResponse
-
 
     /**
      * @param targetFullName fullname (base36 string) of the post or comment
@@ -91,12 +80,9 @@ interface RedditApi {
         @Query("sort") sort: String = "top",
         @Query("depth") depth: Int? = null,
         @Query("limit") limit: Int? = null,
-
-        // todo: do I need that?
         @Query("more") more: Boolean = false,
         @Query("threaded") threaded: Boolean = false,
-
-        ): List<CommentListingResponse>
+    ): List<CommentListingResponse>
 
     @GET("/api/info")
     suspend fun getCommentById(
@@ -155,7 +141,6 @@ interface RedditApi {
         @Query("limit") limit: Int? = null
     ): PostListingResponse
 
-    //    @GET("/r/all") // WORKS ALSO
     @GET("/r/all/new")
     suspend fun getAllRecentPosts(
         @Query("after") after: String? = null,
