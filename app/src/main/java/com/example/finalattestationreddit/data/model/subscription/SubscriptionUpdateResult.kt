@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.data
+package com.example.finalattestationreddit.data.model.subscription
 
 data class SubscriptionUpdateResult(
     val subredditDisplayName: String,

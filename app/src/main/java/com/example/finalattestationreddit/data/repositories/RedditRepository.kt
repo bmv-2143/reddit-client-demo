@@ -8,7 +8,7 @@ import com.example.finalattestationreddit.data.model.errors.NetworkError
 import com.example.finalattestationreddit.data.config.PagingConfig.PAGE_SIZE
 import com.example.finalattestationreddit.data.config.PagingConfig.PREFETCH_DISTANCE
 import com.example.finalattestationreddit.data.data_sources.RedditNetworkDataSource
-import com.example.finalattestationreddit.data.SubscriptionUpdateResult
+import com.example.finalattestationreddit.data.model.subscription.SubscriptionUpdateResult
 import com.example.finalattestationreddit.data.model.dto.comment.Comment
 import com.example.finalattestationreddit.data.model.dto.post.Post
 import com.example.finalattestationreddit.data.model.dto.post.PostData

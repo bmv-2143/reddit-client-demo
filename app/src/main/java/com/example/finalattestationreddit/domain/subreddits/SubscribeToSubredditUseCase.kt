@@ -1,7 +1,7 @@
 package com.example.finalattestationreddit.domain.subreddits
 
 import com.example.finalattestationreddit.data.repositories.RedditRepository
-import com.example.finalattestationreddit.data.SubscriptionUpdateResult
+import com.example.finalattestationreddit.data.model.subscription.SubscriptionUpdateResult
 import javax.inject.Inject
 
 class SubscribeToSubredditUseCase @Inject constructor(
