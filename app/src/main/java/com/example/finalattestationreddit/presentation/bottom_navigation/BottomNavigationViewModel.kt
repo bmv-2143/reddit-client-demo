@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.finalattestationreddit.data.RedditRepository
+import com.example.finalattestationreddit.data.repositories.RedditRepository
 import com.example.finalattestationreddit.data.SubscriptionUpdateResult
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData

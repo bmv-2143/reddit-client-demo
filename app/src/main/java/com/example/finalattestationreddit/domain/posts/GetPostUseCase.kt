@@ -1,6 +1,6 @@
 package com.example.finalattestationreddit.domain.posts
 
-import com.example.finalattestationreddit.data.RedditRepository
+import com.example.finalattestationreddit.data.repositories.RedditRepository
 import com.example.finalattestationreddit.data.dto.post.Post
 import javax.inject.Inject
 

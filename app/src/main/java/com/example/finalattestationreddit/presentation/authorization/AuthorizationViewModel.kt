@@ -4,8 +4,8 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.finalattestationreddit.data.LocalRepository
-import com.example.finalattestationreddit.data.RedditRepository
+import com.example.finalattestationreddit.data.repositories.LocalRepository
+import com.example.finalattestationreddit.data.repositories.RedditRepository
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Failed
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationState.Idle

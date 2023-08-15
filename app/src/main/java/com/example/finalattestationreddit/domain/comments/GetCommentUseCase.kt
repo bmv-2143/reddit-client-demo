@@ -1,6 +1,6 @@
 package com.example.finalattestationreddit.domain.comments
 
-import com.example.finalattestationreddit.data.RedditRepository
+import com.example.finalattestationreddit.data.repositories.RedditRepository
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import javax.inject.Inject
 

@@ -1,11 +1,10 @@
 package com.example.finalattestationreddit.data.pagingsource
 
-import com.example.finalattestationreddit.data.PAGE_SIZE
+import com.example.finalattestationreddit.data.repositories.PAGE_SIZE
 import com.example.finalattestationreddit.data.RedditNetworkDataSource
 import com.example.finalattestationreddit.data.dto.post.PostData
 import com.example.finalattestationreddit.data.dto.post.PostListingData
 import com.example.finalattestationreddit.data.mappers.toPostDataList
-import com.example.finalattestationreddit.data.mappers.toSubredditDataList
 
 class GetSubredditPostsPagingSource(
     private val subredditDisplayName: String,

@@ -1,6 +1,6 @@
 package com.example.finalattestationreddit.domain.users
 
-import com.example.finalattestationreddit.data.RedditRepository
+import com.example.finalattestationreddit.data.repositories.RedditRepository
 import javax.inject.Inject
 
 class GetMyUserUseCase @Inject constructor(private val redditRepository: RedditRepository) {

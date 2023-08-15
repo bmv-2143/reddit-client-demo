@@ -1,9 +1,13 @@
-package com.example.finalattestationreddit.data
+package com.example.finalattestationreddit.data.repositories
 
 import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.finalattestationreddit.data.NetworkError
+import com.example.finalattestationreddit.data.RedditNetworkDataSource
+import com.example.finalattestationreddit.data.SubscriptionUpdateResult
+import com.example.finalattestationreddit.data.TokenManager
 import com.example.finalattestationreddit.data.dto.comment.Comment
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.post.PostData

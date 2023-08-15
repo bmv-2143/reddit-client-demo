@@ -1,6 +1,7 @@
-package com.example.finalattestationreddit.data
+package com.example.finalattestationreddit.data.repositories
 
 import android.content.SharedPreferences
+import com.example.finalattestationreddit.data.PrefsKeys
 import com.example.finalattestationreddit.data.PrefsKeys.Companion.IS_ONBOARDING_SHOWED
 import javax.inject.Inject
 import javax.inject.Singleton
