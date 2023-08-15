@@ -88,7 +88,7 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
                 initToolbar()
             }
 
-            else -> Log.e(TAG, "Unknown launch mode: $launchMode")
+            else -> logUnknownLaunchModeError()
         }
     }
 
@@ -118,8 +118,12 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
                 startLoadingComments(POST_COMMENTS_PAGE_SIZE_MAX)
             }
 
-            else -> Log.e(TAG, "Unknown launch mode: $launchMode")
+            else -> logUnknownLaunchModeError()
         }
+    }
+
+    private fun logUnknownLaunchModeError() {
+        Log.e(TAG, "Unknown launch mode: $launchMode")
     }
 
     private fun startLoadingComments(commentsCountLimit: Int) {
