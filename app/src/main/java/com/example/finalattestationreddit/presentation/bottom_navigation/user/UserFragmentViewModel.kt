@@ -3,11 +3,11 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.user
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.user.User
-import com.example.finalattestationreddit.domain.AddFriendUseCase
-import com.example.finalattestationreddit.domain.CheckIfIsAFriendUseCase
+import com.example.finalattestationreddit.domain.friends.AddFriendUseCase
+import com.example.finalattestationreddit.domain.friends.CheckIfIsAFriendUseCase
 import com.example.finalattestationreddit.domain.GetUserPostsCountUseCase
 import com.example.finalattestationreddit.domain.GetUserUseCase
-import com.example.finalattestationreddit.domain.RemoveFriendUseCase
+import com.example.finalattestationreddit.domain.friends.RemoveFriendUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
