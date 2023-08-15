@@ -13,9 +13,8 @@ abstract class BasePagingSource<T : Any> : PagingSource<String, T>() {
         val page = params.key
 
         kotlin.runCatching {
-
-            loadData(params)
-
+            val after = params.key ?: CURSOR_FIRST_PAGE
+            loadData(after)
         }.fold(
             onSuccess = { data: LoadDataResult<T> ->
                 return LoadResult.Page(
@@ -32,7 +31,7 @@ abstract class BasePagingSource<T : Any> : PagingSource<String, T>() {
             })
     }
 
-    protected abstract suspend fun loadData(params: LoadParams<String>): LoadDataResult<T>
+    protected abstract suspend fun loadData(pageToLoadKey : String): LoadDataResult<T>
 
     internal companion object {
         internal const val CURSOR_BEFORE = "before"

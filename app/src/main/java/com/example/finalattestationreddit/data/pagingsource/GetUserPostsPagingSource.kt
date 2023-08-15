@@ -10,13 +10,11 @@ class GetUserPostsPagingSource(
     private val redditNetworkDataSource: RedditNetworkDataSource
 ) : BasePagingSource<PostData>() {
 
-    override suspend fun loadData(params: LoadParams<String>):
+    override suspend fun loadData(pageToLoadKey : String):
             LoadDataResult<PostData> {
 
-        val after = params.key ?: CURSOR_FIRST_PAGE
-
         val responseData: PostListingData =
-            redditNetworkDataSource.getUserPosts(username, after, PAGE_SIZE)
+            redditNetworkDataSource.getUserPosts(username, pageToLoadKey, PAGE_SIZE)
 
         return LoadDataResult(
             responseData.toPostDataList(),

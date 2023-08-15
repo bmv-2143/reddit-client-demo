@@ -10,13 +10,11 @@ class GetSubredditsPagingSource(
     private val redditNetworkDataSource: RedditNetworkDataSource
 ) : BasePagingSource<SubredditData>() {
 
-    override suspend fun loadData(params: LoadParams<String>):
+    override suspend fun loadData(pageToLoadKey : String):
             LoadDataResult<SubredditData> {
 
-        val after = params.key ?: CURSOR_FIRST_PAGE
-
         val responseData: SubredditListingData =
-            redditNetworkDataSource.getSubreddits(subredditsListType, after, PAGE_SIZE)
+            redditNetworkDataSource.getSubreddits(subredditsListType, pageToLoadKey, PAGE_SIZE)
 
         return LoadDataResult(
             responseData.toSubredditDataList(),
