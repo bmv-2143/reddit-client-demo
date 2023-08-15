@@ -2,6 +2,7 @@ package com.example.finalattestationreddit.data.repositories
 
 import android.util.Log
 import androidx.paging.PagingData
+import com.example.finalattestationreddit.data.config.PagingConfig.POST_PAGE_SIZE_MAX
 import com.example.finalattestationreddit.data.data_sources.RedditNetworkDataSource
 import com.example.finalattestationreddit.data.model.dto.comment.Comment
 import com.example.finalattestationreddit.data.model.dto.post.Post
@@ -138,7 +139,7 @@ class RedditRepository @Inject constructor(
         val savedPosts = redditNetworkDataSource.getMySavedPosts(
             myUsername,
             BasePagingSource.CURSOR_FIRST_PAGE,
-            10_000  // todo: hardcoded consts
+            POST_PAGE_SIZE_MAX
         )
 
         if (savedPosts.children.isEmpty())
