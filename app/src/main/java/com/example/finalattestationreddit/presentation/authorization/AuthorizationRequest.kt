@@ -37,8 +37,6 @@ class AuthorizationRequest(val requestState: String = AuthQuery.generateAuthRequ
         } else {
             val paramsMap = extractUriFragmentParams(fragment)
             paramsMap[paramName]
-        }.also {
-            Log.e(TAG, "${::extractFragmentParam} : $paramName: $it")
         }
     }
 
