@@ -102,8 +102,10 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     private fun observeComments() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.comments.collectLatest { comments ->
-                displayComments(comments)
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.comments.collectLatest { comments ->
+                    displayComments(comments)
+                }
             }
         }
     }
@@ -128,9 +130,11 @@ class CommentsListFragment : ViewBindingFragment<FragmentCommentsListBinding>() 
 
     private fun startLoadingComments(commentsCountLimit: Int) {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.startLoadingPostComments(
-                navigationArgs.subredditName, navigationArgs.postId, commentsCountLimit
-            )
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.startLoadingPostComments(
+                    navigationArgs.subredditName, navigationArgs.postId, commentsCountLimit
+                )
+            }
         }
     }
 
