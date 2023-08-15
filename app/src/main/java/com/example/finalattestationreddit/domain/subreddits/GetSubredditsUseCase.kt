@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.domain
+package com.example.finalattestationreddit.domain.subreddits
 
 import androidx.paging.PagingData
 import com.example.finalattestationreddit.data.RedditRepository
@@ -6,11 +6,11 @@ import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetSubscribedSubredditsUseCase @Inject constructor(
+class GetSubredditsUseCase @Inject constructor(
     private val redditRepository: RedditRepository,
 ) {
 
-    operator fun invoke(): Flow<PagingData<SubredditData>> =
-        redditRepository.getSubscribedSubreddits()
+    operator fun invoke(subredditsListType : String): Flow<PagingData<SubredditData>> =
+        redditRepository.getSubreddits(subredditsListType)
 
 }

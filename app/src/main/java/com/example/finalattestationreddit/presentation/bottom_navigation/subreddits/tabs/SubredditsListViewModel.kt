@@ -9,8 +9,8 @@ import androidx.paging.cachedIn
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
 import com.example.finalattestationreddit.data.network.SubredditListType.VAL_SUBREDDITS_LIST_TYPE_SUBSCRIBED
-import com.example.finalattestationreddit.domain.GetSubredditsUseCase
-import com.example.finalattestationreddit.domain.GetSubscribedSubredditsUseCase
+import com.example.finalattestationreddit.domain.subreddits.GetSubredditsUseCase
+import com.example.finalattestationreddit.domain.subreddits.GetSubscribedSubredditsUseCase
 import com.example.finalattestationreddit.log.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow

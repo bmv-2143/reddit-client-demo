@@ -9,8 +9,8 @@ import com.example.finalattestationreddit.data.SubscriptionUpdateResult
 import com.example.finalattestationreddit.data.dto.post.Post
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
 import com.example.finalattestationreddit.domain.LogoutUseCase
-import com.example.finalattestationreddit.domain.SubscribeToSubredditUseCase
-import com.example.finalattestationreddit.domain.UnsubscribeFromSubredditUseCase
+import com.example.finalattestationreddit.domain.subreddits.SubscribeToSubredditUseCase
+import com.example.finalattestationreddit.domain.subreddits.UnsubscribeFromSubredditUseCase
 import com.example.finalattestationreddit.log.TAG
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
