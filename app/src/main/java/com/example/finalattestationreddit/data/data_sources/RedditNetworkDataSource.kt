@@ -36,7 +36,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptySubredditListingData()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getSubreddits.name)
             emptySubredditListingData()
         } catch (e: Exception) {
             logError(::getSubreddits.name, e)
@@ -53,11 +53,9 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         )
     }
 
-    private suspend fun handleHttpException(e: HttpException) {
-        Log.e(
-            TAG,
-            "Error in ${getParentFunctionName()} : ${::handleHttpException.name} error: ${e.message}"
-        )
+    private suspend fun handleHttpException(e: HttpException, methodName: String) {
+        Log.e(TAG,
+            "${::handleHttpException.name} error: method: ${methodName}, message: ${e.message}")
         when (e.code()) {
             403 -> _networkErrorFlow.emit(Event(NetworkError.ForbiddenApiRateExceeded(e.message())))
 
@@ -84,7 +82,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptySubredditListingData()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getSubscribedSubreddits.name)
             emptySubredditListingData()
         } catch (e: Exception) {
             logError(::getSubscribedSubreddits.name, e)
@@ -100,7 +98,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             false
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::updateSubscription.name)
             false
         } catch (e: Exception) {
             logError(::updateSubscription.name, e)
@@ -119,7 +117,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptySubredditListingData()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::searchSubreddits.name)
             emptySubredditListingData()
         } catch (e: Exception) {
             logError(::searchSubreddits.name, e)
@@ -138,7 +136,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptyPostListingData()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getSubredditPosts.name)
             emptyPostListingData()
         } catch (e: Exception) {
             logError(::getSubredditPosts.name, e)
@@ -156,7 +154,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptyPostListingData()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getAllRecentPosts.name)
             emptyPostListingData()
         } catch (e: Exception) {
             logError(::getAllRecentPosts.name, e)
@@ -182,7 +180,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             null
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getSubreddit.name)
             null
         } catch (e: Exception) {
             logError(::getSubreddit.name, e)
@@ -198,7 +196,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             false
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::vote.name)
             false
         } catch (e: Exception) {
             logError(::vote.name, e)
@@ -221,7 +219,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptyCommentListingData()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getPostComments.name)
             emptyCommentListingData()
         } catch (e: Exception) {
             logError(::getPostComments.name, e)
@@ -254,7 +252,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             null
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getUser.name)
             null
         } catch (e: Exception) {
             logError(::getUser.name, e)
@@ -269,7 +267,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             null
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getMyUser.name)
             null
         } catch (e: Exception) {
             logError(::getMyUser.name, e)
@@ -288,7 +286,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptyPostListingData()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getUserPosts.name)
             emptyPostListingData()
         } catch (e: Exception) {
             logError(::getUserPosts.name, e)
@@ -303,7 +301,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptyList()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getUserPostsAll.name)
             emptyList()
         } catch (e: Exception) {
             logError(::getUserPostsAll.name, e)
@@ -322,7 +320,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptyPostListingData()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getMySavedPosts.name)
             emptyPostListingData()
         } catch (e: Exception) {
             logError(::getMySavedPosts.name, e)
@@ -338,7 +336,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             false
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::addFriend.name)
             false
         } catch (e: Exception) {
             logError(::addFriend.name, e)
@@ -354,7 +352,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             false
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::removeFriend.name)
             false
         } catch (e: Exception) {
             logError(::removeFriend.name, e)
@@ -369,7 +367,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             emptyList()
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::getFriends.name)
             emptyList()
         } catch (e: Exception) {
             logError(::getFriends.name, e)
@@ -389,7 +387,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
             handleUnknownHostError(e)
             false
         } catch (e: HttpException) {
-            handleHttpException(e)
+            handleHttpException(e, ::setPostSavedState.name)
             false
         } catch (e: Exception) {
             logError(::setPostSavedState.name, e)
@@ -399,10 +397,5 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
 
     private fun emptyCommentListingData(): CommentListingData =
         CommentListingData(emptyList())
-
-    private fun getParentFunctionName(): String {
-        val stackTrace = Thread.currentThread().stackTrace
-        return stackTrace[2].methodName
-    }
 
 }
