@@ -34,8 +34,6 @@ abstract class BasePagingSource<T : Any> : PagingSource<String, T>() {
     protected abstract suspend fun loadData(pageToLoadKey : String): LoadDataResult<T>
 
     internal companion object {
-        internal const val CURSOR_BEFORE = "before"
-        internal const val CURSOR_AFTER = "after"
         internal const val CURSOR_FIRST_PAGE = ""
     }
 
