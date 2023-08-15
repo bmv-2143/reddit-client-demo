@@ -3,11 +3,11 @@ package com.example.finalattestationreddit.presentation.bottom_navigation.commen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalattestationreddit.data.dto.comment.Comment
-import com.example.finalattestationreddit.domain.DownVotePostOrCommentUseCase
+import com.example.finalattestationreddit.domain.posts_comments.DownVotePostOrCommentUseCase
 import com.example.finalattestationreddit.domain.comments.GetCommentUseCase
 import com.example.finalattestationreddit.domain.comments.GetPostCommentsUseCase
-import com.example.finalattestationreddit.domain.UnVotePostOrCommentUseCase
-import com.example.finalattestationreddit.domain.UpVotePostOrCommentUseCase
+import com.example.finalattestationreddit.domain.posts_comments.UnVotePostOrCommentUseCase
+import com.example.finalattestationreddit.domain.posts_comments.UpVotePostOrCommentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
