@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
-import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
-import com.example.finalattestationreddit.data.network.SubredditListType.VAL_SUBREDDITS_LIST_TYPE_SUBSCRIBED
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_common.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_common.SubredditListType.VAL_SUBREDDITS_LIST_TYPE_SUBSCRIBED
 import com.example.finalattestationreddit.domain.subreddits.GetSubredditsUseCase
 import com.example.finalattestationreddit.domain.subreddits.GetSubscribedSubredditsUseCase
 import com.example.finalattestationreddit.log.TAG

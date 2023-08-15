@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.data.network
+package com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_common
 
 object SubredditListType {
 

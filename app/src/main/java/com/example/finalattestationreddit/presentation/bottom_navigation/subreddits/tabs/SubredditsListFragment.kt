@@ -12,7 +12,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalattestationreddit.data.dto.subreddit.SubredditData
-import com.example.finalattestationreddit.data.network.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
+import com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_common.SubredditListType.ARG_SUBREDDITS_LIST_TYPE
 import com.example.finalattestationreddit.databinding.FragmentSubredditsListBinding
 import com.example.finalattestationreddit.presentation.bottom_navigation.BottomNavigationViewModel
 import com.example.finalattestationreddit.presentation.bottom_navigation.base.ViewBindingFragment
