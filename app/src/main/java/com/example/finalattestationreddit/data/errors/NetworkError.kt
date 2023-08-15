@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.data
+package com.example.finalattestationreddit.data.errors
 
 sealed class NetworkError(val message: String) {
 

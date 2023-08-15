@@ -14,9 +14,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.example.finalattestationreddit.R
-import com.example.finalattestationreddit.data.NetworkError
-import com.example.finalattestationreddit.data.NetworkError.ForbiddenApiRateExceeded
-import com.example.finalattestationreddit.data.NetworkError.Unauthorized
+import com.example.finalattestationreddit.data.errors.NetworkError
+import com.example.finalattestationreddit.data.errors.NetworkError.ForbiddenApiRateExceeded
+import com.example.finalattestationreddit.data.errors.NetworkError.Unauthorized
 import com.example.finalattestationreddit.databinding.ActivityBottomNavigationBinding
 import com.example.finalattestationreddit.log.TAG
 import com.example.finalattestationreddit.presentation.authorization.AuthorizationActivity
