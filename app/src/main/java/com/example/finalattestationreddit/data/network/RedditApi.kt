@@ -148,6 +148,6 @@ interface RedditApi {
     ): PostListingResponse
 
     companion object {
-        const val DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT = 10_000
+        const val DEFAULT_MAX_USER_POSTS_REQUEST_LIMIT = 100 // the max limit of the reddit api
     }
 }
