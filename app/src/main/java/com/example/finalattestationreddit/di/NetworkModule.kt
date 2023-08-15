@@ -2,7 +2,7 @@ package com.example.finalattestationreddit.di
 
 import android.content.SharedPreferences
 import com.example.finalattestationreddit.BuildConfig
-import com.example.finalattestationreddit.data.TokenManager
+import com.example.finalattestationreddit.data.repositories.TokenManager
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

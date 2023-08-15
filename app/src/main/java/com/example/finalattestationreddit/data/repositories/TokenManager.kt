@@ -1,4 +1,4 @@
-package com.example.finalattestationreddit.data
+package com.example.finalattestationreddit.data.repositories
 
 import android.content.SharedPreferences
 import com.example.finalattestationreddit.di.TokenProvider
