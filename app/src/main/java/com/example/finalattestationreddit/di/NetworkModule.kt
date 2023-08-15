@@ -59,8 +59,8 @@ class NetworkModule {
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(authInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
             .build()
 
         return Retrofit.Builder().baseUrl(BuildConfig.API_URL)
@@ -69,4 +69,10 @@ class NetworkModule {
             .build()
     }
 
+    companion object {
+
+        const val CONNECTION_TIMEOUT = 30L
+        const val READ_TIMEOUT = 30L
+
+    }
 }
