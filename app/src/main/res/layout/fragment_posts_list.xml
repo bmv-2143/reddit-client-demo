@@ -15,6 +15,7 @@
         app:title="Posts List"
         app:titleTextColor="?attr/colorOnPrimary"
         android:visibility="gone"
+        app:theme="@style/AppTheme.Toolbar"
         />
 
     <FrameLayout

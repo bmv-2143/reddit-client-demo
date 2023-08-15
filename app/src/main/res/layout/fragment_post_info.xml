@@ -13,7 +13,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:title="Posts Info with comments"
-        app:titleTextColor="?attr/colorOnPrimary" />
+        app:titleTextColor="?attr/colorOnPrimary"
+        app:theme="@style/AppTheme.Toolbar"/>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/fragment_post_info_scroll_view"
