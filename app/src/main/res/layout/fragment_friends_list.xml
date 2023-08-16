@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_main"
     android:orientation="vertical"
     tools:context=".presentation.bottom_navigation.friends_list.FriendsListFragment">
@@ -13,15 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        app:theme="@style/AppTheme.Toolbar"
         app:title="Posts List"
-        app:titleTextColor="?attr/colorOnPrimary"
-        app:theme="@style/AppTheme.Toolbar"/>
+        app:titleTextColor="?attr/colorOnPrimary" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="@color/white"
-        android:background="@color/bg_main">
+        android:background="@color/bg_main"
+        android:backgroundTint="@color/white">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_friends_list_recycler_view"
@@ -41,6 +41,4 @@
             android:layout_gravity="center" />
 
     </FrameLayout>
-
-
 </androidx.appcompat.widget.LinearLayoutCompat>
