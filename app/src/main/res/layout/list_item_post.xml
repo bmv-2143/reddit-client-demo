@@ -35,11 +35,11 @@
                 android:id="@+id/list_item_post_image"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
                 android:minWidth="100dp"
                 android:minHeight="100dp"
-                android:adjustViewBounds="true"
-                android:visibility="visible"
                 android:scaleType="centerCrop"
+                android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@id/barrier"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -55,8 +55,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/list_item_post_image"
                 app:layout_constraintEnd_toEndOf="@+id/list_item_post_image"
                 app:layout_constraintStart_toStartOf="@+id/list_item_post_image"
-                app:layout_constraintTop_toTopOf="@+id/list_item_post_image"
-                />
+                app:layout_constraintTop_toTopOf="@+id/list_item_post_image" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"
@@ -77,23 +76,22 @@
                 android:id="@+id/list_item_text_visibility_control_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="list_item_post_text_body_guideline,list_item_post_description,barrier"
                 android:visibility="visible"
-                />
+                app:constraint_referenced_ids="list_item_post_text_body_guideline,list_item_post_description,barrier" />
 
             <TextView
                 android:id="@+id/list_item_post_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
                 android:paddingHorizontal="8dp"
-                tools:text="@tools:sample/lorem/random"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toStartOf="@+id/list_item_post_text_body_guideline"
                 app:layout_constraintTop_toTopOf="parent"
-                android:maxLines="3"
-                android:ellipsize="end"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                tools:text="@tools:sample/lorem/random" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
