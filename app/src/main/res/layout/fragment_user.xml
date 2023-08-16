@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/bg_main"
+    android:orientation="vertical"
     tools:context=".presentation.bottom_navigation.user.UserFragment">
 
     <com.google.android.material.card.MaterialCardView
@@ -43,8 +43,8 @@
                     android:id="@+id/fragment_user_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
                     android:background="@drawable/bg_user_name_text"
+                    android:paddingHorizontal="16dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:text="User Name" />
@@ -53,8 +53,8 @@
                     android:id="@+id/fragment_user_link_karma"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
                     android:layout_marginTop="8dp"
+                    android:paddingHorizontal="16dp"
                     android:text="@string/fragment_user_karma_default_value"
                     android:textSize="14sp" />
 
@@ -63,8 +63,8 @@
                     android:id="@+id/fragment_user_icont_text_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
                     android:layout_marginTop="8dp"
+                    android:paddingHorizontal="16dp"
                     app:icon="@drawable/ic_email"
                     app:text="Message" />
 
@@ -72,17 +72,14 @@
                     android:id="@+id/fragment_user_icon_text_post_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
                     android:layout_marginTop="8dp"
+                    android:paddingHorizontal="16dp"
                     app:icon="@drawable/ic_messages"
                     app:text="0"
                     tools:visibility="visible" />
 
-
             </androidx.appcompat.widget.LinearLayoutCompat>
-
         </androidx.appcompat.widget.LinearLayoutCompat>
-
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
