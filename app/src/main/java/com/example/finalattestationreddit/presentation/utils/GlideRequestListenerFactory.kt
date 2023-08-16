@@ -1,10 +1,12 @@
 package com.example.finalattestationreddit.presentation.utils
 
 import android.graphics.drawable.Drawable
+import android.util.Log
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.example.finalattestationreddit.log.TAG
 
 object GlideRequestListenerFactory {
 
@@ -28,7 +30,7 @@ object GlideRequestListenerFactory {
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                onResourceReady?.invoke()
+                executeCatching(onResourceReady)
                 return false
             }
 
@@ -38,11 +40,19 @@ object GlideRequestListenerFactory {
                 target: Target<Drawable>?,
                 isFirstResource: Boolean
             ): Boolean {
-                onLoadFailed?.invoke()
+                executeCatching(onLoadFailed)
                 return false
             }
         }
     }
 
+    private fun executeCatching(action: (() -> Unit)? = null) {
+        try {
+            action?.invoke()
+        } catch (e: NullPointerException) {
+            Log.e(TAG,
+                "Glide callback execution error: execution context is null: $e")
+        }
+    }
 }
 
