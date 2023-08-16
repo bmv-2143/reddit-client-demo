@@ -55,9 +55,9 @@
         android:id="@+id/activity_authorization_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="@string/activity_auth_subtitle"
         android:textAlignment="center"
-        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/activity_authorization_title" />
