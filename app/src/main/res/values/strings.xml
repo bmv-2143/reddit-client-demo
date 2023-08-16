@@ -42,6 +42,8 @@
     <string name="list_item_post_comment_btn_download_msg">Download: %1s</string>
     <string name="list_item_post_comment_btn_save_msg">Save: %1s</string>
 
+    <string name="list_item_subreddits_button_switch_subscription">Switch subreddit subscription</string>
+
     <string name="fragment_user_icon_text_message">Message</string>
     <string name="fragment_user_karma_template">Karma: %1d</string>
     <string name="fragment_user_karma_default_value">Karma: 0</string>
