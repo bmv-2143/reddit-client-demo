@@ -11,9 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        app:theme="@style/AppTheme.Toolbar"
         app:title="Subreddit Info"
-        app:titleTextColor="?attr/colorOnPrimary"
-        app:theme="@style/AppTheme.Toolbar"/>
+        app:titleTextColor="?attr/colorOnPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
+            android:contentDescription="@string/fragment_subreddit_into_share_subreddit"
             app:cornerRadius="16dp"
             app:icon="@drawable/ic_share_24"
             app:iconGravity="textStart"
@@ -65,7 +66,6 @@
             android:layout_height="100dp"
             android:layout_marginTop="8dp"
             app:srcCompat="@drawable/fragment_subreddit_info_frog_face_primary_color" />
-        <!--            app:tint="#66AAAAAA" -->
 
         <ProgressBar
             android:id="@+id/fragment_subreddit_info_progress_bar"
@@ -75,7 +75,6 @@
             android:indeterminateTint="@color/teal_200" />
 
     </FrameLayout>
-
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -96,9 +95,6 @@
                 tools:text="@tools:sample/lorem/random" />
 
         </ScrollView>
-
-
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

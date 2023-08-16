@@ -22,9 +22,11 @@
     <string name="activity_bottom_navigation_error_no_internet_connection">No Internet connection! Please try again later.</string>
     <string name="activity_bottom_navigation_error_api_rate_limit_exceeded">API rate limit exceeded!</string>
 
-    <string name="fragment_subreddits_title">Subreddits</string>
     <string name="fragment_subreddit_info_no_description">This subreddit doesn\'t have a description.</string>
     <string name="fragment_subreddit_info_share_chooser_title">Share Subreddit link</string>
+    <string name="fragment_subreddit_into_share_subreddit">Share subreddit</string>
+
+    <string name="fragment_subreddits_title">Subreddits</string>
     <string name="fragment_subreddits_search_title">Search subreddits</string>
     <string name="fragment_subreddits_search_hint">Search…</string>
     <string name="fragment_subreddits_search_view_hint">Search</string>
@@ -83,4 +85,5 @@
     <string name="time_years_ago">%1d years ago</string>
     <string name="fragment_posts_list_menu_subreddits_info">Menu Item</string>
     <string name="list_item_post_comment_local_download">Local Download</string>
+
 </resources>
