@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:color="@color/bg_main"
+    android:orientation="vertical"
     tools:context=".presentation.bottom_navigation.subreddits_search.SubredditsSearchFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -13,10 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="@string/fragment_subreddits_search_title"
-        app:titleTextColor="?attr/colorOnPrimary"
         app:theme="@style/AppTheme.Toolbar"
-        />
+        app:title="@string/fragment_subreddits_search_title"
+        app:titleTextColor="?attr/colorOnPrimary" />
 
     <FrameLayout
         android:layout_width="match_parent"
