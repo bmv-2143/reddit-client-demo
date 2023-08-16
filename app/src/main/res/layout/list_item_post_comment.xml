@@ -20,13 +20,13 @@
             android:id="@+id/list_item_post_comment_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#5222CF"
-            android:textStyle="bold"
-            android:paddingVertical="8dp"
-            android:paddingEnd="8dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
+            android:paddingVertical="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="#5222CF"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/list_item_post_comment_publication_time"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +37,8 @@
             android:id="@+id/list_item_post_comment_publication_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
             android:paddingVertical="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/list_item_post_comment_author"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="publication time" />
@@ -67,25 +67,13 @@
             style="@style/TextButtonWithIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Local Download"
+            android:text="@string/list_item_post_comment_local_download"
             app:icon="@drawable/list_item_post_comment_download_button_icon_24"
             app:layout_constraintBottom_toBottomOf="@+id/fragment_post_info_score_voting"
             app:layout_constraintEnd_toStartOf="@id/fragment_post_info_score_voting"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/fragment_post_info_score_voting" />
-
-<!--        <com.google.android.material.button.MaterialButton-->
-<!--            android:id="@+id/list_item_post_comment_button_save_button"-->
-<!--            style="@style/TextButtonWithIcon"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Save"-->
-<!--            app:icon="@drawable/list_item_post_comment_save_button_icon_24"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/fragment_post_info_score_voting"-->
-<!--            app:layout_constraintEnd_toStartOf="@id/fragment_post_info_score_voting"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/list_item_post_comment_button_local_download"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/fragment_post_info_score_voting" />-->
 
         <com.example.finalattestationreddit.presentation.widgets.ScoreVotingViewGroup
             android:id="@+id/fragment_post_info_score_voting"
