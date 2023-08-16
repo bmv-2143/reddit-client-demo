@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/bg_main"
+    android:orientation="vertical"
     tools:context="com.example.finalattestationreddit.presentation.bottom_navigation.posts_list.PostsListFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,11 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="Posts List"
-        app:titleTextColor="?attr/colorOnPrimary"
         android:visibility="gone"
         app:theme="@style/AppTheme.Toolbar"
-        />
+        app:title="Posts List"
+        app:titleTextColor="?attr/colorOnPrimary" />
 
     <FrameLayout
         android:layout_width="match_parent"
