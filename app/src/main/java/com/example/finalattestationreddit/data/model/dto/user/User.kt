@@ -5,8 +5,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class User(
-    @Json(name = "name") val name: String,
-    @Json(name = "id") val id: String,
+    val name: String,
+    val id: String,
     @Json(name = "created_utc") val createdUtc: Long,
     @Json(name = "total_karma") val totalKarma: Int,
     @Json(name = "comment_karma") val commentKarma: Int,

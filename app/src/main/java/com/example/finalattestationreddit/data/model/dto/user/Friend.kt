@@ -5,8 +5,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class Friend(
-    @Json(name = "name") val name: String,
-    @Json(name = "id") val id: String,
+    val name: String,
+    val id: String,
     @Json(name = "created_utc") val createdUtc: Long?,
-    @Json(name = "note") val note: String?
+    val note: String?
 )
