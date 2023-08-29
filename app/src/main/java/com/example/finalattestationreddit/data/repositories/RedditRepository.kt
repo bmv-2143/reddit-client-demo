@@ -35,7 +35,7 @@ class RedditRepository @Inject constructor(
         if (event.hasBeenConsumed) {
             return@onEach
         }
-        if (networkError is NetworkError.Unauthorized) {
+        if (networkError == NetworkError.Unauthorized) {
             removeAccessTokenSync()
         }
     }

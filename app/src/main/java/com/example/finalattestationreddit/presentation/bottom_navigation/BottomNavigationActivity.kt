@@ -100,25 +100,25 @@ class BottomNavigationActivity : AppCompatActivity() {
 
     private fun handleNetworkError(error: NetworkError) {
         when (error) {
-            is ForbiddenApiRateExceeded -> {
+            ForbiddenApiRateExceeded -> {
                 snackbarFactory.showWarningSnackbar(
                     binding.root,
                     getString(R.string.activity_bottom_navigation_error_api_rate_limit_exceeded)
                 )
             }
 
-            is Unauthorized -> {
+            Unauthorized -> {
                 openAuthorizationScreenAndCloseSelf()
             }
 
-            is NetworkError.NoInternetConnection -> {
+            NetworkError.NoInternetConnection -> {
                 snackbarFactory.showWarningSnackbar(
                     binding.root,
                     getString(R.string.activity_bottom_navigation_error_no_internet_connection)
                 )
             }
 
-            else -> Log.e(TAG, "handleNetworkError: ${error.message}")
+            else -> Log.e(TAG, "${::handleNetworkError.name}: $error")
         }
     }
 

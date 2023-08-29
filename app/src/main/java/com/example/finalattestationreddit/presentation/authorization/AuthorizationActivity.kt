@@ -156,7 +156,7 @@ class AuthorizationActivity : AppCompatActivity() {
 
     private fun handleNetworkError(error: NetworkError) {
         when (error) {
-            is NetworkError.Unauthorized -> snackbarFactory.showErrorSnackbar(
+            NetworkError.Unauthorized -> snackbarFactory.showErrorSnackbar(
                 binding.root,
                 getString(R.string.activity_authorization_network_error_unauthorized)
             )

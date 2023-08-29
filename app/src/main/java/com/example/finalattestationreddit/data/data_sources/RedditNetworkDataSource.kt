@@ -50,7 +50,7 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         logError(::handleUnknownHostError.name, e)
         _networkErrorFlow.emit(
             Event(
-                NetworkError.NoInternetConnection(e.message ?: "No internet connection")
+                NetworkError.NoInternetConnection
             )
         )
     }
@@ -59,11 +59,11 @@ class RedditNetworkDataSource @Inject constructor(private val redditService: Red
         Log.e(TAG,
             "${::handleHttpException.name} error: method: ${methodName}, message: ${e.message}")
         when (e.code()) {
-            403 -> _networkErrorFlow.emit(Event(NetworkError.ForbiddenApiRateExceeded(e.message())))
+            403 -> _networkErrorFlow.emit(Event(NetworkError.ForbiddenApiRateExceeded))
 
-            401 -> _networkErrorFlow.emit(Event(NetworkError.Unauthorized(e.message())))
+            401 -> _networkErrorFlow.emit(Event(NetworkError.Unauthorized))
 
-            else -> _networkErrorFlow.emit(Event(NetworkError.HttpError(e.message())))
+            else -> _networkErrorFlow.emit(Event(NetworkError.HttpError))
         }
     }
 
