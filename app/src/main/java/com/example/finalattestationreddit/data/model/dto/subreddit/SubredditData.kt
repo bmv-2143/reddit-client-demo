@@ -1,12 +1,9 @@
 package com.example.finalattestationreddit.data.model.dto.subreddit
 
-import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
-@Parcelize
 data class SubredditData(
 
     val id: String,
@@ -19,4 +16,4 @@ data class SubredditData(
     val url: String,
     @Json(name="community_icon") val communityIcon: String,
 
-) : Parcelable
+)
