@@ -12,7 +12,7 @@ import org.junit.Test
 internal class TextUtilsTestJunit4 {
 
     @Test
-    fun formatsMillionsCorrectly() {
+    fun formatLargeNumber_formatsMillionsCorrectly() {
         assertEquals("1.0M", formatLargeNumber(MILLION))
         assertEquals("-1.0M", formatLargeNumber(-MILLION))
         assertEquals("1.2M", formatLargeNumber((1.2 * MILLION).toInt()))
@@ -20,7 +20,7 @@ internal class TextUtilsTestJunit4 {
     }
 
     @Test
-    fun formatsThousandsCorrectly() {
+    fun formatLargeNumber_formatsThousandsCorrectly() {
 
         // Hamcrest matchers sample
         assertThat("1.0k", `is`(formatLargeNumber(THOUSAND)))
@@ -30,7 +30,7 @@ internal class TextUtilsTestJunit4 {
     }
 
     @Test
-    fun formatsHundredsCorrectly() {
+    fun formatLargeNumber_formatsHundredsCorrectly() {
         assertEquals("100", formatLargeNumber(HUNDRED))
         assertEquals("-100", formatLargeNumber(-HUNDRED))
         assertEquals("120", formatLargeNumber((1.2 * HUNDRED).toInt()))
@@ -38,7 +38,7 @@ internal class TextUtilsTestJunit4 {
     }
 
     @Test
-    fun formatsZeroCorrectly() {
+    fun formatLargeNumber_formatsZeroCorrectly() {
         assertEquals("0", formatLargeNumber(0))
     }
 }
