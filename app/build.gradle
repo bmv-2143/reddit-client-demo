@@ -71,6 +71,12 @@ android {
             universalApk true
         }
     }
+
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -92,6 +98,13 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // JUnit 5 dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    // To continue to run your JUnit4 tests alongside Junit5:
+    testImplementation "org.junit.vintage:junit-vintage-engine:5.8.2"
 
     // Activity, Fragment KTX
     implementation 'androidx.activity:activity-ktx:1.7.2'
