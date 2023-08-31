@@ -3,6 +3,8 @@ package com.example.finalattestationreddit.presentation.utils
 import com.example.finalattestationreddit.presentation.utils.TestUtilsConsts.HUNDRED
 import com.example.finalattestationreddit.presentation.utils.TestUtilsConsts.MILLION
 import com.example.finalattestationreddit.presentation.utils.TestUtilsConsts.THOUSAND
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -19,10 +21,12 @@ internal class TextUtilsTestJunit4 {
 
     @Test
     fun formatsThousandsCorrectly() {
-        assertEquals("1.0k", formatLargeNumber(THOUSAND))
-        assertEquals("-1.0k", formatLargeNumber(-THOUSAND))
-        assertEquals("1.2k", formatLargeNumber((1.2 * THOUSAND).toInt()))
-        assertEquals("-1.2k", formatLargeNumber((-1.2 * THOUSAND).toInt()))
+
+        // Hamcrest matchers sample
+        assertThat("1.0k", `is`(formatLargeNumber(THOUSAND)))
+        assertThat("-1.0k", `is`(formatLargeNumber(-THOUSAND)))
+        assertThat("1.2k", `is`(formatLargeNumber((1.2 * THOUSAND).toInt())))
+        assertThat("-1.2k", `is`(formatLargeNumber((-1.2 * THOUSAND).toInt())))
     }
 
     @Test
