@@ -94,31 +94,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-    // Test
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
-    // JUnit 5 dependencies
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
-
-    // To continue to run your JUnit4 tests alongside Junit5:
-    testImplementation "org.junit.vintage:junit-vintage-engine:5.8.2"
-
-    // Hamcrest
-    testImplementation "org.hamcrest:hamcrest-all:1.3"
-
-    // Mockito
-    testImplementation 'org.mockito:mockito-core:3.4.6'
-
-    // MockK
-    testImplementation "io.mockk:mockk:1.12.2"
-    androidTestImplementation "io.mockk:mockk-android:1.12.2"
-
-    // Kotlin Coroutines Tests
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
-
     // Activity, Fragment KTX
     implementation 'androidx.activity:activity-ktx:1.7.2'
 
@@ -158,6 +133,42 @@ dependencies {
 
     // Android Support Annotations library
     implementation 'com.android.support:support-annotations:28.0.0'
+
+    // Tests
+    // Junit 4
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+
+    // Espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // JUnit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    // To continue to run your JUnit4 tests alongside Junit5:
+    testImplementation "org.junit.vintage:junit-vintage-engine:5.8.2"
+
+    // Hamcrest
+    testImplementation "org.hamcrest:hamcrest-all:1.3"
+
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:3.4.6'
+
+    // MockK
+    testImplementation "io.mockk:mockk:1.12.2"
+    androidTestImplementation "io.mockk:mockk-android:1.12.2"
+
+    // Kotlin Coroutines Tests
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
+
+
+    // AndroidX test library for creating fragments in tests and changing their state
+    debugImplementation "androidx.fragment:fragment-testing:1.6.1"
+
+    // Core AndroidX test library
+    implementation "androidx.test:core:1.5.0"
+
 }
 
 def getRedditClientId() {
