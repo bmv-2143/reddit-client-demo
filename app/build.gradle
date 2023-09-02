@@ -78,6 +78,14 @@ android {
         unitTests.all {
             useJUnitPlatform()
         }
+
+        // Fix MockK / UI tests compatibility issue:
+        // see: https://stackoverflow.com/questions/73146494/not-able-to-use-mockk-in-android-espresso-ui-testing
+        packagingOptions {
+            jniLibs {
+                useLegacyPackaging = true
+            }
+        }
     }
 
     packagingOptions {
