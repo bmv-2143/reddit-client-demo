@@ -45,7 +45,7 @@ class RedditRepository @Inject constructor(
     internal fun saveAccessToken(accessToken: String) =
         tokenManager.saveAccessToken(accessToken)
 
-    internal fun removeAccessTokenSync() = tokenManager.removeAccessToken()
+    internal fun removeAccessTokenSync() = tokenManager.removeAccessTokenSync()
 
     internal fun getSubreddits(subredditsListType: String): Flow<PagingData<SubredditData>> =
         pagerFactory.makeGetSubredditsPager(subredditsListType).flow

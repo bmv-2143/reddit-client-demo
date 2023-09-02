@@ -30,12 +30,13 @@ class TokenManager @Inject constructor(
         editor.apply()
     }
 
-    internal fun removeAccessToken() {
+    @SuppressLint("ApplySharedPref")
+    internal fun removeAccessTokenSync() {
         accessToken = ""
 
         val editor = sharedPreferences.edit()
         editor.remove(PREFS_KEY_ACCESS_TOKEN)
-        editor.apply()
+        editor.commit()
     }
 
     override fun getToken(): String {
