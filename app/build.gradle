@@ -29,6 +29,8 @@ android {
         buildConfigField("String", "API_URL", "\"https://oauth.reddit.com/\"")
         buildConfigField("Boolean", "HTTP_LOGGING_ENABLED", "true")
         buildConfigField("String", "REDDIT_BASE_URL", "\"https://www.reddit.com\"")
+
+        testInstrumentationRunner = "com.example.finalattestationreddit.CustomTestRunner" // TODO: do I need this and this class?
     }
 
     buildTypes {
@@ -76,6 +78,11 @@ android {
         unitTests.all {
             useJUnitPlatform()
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE-notice.md'
+        exclude 'META-INF/LICENSE.md'
     }
 }
 
@@ -143,6 +150,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // JUnit 5
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 
@@ -168,6 +176,14 @@ dependencies {
 
     // Core AndroidX test library
     implementation "androidx.test:core:1.5.0"
+
+
+    // Hilt instrumented tests
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44.2'
+
+    // Hilt tests with Kotlin
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.45'
+
 
 }
 

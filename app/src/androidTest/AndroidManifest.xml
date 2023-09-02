@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--
+see source [AndroidManifest.xml]:
+https://github.com/android/architecture-samples/blob/views-hilt/app/src/debug/AndroidManifest.xml
+
+see section: "Bonus 3. FragmentFactory using Hilt" in "Fancy Fragment = FragmentFactory+Dagger"
+https://medium.com/mj-studio/fancy-fragment-fragmentfactory-dagger-1a574aa5a570
+
+see: "Unit test based on Dagger HILT"
+https://www.programmersought.com/article/18227966739/
+-->
+
+<application
+    android:name="com.example.finalattestationreddit.RedditHiltTestApplication" />
+
+</manifest>
