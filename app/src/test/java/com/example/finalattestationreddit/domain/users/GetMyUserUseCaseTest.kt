@@ -17,7 +17,7 @@ internal class GetMyUserUseCaseTest {
     private val getMyUserUseCase = GetMyUserUseCase(redditRepository)
 
     @Test
-    fun `test getMyUser returns expected user`() = runTest {
+    fun `getMyUserUseCase returns user provided by repository`() = runTest {
 
         // arrange
         val expectedUser = User(
@@ -38,9 +38,8 @@ internal class GetMyUserUseCaseTest {
         assertEquals(expectedUser, actualUser)
     }
 
-
     @Test
-    fun `test getMyUser does not return different user`() = runTest {
+    fun `getMyUserUseCase doesn't return user not from repository`() = runTest {
 
         // arrange
         val expectedUser = User(
