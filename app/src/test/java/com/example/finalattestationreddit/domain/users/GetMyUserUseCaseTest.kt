@@ -20,15 +20,7 @@ internal class GetMyUserUseCaseTest {
     fun `getMyUserUseCase returns user provided by repository`() = runTest {
 
         // arrange
-        val expectedUser = User(
-            name = "testName",
-            id = "testId",
-            createdUtc = 123456789L,
-            totalKarma = 100,
-            commentKarma = 50,
-            iconImg = "testIconImg",
-            friendsNum = 10
-        )
+        val expectedUser = TEST_USER_1
         coEvery { redditRepository.getMyUser() } returns expectedUser
 
         // act
@@ -42,8 +34,21 @@ internal class GetMyUserUseCaseTest {
     fun `getMyUserUseCase doesn't return user not from repository`() = runTest {
 
         // arrange
-        val expectedUser = User(
-            name = "testName",
+        val expectedUser = TEST_USER_1
+        coEvery { redditRepository.getMyUser() } returns expectedUser
+
+        // act
+        val actualUser = getMyUserUseCase.invoke()
+
+        // assert
+        val differentUser = TEST_USER_2
+        assertNotEquals(differentUser, actualUser)
+    }
+
+    companion object {
+
+        private val TEST_USER_1 = User(
+            name = "testName_1",
             id = "testId",
             createdUtc = 123456789L,
             totalKarma = 100,
@@ -51,21 +56,16 @@ internal class GetMyUserUseCaseTest {
             iconImg = "testIconImg",
             friendsNum = 10
         )
-        coEvery { redditRepository.getMyUser() } returns expectedUser
 
-        // act
-        val actualUser = getMyUserUseCase.invoke()
-
-        // assert
-        val differentUser = User(
-            name = "differentName",
-            id = "differentId",
+        private val TEST_USER_2 = User(
+            name = "testName_2",
+            id = "testId_2",
             createdUtc = 987654321L,
             totalKarma = 200,
             commentKarma = 100,
-            iconImg = "differentIconImg",
+            iconImg = "testIconImg_2",
             friendsNum = 20
         )
-        assertNotEquals(differentUser, actualUser)
+
     }
 }
