@@ -40,7 +40,7 @@ class UserProfileViewModelTest {
     }
 
     @Test
-    fun `test getUser sets userFlow value`() = runTest {
+    fun `getUser sets user returned by getMyUserUseCase to userFlow`() = runTest {
 
         // arrange
         val expectedUser = User(
@@ -64,7 +64,7 @@ class UserProfileViewModelTest {
     }
 
     @Test
-    fun `test clearSavedPosts emits value to clearSavedPostsFlow`() = runTest {
+    fun `clearSavedPosts emits true on success to clearSavedPostsFlow`() = runTest {
 
         // arrange
         coEvery { clearSavedPostUseCase() } returns true
