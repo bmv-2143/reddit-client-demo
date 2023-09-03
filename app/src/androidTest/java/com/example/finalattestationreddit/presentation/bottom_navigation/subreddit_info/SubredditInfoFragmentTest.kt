@@ -1,7 +1,16 @@
 package com.example.finalattestationreddit.presentation.bottom_navigation.subreddit_info
 
+import android.app.Instrumentation
+import android.content.Intent
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.Intents.intended
+import androidx.test.espresso.intent.Intents.intending
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasAction
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
+import androidx.test.espresso.intent.matcher.IntentMatchers.hasType
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -24,6 +33,8 @@ import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
+import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.CoreMatchers.`is`
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -55,6 +66,35 @@ internal class SubredditInfoFragmentTest {
     @Before
     fun setup() {
         hiltRule.inject()
+    }
+
+    @Test
+    fun subredditInfoFragment_shareButtonClicked_sharesExpectedUrl() {
+
+        // arrange
+        prepareMocks(SUBREDDIT_SUBSCRIBED)
+        Intents.init()
+        val expectedUrl = viewModel.getSubredditUrl(SUBREDDIT_SUBSCRIBED)
+        val expectedIntent = allOf(
+            hasAction(Intent.ACTION_CHOOSER),
+            hasExtra(
+                `is`(Intent.EXTRA_INTENT),
+                allOf(
+                    hasAction(Intent.ACTION_SEND),
+                    hasType("text/plain"),
+                    hasExtra(Intent.EXTRA_TEXT, expectedUrl)
+                )
+            )
+        )
+        intending(expectedIntent).respondWith(Instrumentation.ActivityResult(0, null))
+
+        // act
+        openSubredditInfoFragment()
+        onView(withId(R.id.fragment_subreddit_info_button_share)).perform(click())
+
+        // assert
+        intended(expectedIntent)
+        Intents.release()
     }
 
     @Test
