@@ -35,6 +35,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.Matcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -75,7 +76,21 @@ internal class SubredditInfoFragmentTest {
         prepareMocks(SUBREDDIT_SUBSCRIBED)
         Intents.init()
         val expectedUrl = viewModel.getSubredditUrl(SUBREDDIT_SUBSCRIBED)
-        val expectedIntent = allOf(
+        val expectedIntent = makeShareSubredditExpectedIntent(expectedUrl)
+        intending(expectedIntent)
+            .respondWith(Instrumentation.ActivityResult(0, null))
+
+        // act
+        openSubredditInfoFragment()
+        onView(withId(R.id.fragment_subreddit_info_button_share)).perform(click())
+
+        // assert
+        intended(expectedIntent)
+        Intents.release()
+    }
+
+    private fun makeShareSubredditExpectedIntent(expectedUrl: String): Matcher<Intent>? {
+        return allOf(
             hasAction(Intent.ACTION_CHOOSER),
             hasExtra(
                 `is`(Intent.EXTRA_INTENT),
@@ -86,15 +101,6 @@ internal class SubredditInfoFragmentTest {
                 )
             )
         )
-        intending(expectedIntent).respondWith(Instrumentation.ActivityResult(0, null))
-
-        // act
-        openSubredditInfoFragment()
-        onView(withId(R.id.fragment_subreddit_info_button_share)).perform(click())
-
-        // assert
-        intended(expectedIntent)
-        Intents.release()
     }
 
     @Test
