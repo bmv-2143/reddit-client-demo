@@ -43,16 +43,7 @@ class UserProfileViewModelTest {
     fun `getUser sets user returned by getMyUserUseCase to userFlow`() = runTest {
 
         // arrange
-        val expectedUser = User(
-            name = "testName",
-            id = "testId",
-            createdUtc = 123456789L,
-            totalKarma = 100,
-            commentKarma = 50,
-            iconImg = "testIconImg",
-            friendsNum = 10
-        )
-        coEvery { getMyUserUseCase() } returns expectedUser
+        coEvery { getMyUserUseCase() } returns TEST_USER_1
 
         // act
         userProfileViewModel.getUser()
@@ -60,7 +51,7 @@ class UserProfileViewModelTest {
         // assert
         advanceUntilIdle()
         val actualUser = userProfileViewModel.userFlow.first()
-        assertEquals(expectedUser, actualUser)
+        assertEquals(TEST_USER_1, actualUser)
     }
 
     @Test
@@ -77,4 +68,17 @@ class UserProfileViewModelTest {
         assertEquals(true, actualValue)
     }
 
+    companion object {
+
+        private val TEST_USER_1 = User(
+            name = "testName",
+            id = "testId",
+            createdUtc = 123456789L,
+            totalKarma = 100,
+            commentKarma = 50,
+            iconImg = "testIconImg",
+            friendsNum = 10
+        )
+
+    }
 }
