@@ -57,6 +57,9 @@ android {
             // Enables density-based APK splitting.
             enable true
 
+            // reset must be used together with include (see lectures)
+            reset()
+
             // Specifies a list of screen densities to generate APKs for.
             include "ldpi", "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi"
         }
@@ -65,6 +68,9 @@ android {
         abi {
             // Enables ABI-based APK splitting.
             enable true
+
+            // reset must be used together with include (see lectures)
+            reset()
 
             // Specifies a list of ABIs to generate APKs for.
             include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
